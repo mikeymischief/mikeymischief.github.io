@@ -21,18 +21,18 @@ avatar: https://mikeymischief.github.io/images/Hacan_avatar.jpg
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
-  email:
-  facebook:
-  flickr:
+  email: mikey_mischief@hotmail.com
+  facebook: mikeymischief
+  flickr: mikeymischief
   github: mikeymischief
   instagram: mikeymischief
   linkedin:
   pinterest:
-  rss: # just type anything here for a working RSS icon
+  rss: mikeymischief
   twitter: mikeymischief
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
-  youtube: # channel/<your_long_string> or user/<user-name>
-  googleplus: # anything in your profile username that comes after plus.google.com/
+  youtube: user/mikeymischief
+  googleplus: michaelgan12
 
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
