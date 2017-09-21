@@ -1,3 +1,9 @@
+---
+layout: post
+comments: true
+title: Intro to TI4
+---
+
 Introduction to the races of Twilight Imperium!
 
 This document serves as a summary of the races to help people pick their race before their first game. I have scoured the interwebs and have combined/updated/summarized these for our use.
