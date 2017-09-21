@@ -1,6 +1,6 @@
 Introduction to the races of Twilight Imperium:
 
-
+![The Barony of Letnev]({{ site.baseurl }}/images/races/Letnev.jpg "The Barony of Letnev")
 THE BARONY OF LETNEV
 In a word: Military industrialists
 
