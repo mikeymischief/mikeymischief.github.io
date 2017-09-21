@@ -4,12 +4,10 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+I love to play boardgames, Twilight Imperium 4 being one of the most complex and rewarding!
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[mikey_mischief@hotmail.com](mailto:mikey_mischief@hotmail.com)
