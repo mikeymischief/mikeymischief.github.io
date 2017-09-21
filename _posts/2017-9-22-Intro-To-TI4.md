@@ -202,7 +202,7 @@ This document serves as a summary of the races to help people pick their race be
 **Style:** 
 
 
-![The Ghosts of Cruess]({{ site.baseurl }}/images/races/Cruess.jpg "The Ghosts of Cruess")
+![The Ghosts of Cruess]({{ site.baseurl }}/images/races/Ghosts.jpg "The Ghosts of Cruess")
 
 **THE GHOSTS OF CREUSS**
 
