@@ -2,223 +2,223 @@ Introduction to the races of Twilight Imperium:
 
 ![The Barony of Letnev]({{ site.baseurl }}/images/races/Letnev.jpg "The Barony of Letnev")
 
-THE BARONY OF LETNEV
+**THE BARONY OF LETNEV**
 
-In a word: Military industrialists
+**In a word:** Military industrialists
 
-Background: A militaristic race that makes its home on a rocky asteroid floating in the darkness of space.  The Letnev are focused on the colonization of other lesser developed worlds and impose strict bureaucracy and discipline on those worlds.  As a subterranean race, they have a weakness to light.  Only those in the military who have achieved great victories may advance to the highest levels of society.  The Letnev are very ambitious and they are not afraid to use their military to achieve their ambitions.  The more war, the more glory.
+**Background:** A militaristic race that makes its home on a rocky asteroid floating in the darkness of space.  The Letnev are focused on the colonization of other lesser developed worlds and impose strict bureaucracy and discipline on those worlds.  As a subterranean race, they have a weakness to light.  Only those in the military who have achieved great victories may advance to the highest levels of society.  The Letnev are very ambitious and they are not afraid to use their military to achieve their ambitions.  The more war, the more glory.
 
-Pros/Cons: Can have a bigger fleet than others, can exchange trade goods for a temporary boost in combat, poor trade agreements, excellent home system, good starting fleet.
+**Pros/Cons:** Can have a bigger fleet than others, can exchange trade goods for a temporary boost in combat, poor trade agreements, excellent home system, good starting fleet.
 
 Style: For the player militarily aggressive to the maximum with little regard for politics and trade (except maybe by coercion).
 
 ![The Emirates of Hacan]({{ site.baseurl }}/images/races/Hacan.jpg "The Emirates of Hacan")
 
-THE EMIRATES OF HACAN
+**THE EMIRATES OF HACAN**
 
-In a word: Mercantilists
+**In a word:** Mercantilists
 
-Background: These space lions are the masters of trade.  Your smugglers and traders have infiltrated every corner of the galaxy.  If there's any business going on in the galaxy, it's guaranteed that you have your paws in it. The Hacan always have an abundance of trade goods and have the power to help out other races or to hurt them severely when trade is involved.  The Hacan never have to worry about having enough resources to build units and can use their trade good to bribe other races to agree with their policies.  Nothing personal, it's just business.
+**Background:** These space lions are the masters of trade.  Your smugglers and traders have infiltrated every corner of the galaxy.  If there's any business going on in the galaxy, it's guaranteed that you have your paws in it. The Hacan always have an abundance of trade goods and have the power to help out other races or to hurt them severely when trade is involved.  The Hacan never have to worry about having enough resources to build units and can use their trade good to bribe other races to agree with their policies.  Nothing personal, it's just business.
 
-Pros/Cons: Can trade action cards, don't need trade master's permission to forge trade agreements, get bonus trade goods, excellent trade agreements, good home system (3 planets!), decent starting fleet.
+**Pros/Cons:** Can trade action cards, don't need trade master's permission to forge trade agreements, get bonus trade goods, excellent trade agreements, good home system (3 planets!), decent starting fleet.
 
-Style: Master of trade. For the player who wants to forge an economic powerhouse, doing lots of wheeling-and-dealing on the diplomatic stage, but still nothing to sniff at warfare-wise, since all that filthy lucre can be used to build massive fleets. 
+**Style:** Master of trade. For the player who wants to forge an economic powerhouse, doing lots of wheeling-and-dealing on the diplomatic stage, but still nothing to sniff at warfare-wise, since all that filthy lucre can be used to build massive fleets. 
 
 
 ![The Federation of Sol]({{ site.baseurl }}/images/races/Sol.jpg "The Federation of Sol")
 
-THE FEDERATION OF SOL 
+**THE FEDERATION OF SOL **
 
-In a word: Colonizers
+**In a word:** Colonizers
 
-Background: One of the newest races to enter the Imperium, and also one of the first to rebel against it; the Twilight Wars were touched-off when a Sol fleet opened fire of the Barony of Letnev's blockade of the Quann wormhole. The humans represent the most numerous and most diverse species of the galaxy.
+**Background:** One of the newest races to enter the Imperium, and also one of the first to rebel against it; the Twilight Wars were touched-off when a Sol fleet opened fire of the Barony of Letnev's blockade of the Quann wormhole. The humans represent the most numerous and most diverse species of the galaxy.
 
-Pros/Cons:  Can deploy free ground troops each turn, receive bonus command counters, good trade agreements, decent homeworld, mediocre starting fleet.
+**Pros/Cons:**  Can deploy free ground troops each turn, receive bonus command counters, good trade agreements, decent homeworld, mediocre starting fleet.
 
-Style: For the player who isn't entirely sure what his style is, or who likes to be a jack-of-all-trades; well-rounded, flexible, and adaptable.
+**Style:** For the player who isn't entirely sure what his style is, or who likes to be a jack-of-all-trades; well-rounded, flexible, and adaptable.
 
 
 ![The L1z1x Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1z1x Mindnet")
 
-THE L1Z1X MINDNET
+**THE L1Z1X MINDNET**
 
-In a Word: Warlike cyborgs
+**In a Word:** Warlike cyborgs
 
-Background: The remnants of the Lazax, ancient rulers of the Imperium, returned in cyborg form thirsty for revenge. They come from their remote, wealthy world, a nightmare planet of technology ready to reclaim the empire they fled from generations ago.
+**Background:** The remnants of the Lazax, ancient rulers of the Imperium, returned in cyborg form thirsty for revenge. They come from their remote, wealthy world, a nightmare planet of technology ready to reclaim the empire they fled from generations ago.
 
-Pros/Cons: Cheaper and more powerful dreadnaughts, twice as much starting techonology as everyone else (save the Universities of Jol-Nar), poor trade agreements, good home system, powerful starting fleet.
+**Pros/Cons:** Cheaper and more powerful dreadnaughts, twice as much starting techonology as everyone else (save the Universities of Jol-Nar), poor trade agreements, good home system, powerful starting fleet.
 
-Style: For a player who wants to play a military aggressive style, but without the need to be quite as aggressive as Letnev since you've got good technology and strong Dreadnoughts. 
+**Style:** For a player who wants to play a military aggressive style, but without the need to be quite as aggressive as Letnev since you've got good technology and strong Dreadnoughts. 
 
 
 ![The Mentak Coalition]({{ site.baseurl }}/images/races/Mentak.jpg "The Mentak Coalition")
 
-THE MENTAK COALITION
+**THE MENTAK COALITION**
 
-In a word: Space pirates
+**In a word:** Space pirates
 
-Background: The rag-tag inhabitants of a prison-planet who overthrew their Lazax masters when the Imperium began to crumble, and now terrorize the space-lanes with lightening raids, taking what they want then leaving.
+**Background:** The rag-tag inhabitants of a prison-planet who overthrew their Lazax masters when the Imperium began to crumble, and now terrorize the space-lanes with lightening raids, taking what they want then leaving.
 
-Pros/Cons: Can steal trade goods from other players, get free shots before battle begins, poor trade agreements, decent homeworld, strong starting fleet.
+**Pros/Cons:** Can steal trade goods from other players, get free shots before battle begins, poor trade agreements, decent homeworld, strong starting fleet.
 
-Style: For the player who doesn't mind pissing-off the other players via dirty tricks like stealing trade goods and striking out for aggressive raids with their cruisers (which get a sneak attack before enemy can shoot back).
+**Style:** For the player who doesn't mind pissing-off the other players via dirty tricks like stealing trade goods and striking out for aggressive raids with their cruisers (which get a sneak attack before enemy can shoot back).
 
 
 ![The Sardakk N'orr]({{ site.baseurl }}/images/races/Norr.jpg "The Sardakk N'orr")
 
-THE SARDAKK N'ORR
+**THE SARDAKK N'ORR**
 
-In a word: Warrior bugs
+**In a word:** Warrior bugs
 
-Background: Repugnant insectoids who inhabit massive skyscrapers on their crowded homeworlds surrounded by great network of orbital space stations and massive complements of fleet units.
+**Background:** Repugnant insectoids who inhabit massive skyscrapers on their crowded homeworlds surrounded by great network of orbital space stations and massive complements of fleet units.
 
-Pros/Cons: Get +1 to all combat rolls, decent trade agreements, mediocre home system, decent starting fleet. No starting technology (A lot of objectives require you to have technologies), hard for them to keep up.
+**Pros/Cons:** Get +1 to all combat rolls, decent trade agreements, mediocre home system, decent starting fleet. No starting technology (A lot of objectives require you to have technologies), hard for them to keep up.
 
-Style: For the players who likes the idea of swarming the enemy with lots of cheap ships that hit harder than anyone else's ship-for-ship.
+**Style:** For the players who likes the idea of swarming the enemy with lots of cheap ships that hit harder than anyone else's ship-for-ship.
 
 
 ![The Universities of Jol'Nar]({{ site.baseurl }}/images/races/Hylar.jpg "The Universities of Jol'Nar")
 
-THE UNIVERSITIES OF JOL'NAR 
+**THE UNIVERSITIES OF JOL'NAR **
 
-In a word: Technologists 
+**In a word:** Technologists 
 
-Background: Although physically weak and aquatic, the Hylar (inhabitants of the twin planets Jol and Nar) are a proud people, often to the point of abrasiveness and arrogance. In the Imperium of old they were the chief technologists and now utilize the resources of they homeworlds building a secret force with which their will replace the Lazax as rulers of the galaxy. 
+**Background:** Although physically weak and aquatic, the Hylar (inhabitants of the twin planets Jol and Nar) are a proud people, often to the point of abrasiveness and arrogance. In the Imperium of old they were the chief technologists and now utilize the resources of they homeworlds building a secret force with which their will replace the Lazax as rulers of the galaxy. 
 
-Pros/Cons: -1 to all combat rolls, can re-roll dice, can get free tech everytime the Technology card is played, twice as much starting techonology as everyone else, good trade agreements, mediocre home system, mediocre starting fleet.
+**Pros/Cons:** -1 to all combat rolls, can re-roll dice, can get free tech everytime the Technology card is played, twice as much starting techonology as everyone else, good trade agreements, mediocre home system, mediocre starting fleet.
 
-Style: Advancing your technologies will give you a big advantage over other races later in the game.  Lay low and be friendly at the beginning, but once your technological machine is built, it will be tough for other races to withstand your power.
+**Style:** Advancing your technologies will give you a big advantage over other races later in the game.  Lay low and be friendly at the beginning, but once your technological machine is built, it will be tough for other races to withstand your power.
 
 
 ![The Xxcha Kingdom]({{ site.baseurl }}/images/races/Xxcha.jpg "The Xxcha Kingdom")
 
-THE XXCHA KINGDOM
+**THE XXCHA KINGDOM**
 
-In a Word: Politicians
+**In a Word:** Politicians
 
-Background: One of the first great civilizations of the galaxy.  These space turtles are peaceful and prefer to solve problems through diplomacy rather than through violence.  In the fall of the Empire, they were caught weaponless and defenseless, which led to the destruction of one of their home worlds.  Although they prefer the path of peace, the Xxcha do not want to suffer such a tragedy again.  Therefore, they have focused on developing strong defenses.  In order to insure a peaceful galaxy for future generations, the Xxcha have no choice but to take the Imperial throne for themselves and make war a thing of the past.
+**Background:** One of the first great civilizations of the galaxy.  These space turtles are peaceful and prefer to solve problems through diplomacy rather than through violence.  In the fall of the Empire, they were caught weaponless and defenseless, which led to the destruction of one of their home worlds.  Although they prefer the path of peace, the Xxcha do not want to suffer such a tragedy again.  Therefore, they have focused on developing strong defenses.  In order to insure a peaceful galaxy for future generations, the Xxcha have no choice but to take the Imperial throne for themselves and make war a thing of the past.
 
-Pros/Cons: Can veto political agendas, enemies get a -1 to hit in the first round of combat against them, good trade agreements, mediocre home system, weak starting fleet.
+**Pros/Cons:** Can veto political agendas, enemies get a -1 to hit in the first round of combat against them, good trade agreements, mediocre home system, weak starting fleet.
 
-Style: For someone who prefers political wrangling to brute force, but with a decent stick to beat people with using a defensive military, waiting for that perfect moment to strike.
+**Style:** For someone who prefers political wrangling to brute force, but with a decent stick to beat people with using a defensive military, waiting for that perfect moment to strike.
 
 
 ![The Embers of Muaat]({{ site.baseurl }}/images/races/Muaat.jpg "The Embers of Muaat")
 
-THE EMBERS OF MUAAT
+**THE EMBERS OF MUAAT**
 
-In a word: Fire people
+**In a word:** Fire people
 
-Background: The Embers of Muaat are a mysterious race.  Their bodies are always on fire, so no one has seen them outside of their specially constructed suits which they have built to interact with other races.  In the past, the Muaat were enslaved by the Jol Nar to develop a technology to convert energy into mass.  The Muaat eventually rebelled against the Jol Nar, and in the process took control of a Jol Nar prototype--the War Sun.  Armed with this super weapon, the Muaat have sworn never to be enslaved again.  To ensure this, they will use their War Sun to take control of the galaxy.
+**Background:** The Embers of Muaat are a mysterious race.  Their bodies are always on fire, so no one has seen them outside of their specially constructed suits which they have built to interact with other races.  In the past, the Muaat were enslaved by the Jol Nar to develop a technology to convert energy into mass.  The Muaat eventually rebelled against the Jol Nar, and in the process took control of a Jol Nar prototype--the War Sun.  Armed with this super weapon, the Muaat have sworn never to be enslaved again.  To ensure this, they will use their War Sun to take control of the galaxy.
 
-Pros/Cons: The start the game with a War Sun, can move through supernovas, their War Suns can spawn fighters without a space dock, good trade agreements, mediocre home system, start the game with a War Sun although the rest of their fleet is weak.
+**Pros/Cons:** The start the game with a War Sun, can move through supernovas, their War Suns can spawn fighters without a space dock, good trade agreements, mediocre home system, start the game with a War Sun although the rest of their fleet is weak.
 
-Style: For the cautious player who wants to be left alone in the early game (having a War Sun will have that effect on neighbours), yet able to play with some finesse as the Embers are not considered one of the strongest races.
+**Style:** For the cautious player who wants to be left alone in the early game (having a War Sun will have that effect on neighbours), yet able to play with some finesse as the Embers are not considered one of the strongest races.
 
 
 ![The Yin Brotherhood]({{ site.baseurl }}/images/races/Yin.jpg "The Yin Brotherhood")
 
-THE YIN BROTHERHOOD
+**THE YIN BROTHERHOOD**
 
-In a word: Warrior Zealots
+**In a word:** Warrior Zealots
 
-Background: Genetically-modified fanatic adherents of a bizarre cult centred around long-dead scientist named Darien who illegally cloned hundreds of his children in an effort to save his wife from a deadly disease who now seek to bind all to their religion.
+**Background:** Genetically-modified fanatic adherents of a bizarre cult centred around long-dead scientist named Darien who illegally cloned hundreds of his children in an effort to save his wife from a deadly disease who now seek to bind all to their religion.
 
-Pros/Cons: Beasts in ground combat, can do kamikaze runs to destroy enemy ships, poor trade agreements, poor home system, very strong starting fleet.
+**Pros/Cons:** Beasts in ground combat, can do kamikaze runs to destroy enemy ships, poor trade agreements, poor home system, very strong starting fleet.
 
-Style: Another race for a very aggressive style of play. Can convert enemies.
+**Style:** Another race for a very aggressive style of play. Can convert enemies.
 
 
 ![The Clan of Saar]({{ site.baseurl }}/images/races/Saar.jpg "The Clan of Saar")
 
-THE CLAN OF SAAR
+**THE CLAN OF SAAR**
 
-In a word: Warrior Space gypsies 
+**In a word:** Warrior Space gypsies 
 
-Background: A highly mobile and nomadic race.  They don't stay in any one place for long.  They pick up and move everything with them.  These nomads have long been kicked around by more established races, but this has made the Clan strong.  The Clan is at home anywhere and are good at salvaging on planets they conquer.  Now that the Clan is strong, it is time to take some bigger prizes--perhaps the biggest one of all, Mecatol Rex.
+**Background:** A highly mobile and nomadic race.  They don't stay in any one place for long.  They pick up and move everything with them.  These nomads have long been kicked around by more established races, but this has made the Clan strong.  The Clan is at home anywhere and are good at salvaging on planets they conquer.  Now that the Clan is strong, it is time to take some bigger prizes--perhaps the biggest one of all, Mecatol Rex.
 
-Pros/Cons: Have mobile star bases, can still collect victory points if their home system is occupied, gain bonus trade goods for capturing planets, good trade agreements, rubbish home system, good starting fleet.
+**Pros/Cons:** Have mobile star bases, can still collect victory points if their home system is occupied, gain bonus trade goods for capturing planets, good trade agreements, rubbish home system, good starting fleet.
 
-Style: For a player looking to play a subtle and crafty game, utilizing mobility and trade goods to gain influence in the galaxy.
+**Style:** For a player looking to play a subtle and crafty game, utilizing mobility and trade goods to gain influence in the galaxy.
 
 
 ![The Naalu Collective]({{ site.baseurl }}/images/races/Naalu.jpg "The Naalu Collective")
 
-THE NAALU COLLECTIVE
+**THE NAALU COLLECTIVE**
 
-In a word: Telepathic Snakes
+**In a word:** Telepathic Snakes
 
-Background: The Naalu are a race of snake women.  They have remained hidden from the rest of the galaxy for much of its history.  It turns out that the Naalu are highly telepathic, with the ability to wipe the minds and control those who get too close to their secrets.  They tend not to speak and communicate through telepathy.  The Naalu highly value beauty.  Their home world of Druaa is a veritable paradise.  When Naalu look at other species and other world, they only see chaos and ugliness.  Now is the time for the rest of the universe to submit to the order, tranquility, and beauty of the Naalu Collective.  If they will not submit, they will be destroyed.
+**Background:** The Naalu are a race of snake women.  They have remained hidden from the rest of the galaxy for much of its history.  It turns out that the Naalu are highly telepathic, with the ability to wipe the minds and control those who get too close to their secrets.  They tend not to speak and communicate through telepathy.  The Naalu highly value beauty.  Their home world of Druaa is a veritable paradise.  When Naalu look at other species and other world, they only see chaos and ugliness.  Now is the time for the rest of the universe to submit to the order, tranquility, and beauty of the Naalu Collective.  If they will not submit, they will be destroyed.
 
-Pros/Cons: A truly impressive starting fleet. The Naalu are also slippery little suckers – they always go first every round and can retreat from any space battle before it begins without suffering casualties. Their fighters also receive bonuses during combat, ensuring that most opponents are going to surrounded and swarmed to death by pesky little ships.
+**Pros/Cons:** A truly impressive starting fleet. The Naalu are also slippery little suckers – they always go first every round and can retreat from any space battle before it begins without suffering casualties. Their fighters also receive bonuses during combat, ensuring that most opponents are going to surrounded and swarmed to death by pesky little ships.
 
-Style: Players with the confidence to go first to subtly dictate the flow and tempo of the game.
+**Style:** Players with the confidence to go first to subtly dictate the flow and tempo of the game.
 
 
 ![The Yssaril Tribes]({{ site.baseurl }}/images/races/Yssaril.jpg "The Yssaril Tribes")
 
-THE YSSARIL TRIBES
+**THE YSSARIL TRIBES**
 
-In a word: Sneaky chameleon-like goblins
+**In a word:** Sneaky chameleon-like goblins
 
-Background: Long ago, the ancient race of the Lazax ruled the cosmos. In a back corner of the galaxy, the Lazax colonized the smallish planet Retillion, harvesting the delicious menn root that grew there. For awhile, things were fantastic on Retillion – until the sneaky, aboriginal, green goblins that lived in the shadows there systematically kicked some Lazax butt. Over the eons, the various tribes of the Yssaril adapted to Lazax technology and took the stars, using subterfuge, stealth and their superior spies to spread like vermin throughout the colonized territories.
+**Background:** Long ago, the ancient race of the Lazax ruled the cosmos. In a back corner of the galaxy, the Lazax colonized the smallish planet Retillion, harvesting the delicious menn root that grew there. For awhile, things were fantastic on Retillion – until the sneaky, aboriginal, green goblins that lived in the shadows there systematically kicked some Lazax butt. Over the eons, the various tribes of the Yssaril adapted to Lazax technology and took the stars, using subterfuge, stealth and their superior spies to spread like vermin throughout the colonized territories.
 
-Pros/Cons: Subterfuge. The Yssaril are the masters of the secret attack and sabotage. They draw one additional Action card per round, which means they are privy to a wealth of surprise powers, advantages and tricks. The Yssaril can also sneak a peek at one other opponent’s Action cards each round, providing them with very valuable information which they can use to subtly kick some butt at just the right moment.
+**Pros/Cons:** Subterfuge. The Yssaril are the masters of the secret attack and sabotage. They draw one additional Action card per round, which means they are privy to a wealth of surprise powers, advantages and tricks. The Yssaril can also sneak a peek at one other opponent’s Action cards each round, providing them with very valuable information which they can use to subtly kick some butt at just the right moment.
 
-Style: Information junkies and those players who like to play a conniving, cerebral game of cat & mouse.
+**Style:** Information junkies and those players who like to play a conniving, cerebral game of cat & mouse.
  
 
 ![The Winnu]({{ site.baseurl }}/images/races/Winnu.jpg "The Winnu")
 
-THE WINNU
+**THE WINNU**
 
-In a word: Custodians of the ancient empire
+**In a word:** Custodians of the ancient empire
 
-Background: Now that the empire has fallen and the imperial race has disappeared from the universe, the Winnu have upheld the lore, tradition, and culture of the old empire.  Although they had hoped that the imperial race would return and restore the glory of the empire, they have started to lose hope in that dream.  Now many of the Winnu feel that they are the rightful successors to the Empire.  Now is the time to put an end to this age of chaos and return the universe to it's former glory.  The Winnu will protect and honor the heritage of the empire forever.
+**Background:** Now that the empire has fallen and the imperial race has disappeared from the universe, the Winnu have upheld the lore, tradition, and culture of the old empire.  Although they had hoped that the imperial race would return and restore the glory of the empire, they have started to lose hope in that dream.  Now many of the Winnu feel that they are the rightful successors to the Empire.  Now is the time to put an end to this age of chaos and return the universe to it's former glory.  The Winnu will protect and honor the heritage of the empire forever.
 
-Pros/Cons: The Winnu always add the influence of their home system planet to votes, even if the home system planet has been exhausted.  This gives them a bit more political power than other races.  Also, if they have at least one ground force on a planet, it is immune from the Local Unrest Action card.  This prevents you from losing planets due to this pesky card.  Finally, you don't need to spend a command counter to execute the secondary ability of the Technology Strategy.  This gives you a minor boost in developing technologies.
+**Pros/Cons:** The Winnu always add the influence of their home system planet to votes, even if the home system planet has been exhausted.  This gives them a bit more political power than other races.  Also, if they have at least one ground force on a planet, it is immune from the Local Unrest Action card.  This prevents you from losing planets due to this pesky card.  Finally, you don't need to spend a command counter to execute the secondary ability of the Technology Strategy.  This gives you a minor boost in developing technologies.
 
-Style: Everything centers around controlling Mecatol Rex with this race.
+**Style:** Everything centers around controlling Mecatol Rex with this race.
 
 
 ![The Nekro Virus]({{ site.baseurl }}/images/races/Nekro.jpg "The Nekro Virus")
 
-THE NEKRO VIRUS
+**THE NEKRO VIRUS**
 
-In a word: Psychotic Machines
+**In a word:** Psychotic Machines
 
-Background: 
+**Background:** 
 
-Pros/Cons: Can assimilate technology from the opponent.
+**Pros/Cons:** Can assimilate technology from the opponent.
 
-Style: 
+**Style:** 
 
 
 ![The Ghosts of Cruess]({{ site.baseurl }}/images/races/Cruess.jpg "The Ghosts of Cruess")
 
-THE GHOSTS OF CREUSS
+**THE GHOSTS OF CREUSS**
 
-In a word: worm-hole beings of energy and light
+**In a word:** worm-hole beings of energy and light
 
-Background: The Shaleri are mysterious beings of energy and light. Not much is known about this race except they show masterful control over strange sciences and materials. Storytellers tell tales that the Ghosts of Cruess have come forth for some sinister purpose yet to be revealed. Many believe the Shaleri are civilized and polite, yet they are also regarded as exceptionally secretive, ritualistic and prickly on a wide range of matters. It's generally undecided whether their behavior is one to be expected of a race so recently introduced to the material galaxy, or whether these are signs that something more ominous lurks beneath their brooding metal helmets.
+**Background:** The Shaleri are mysterious beings of energy and light. Not much is known about this race except they show masterful control over strange sciences and materials. Storytellers tell tales that the Ghosts of Cruess have come forth for some sinister purpose yet to be revealed. Many believe the Shaleri are civilized and polite, yet they are also regarded as exceptionally secretive, ritualistic and prickly on a wide range of matters. It's generally undecided whether their behavior is one to be expected of a race so recently introduced to the material galaxy, or whether these are signs that something more ominous lurks beneath their brooding metal helmets.
 
-Pros/Cons: 
+**Pros/Cons:** 
 
-Style: The Ghosts of Creuss are a very mobile race as they can maniuplate worm-holes or the areas around them to their needs.
+**Style:** The Ghosts of Creuss are a very mobile race as they can maniuplate worm-holes or the areas around them to their needs.
 
 
 
 ![The Arborec]({{ site.baseurl }}/images/races/Arborec.jpg "The Arborec")
 
-THE ARBOREC
+**THE ARBOREC**
 
-In a word: Sentient plants
+**In a word:** Sentient plants
 
-Background: 
+**Background:** 
 
-Pros/Cons: They can grow entire spaceships from themselves.
+**Pros/Cons:** They can grow entire spaceships from themselves.
 
-Style: 
+**Style:** 
 
 
 
