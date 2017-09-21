@@ -266,29 +266,3 @@ Yin is OK. Nothing that great about them. Not sure if stronger than other races.
 Creuss can be all over the map easily. Not sure if that is good or not. Overextending with them can be really easy.
 
 Winnu is super weak now. Where to start... The only thing it has going for it is controlling Mecatol Rex. If it doesn't it has nothing. Starting with only one technology which can be chosen at the beginning of the game. The starting fleet moves slowly. You can reach MR by round 3. Maybe round 2 if lucky and you get Warfare. The other players can still stop you from reaching MR at relatively low costs. First, during the galaxy creation phase they can just place the supernova between Winnu HS and MR. This adds 2 movement to reach MR. Another thing they can do is to move their faster ships to hover over MR so you wouldn't get it. Mentak and Jol Nar would probably research Cruiser II so moving in there is quite easy for them. And then they can take it whenever they want to. Yeah, you could buy some techs to speed you up but by then the opponents could already be swarming MR. Since your starting fleet honestly sucks, you can not justify rushing MR. Maybe you will get there by round 4. By then EVERYONE already wants to take MR anyway. You getting there first to be immediately kicked out is not worth it but that's the only thing that makes you different from others. 
-
-{% if page.comments %}
-
-<div id="disqus_thread"></div>
-<script>
-
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = 'https://mikeymischief-github-io.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>   
-
-{% endif %}
