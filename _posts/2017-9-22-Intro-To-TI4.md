@@ -1,6 +1,7 @@
 Introduction to the races of Twilight Imperium:
 
 ![The Barony of Letnev]({{ site.baseurl }}/images/races/Letnev.jpg "The Barony of Letnev")
+
 THE BARONY OF LETNEV
 In a word: Military industrialists
 
@@ -10,6 +11,7 @@ Pros/Cons: Can have a bigger fleet than others, can exchange trade goods for a t
 
 Style: For the player militarily aggressive to the maximum with little regard for politics and trade (except maybe by coercion).
 
+![The Emirates of Hacan]({{ site.baseurl }}/images/races/Hacan.jpg "The Emirates of Hacan")
 
 THE EMIRATES OF HACAN
 
@@ -22,6 +24,8 @@ Pros/Cons: Can trade action cards, don't need trade master's permission to forge
 Style: Master of trade. For the player who wants to forge an economic powerhouse, doing lots of wheeling-and-dealing on the diplomatic stage, but still nothing to sniff at warfare-wise, since all that filthy lucre can be used to build massive fleets. 
 
 
+![The Federation of Sol]({{ site.baseurl }}/images/races/Sol.jpg "The Federation of Sol")
+
 THE FEDERATION OF SOL 
 
 In a word: Colonizers
@@ -33,6 +37,7 @@ Pros/Cons:  Can deploy free ground troops each turn, receive bonus command count
 Style: For the player who isn't entirely sure what his style is, or who likes to be a jack-of-all-trades; well-rounded, flexible, and adaptable.
 
 
+![The L1z1x Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1z1x Mindnet")
 
 THE L1Z1X MINDNET
 
@@ -45,6 +50,7 @@ Pros/Cons: Cheaper and more powerful dreadnaughts, twice as much starting techon
 Style: For a player who wants to play a military aggressive style, but without the need to be quite as aggressive as Letnev since you've got good technology and strong Dreadnoughts. 
 
 
+![The Mentak Coalition]({{ site.baseurl }}/images/races/Mentak.jpg "The Mentak Coalition")
 
 THE MENTAK COALITION
 
@@ -57,6 +63,7 @@ Pros/Cons: Can steal trade goods from other players, get free shots before battl
 Style: For the player who doesn't mind pissing-off the other players via dirty tricks like stealing trade goods and striking out for aggressive raids with their cruisers (which get a sneak attack before enemy can shoot back).
 
 
+![The Sardakk N'orr]({{ site.baseurl }}/images/races/Norr.jpg "The Sardakk N'orr")
 
 THE SARDAKK N'ORR
 
@@ -69,6 +76,7 @@ Pros/Cons: Get +1 to all combat rolls, decent trade agreements, mediocre home sy
 Style: For the players who likes the idea of swarming the enemy with lots of cheap ships that hit harder than anyone else's ship-for-ship.
 
 
+![The Universities of Jol'Nar]({{ site.baseurl }}/images/races/Hylar.jpg "The Universities of Jol'Nar")
 
 THE UNIVERSITIES OF JOL'NAR 
 
@@ -81,7 +89,7 @@ Pros/Cons: -1 to all combat rolls, can re-roll dice, can get free tech everytime
 Style: Advancing your technologies will give you a big advantage over other races later in the game.  Lay low and be friendly at the beginning, but once your technological machine is built, it will be tough for other races to withstand your power.
 
 
-
+![The Xxcha Kingdom]({{ site.baseurl }}/images/races/Xxcha.jpg "The Xxcha Kingdom")
 
 THE XXCHA KINGDOM
 
@@ -94,7 +102,7 @@ Pros/Cons: Can veto political agendas, enemies get a -1 to hit in the first roun
 Style: For someone who prefers political wrangling to brute force, but with a decent stick to beat people with using a defensive military, waiting for that perfect moment to strike.
 
 
-
+![The Embers of Muaat]({{ site.baseurl }}/images/races/Muaat.jpg "The Embers of Muaat")
 
 THE EMBERS OF MUAAT
 
@@ -107,7 +115,7 @@ Pros/Cons: The start the game with a War Sun, can move through supernovas, their
 Style: For the cautious player who wants to be left alone in the early game (having a War Sun will have that effect on neighbours), yet able to play with some finesse as the Embers are not considered one of the strongest races.
 
 
-
+![The Yin Brotherhood]({{ site.baseurl }}/images/races/Yin.jpg "The Yin Brotherhood")
 
 THE YIN BROTHERHOOD
 
@@ -120,7 +128,7 @@ Pros/Cons: Beasts in ground combat, can do kamikaze runs to destroy enemy ships,
 Style: Another race for a very aggressive style of play. Can convert enemies.
 
 
-
+![The Clan of Saar]({{ site.baseurl }}/images/races/Saar.jpg "The Clan of Saar")
 
 THE CLAN OF SAAR
 
@@ -133,7 +141,7 @@ Pros/Cons: Have mobile star bases, can still collect victory points if their hom
 Style: For a player looking to play a subtle and crafty game, utilizing mobility and trade goods to gain influence in the galaxy.
 
 
-
+![The Naalu Collective]({{ site.baseurl }}/images/races/Naalu.jpg "The Naalu Collective")
 
 THE NAALU COLLECTIVE
 
@@ -146,7 +154,7 @@ Pros/Cons: A truly impressive starting fleet. The Naalu are also slippery little
 Style: Players with the confidence to go first to subtly dictate the flow and tempo of the game.
 
 
-
+![The Yssaril Tribes]({{ site.baseurl }}/images/races/Yssaril.jpg "The Yssaril Tribes")
 
 THE YSSARIL TRIBES
 
@@ -159,6 +167,7 @@ Pros/Cons: Subterfuge. The Yssaril are the masters of the secret attack and sabo
 Style: Information junkies and those players who like to play a conniving, cerebral game of cat & mouse.
  
 
+![The Winnu]({{ site.baseurl }}/images/races/Winnu.jpg "The Winnu")
 
 THE WINNU
 
@@ -171,6 +180,7 @@ Pros/Cons: The Winnu always add the influence of their home system planet to vot
 Style: Everything centers around controlling Mecatol Rex with this race.
 
 
+![The Nekro Virus]({{ site.baseurl }}/images/races/Nekro.jpg "The Nekro Virus")
 
 THE NEKRO VIRUS
 
@@ -183,6 +193,7 @@ Pros/Cons: Can assimilate technology from the opponent.
 Style: 
 
 
+![The Ghosts of Cruess]({{ site.baseurl }}/images/races/Cruess.jpg "The Ghosts of Cruess")
 
 THE GHOSTS OF CREUSS
 
@@ -196,7 +207,7 @@ Style: The Ghosts of Creuss are a very mobile race as they can maniuplate worm-h
 
 
 
-Inline image 20
+![The Arborec]({{ site.baseurl }}/images/races/Arborec.jpg "The Arborec")
 
 THE ARBOREC
 
