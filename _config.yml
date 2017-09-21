@@ -2,8 +2,10 @@
 # This file contains configuration flags to customize your site
 #
 
+theme: jekyll-theme-minimal
+
 # Name of your site (displayed in the header)
-name: Your Name
+name: Twilight Imperium 4
 
 # Short bio or description (displayed in the header)
 description: Web Developer from Somewhere
