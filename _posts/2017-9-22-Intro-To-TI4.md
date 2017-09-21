@@ -12,7 +12,7 @@ This document serves as a summary of the races to help people pick their race be
 
 **Pros/Cons:** Can have a bigger fleet than others, can exchange trade goods for a temporary boost in combat, poor trade agreements, excellent home system, good starting fleet.
 
-Style: For the player militarily aggressive to the maximum with little regard for politics and trade (except maybe by coercion).
+**Style:** For the player militarily aggressive to the maximum with little regard for politics and trade (except maybe by coercion).
 
 ![The Emirates of Hacan]({{ site.baseurl }}/images/races/Hacan.jpg "The Emirates of Hacan")
 
@@ -29,7 +29,7 @@ Style: For the player militarily aggressive to the maximum with little regard fo
 
 ![The Federation of Sol]({{ site.baseurl }}/images/races/Sol.jpg "The Federation of Sol")
 
-**THE FEDERATION OF SOL **
+**THE FEDERATION OF SOL**
 
 **In a word:** Colonizers
 
@@ -81,7 +81,7 @@ Style: For the player militarily aggressive to the maximum with little regard fo
 
 ![The Universities of Jol'Nar]({{ site.baseurl }}/images/races/Hylar.jpg "The Universities of Jol'Nar")
 
-**THE UNIVERSITIES OF JOL'NAR **
+**THE UNIVERSITIES OF JOL'NAR**
 
 **In a word:** Technologists 
 
