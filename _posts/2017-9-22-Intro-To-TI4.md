@@ -3,6 +3,7 @@ Introduction to the races of Twilight Imperium:
 ![The Barony of Letnev]({{ site.baseurl }}/images/races/Letnev.jpg "The Barony of Letnev")
 
 THE BARONY OF LETNEV
+
 In a word: Military industrialists
 
 Background: A militaristic race that makes its home on a rocky asteroid floating in the darkness of space.  The Letnev are focused on the colonization of other lesser developed worlds and impose strict bureaucracy and discipline on those worlds.  As a subterranean race, they have a weakness to light.  Only those in the military who have achieved great victories may advance to the highest levels of society.  The Letnev are very ambitious and they are not afraid to use their military to achieve their ambitions.  The more war, the more glory.
