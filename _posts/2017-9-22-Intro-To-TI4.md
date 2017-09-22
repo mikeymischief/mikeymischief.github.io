@@ -231,7 +231,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 
 
-**Strategy:
+**Strategy:**
 
 
 I guess the best races are either: Clan of Saar, Arborec, Nekro, Mentak, Naalu Or Nekro, Mentak, Naalu, Sol, L1Z1X
