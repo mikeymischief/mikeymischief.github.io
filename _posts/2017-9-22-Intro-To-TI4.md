@@ -143,7 +143,9 @@ This document serves as a summary of the races to help people pick their race be
 
 **In a word:** Warrior Space gypsies 
 
-**Background:** A highly mobile and nomadic race.  They don't stay in any one place for long.  They pick up and move everything with them.  These nomads have long been kicked around by more established races, but this has made the Clan strong.  The Clan is at home anywhere and are good at salvaging on planets they conquer.  Now that the Clan is strong, it is time to take some bigger prizes--perhaps the biggest one of all, Mecatol Rex.
+**Background:** Saar is believed to be the first race to begin galactic exploration outside of the Core. It is unknown if they began exploration out of need or curiousity but it is known that they spread their resources too thin in exploration and were almost brought to extinction by other races. Having no true planet to call home, the Clan of Saar reside on two large asteroids where they have begun to pull the remnants of their species to gather. Being the primary race responsible for their near extinction, the Clan of Saar hates Sardakk N'Orr and seek to weaken them as often as possible.
+
+A highly mobile and nomadic race.  They don't stay in any one place for long.  They pick up and move everything with them.  These nomads have long been kicked around by more established races, but this has made the Clan strong.  The Clan is at home anywhere and are good at salvaging on planets they conquer.  Now that the Clan is strong, it is time to take some bigger prizes--perhaps the biggest one of all, Mecatol Rex.
 
 **Pros/Cons:** Have mobile star bases, can still collect victory points if their home system is occupied, gain bonus trade goods for capturing planets, good trade agreements, rubbish home system, good starting fleet.
 
@@ -156,7 +158,7 @@ This document serves as a summary of the races to help people pick their race be
 
 **In a word:** Telepathic Snakes
 
-**Background:** The Naalu are a race of snake women.  They have remained hidden from the rest of the galaxy for much of its history.  It turns out that the Naalu are highly telepathic, with the ability to wipe the minds and control those who get too close to their secrets.  They tend not to speak and communicate through telepathy.  The Naalu highly value beauty.  Their home world of Druaa is a veritable paradise.  When Naalu look at other species and other world, they only see chaos and ugliness.  Now is the time for the rest of the universe to submit to the order, tranquility, and beauty of the Naalu Collective.  If they will not submit, they will be destroyed.
+**Background:** The Naala are surrounded in mystery. During the rule of the Lazax over the Imperium, the existance of the Naalu were not even known to any race other than that of the Yssaril, who had a secret alliance with the Naalu. Toward the end of the Twilight Wars, the Naalu emerged from places unknown, ready to make their claim for the throne. Many of the Great Races sought an alliance with the beautiful, serpentine creatures, but quickly withdrew when learning of their telepathic abilities. The Naalu have no desire for war but are not fearful of it. They believe the time now nears when the rest of the galaxy will know the tranquillity, order, and the true beauty of the Naalu. The rest of the galaxy will submit to that beauty or be destroyed.
 
 **Pros/Cons:** A truly impressive starting fleet. The Naalu are also slippery little suckers – they always go first every round and can retreat from any space battle before it begins without suffering casualties. Their fighters also receive bonuses during combat, ensuring that most opponents are going to surrounded and swarmed to death by pesky little ships.
 
@@ -195,11 +197,11 @@ This document serves as a summary of the races to help people pick their race be
 
 **In a word:** Psychotic Machines
 
-**Background:** 
+**Background:**  The Nekro Virus is a believed extinct race that was created, by mistake, by the L1z1x race. After a great civil war between the two races, the L1z1x believed they had eliminated the threat created by their science. 700 years later, the race reimerged with one purpose in mind: the utter extinction of all organic matter.
 
 **Pros/Cons:** Can assimilate technology from the opponent.
 
-**Style:** 
+**Style:** Assimilate or be destroyed
 
 
 ![The Ghosts of Cruess]({{ site.baseurl }}/images/races/Ghosts.jpg "The Ghosts of Cruess")
@@ -208,12 +210,11 @@ This document serves as a summary of the races to help people pick their race be
 
 **In a word:** worm-hole beings of energy and light
 
-**Background:** The Shaleri are mysterious beings of energy and light. Not much is known about this race except they show masterful control over strange sciences and materials. Storytellers tell tales that the Ghosts of Cruess have come forth for some sinister purpose yet to be revealed. Many believe the Shaleri are civilized and polite, yet they are also regarded as exceptionally secretive, ritualistic and prickly on a wide range of matters. It's generally undecided whether their behavior is one to be expected of a race so recently introduced to the material galaxy, or whether these are signs that something more ominous lurks beneath their brooding metal helmets.
+**Background:** This race appeared suddenly centuries after the Twilight Wars. No one knows why they came but speculate it is for the vacant throne. They hail from a region Deep Space known as the "Shaleri Way", which contains many wormholes that significantly reduce travel time between trade routes. However, most races avoid this route due to many ships disappearing in that region of space, with only a few returning telling tales of severe equipment malfunctions and ghosts in space. However, the Mentak have been using this route for years to stage their operations. When the Ghosts of Creuss emerged, they came with envoys from the Mentak Coalition, prompting the galaxy to believe the Mentak had brokered a deal to bring them into the known galaxy.
 
 **Pros/Cons:** 
 
 **Style:** The Ghosts of Creuss are a very mobile race as they can maniuplate worm-holes or the areas around them to their needs.
-
 
 
 ![The Arborec]({{ site.baseurl }}/images/races/Arborec.jpg "The Arborec")
@@ -222,11 +223,11 @@ This document serves as a summary of the races to help people pick their race be
 
 **In a word:** Sentient plants
 
-**Background:** 
+**Background:** The Arborec are not truly a race but a living ecosystem. They are incapable of speech or any auditory communication. However, Arborec found human bodies from a Federation of Sol ship found destroyed in their system and their scientists had a theory. By injecting spores from the Arborec homeworld into the dead brainstem of the human, the Arborec were able to reanimate the human body and verbally communicate through it. The Arborec have insisted to the Galactic Council that the human bodies were quite dead and no trace of memory, emotion, or consciousness exists in these shells. The subject has been a suibject of heated debate for centuries, especially among the Sol, Xxcha, Letnev, and Winnu. These races have each witnessed corpses from their race being used by the Arborec for this purpose. The Galactic Council has ruled this act to be legal and many races believe this is due to the amount of unique resources, particularly of the medical variety, that Arborec affords the galaxy. It is not known if the Arborec have interest in the throne but they are very outspoken in politics and they have begun expansion from their homeworld.
 
 **Pros/Cons:** They can grow entire spaceships from themselves.
 
-**Style:** 
+**Style:** Spread amongst the galaxy like the weed they are
 
 
 
