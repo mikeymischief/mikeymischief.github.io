@@ -8,6 +8,17 @@ Introduction to the races of Twilight Imperium!
 
 This document serves as a summary of the races to help people pick their race before their first game. I have scoured the interwebs and have combined/updated/summarized these for our use.
 
+Jubee: Federation of Sol
+Jared: Sardakk N'orr
+Gerf: Barony of Letnev
+Beaud: Universities of Jol-Nar
+Jos: Embers of Muaat
+Eyay: Clan of Saar
+Mikey: Emirates of Hacan
+Brian: Xxcha Kingdom
+
+
+
 ![The Barony of Letnev]({{ site.baseurl }}/images/races/Letnev.jpg "The Barony of Letnev")
 
 **THE BARONY OF LETNEV**
