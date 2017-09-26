@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Emirates of Hacan
+comments: true
 permalink: /races/EmiratesOfHacan/
 ---
 
