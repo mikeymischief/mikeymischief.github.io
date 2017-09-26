@@ -21,7 +21,7 @@ Brian: Xxcha Kingdom
 
 ![The Barony of Letnev]({{ site.baseurl }}/images/races/Letnev.jpg "The Barony of Letnev")
 
-##THE BARONY OF LETNEV
+## THE BARONY OF LETNEV
 
 **In a word:** Military industrialists
 
@@ -61,7 +61,7 @@ Brian: Xxcha Kingdom
 
 ![The Emirates of Hacan]({{ site.baseurl }}/images/races/Hacan.jpg "The Emirates of Hacan")
 
-##THE EMIRATES OF HACAN
+## THE EMIRATES OF HACAN
 
 **In a word:** Mercantilists
 
@@ -103,7 +103,7 @@ Brian: Xxcha Kingdom
 
 ![The Federation of Sol]({{ site.baseurl }}/images/races/Sol.jpg "The Federation of Sol")
 
-##THE FEDERATION OF SOL
+## THE FEDERATION OF SOL
 
 **In a word:** Colonizers
 
@@ -145,9 +145,10 @@ Brian: Xxcha Kingdom
 >
 >Spec Ops II (upgrade; req. GG): co 1(for 2)/cm 6; After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on your card on a planet you control in your home system.
 
+
 ![The L1z1x Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1z1x Mindnet")
 
-##THE L1Z1X MINDNET
+## THE L1Z1X MINDNET
 
 **In a Word:** Warlike cyborgs
 
@@ -189,7 +190,7 @@ Brian: Xxcha Kingdom
 
 ![The Mentak Coalition]({{ site.baseurl }}/images/races/Mentak.jpg "The Mentak Coalition")
 
-##THE MENTAK COALITION
+## THE MENTAK COALITION
 
 **In a word:** Space pirates
 
@@ -227,9 +228,52 @@ Brian: Xxcha Kingdom
 >
 >Salvage Operations (yellow; req. YY): After you win or lose a space combat, gain 1 trade good; if you won the combat, you may also produce 1 ship in that system of any ship type that was destroyed during the combat. 
 
+![The Naalu Collective]({{ site.baseurl }}/images/races/Naalu.jpg "The Naalu Collective")
+
+## THE NAALU COLLECTIVE
+
+**In a word:** Telepathic Snakes
+
+**Background:** The Naala are surrounded in mystery. During the rule of the Lazax over the Imperium, the existance of the Naalu were not even known to any race other than that of the Yssaril, who had a secret alliance with the Naalu. Toward the end of the Twilight Wars, the Naalu emerged from places unknown, ready to make their claim for the throne. Many of the Great Races sought an alliance with the beautiful, serpentine creatures, but quickly withdrew when learning of their telepathic abilities. The Naalu have no desire for war but are not fearful of it. They believe the time now nears when the rest of the galaxy will know the tranquillity, order, and the true beauty of the Naalu. The rest of the galaxy will submit to that beauty or be destroyed.
+
+**Pros/Cons:** A truly impressive starting fleet. The Naalu are also slippery little suckers – they always go first every round and can retreat from any space battle before it begins without suffering casualties. Their fighters also receive bonuses during combat, ensuring that most opponents are going to surrounded and swarmed to death by pesky little ships.
+
+**Style:** Players with the confidence to go first to subtly dictate the flow and tempo of the game.
+
+>Homeworlds: Maaluuk (0/2); Druaa (3/1)
+>
+>Starting Units: 1 carrier; 1 cruiser; 1 destroyer; 3 fighters; 4 infantry; 1 space dock; 1pds  
+>
+>Starting Tech: neural motivator; sarween tools 
+>
+>Commodities: 3
+>
+>Promissory Note: Gift of Prescience - At the end of the strategy phase: Place this card faceup in your play area and place the Naalu "0" token on your strategy order. The Naalu player cannot use his telepathic faction ability during this game round. Return this card to the Naalu player at the end of the status phase. 
+>
+>Abilities
+>
+>Telepathic: At the end of the strategy phase, place the Naalu "0" token on your strategy card; you are first in initiative order.
+>
+>Foresight: After another player moves ships into a system that contain 1 or more of your ships, you may place 1 token from your strategy pool in an adjacent system that does not contain another player's ships; move your ships from the active system into that system.
+>
+>Special units
+>
+>Matriarch(flagship): cost 8, combat 9(x2), movement 1, capacity 6; 
+>>sustain damage; 
+>>During an invasion in this system, you ma commit fighters to planets as if they were ground forces. After combat, return those units to the space area. 
+>
+>Hybrid crystal fighter (fighter): co 1(for 2)/cm 8/m -
+>
+>Race tech
+>
+>Hybrid Crystal Fighter II (upgrade; req, GB): cost 1 (for 2), combat 7, movement 2; 
+>>This unit may move without being transported. Each fighter in excess of your ships' capacity counts as 1/2 of a ship against your fleet pool
+>
+>Neuroglaive (green; req. GGG): After another player activates a system that contains 1 or more of your ships, that player removes 1 token form his fleet pool and returns it to his reinforcements.
+
 ![The Sardakk N'orr]({{ site.baseurl }}/images/races/Norr.jpg "The Sardakk N'orr")
 
-##THE SARDAKK N'ORR
+## THE SARDAKK N'ORR
 
 **In a word:** Warrior bugs
 
@@ -272,7 +316,7 @@ Brian: Xxcha Kingdom
 
 ![The Universities of Jol'Nar]({{ site.baseurl }}/images/races/Hylar.jpg "The Universities of Jol'Nar")
 
-##THE UNIVERSITIES OF JOL'NAR
+## THE UNIVERSITIES OF JOL'NAR
 
 **In a word:** Technologists 
 
@@ -314,7 +358,7 @@ Brian: Xxcha Kingdom
 
 ![The Xxcha Kingdom]({{ site.baseurl }}/images/races/Xxcha.jpg "The Xxcha Kingdom")
 
-##THE XXCHA KINGDOM
+## THE XXCHA KINGDOM
 
 **In a Word:** Politicians
 
@@ -351,49 +395,52 @@ Brian: Xxcha Kingdom
 >
 >Instinct Training (green; req. G) You may exhaust this card and spend 1 token from your strategy pool when another player plays an action card; cancel that action card.
 
-![The Embers of Muaat]({{ site.baseurl }}/images/races/Muaat.jpg "The Embers of Muaat")
 
-##THE EMBERS OF MUAAT
+![The Yssaril Tribes]({{ site.baseurl }}/images/races/Yssaril.jpg "The Yssaril Tribes")
 
-**In a word:** Fire people
+## THE YSSARIL TRIBES
 
-**Background:** The Embers of Muaat are a mysterious race.  Their bodies are always on fire, so no one has seen them outside of their specially constructed suits which they have built to interact with other races.  In the past, the Muaat were enslaved by the Jol Nar to develop a technology to convert energy into mass.  The Muaat eventually rebelled against the Jol Nar, and in the process took control of a Jol Nar prototype--the War Sun.  Armed with this super weapon, the Muaat have sworn never to be enslaved again.  To ensure this, they will use their War Sun to take control of the galaxy.
+**In a word:** Sneaky chameleon-like goblins
 
-**Pros/Cons:** The start the game with a War Sun, can move through supernovas, their War Suns can spawn fighters without a space dock, good trade agreements, mediocre home system, start the game with a War Sun although the rest of their fleet is weak.
+**Background:** Long ago, the ancient race of the Lazax ruled the cosmos. In a back corner of the galaxy, the Lazax colonized the smallish planet Retillion, harvesting the delicious menn root that grew there. For awhile, things were fantastic on Retillion – until the sneaky, aboriginal, green goblins that lived in the shadows there systematically kicked some Lazax butt. Over the eons, the various tribes of the Yssaril adapted to Lazax technology and took the stars, using subterfuge, stealth and their superior spies to spread like vermin throughout the colonized territories.
 
-**Style:** For the cautious player who wants to be left alone in the early game (having a War Sun will have that effect on neighbours), yet able to play with some finesse as the Embers are not considered one of the strongest races.
+**Pros/Cons:** Subterfuge. The Yssaril are the masters of the secret attack and sabotage. They draw one additional Action card per round, which means they are privy to a wealth of surprise powers, advantages and tricks. The Yssaril can also sneak a peek at one other opponent’s Action cards each round, providing them with very valuable information which they can use to subtly kick some butt at just the right moment.
 
->Homeworlds: Muaat (4/1)
+**Style:** Information junkies and those players who like to play a conniving, cerebral game of cat & mouse.
+ 
+>Homeworlds: Retillion (2/3); Shalloq (1/2)
 >
->Starting Units: 1 war sun; 2 fighters; 4 infantry; 1 space dock
+>Starting Units: 2 carriers; 1 cruiser; 2 fighters; 5 infantry; 1 space dock; 1 pds
 >
->Starting Tech: plasma scoring
+>Starting Tech: neural motivator
 >
->Commodities: 4
+>Commodities: 3
 >
->Promissory Note: Fires of the Gashlai - Action: Remove 1 token from the Muaat player's fleet pool and return it to his reinforcements. Then, gain your war sun unit upgrade technology card. Then return this card to the Muaat player.
+>Promissory Note: Spy Net - At the start of your turn: Look at the Yssaril player's hand of action cards. Choose 1 of those cards and add it to your hand. Then, return this card to the Yssaril player.
 >
 >Abilities
 >
->Star Forge: Action: Spend 1 token form your strategy pool to place either 2 fighters or 1 destroyer from your reinforcements in a system that contain 1 or more of your war suns. 
+>Stall Tactics: Action: Discard 1 action card from your hand.
+>
+>Scheming: When you draw 1 or more action cards, draw 1 additional action card. Then, choose and discard 1 action card from your hand
+>
+>Crafty: you can have any number of action cards in your hand. Game effects cannot prevent you from using this ability 
 >
 >Special units
 >
->The Inferno: cost 8, combat 5(x2), movement 1, capacity 3; 
+>Y'sia Y'ssrila (flagship): cost 8, combat 5(x2), movement 2, capacity 3; 
 >>sustain damage; 
->>Action: spend one command counter from your strategy pool to produce 1 cruiser in this ship's system
->
->Prototype War Sun I (war sun): co 12/cm 3(x3)/m 1/ca 6; sustain damage; bombardment 3(x3); Other players' units in this system lose the planetary shield ability       
+>>This ship can move through systems that contain other players' ships
 >
 >Race tech
 >
->Prototype War Sun II (upgrade; req. RRRY): co 10/cm 3(x3)/m 3/ca 6; sustain damage; bombardment 3(x3); Other players' units in this system lose the planetary shield ability       
+>Mageon Implants (green; req. GGG): Action: Exhaust this card to look at another player's had of action cards. Choose 1 of thouse cards and add it to your hand.
 >
->Magnus Reactor (red; req. RR): your ships can move into supernovas. After 1 or more of your units use production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good. 
+>Transparasteel Plating (green; req. G): During your turn of the action phase, players that have passed cannot play action cards.
 
 ![The Yin Brotherhood]({{ site.baseurl }}/images/races/Yin.jpg "The Yin Brotherhood")
 
-##THE BROTHERHOOD OF YIN
+## THE BROTHERHOOD OF YIN
 
 **In a word:** Warrior Zealots
 
@@ -433,7 +480,7 @@ Brian: Xxcha Kingdom
 
 ![The Clan of Saar]({{ site.baseurl }}/images/races/Saar.jpg "The Clan of Saar")
 
-##THE CLAN OF SAAR
+## THE CLAN OF SAAR
 
 **In a word:** Warrior Space gypsies 
 
@@ -476,94 +523,49 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >Floating Factories II (upgrade; req. YY): movement 2, capacity 5; production 7; 
 >>this unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
 
-![The Naalu Collective]({{ site.baseurl }}/images/races/Naalu.jpg "The Naalu Collective")
+![The Embers of Muaat]({{ site.baseurl }}/images/races/Muaat.jpg "The Embers of Muaat")
 
-##THE NAALU COLLECTIVE
+## THE EMBERS OF MUAAT
 
-**In a word:** Telepathic Snakes
+**In a word:** Fire people
 
-**Background:** The Naala are surrounded in mystery. During the rule of the Lazax over the Imperium, the existance of the Naalu were not even known to any race other than that of the Yssaril, who had a secret alliance with the Naalu. Toward the end of the Twilight Wars, the Naalu emerged from places unknown, ready to make their claim for the throne. Many of the Great Races sought an alliance with the beautiful, serpentine creatures, but quickly withdrew when learning of their telepathic abilities. The Naalu have no desire for war but are not fearful of it. They believe the time now nears when the rest of the galaxy will know the tranquillity, order, and the true beauty of the Naalu. The rest of the galaxy will submit to that beauty or be destroyed.
+**Background:** The Embers of Muaat are a mysterious race.  Their bodies are always on fire, so no one has seen them outside of their specially constructed suits which they have built to interact with other races.  In the past, the Muaat were enslaved by the Jol Nar to develop a technology to convert energy into mass.  The Muaat eventually rebelled against the Jol Nar, and in the process took control of a Jol Nar prototype--the War Sun.  Armed with this super weapon, the Muaat have sworn never to be enslaved again.  To ensure this, they will use their War Sun to take control of the galaxy.
 
-**Pros/Cons:** A truly impressive starting fleet. The Naalu are also slippery little suckers – they always go first every round and can retreat from any space battle before it begins without suffering casualties. Their fighters also receive bonuses during combat, ensuring that most opponents are going to surrounded and swarmed to death by pesky little ships.
+**Pros/Cons:** The start the game with a War Sun, can move through supernovas, their War Suns can spawn fighters without a space dock, good trade agreements, mediocre home system, start the game with a War Sun although the rest of their fleet is weak.
 
-**Style:** Players with the confidence to go first to subtly dictate the flow and tempo of the game.
+**Style:** For the cautious player who wants to be left alone in the early game (having a War Sun will have that effect on neighbours), yet able to play with some finesse as the Embers are not considered one of the strongest races.
 
->Homeworlds: Maaluuk (0/2); Druaa (3/1)
+>Homeworlds: Muaat (4/1)
 >
->Starting Units: 1 carrier; 1 cruiser; 1 destroyer; 3 fighters; 4 infantry; 1 space dock; 1pds  
+>Starting Units: 1 war sun; 2 fighters; 4 infantry; 1 space dock
 >
->Starting Tech: neural motivator; sarween tools 
+>Starting Tech: plasma scoring
 >
->Commodities: 3
+>Commodities: 4
 >
->Promissory Note: Gift of Prescience - At the end of the strategy phase: Place this card faceup in your play area and place the Naalu "0" token on your strategy order. The Naalu player cannot use his telepathic faction ability during this game round. Return this card to the Naalu player at the end of the status phase. 
+>Promissory Note: Fires of the Gashlai - Action: Remove 1 token from the Muaat player's fleet pool and return it to his reinforcements. Then, gain your war sun unit upgrade technology card. Then return this card to the Muaat player.
 >
 >Abilities
 >
->Telepathic: At the end of the strategy phase, place the Naalu "0" token on your strategy card; you are first in initiative order.
->
->Foresight: After another player moves ships into a system that contain 1 or more of your ships, you may place 1 token from your strategy pool in an adjacent system that does not contain another player's ships; move your ships from the active system into that system.
+>Star Forge: Action: Spend 1 token form your strategy pool to place either 2 fighters or 1 destroyer from your reinforcements in a system that contain 1 or more of your war suns. 
 >
 >Special units
 >
->Matriarch(flagship): cost 8, combat 9(x2), movement 1, capacity 6; 
+>The Inferno: cost 8, combat 5(x2), movement 1, capacity 3; 
 >>sustain damage; 
->>During an invasion in this system, you ma commit fighters to planets as if they were ground forces. After combat, return those units to the space area. 
+>>Action: spend one command counter from your strategy pool to produce 1 cruiser in this ship's system
 >
->Hybrid crystal fighter (fighter): co 1(for 2)/cm 8/m -
+>Prototype War Sun I (war sun): co 12/cm 3(x3)/m 1/ca 6; sustain damage; bombardment 3(x3); Other players' units in this system lose the planetary shield ability       
 >
 >Race tech
 >
->Hybrid Crystal Fighter II (upgrade; req, GB): cost 1 (for 2), combat 7, movement 2; 
->>This unit may move without being transported. Each fighter in excess of your ships' capacity counts as 1/2 of a ship against your fleet pool
+>Prototype War Sun II (upgrade; req. RRRY): co 10/cm 3(x3)/m 3/ca 6; sustain damage; bombardment 3(x3); Other players' units in this system lose the planetary shield ability       
 >
->Neuroglaive (green; req. GGG): After another player activates a system that contains 1 or more of your ships, that player removes 1 token form his fleet pool and returns it to his reinforcements.
-
-![The Yssaril Tribes]({{ site.baseurl }}/images/races/Yssaril.jpg "The Yssaril Tribes")
-
-##THE YSSARIL TRIBES
-
-**In a word:** Sneaky chameleon-like goblins
-
-**Background:** Long ago, the ancient race of the Lazax ruled the cosmos. In a back corner of the galaxy, the Lazax colonized the smallish planet Retillion, harvesting the delicious menn root that grew there. For awhile, things were fantastic on Retillion – until the sneaky, aboriginal, green goblins that lived in the shadows there systematically kicked some Lazax butt. Over the eons, the various tribes of the Yssaril adapted to Lazax technology and took the stars, using subterfuge, stealth and their superior spies to spread like vermin throughout the colonized territories.
-
-**Pros/Cons:** Subterfuge. The Yssaril are the masters of the secret attack and sabotage. They draw one additional Action card per round, which means they are privy to a wealth of surprise powers, advantages and tricks. The Yssaril can also sneak a peek at one other opponent’s Action cards each round, providing them with very valuable information which they can use to subtly kick some butt at just the right moment.
-
-**Style:** Information junkies and those players who like to play a conniving, cerebral game of cat & mouse.
- 
->Homeworlds: Retillion (2/3); Shalloq (1/2)
->
->Starting Units: 2 carriers; 1 cruiser; 2 fighters; 5 infantry; 1 space dock; 1 pds
->
->Starting Tech: neural motivator
->
->Commodities: 3
->
->Promissory Note: Spy Net - At the start of your turn: Look at the Yssaril player's hand of action cards. Choose 1 of those cards and add it to your hand. Then, return this card to the Yssaril player.
->
->Abilities
->
->Stall Tactics: Action: Discard 1 action card from your hand.
->
->Scheming: When you draw 1 or more action cards, draw 1 additional action card. Then, choose and discard 1 action card from your hand
->
->Crafty: you can have any number of action cards in your hand. Game effects cannot prevent you from using this ability 
->
->Special units
->
->Y'sia Y'ssrila (flagship): cost 8, combat 5(x2), movement 2, capacity 3; 
->>sustain damage; 
->>This ship can move through systems that contain other players' ships
->
->Race tech
->
->Mageon Implants (green; req. GGG): Action: Exhaust this card to look at another player's had of action cards. Choose 1 of thouse cards and add it to your hand.
->
->Transparasteel Plating (green; req. G): During your turn of the action phase, players that have passed cannot play action cards.
+>Magnus Reactor (red; req. RR): your ships can move into supernovas. After 1 or more of your units use production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good. 
 
 ![The Winnu]({{ site.baseurl }}/images/races/Winnu.jpg "The Winnu")
 
-##THE WINNU
+## THE WINNU
 
 **In a word:** Custodians of the ancient empire
 
@@ -601,51 +603,49 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Hegemonic Trade Policy (yellow; req. YY): Exhaust this card when 1 or more of you units use Production; swap the resource and influence values of 1 planet you control until the end of your turn.
 
-![The Nekro Virus]({{ site.baseurl }}/images/races/Nekro.jpg "The Nekro Virus")
+![The Arborec]({{ site.baseurl }}/images/races/Arborec.jpg "The Arborec")
 
-##THE NEKRO VIRUS
+## THE ARBOREC
 
-**In a word:** Psychotic Machines
+**In a word:** Sentient plants
 
-**Background:**  The Nekro Virus is a believed extinct race that was created, by mistake, by the L1z1x race. After a great civil war between the two races, the L1z1x believed they had eliminated the threat created by their science. 700 years later, the race reimerged with one purpose in mind: the utter extinction of all organic matter.
+**Background:** The Arborec are not truly a race but a living ecosystem. They are incapable of speech or any auditory communication. However, Arborec found human bodies from a Federation of Sol ship found destroyed in their system and their scientists had a theory. By injecting spores from the Arborec homeworld into the dead brainstem of the human, the Arborec were able to reanimate the human body and verbally communicate through it. The Arborec have insisted to the Galactic Council that the human bodies were quite dead and no trace of memory, emotion, or consciousness exists in these shells. The subject has been a suibject of heated debate for centuries, especially among the Sol, Xxcha, Letnev, and Winnu. These races have each witnessed corpses from their race being used by the Arborec for this purpose. The Galactic Council has ruled this act to be legal and many races believe this is due to the amount of unique resources, particularly of the medical variety, that Arborec affords the galaxy. It is not known if the Arborec have interest in the throne but they are very outspoken in politics and they have begun expansion from their homeworld.
 
-**Pros/Cons:** Can assimilate technology from the opponent.
+**Pros/Cons:** They can grow entire spaceships from themselves.
 
-**Style:** Assimilate or be destroyed
+**Style:** Spread amongst the galaxy like the weed they are
 
->Homeworlds: Mordai II (4/0)
+>Homeworlds: Nestphar (3/2)
 >
->Starting Units: 1 dreadnought; 1 carrier; 1 cruiser; 2 fighters; 2 infantry; 1 space dock 
+>Starting Units: 1 carrier; 1 cruiser; 2 fighters; 4 infantry; 1 space dock; 1 pds
 >
->Starting Tech: daxcive animators; valefar assimilator X; valefar assimilator Y
+>Starting Tech: magen defense grid
 >
 >Commodities: 3
 >
->Promissory Note: Antivirus - At the start of a combat: Place this card faceup in your play area. while this card is in your play area, the Nekro player cannot use his Technological Singularity faction ability against you. If you active a system that contains 1 or more of the Nekro player's units return this card to the Necro player. 
+>Promissory Note: Stymie - Action: Place this card faceup in your play area. While this card is in your play area, the Arborec player cannot produce units in or adjacent to non-home system that contain 1 or more of your units. If your activate a system that contains 1 or more of Arborec player's units, return this card to the Arborec player. 
 >
 >Abilities
 >
->Galactic Thread: You can not vote on agendas. Once per agenda phase, after the agenda is revealed, you may aloud predict the outcome of that agenda. If your prediction is correct gain 1 technology that is owned by a player who voted how you predicted. 
->
->Technological Singularity: Once per combat, after 1 of your opponent's units is destroyed, you may gain 1 technology that is owned by that player.
->
->Propagation: You cannot research technology. When you would research technology, gain 3 command token instead.   
+>Your space docks cannot produce infantry. At the start of the status phase, place 1 infantry form your reinforcements on any planet you control 
 >
 >Special units
 >
->The Alastor: cost 8, combat 5(x2), movement 1, capacity 3; 
+>Duha Menaimon (flagship): cost 8, combat 7(x2), movement 1, capacity 5; 
 >>sustain damage; 
->>At the start of a space combat, choose any number of ground forces in this system to participate in that combat as if they were ships. 
+>>After you activate this system, you may produce up to 5 units in this system. 
+>
+>Letani Warrior I (infantry): co 1(for 2)/cm 8; production 1
 >
 >Race tech
 >
->Valfar Assimilator X (colorless; req. -) When you would gain another player's technology using 1 of your faction abilities, you may place the "X" assimilator token on a faction technology owned by that player instead. While that token is on a technology, this card gains that technology's text. You cannot place an assimilator token on technology that already has an assimilator token. 
+>Letani Warrior II (upgrade; req. GG): co 1(for 2)/cm 7; production 2; After this unit is destroyed, roll 1 die. If the result is 6 or greater, place the unit on this card. At the start of your next turn, place each unit that is on this card on a planet you control in your home system. 
 >
->Valfar Assimilator Y (colorless; req. -) When you would gain another player's technology using 1 of your faction abilities, you may place the "Y" assimilator token on a faction technology owned by that player instead. While that token is on a technology, this card gains that technology's text. You cannot place an assimilator token on technology that already has an assimilator token.
+>Bioplasmosis (green; req. GG): At the end of your status phase, you may remove any number of infantry from planets you control and place them on 1 or more planets you control in the same or adjacent systems. 
 
 ![The Ghosts of Cruess]({{ site.baseurl }}/images/races/Ghosts.jpg "The Ghosts of Cruess")
 
-##THE GHOSTS OF CREUSS
+## THE GHOSTS OF CREUSS
 
 **In a word:** worm-hole beings of energy and light
 
@@ -685,45 +685,47 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Dimensional Splicer (red; req. R): At the start of a space combat in a system that contains a wormhole and 1 or more of your ships, you may produce 1 hit and assign it to 1 of you opponent's ships.
 
-![The Arborec]({{ site.baseurl }}/images/races/Arborec.jpg "The Arborec")
+![The Nekro Virus]({{ site.baseurl }}/images/races/Nekro.jpg "The Nekro Virus")
 
-##THE ARBOREC
+## THE NEKRO VIRUS
 
-**In a word:** Sentient plants
+**In a word:** Psychotic Machines
 
-**Background:** The Arborec are not truly a race but a living ecosystem. They are incapable of speech or any auditory communication. However, Arborec found human bodies from a Federation of Sol ship found destroyed in their system and their scientists had a theory. By injecting spores from the Arborec homeworld into the dead brainstem of the human, the Arborec were able to reanimate the human body and verbally communicate through it. The Arborec have insisted to the Galactic Council that the human bodies were quite dead and no trace of memory, emotion, or consciousness exists in these shells. The subject has been a suibject of heated debate for centuries, especially among the Sol, Xxcha, Letnev, and Winnu. These races have each witnessed corpses from their race being used by the Arborec for this purpose. The Galactic Council has ruled this act to be legal and many races believe this is due to the amount of unique resources, particularly of the medical variety, that Arborec affords the galaxy. It is not known if the Arborec have interest in the throne but they are very outspoken in politics and they have begun expansion from their homeworld.
+**Background:**  The Nekro Virus is a believed extinct race that was created, by mistake, by the L1z1x race. After a great civil war between the two races, the L1z1x believed they had eliminated the threat created by their science. 700 years later, the race reimerged with one purpose in mind: the utter extinction of all organic matter.
 
-**Pros/Cons:** They can grow entire spaceships from themselves.
+**Pros/Cons:** Can assimilate technology from the opponent.
 
-**Style:** Spread amongst the galaxy like the weed they are
+**Style:** Assimilate or be destroyed
 
->Homeworlds: Nestphar (3/2)
+>Homeworlds: Mordai II (4/0)
 >
->Starting Units: 1 carrier; 1 cruiser; 2 fighters; 4 infantry; 1 space dock; 1 pds
+>Starting Units: 1 dreadnought; 1 carrier; 1 cruiser; 2 fighters; 2 infantry; 1 space dock 
 >
->Starting Tech: magen defense grid
+>Starting Tech: daxcive animators; valefar assimilator X; valefar assimilator Y
 >
 >Commodities: 3
 >
->Promissory Note: Stymie - Action: Place this card faceup in your play area. While this card is in your play area, the Arborec player cannot produce units in or adjacent to non-home system that contain 1 or more of your units. If your activate a system that contains 1 or more of Arborec player's units, return this card to the Arborec player. 
+>Promissory Note: Antivirus - At the start of a combat: Place this card faceup in your play area. while this card is in your play area, the Nekro player cannot use his Technological Singularity faction ability against you. If you active a system that contains 1 or more of the Nekro player's units return this card to the Necro player. 
 >
 >Abilities
 >
->Your space docks cannot produce infantry. At the start of the status phase, place 1 infantry form your reinforcements on any planet you control 
+>Galactic Thread: You can not vote on agendas. Once per agenda phase, after the agenda is revealed, you may aloud predict the outcome of that agenda. If your prediction is correct gain 1 technology that is owned by a player who voted how you predicted. 
+>
+>Technological Singularity: Once per combat, after 1 of your opponent's units is destroyed, you may gain 1 technology that is owned by that player.
+>
+>Propagation: You cannot research technology. When you would research technology, gain 3 command token instead.   
 >
 >Special units
 >
->Duha Menaimon (flagship): cost 8, combat 7(x2), movement 1, capacity 5; 
+>The Alastor: cost 8, combat 5(x2), movement 1, capacity 3; 
 >>sustain damage; 
->>After you activate this system, you may produce up to 5 units in this system. 
->
->Letani Warrior I (infantry): co 1(for 2)/cm 8; production 1
+>>At the start of a space combat, choose any number of ground forces in this system to participate in that combat as if they were ships. 
 >
 >Race tech
 >
->Letani Warrior II (upgrade; req. GG): co 1(for 2)/cm 7; production 2; After this unit is destroyed, roll 1 die. If the result is 6 or greater, place the unit on this card. At the start of your next turn, place each unit that is on this card on a planet you control in your home system. 
+>Valfar Assimilator X (colorless; req. -) When you would gain another player's technology using 1 of your faction abilities, you may place the "X" assimilator token on a faction technology owned by that player instead. While that token is on a technology, this card gains that technology's text. You cannot place an assimilator token on technology that already has an assimilator token. 
 >
->Bioplasmosis (green; req. GG): At the end of your status phase, you may remove any number of infantry from planets you control and place them on 1 or more planets you control in the same or adjacent systems. 
+>Valfar Assimilator Y (colorless; req. -) When you would gain another player's technology using 1 of your faction abilities, you may place the "Y" assimilator token on a faction technology owned by that player instead. While that token is on a technology, this card gains that technology's text. You cannot place an assimilator token on technology that already has an assimilator token.
 
 
 **Strategy:**
