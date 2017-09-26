@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Universities of Jol-Nar
+title: Universities of Jol'Nar
 comments: true
 permalink: /races/UniversitiesOfJolNar/
 ---
