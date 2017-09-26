@@ -38,6 +38,7 @@ permalink: /races/MentakCoalition/
 >
 >Fourth Moon (flag ship): cost 8, combat 7(x2), movement 1, capacity 3; 
 >>sustain damage; 
+>>
 >>enemy players ships in this system cannot use sustain damage 
 >
 >Race tech
