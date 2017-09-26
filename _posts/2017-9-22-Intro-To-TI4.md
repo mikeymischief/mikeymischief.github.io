@@ -49,7 +49,9 @@ Brian: Xxcha Kingdom
 >
 >Special units
 >
->Arc Secundus (flagship): co 8/cm 5(x2)m 1/ca 3; sustain damage; bombardment 5(x3); Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship
+>Arc Secundus (flagship): cost 8, combat 5(x2), movement 1, capacity 3; 
+>>sustain damage; bombardment 5(x3); 
+>>Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship
 >
 >Race tech
 >
@@ -89,7 +91,9 @@ Brian: Xxcha Kingdom
 >
 >Special units
 >
->Wrath of Kenara: co 8/cm 7(x2)/m 1/ca 3; sustain damage; After you roll a die during a space combat in this system, you may spend 1 trade good to apply +1 to the result. 
+>Wrath of Kenara: cost 8, combat 7(x2), movement 1, capacity 3; 
+>>sustain damage; 
+>>After you roll a die during a space combat in this system, you may spend 1 trade good to apply +1 to the result. 
 >
 >Race tech
 >
@@ -127,17 +131,19 @@ Brian: Xxcha Kingdom
 >
 >Special units
 >
->Genesis (flagship): co 8/cm 5(x2)/M 1/ca 12; sustain damage; at the end of the status phase, place 1 infantry from your reinforcements in the systems space area.  
+>Genesis (flagship): cost 8, combat 5(x2), movement 1, capacity 12; 
+>>sustain damage; 
+>>At the end of the status phase, place 1 infantry from your reinforcements in the systems space area.  
 >
 >Advanced carrier I (carrier): co 3/cm 9/m 1/ca 6
 >
->spec ops I (infantry): co 1(for 2)/cm 7
+>Spec Ops I (infantry): co 1(for 2)/cm 7
 >
 >Race tech
 >
 >Advanced carrier II (upgrade; req. BB): co 3/cm 9/m 2/ca 8; sustain damage
 >
->spec ops II (upgrade; req. GG): co 1(for 2)/cm 6; After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on your card on a planet you control in your home system.
+>Spec Ops II (upgrade; req. GG): co 1(for 2)/cm 6; After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on your card on a planet you control in your home system.
 
 ![The L1z1x Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1z1x Mindnet")
 
@@ -169,7 +175,9 @@ Brian: Xxcha Kingdom
 >
 >Special units
 
->[0.0.1] (flagship): co 8/cm 5(x2)/m 1/ca 5; sustain damage; During a space combat, all hits produced by this ship and by your dreadnoughts in this system must be assigned to non-fighter ships, if able. 
+>[0.0.1] (flagship): cost 8, combat 5(x2), movement 1, capacity 5; 
+>>sustain damage; 
+>>During a space combat, all hits produced by this ship and by your dreadnoughts in this system must be assigned to non-fighter ships, if able. 
 >
 >Super-Dreadnought I (dreadnought): co 4/cm 5/m 1/ca 2; sustain damage; bombardment 5 
 >
@@ -209,7 +217,9 @@ Brian: Xxcha Kingdom
 >
 >Special units
 >
->Fourth Moon (flag ship): co 8/cm 7(x2)/m 1/ca 3; sustain damage; enemy players ships in this system cannot use sustain damage 
+>Fourth Moon (flag ship): cost 8, combat 7(x2), movement 1, capacity 3; 
+>>sustain damage; 
+>>enemy players ships in this system cannot use sustain damage 
 >
 >Race tech
 >
@@ -245,13 +255,18 @@ Brian: Xxcha Kingdom
 >
 >Special units
 >
->C'moran N'orr (flag ship): co 8/cm 6(x2)/m 1/ca 3; sustain damage; Apply +1 to the result off all your ship's combat rolls in this system
+>C'moran N'orr (flag ship): cost 8, combat 6(x2), movement 1, capacity 3; 
+>>sustain damage; 
+>>Apply +1 to the result off all your ship's combat rolls in this system
 >
->Exotrireme I (dreadnought): co 4/ cm 5/m 1/ca 1; sustain damage; bombardment 4(x2) 
+>Exotrireme I (dreadnought): cost 4, combat 5, movement 1, capacity 1; 
+>>sustain damage; bombardment 4(x2) 
 >
 >Race tech
 >
->Exotrireme II (upgrade; req. BBY): co 4/ cm 5/m 2/ca 1; sustain damage; bombardment 4(x2); This unit cannot be destroyed by the "Direct Hit" action cards. After a round of space combat, you may destroy this unit to destroy up to 2 ships in this system. 
+>Exotrireme II (upgrade; req. BBY): cost 4, combat 5, movement 2, capacity 1; 
+>>sustain damage; bombardment 4(x2); 
+>>This unit cannot be destroyed by the "Direct Hit" action cards. After a round of space combat, you may destroy this unit to destroy up to 2 ships in this system. 
 >
 >Valkyrie Particle Wave (red; req. RR): After making combat rolls during a round of ground combat, if your opponent produces 1 or more hits, you produce 1 additional hit.
 
@@ -287,7 +302,9 @@ Brian: Xxcha Kingdom
 >
 >Special units
 >
->J.N.S. Hylarim: co 8/cm 6(x2)/m 1/ca 3; sustain damage; When making a combat roll for this ship, each result of 9 or 10, before applying modifiers, produces 2 additional hits
+>J.N.S. Hylarim: cost 8, combat 6(x2), movement 1, capacity 3; 
+>>sustain damage; 
+>>When making a combat roll for this ship, each result of 9 or 10, before applying modifiers, produces 2 additional hits
 >
 >Race tech
 >
@@ -309,7 +326,7 @@ Brian: Xxcha Kingdom
 
 >Homeworlds: Archon Ren (2/3); Archon Tau (1/1)
 >
->Starting Units: 1carrier; 2 cruiser; 3 fighters; 4 infantry; 1 space dock; 1 pds
+>Starting Units: 1 carrier; 2 cruiser; 3 fighters; 4 infantry; 1 space dock; 1 pds
 >
 >Starting Tech: Graviton Laser System
 >
@@ -325,7 +342,8 @@ Brian: Xxcha Kingdom
 >
 >Special units
 >
->Loncara (flag ship): co 8/cm 7(x2)/m 1/ca 3) sustain damage; space cannon 5(x3) 
+>Loncara (flag ship): cost 8, combat 7(x2), movement 1, capacity 3;
+>>sustain damage; space cannon 5(x3) 
 >
 >Race tech
 >
@@ -347,7 +365,7 @@ Brian: Xxcha Kingdom
 
 >Homeworlds: Muaat (4/1)
 >
->Starting Units_ 1 war sun; 2 fighters; 4 infantry; 1 space dock
+>Starting Units: 1 war sun; 2 fighters; 4 infantry; 1 space dock
 >
 >Starting Tech: plasma scoring
 >
@@ -361,7 +379,9 @@ Brian: Xxcha Kingdom
 >
 >Special units
 >
->The Inferno: co 8/cm 5(x2)/m 1/ca 3; sustain damage; Action: spend one command counter from your strategy pool to produce 1 cruiser in this ship's system
+>The Inferno: cost 8, combat 5(x2), movement 1, capacity 3; 
+>>sustain damage; 
+>>Action: spend one command counter from your strategy pool to produce 1 cruiser in this ship's system
 >
 >Prototype War Sun I (war sun): co 12/cm 3(x3)/m 1/ca 6; sustain damage; bombardment 3(x3); Other players' units in this system lose the planetary shield ability       
 >
@@ -401,7 +421,9 @@ Brian: Xxcha Kingdom
 >
 >Special units
 >
->Van Hauge (flag ship): co 8/cm 9(x2)/m 1/ca 3; sustain damage; When this ship is destroyed, destroy all ships in this system
+>Van Hauge (flag ship): cost 8, combat 9(x2), movement 1, capacity 3; 
+>>sustain damage; 
+>>When this ship is destroyed, destroy all ships in this system
 >
 >Race tech
 >
@@ -441,15 +463,18 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Special units
 >
->Son of Ragh (flagship): co 8/cm 5(x2)/m 1/ca 3; sustain damage; anit-fighter barrage 6(x4)
+>Son of Ragh (flagship): cost 8, combat 5(x2), movemtn 1, capacity 3; 
+>>sustain damage; anti-fighter barrage 6(x4)
 >
->Floating Factories I (space dock): m 1/ca 4; production 5; this unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
+>Floating Factories I (space dock): movement 1, capacity 4; production 5; 
+>>this unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
 >
 >Race tech
 >
 >Chaos Mapping (blue; req. B): Other players cannot activate asteroid fields that contain 1 or more of your ships. At the start of your turn during the action phase, you may produce 1 unit in a system that contains at lest 1 of your units that has production. 
 >
->Floating Factories II (upgrade; req. YY): m 2/ca 5; production 7; this unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
+>Floating Factories II (upgrade; req. YY): movement 2, capacity 5; production 7; 
+>>this unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
 
 ![The Naalu Collective]({{ site.baseurl }}/images/races/Naalu.jpg "The Naalu Collective")
 
@@ -469,7 +494,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Starting Tech: neural motivator; sarween tools 
 >
->Commodities: `3
+>Commodities: 3
 >
 >Promissory Note: Gift of Prescience - At the end of the strategy phase: Place this card faceup in your play area and place the Naalu "0" token on your strategy order. The Naalu player cannot use his telepathic faction ability during this game round. Return this card to the Naalu player at the end of the status phase. 
 >
@@ -481,13 +506,16 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Special units
 >
->Matriarch(flagship): co 8/cm 9(x2)/m 1/ca 6; sustain damage; During an invasion in this system, you ma commit fighters to planets as if they were ground forces. After combat, return those units to the space area. 
+>Matriarch(flagship): cost 8, combat 9(x2), movement 1, capacity 6; 
+>>sustain damage; 
+>>During an invasion in this system, you ma commit fighters to planets as if they were ground forces. After combat, return those units to the space area. 
 >
 >Hybrid crystal fighter (fighter): co 1(for 2)/cm 8/m -
 >
 >Race tech
 >
->Hybrid Crystal Fighter II (upgrade; req, GB): co 1(for 2)/cm 7/m 2; This unit may move without being transported. Each fighter in excess of your ships' capacity counts as 1/2 of a ship against your fleet pool
+>Hybrid Crystal Fighter II (upgrade; req, GB): cost 1 (for 2), combat 7, movement 2; 
+>>This unit may move without being transported. Each fighter in excess of your ships' capacity counts as 1/2 of a ship against your fleet pool
 >
 >Neuroglaive (green; req. GGG): After another player activates a system that contains 1 or more of your ships, that player removes 1 token form his fleet pool and returns it to his reinforcements.
 
@@ -523,7 +551,9 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Special units
 >
->Y'sia Y'ssrila (flagship): co 8/cm 5(x2)/m 2/ca 3; sustain damage; This ship can move through systems that contain other players' ships
+>Y'sia Y'ssrila (flagship): cost 8, combat 5(x2), movement 2, capacity 3; 
+>>sustain damage; 
+>>This ship can move through systems that contain other players' ships
 >
 >Race tech
 >
@@ -561,7 +591,9 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Special units
 >
->Salai Sai Corian (flagship): co 8/cm 7/m 1/ca 3; sustain damage; When this unit makes a combat roll, it rolls a number of dice equal to the number of your opponent's non-fighter ships in this system 
+>Salai Sai Corian (flagship): cost 8, combat 7, movement 1, capacity 3; 
+>>sustain damage; 
+>>When this unit makes a combat roll, it rolls a number of dice equal to the number of your opponent's non-fighter ships in this system 
 >
 >Race tech
 >
@@ -601,7 +633,9 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Special units
 >
->The Alastor: co 8/cm 5(x2)/m 1/ca 3; sustain damage; At the start of a space combat, choose any number of ground forces in this system to participate in that combat as if they were ships. 
+>The Alastor: cost 8, combat 5(x2), movement 1, capacity 3; 
+>>sustain damage; 
+>>At the start of a space combat, choose any number of ground forces in this system to participate in that combat as if they were ships. 
 >
 >Race tech
 >
@@ -641,7 +675,9 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Special units
 >
->Hil Colish (flag ship): co 8/cm 5/m 1/ca 3; sustain damage; this ship's system contains a delta wormhole. During movement, this ship may move before or after your other ships
+>Hil Colish (flag ship): cost 8, combat 5, movement 1, capacity 3; 
+>>sustain damage; 
+>>This ship's system contains a delta wormhole. During movement, this ship may move before or after your other ships
 >
 >Race tech
 >
@@ -677,7 +713,9 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >Special units
 >
->Duha Menaimon (flagship): co 8/cm 7(x2)/m 1/ca 5; sustain damage; After you activate this system, you may produce up to 5 units in this system. 
+>Duha Menaimon (flagship): cost 8, combat 7(x2), movement 1, capacity 5; 
+>>sustain damage; 
+>>After you activate this system, you may produce up to 5 units in this system. 
 >
 >Letani Warrior I (infantry): co 1(for 2)/cm 8; production 1
 >
