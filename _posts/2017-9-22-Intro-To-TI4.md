@@ -31,6 +31,32 @@ Brian: Xxcha Kingdom
 
 **Style:** For the player militarily aggressive to the maximum with little regard for politics and trade (except maybe by coercion).
 
+>Homeworlds:  Wren Terra (2/1); Arc Prime (4/0)
+>
+>Starting Units: 1 dreadnought; 1 carrier; 1 destroyer; 1 fighter; 3 infantry; 1 space dock
+>
+>Starting Tech: Antimass Deflectors; Plasma Scoring
+>
+>Commodities: 2
+>
+>Promissory Note: War Funding - At the start of a round of space combat: The Letnev player loses 2 trade goods. During this combat round, reroll any number of your dice. Then, return this card to the Letnev player
+>
+>Abilities
+>
+>Munitions Reserves: At the start of each round space combat, you may spend 2 trade goods; you may reroll any number of your dice during that combat. 
+>
+>Armada: The maximum number of non-fighter ships you can have in each system is equal to 2 more than the number of tokens in your fleet pool.
+>
+>Special units
+>
+>Arc Secundus (flagship): co 8/cm 5(x2)m 1/ca 3; sustain damage; bombardment 5(x3); Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship
+>
+>Race tech
+>
+>L4 Disruptors (yellow; req. Y): During an invasion, units cannot us space cannon against your units. 
+>
+>Non-Euclidean Shielding (Red; req. RR): When 1 of your units uses sustain damage, cancel 2 hits instead of 1.
+
 ![The Emirates of Hacan]({{ site.baseurl }}/images/races/Hacan.jpg "The Emirates of Hacan")
 
 **THE EMIRATES OF HACAN**
@@ -43,6 +69,33 @@ Brian: Xxcha Kingdom
 
 **Style:** Master of trade. For the player who wants to forge an economic powerhouse, doing lots of wheeling-and-dealing on the diplomatic stage, but still nothing to sniff at warfare-wise, since all that filthy lucre can be used to build massive fleets. 
 
+>Homeworlds: Arretze (2/0); Hercant (1/1); Kamdorn (0/1)
+>
+>Starting Units: 2 carriers; 1 cruiser; 2 fighters; 4 infantry; 1 space dock
+>
+>Starting Tech: Antimass deflectors; sarween tools
+>
+>Commodities: 6
+>
+>Promissory Note: Trade Convoy - Action: Place this card faceup in your play area. While this card is in your play area, you may negotiate transactions with players who are not your neighbor. If your activate a system that contains 1 or more of the hacans player units , return this card to the Hacan player. 
+>
+>Abilities
+>
+>Masters of trade: You do not have to spend command token to resolve the secondary ability of the "trade" strategy card.
+>
+>Guild ships: You can negotiate transactions with players who are not your neighbor.
+>
+>Arbiters: When you are negotiating transactions, action cards can be exchanged as part of that transaction 
+>
+>Special units
+>
+>Wrath of Kenara: co 8/cm 7(x2)/m 1/ca 3; sustain damage; After you roll a die during a space combat in this system, you may spend 1 trade good to apply +1 to the result. 
+>
+>Race tech
+>
+>Quantum Datahub Node (yellow; req. YYY): At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods. If you do, give 1 of your strategy cards to that player and take 1 of his strategy cards.  
+>
+>Production Biomes (green; req. GG): Action: Exhaust this card and spend 1 token from your strategy pool to gain 4 trade goods and choose 1 other player; that player gains 2 trade goods. 
 
 ![The Federation of Sol]({{ site.baseurl }}/images/races/Sol.jpg "The Federation of Sol")
 
@@ -56,6 +109,35 @@ Brian: Xxcha Kingdom
 
 **Style:** For the player who isn't entirely sure what his style is, or who likes to be a jack-of-all-trades; well-rounded, flexible, and adaptable.
 
+>Homeworlds: Jord (4/2)
+>
+>Starting Units: 2 carriers; 1 destroyer; 3 fighters; 5 infantry; 1 space dock
+>
+>Starting Tech: Neural Motivator; Anitmass Deflector 
+>
+>Commodities: 4
+>
+>Promissory Note: Military Support - At the start of the Sol player's turn: Remove 1 token from the Sol player's strategy pool, if able, and return it to his reinforcements. Then, you may place 2 infantry from your reinforcements on any planet your control. Then, return this card to the Sol player. 
+>
+>Abilities
+>
+>Orbital Drop: ACTION: Spend 1 token from your strategy pool to place 2 infantry from your reinfrocements on 1 planet you control. 
+>
+>Versatile: when you gain command token during the status phase, gain 1 additional command token. 
+>
+>Special units
+>
+>Genesis (flagship): co 8/cm 5(x2)/M 1/ca 12; sustain damage; at the end of the status phase, place 1 infantry from your reinforcements in the systems space area.  
+>
+>Advanced carrier I (carrier): co 3/cm 9/m 1/ca 6
+>
+>spec ops I (infantry): co 1(for 2)/cm 7
+>
+>Race tech
+>
+>Advanced carrier II (upgrade; req. BB): co 3/cm 9/m 2/ca 8; sustain damage
+>
+>spec ops II (upgrade; req. GG): co 1(for 2)/cm 6; After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on your card on a planet you control in your home system.
 
 ![The L1z1x Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1z1x Mindnet")
 
@@ -69,6 +151,33 @@ Brian: Xxcha Kingdom
 
 **Style:** For a player who wants to play a military aggressive style, but without the need to be quite as aggressive as Letnev since you've got good technology and strong Dreadnoughts. 
 
+>Homeworlds: [0.0.0] (5/0)
+>
+>Starting Units: 1 dreadnought; 1 carrier; 3 fighters; 5 infantry; 1 space dock; 1 pds
+>
+>Starting Tech: neural motivator; plasma scoring 
+>
+>Commodities: 2
+>
+>Promissory Note: Cybernetic Enhancements - At the start of your turn - Remove 1 token from the L1Z1X player's strategy pool and return it to his reinforcements. Then, place 1 command token from your reinforcements in your strategy pool. Then, return This card to the L1Z1X player.   
+>
+>Abilities
+>
+>Assimilate: When you gain control of a planet, replace each PDS ans space dock that is on that planet with a matching unit from your reinforcements.  
+>
+>Harrow: After each round of ground combat, your ships in the active system may use there bombardment ability against your opponents ground forces on the planet. 
+>
+>Special units
+
+>[0.0.1] (flagship): co 8/cm 5(x2)/m 1/ca 5; sustain damage; During a space combat, all hits produced by this ship and by your dreadnoughts in this system must be assigned to non-fighter ships, if able. 
+>
+>Super-Dreadnought I (dreadnought): co 4/cm 5/m 1/ca 2; sustain damage; bombardment 5 
+>
+>Race tech
+>
+>Super-Dreadnought II (upgrade; req. BBY): co 4/cm 4/m 2/ca 2; sustain damage; bombardment 5
+>
+>Inheritance Systems (yellow; req. YY): You may exhaust this card and spend 2 resources when you research a technology; ignore all of that technology's prerequisites. 
 
 ![The Mentak Coalition]({{ site.baseurl }}/images/races/Mentak.jpg "The Mentak Coalition")
 
@@ -82,6 +191,31 @@ Brian: Xxcha Kingdom
 
 **Style:** For the player who doesn't mind pissing-off the other players via dirty tricks like stealing trade goods and striking out for aggressive raids with their cruisers (which get a sneak attack before enemy can shoot back).
 
+>Homeworlds: Moll Primus (4/1)
+>
+>Starting Units: 1 carrier; 2 cruisers; 3 fighters; 4 infantry; 1 space dock; 1 pds
+>
+>Starting Tech: sarween tools; plasma scoring 
+>
+>Commodities: 2
+>
+>Promissory Note: Promise of Protection - Action: Place this card faceup in your play area. While this card is in your play area, the Mentak player cannot use his Pillage faction ability against you. If you activate a system that contains 1 or more of the Mentak player's units, return this card to the Mentak player. 
+>
+>Abilities
+>
+>Ambush: At the start of a space combat, you may roll 1 die for each of up to 2 of your cruisers of destroyers in the system. For each result equal or greater than that ship's combat value, produce 1 hit; your opponent  assign it to 1 of his ships
+>
+>Pillage: After 1 of your neighbors gains trade goods or resolves a transaction, if he has 3 or more trade goods, you may take 1 of his trade goods or commodities 
+>
+>Special units
+>
+>Fourth Moon (flag ship): co 8/cm 7(x2)/m 1/ca 3; sustain damage; enemy players ships in this system cannot use sustain damage 
+>
+>Race tech
+>
+>Mirror Computing (yellow; req. YYY): When you spend trade goods, each trade good is worth 2 resources or influence instead of 1. 
+>
+>Salvage Operations (yellow; req. YY): After you win or lose a space combat, gain 1 trade good; if you won the combat, you may also produce 1 ship in that system of any ship type that was destroyed during the combat. 
 
 ![The Sardakk N'orr]({{ site.baseurl }}/images/races/Norr.jpg "The Sardakk N'orr")
 
@@ -95,6 +229,31 @@ Brian: Xxcha Kingdom
 
 **Style:** For the players who likes the idea of swarming the enemy with lots of cheap ships that hit harder than anyone else's ship-for-ship.
 
+>Homeworlds:  Tren’lak (1/0); Quinarra (3/1)
+>
+>Starting Units: 2 carrier; 1 cruiser; 5 infantry; 1 space dock; 1 pds
+>
+>Starting Tech: none
+>
+>Commodities: 3
+>
+>Promissory Note: Tekklar Legion - At the start of an invasion combat: Apply +1 to the result of each of your unit's combat rolls during this combat. If your oppoent is the N'orr player, apply -1 to the result of each of his unit's combat rolls during this combat. Then, return this card to the N'orr player.
+>
+>Abilities
+>
+>Unrelenting: Apply +1 to the result all your unit's combat rolls 
+>
+>Special units
+>
+>C'moran N'orr (flag ship): co 8/cm 6(x2)/m 1/ca 3; sustain damage; Apply +1 to the result off all your ship's combat rolls in this system
+>
+>Exotrireme I (dreadnought): co 4/ cm 5/m 1/ca 1; sustain damage; bombardment 4(x2) 
+>
+>Race tech
+>
+>Exotrireme II (upgrade; req. BBY): co 4/ cm 5/m 2/ca 1; sustain damage; bombardment 4(x2); This unit cannot be destroyed by the "Direct Hit" action cards. After a round of space combat, you may destroy this unit to destroy up to 2 ships in this system. 
+>
+>Valkyrie Particle Wave (red; req. RR): After making combat rolls during a round of ground combat, if your opponent produces 1 or more hits, you produce 1 additional hit.
 
 ![The Universities of Jol'Nar]({{ site.baseurl }}/images/races/Hylar.jpg "The Universities of Jol'Nar")
 
@@ -108,6 +267,33 @@ Brian: Xxcha Kingdom
 
 **Style:** Advancing your technologies will give you a big advantage over other races later in the game.  Lay low and be friendly at the beginning, but once your technological machine is built, it will be tough for other races to withstand your power.
 
+>Homeworlds: Jol (1/2); Nar (2/3)
+>
+>Starting Units: 1 dreadnought; 2 carriers; 1 fighter; 2 infantry; 1 space dock; 2 pds
+>
+>Starting Tech: neural motivator; antimass deflectors; sarween tools; plasma scoring
+>
+>Commodities: 4
+>
+>Promissory Note: Research Agreement - After the Jol-Nar player researches a technology that is not a faction technology: Gain that technology. Then, return this card to the Jol-Nar player.
+>
+>Abilities
+>
+>Fragile: Apply -1 to the result of each of your units combat rolls.
+>
+>Brilliant: When you spend a command token to resolve the secondary ability of the "technology" strategy card, you may resolve the primary ability instead. 
+>
+>Analytical: When you research a technology that is not a unit upgrade technology, you may ignore 1 prerequisite 
+>
+>Special units
+>
+>J.N.S. Hylarim: co 8/cm 6(x2)/m 1/ca 3; sustain damage; When making a combat roll for this ship, each result of 9 or 10, before applying modifiers, produces 2 additional hits
+>
+>Race tech
+>
+>Spatial Conduit Cylinder (blue; req. BB):  You may exhaust this card after you activate a system that contains 1 or more of your units; that system is adjacent to all other systems that contain 1 or more of your units during this activation.
+>
+>E-Res Siphons (yellow; req. YY): After another player activates a system that contains 1 or more of your ships, gain 4 trade goods.
 
 ![The Xxcha Kingdom]({{ site.baseurl }}/images/races/Xxcha.jpg "The Xxcha Kingdom")
 
@@ -121,6 +307,31 @@ Brian: Xxcha Kingdom
 
 **Style:** For someone who prefers political wrangling to brute force, but with a decent stick to beat people with using a defensive military, waiting for that perfect moment to strike.
 
+>Homeworlds: Archon Ren (2/3); Archon Tau (1/1)
+>
+>Starting Units: 1carrier; 2 cruiser; 3 fighters; 4 infantry; 1 space dock; 1 pds
+>
+>Starting Tech: Graviton Laser System
+>
+>Commodities: 4
+>
+>Promissory Note: Political Favor - After an agenda is revealed: Remove 1 token from the Xxcha player's strategy pool and return it to his reinforcments. Then, discard the revealed agenda and reveal 1 agenda from the top of the deck. Player vote on this agenda instead. Then return this card to the Xxcha player. 
+>
+>Abilities
+>
+>Peace Accords: after you resolve the primary or secondary ability of the "Diplomacy" strategy card, you may gain control of 1 planet other then Mecatol Rex that does not contain any units and is in a system that is adjacent to a planet you control.
+>
+>Quash: When an agenda is revealed, you may spend 1 token from your strategy pool to discard that agenda and reveal 1 agenda from the top of the deck. Players vote on this agenda instead. 
+>
+>Special units
+>
+>Loncara (flag ship): co 8/cm 7(x2)/m 1/ca 3) sustain damage; space cannon 5(x3) 
+>
+>Race tech
+>
+>Nullification Field (yellow; req. YY): After another player activates a system that contains 1 or more of your ships, you may exhaust this card and spend 1 token from your strategy pool; immediately end that player's turn.
+>
+>Instinct Training (green; req. G) You may exhaust this card and spend 1 token from your strategy pool when another player plays an action card; cancel that action card.
 
 ![The Embers of Muaat]({{ site.baseurl }}/images/races/Muaat.jpg "The Embers of Muaat")
 
@@ -134,10 +345,35 @@ Brian: Xxcha Kingdom
 
 **Style:** For the cautious player who wants to be left alone in the early game (having a War Sun will have that effect on neighbours), yet able to play with some finesse as the Embers are not considered one of the strongest races.
 
+>Homeworlds: Muaat (4/1)
+>
+>Starting Units_ 1 war sun; 2 fighters; 4 infantry; 1 space dock
+>
+>Starting Tech: plasma scoring
+>
+>Commodities: 4
+>
+>Promissory Note: Fires of the Gashlai - Action: Remove 1 token from the Muaat player's fleet pool and return it to his reinforcements. Then, gain your war sun unit upgrade technology card. Then return this card to the Muaat player.
+>
+>Abilities
+>
+>Star Forge: Action: Spend 1 token form your strategy pool to place either 2 fighters or 1 destroyer from your reinforcements in a system that contain 1 or more of your war suns. 
+>
+>Special units
+>
+>The Inferno: co 8/cm 5(x2)/m 1/ca 3; sustain damage; Action: spend one command counter from your strategy pool to produce 1 cruiser in this ship's system
+>
+>Prototype War Sun I (war sun): co 12/cm 3(x3)/m 1/ca 6; sustain damage; bombardment 3(x3); Other players' units in this system lose the planetary shield ability       
+>
+>Race tech
+>
+>Prototype War Sun II (upgrade; req. RRRY): co 10/cm 3(x3)/m 3/ca 6; sustain damage; bombardment 3(x3); Other players' units in this system lose the planetary shield ability       
+>
+>Magnus Reactor (red; req. RR): your ships can move into supernovas. After 1 or more of your units use production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good. 
 
 ![The Yin Brotherhood]({{ site.baseurl }}/images/races/Yin.jpg "The Yin Brotherhood")
 
-**THE YIN BROTHERHOOD**
+**THE BROTHERHOOD OF YIN**
 
 **In a word:** Warrior Zealots
 
@@ -147,6 +383,31 @@ Brian: Xxcha Kingdom
 
 **Style:** Another race for a very aggressive style of play. Can convert enemies.
 
+>Homeworlds:  Darien (4/4)
+>
+>Starting Units: 2 carriers; 1 destroyer; 4 fighters; 4 infantry; 1 space dock 
+>
+>Starting Tech: Sarween Tools
+>
+>Commodities: 2
+>
+>Promissory Note: Greyfire Mutagen - After a system is activated: the Yin player cannot use faction abilities or faction technology during this tactical action. Then, return this card to the Yin player 
+>
+>Abilities
+>
+>Indoctrination: At the start of a ground coumbat, you may spend 2 influence to repleace on ouf your opponent's participating infantry with 1 infantry from your reinforcements.
+>
+>Devotion: After each space battle round, you may destroy 1 of your cruisers or destroyers to produce 1 hit and assign it to 1 of your opponents ships.  
+>
+>Special units
+>
+>Van Hauge (flag ship): co 8/cm 9(x2)/m 1/ca 3; sustain damage; When this ship is destroyed, destroy all ships in this system
+>
+>Race tech
+>
+>Yin Spinner (green; req. GG): After 1 or more of your units use production, place 1 infantry from your reinforcements on a planet your control in the system.
+>
+>Impulse core (yellow; req. YY): At the start of a space combat, you may destroy 1 of your cruisers or destroyers in the active system to produce 1 hit against your opponent's ships; that hit must be assigned by your opponent to 1 of his non-fighter ships if able. 
 
 ![The Clan of Saar]({{ site.baseurl }}/images/races/Saar.jpg "The Clan of Saar")
 
@@ -162,6 +423,33 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 **Style:** For a player looking to play a subtle and crafty game, utilizing mobility and trade goods to gain influence in the galaxy.
 
+>Homeworlds: Ragh (2/1); Lisis II (1/0)
+>
+>Starting Units: 2 carriers; 1 cruiser; 2 fighters; 4 infantry; 1 space dock
+>
+>Starting Tech: Antimass Deflectors 
+>
+>Commodities: 3
+>
+>Promissory Note: Ragh's Call - After your commit 1 or more units to land on a planet: remove all of the Saar player's ground forces from that planet and place them on a planet controlled by the Saar player. Then, return this card to the Saar player. 
+>
+>Abilities
+>
+>Scavenge: After you took control of a planet gain 1 trade good. 
+>
+>Nomadic: You can score objectives even if you don't control the planets in your home system
+>
+>Special units
+>
+>Son of Ragh (flagship): co 8/cm 5(x2)/m 1/ca 3; sustain damage; anit-fighter barrage 6(x4)
+>
+>Floating Factories I (space dock): m 1/ca 4; production 5; this unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
+>
+>Race tech
+>
+>Chaos Mapping (blue; req. B): Other players cannot activate asteroid fields that contain 1 or more of your ships. At the start of your turn during the action phase, you may produce 1 unit in a system that contains at lest 1 of your units that has production. 
+>
+>Floating Factories II (upgrade; req. YY): m 2/ca 5; production 7; this unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
 
 ![The Naalu Collective]({{ site.baseurl }}/images/races/Naalu.jpg "The Naalu Collective")
 
@@ -175,6 +463,33 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 **Style:** Players with the confidence to go first to subtly dictate the flow and tempo of the game.
 
+>Homeworlds: Maaluuk (0/2); Druaa (3/1)
+>
+>Starting Units: 1 carrier; 1 cruiser; 1 destroyer; 3 fighters; 4 infantry; 1 space dock; 1pds  
+>
+>Starting Tech: neural motivator; sarween tools 
+>
+>Commodities: `3
+>
+>Promissory Note: Gift of Prescience - At the end of the strategy phase: Place this card faceup in your play area and place the Naalu "0" token on your strategy order. The Naalu player cannot use his telepathic faction ability during this game round. Return this card to the Naalu player at the end of the status phase. 
+>
+>Abilities
+>
+>Telepathic: At the end of the strategy phase, place the Naalu "0" token on your strategy card; you are first in initiative order.
+>
+>Foresight: After another player moves ships into a system that contain 1 or more of your ships, you may place 1 token from your strategy pool in an adjacent system that does not contain another player's ships; move your ships from the active system into that system.
+>
+>Special units
+>
+>Matriarch(flagship): co 8/cm 9(x2)/m 1/ca 6; sustain damage; During an invasion in this system, you ma commit fighters to planets as if they were ground forces. After combat, return those units to the space area. 
+>
+>Hybrid crystal fighter (fighter): co 1(for 2)/cm 8/m -
+>
+>Race tech
+>
+>Hybrid Crystal Fighter II (upgrade; req, GB): co 1(for 2)/cm 7/m 2; This unit may move without being transported. Each fighter in excess of your ships' capacity counts as 1/2 of a ship against your fleet pool
+>
+>Neuroglaive (green; req. GGG): After another player activates a system that contains 1 or more of your ships, that player removes 1 token form his fleet pool and returns it to his reinforcements.
 
 ![The Yssaril Tribes]({{ site.baseurl }}/images/races/Yssaril.jpg "The Yssaril Tribes")
 
@@ -188,6 +503,33 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 **Style:** Information junkies and those players who like to play a conniving, cerebral game of cat & mouse.
  
+>Homeworlds: Retillion (2/3); Shalloq (1/2)
+>
+>Starting Units: 2 carriers; 1 cruiser; 2 fighters; 5 infantry; 1 space dock; 1 pds
+>
+>Starting Tech: neural motivator
+>
+>Commodities: 3
+>
+>Promissory Note: Spy Net - At the start of your turn: Look at the Yssaril player's hand of action cards. Choose 1 of those cards and add it to your hand. Then, return this card to the Yssaril player.
+>
+>Abilities
+>
+>Stall Tactics: Action: Discard 1 action card from your hand.
+>
+>Scheming: When you draw 1 or more action cards, draw 1 additional action card. Then, choose and discard 1 action card from your hand
+>
+>Crafty: you can have any number of action cards in your hand. Game effects cannot prevent you from using this ability 
+>
+>Special units
+>
+>Y'sia Y'ssrila (flagship): co 8/cm 5(x2)/m 2/ca 3; sustain damage; This ship can move through systems that contain other players' ships
+>
+>Race tech
+>
+>Mageon Implants (green; req. GGG): Action: Exhaust this card to look at another player's had of action cards. Choose 1 of thouse cards and add it to your hand.
+>
+>Transparasteel Plating (green; req. G): During your turn of the action phase, players that have passed cannot play action cards.
 
 ![The Winnu]({{ site.baseurl }}/images/races/Winnu.jpg "The Winnu")
 
@@ -201,6 +543,31 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 **Style:** Everything centers around controlling Mecatol Rex with this race.
 
+>Homeworlds: Winnu (3/4)
+>
+>Starting Units: 1 carrier; 1 cruiser; 2 fighters; 2 infantry; 1 space dock; 1 pds
+>
+>Starting Tech: Choose any 1 technology that has no prerequisites. 
+>
+>Commodities: 3
+>
+>Promissory Note: Acquiescence - At the end of the strategy phase: Exchange 1 of your strategy cards with the strategy card that was chosen by the Winnu player. Then return this card to the Winnu player.
+>
+>Abilities
+>
+>Blood Ties: You do not have to spend influence to remove the custodians token form Mecatol Rex.
+>
+>Reclamation: After you resolve a tactical action during which you gaind control of Mecatol Rex, you may place 1 PDS and 1 space dock from your reinforcements on Mecatol Rex.
+>
+>Special units
+>
+>Salai Sai Corian (flagship): co 8/cm 7/m 1/ca 3; sustain damage; When this unit makes a combat roll, it rolls a number of dice equal to the number of your opponent's non-fighter ships in this system 
+>
+>Race tech
+>
+>Lazax Gate Folding (blue; req. BB): During your tactical actions, if you do not control Mecatol Rex, treat its system as if it contains both an alpha and beta wormhole; Action: If you control Mecatol Rex, exhaust this card to place 1 infantry from your reinforcements on Mecatol Rex.  
+>
+>Hegemonic Trade Policy (yellow; req. YY): Exhaust this card when 1 or more of you units use Production; swap the resource and influence values of 1 planet you control until the end of your turn.
 
 ![The Nekro Virus]({{ site.baseurl }}/images/races/Nekro.jpg "The Nekro Virus")
 
@@ -214,6 +581,33 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 **Style:** Assimilate or be destroyed
 
+>Homeworlds: Mordai II (4/0)
+>
+>Starting Units: 1 dreadnought; 1 carrier; 1 cruiser; 2 fighters; 2 infantry; 1 space dock 
+>
+>Starting Tech: daxcive animators; valefar assimilator X; valefar assimilator Y
+>
+>Commodities: 3
+>
+>Promissory Note: Antivirus - At the start of a combat: Place this card faceup in your play area. while this card is in your play area, the Nekro player cannot use his Technological Singularity faction ability against you. If you active a system that contains 1 or more of the Nekro player's units return this card to the Necro player. 
+>
+>Abilities
+>
+>Galactic Thread: You can not vote on agendas. Once per agenda phase, after the agenda is revealed, you may aloud predict the outcome of that agenda. If your prediction is correct gain 1 technology that is owned by a player who voted how you predicted. 
+>
+>Technological Singularity: Once per combat, after 1 of your opponent's units is destroyed, you may gain 1 technology that is owned by that player.
+>
+>Propagation: You cannot research technology. When you would research technology, gain 3 command token instead.   
+>
+>Special units
+>
+>The Alastor: co 8/cm 5(x2)/m 1/ca 3; sustain damage; At the start of a space combat, choose any number of ground forces in this system to participate in that combat as if they were ships. 
+>
+>Race tech
+>
+>Valfar Assimilator X (colorless; req. -) When you would gain another player's technology using 1 of your faction abilities, you may place the "X" assimilator token on a faction technology owned by that player instead. While that token is on a technology, this card gains that technology's text. You cannot place an assimilator token on technology that already has an assimilator token. 
+>
+>Valfar Assimilator Y (colorless; req. -) When you would gain another player's technology using 1 of your faction abilities, you may place the "Y" assimilator token on a faction technology owned by that player instead. While that token is on a technology, this card gains that technology's text. You cannot place an assimilator token on technology that already has an assimilator token.
 
 ![The Ghosts of Cruess]({{ site.baseurl }}/images/races/Ghosts.jpg "The Ghosts of Cruess")
 
@@ -227,6 +621,33 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 **Style:** The Ghosts of Creuss are a very mobile race as they can maniuplate worm-holes or the areas around them to their needs.
 
+>Homeworlds: Creuss (4/2); delta wormhole
+>
+>Starting Units: 1 carrier; 2 destroyers; 2 fighters; 4 infantry; 1 space dock
+>
+>Starting Tech: gravity dirve
+>
+>Commodities: 4
+>
+>Promissory Note: Creuss Iff - At the start of your turn during the action phase: Place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships. Then, return this card to the Creuss player.
+>
+>Abilities
+>
+>Quantum Entanglement: You treat all systems that contain either an alpha or beta wormhole as adjacent to each other. Game effects cannot prevent you from using this ability. 
+>
+>Slipstream: During your tactical actions, apply +1 to the move value of each of your ships that start its movement in your home system or in a system that contain either an alpha or beta wormhole.
+>
+>Creuss Gate: When you create the game board, place the Creuss Gate where your home system would normally be placed. Then, place your home system in your play area. 
+>
+>Special units
+>
+>Hil Colish (flag ship): co 8/cm 5/m 1/ca 3; sustain damage; this ship's system contains a delta wormhole. During movement, this ship may move before or after your other ships
+>
+>Race tech
+>
+>Wormhole Generator (blue; req. BB): At the start of the status phase, place or move a Creuss wormhole token into either a system that contains a planet you control or a non home system that does not contain another player's ships
+>
+>Dimensional Splicer (red; req. R): At the start of a space combat in a system that contains a wormhole and 1 or more of your ships, you may produce 1 hit and assign it to 1 of you opponent's ships.
 
 ![The Arborec]({{ site.baseurl }}/images/races/Arborec.jpg "The Arborec")
 
@@ -240,6 +661,31 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 **Style:** Spread amongst the galaxy like the weed they are
 
+>Homeworlds: Nestphar (3/2)
+>
+>Starting Units: 1 carrier; 1 cruiser; 2 fighters; 4 infantry; 1 space dock; 1 pds
+>
+>Starting Tech: magen defense grid
+>
+>Commodities: 3
+>
+>Promissory Note: Stymie - Action: Place this card faceup in your play area. While this card is in your play area, the Arborec player cannot produce units in or adjacent to non-home system that contain 1 or more of your units. If your activate a system that contains 1 or more of Arborec player's units, return this card to the Arborec player. 
+>
+>Abilities
+>
+>Your space docks cannot produce infantry. At the start of the status phase, place 1 infantry form your reinforcements on any planet you control 
+>
+>Special units
+>
+>Duha Menaimon (flagship): co 8/cm 7(x2)/m 1/ca 5; sustain damage; After you activate this system, you may produce up to 5 units in this system. 
+>
+>Letani Warrior I (infantry): co 1(for 2)/cm 8; production 1
+>
+>Race tech
+>
+>Letani Warrior II (upgrade; req. GG): co 1(for 2)/cm 7; production 2; After this unit is destroyed, roll 1 die. If the result is 6 or greater, place the unit on this card. At the start of your next turn, place each unit that is on this card on a planet you control in your home system. 
+>
+>Bioplasmosis (green; req. GG): At the end of your status phase, you may remove any number of infantry from planets you control and place them on 1 or more planets you control in the same or adjacent systems. 
 
 
 **Strategy:**
