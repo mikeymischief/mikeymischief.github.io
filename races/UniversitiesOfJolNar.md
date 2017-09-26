@@ -27,7 +27,7 @@ permalink: /races/UniversitiesOfJolNar/
 >
 >Promissory Note: Research Agreement - After the Jol-Nar player researches a technology that is not a faction technology: Gain that technology. Then, return this card to the Jol-Nar player.
 >
->Abilities
+>**Abilities**
 >
 >Fragile: Apply -1 to the result of each of your units combat rolls.
 >
@@ -35,7 +35,7 @@ permalink: /races/UniversitiesOfJolNar/
 >
 >Analytical: When you research a technology that is not a unit upgrade technology, you may ignore 1 prerequisite 
 >
->Special units
+>**Special units**
 >
 >J.N.S. Hylarim: cost 8, combat 6(x2), movement 1, capacity 3; 
 >>sustain damage; 
