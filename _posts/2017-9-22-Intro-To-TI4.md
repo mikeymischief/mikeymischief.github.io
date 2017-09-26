@@ -31,6 +31,7 @@ Brian: Xxcha Kingdom
 
 **Style:** For the player militarily aggressive to the maximum with little regard for politics and trade (except maybe by coercion).
 
+{% section %}
 >Homeworlds:  Wren Terra (2/1); Arc Prime (4/0)
 >
 >Starting Units: 1 dreadnought; 1 carrier; 1 destroyer; 1 fighter; 3 infantry; 1 space dock
@@ -58,6 +59,7 @@ Brian: Xxcha Kingdom
 >L4 Disruptors (yellow; req. Y): During an invasion, units cannot us space cannon against your units. 
 >
 >Non-Euclidean Shielding (Red; req. RR): When 1 of your units uses sustain damage, cancel 2 hits instead of 1.
+{% endsection %}
 
 ![The Emirates of Hacan]({{ site.baseurl }}/images/races/Hacan.jpg "The Emirates of Hacan")
 
