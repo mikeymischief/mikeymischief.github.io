@@ -17,31 +17,31 @@ permalink: /races/BaronyOfLetnev/
 
 **Style:** For the player militarily aggressive to the maximum with little regard for politics and trade (except maybe by coercion).
 
->Homeworlds:  Wren Terra (2/1); Arc Prime (4/0)
+>**Homeworlds**:  Wren Terra (2/1); Arc Prime (4/0)
 >
->Starting Units: 1 dreadnought; 1 carrier; 1 destroyer; 1 fighter; 3 infantry; 1 space dock
+>**Starting Units**: 1 dreadnought; 1 carrier; 1 destroyer; 1 fighter; 3 infantry; 1 space dock
 >
->Starting Tech: Antimass Deflectors; Plasma Scoring
+>**Starting Tech**: Antimass Deflectors; Plasma Scoring
 >
->Commodities: 2
+>**Commodities**: 2
 >
->Promissory Note: War Funding - At the start of a round of space combat: The Letnev player loses 2 trade goods. During this combat round, reroll any number of your dice. Then, return this card to the Letnev player
+>**Promissory Note**: War Funding - At the start of a round of space combat: The Letnev player loses 2 trade goods. During this combat round, reroll any number of your dice. Then, return this card to the Letnev player
 >
 >**Abilities**
 >
->Munitions Reserves: At the start of each round space combat, you may spend 2 trade goods; you may reroll any number of your dice during that combat. 
+>_Munitions Reserves_: At the start of each round space combat, you may spend 2 trade goods; you may reroll any number of your dice during that combat. 
 >
->Armada: The maximum number of non-fighter ships you can have in each system is equal to 2 more than the number of tokens in your fleet pool.
+>_Armada_: The maximum number of non-fighter ships you can have in each system is equal to 2 more than the number of tokens in your fleet pool.
 >
 >**Special units**
 >
->Arc Secundus (flagship): cost 8, combat 5(x2), movement 1, capacity 3; 
+>_Arc Secundus_ (flagship): cost 8, combat 5(x2), movement 1, capacity 3; 
 >>sustain damage; bombardment 5(x3); 
 >>
 >>Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship
 >
->Race tech
+>**Race tech**
 >
->L4 Disruptors (yellow; req. Y): During an invasion, units cannot us space cannon against your units. 
+>_L4 Disruptors_ (yellow; req. Y): During an invasion, units cannot us space cannon against your units. 
 >
->Non-Euclidean Shielding (Red; req. RR): When 1 of your units uses sustain damage, cancel 2 hits instead of 1.
+>_Non-Euclidean Shielding_ (Red; req. RR): When 1 of your units uses sustain damage, cancel 2 hits instead of 1.
