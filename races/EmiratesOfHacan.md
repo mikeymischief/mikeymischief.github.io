@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Emirates of Hacan
-permalink: /EmiratesOfHacan/
+permalink: /races/EmiratesOfHacan/
 ---
 
 ## THE EMIRATES OF HACAN
