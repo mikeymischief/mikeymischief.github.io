@@ -4,6 +4,8 @@ title: Emirates of Hacan
 permalink: /races/EmiratesOfHacan/
 ---
 
+![The Emirates of Hacan]({{ site.baseurl }}/images/races/Hacan.jpg "The Emirates of Hacan")
+
 ## THE EMIRATES OF HACAN
 
 **In a word:** Mercantilists
