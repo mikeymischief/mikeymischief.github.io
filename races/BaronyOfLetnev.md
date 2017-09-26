@@ -27,13 +27,13 @@ permalink: /races/BaronyOfLetnev/
 >
 >Promissory Note: War Funding - At the start of a round of space combat: The Letnev player loses 2 trade goods. During this combat round, reroll any number of your dice. Then, return this card to the Letnev player
 >
->Abilities
+>**Abilities**
 >
 >Munitions Reserves: At the start of each round space combat, you may spend 2 trade goods; you may reroll any number of your dice during that combat. 
 >
 >Armada: The maximum number of non-fighter ships you can have in each system is equal to 2 more than the number of tokens in your fleet pool.
 >
->Special units
+>**Special units**
 >
 >Arc Secundus (flagship): cost 8, combat 5(x2), movement 1, capacity 3; 
 >>sustain damage; bombardment 5(x3); 
