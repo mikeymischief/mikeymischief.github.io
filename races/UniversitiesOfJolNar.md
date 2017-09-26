@@ -4,7 +4,7 @@ title: Universities of Jol-Nar
 comments: true
 ---
 
-THE UNIVERSITIES OF JOL’NAR
+##THE UNIVERSITIES OF JOL'NAR
 
 In a word: Technologists
 
