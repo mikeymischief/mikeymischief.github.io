@@ -21,7 +21,7 @@ Brian: Xxcha Kingdom
 
 ![The Barony of Letnev]({{ site.baseurl }}/images/races/Letnev.jpg "The Barony of Letnev")
 
-**THE BARONY OF LETNEV**
+##THE BARONY OF LETNEV
 
 **In a word:** Military industrialists
 
@@ -61,7 +61,7 @@ Brian: Xxcha Kingdom
 
 ![The Emirates of Hacan]({{ site.baseurl }}/images/races/Hacan.jpg "The Emirates of Hacan")
 
-**THE EMIRATES OF HACAN**
+##THE EMIRATES OF HACAN
 
 **In a word:** Mercantilists
 
@@ -103,7 +103,7 @@ Brian: Xxcha Kingdom
 
 ![The Federation of Sol]({{ site.baseurl }}/images/races/Sol.jpg "The Federation of Sol")
 
-**THE FEDERATION OF SOL**
+##THE FEDERATION OF SOL
 
 **In a word:** Colonizers
 
@@ -147,7 +147,7 @@ Brian: Xxcha Kingdom
 
 ![The L1z1x Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1z1x Mindnet")
 
-**THE L1Z1X MINDNET**
+##THE L1Z1X MINDNET
 
 **In a Word:** Warlike cyborgs
 
@@ -189,7 +189,7 @@ Brian: Xxcha Kingdom
 
 ![The Mentak Coalition]({{ site.baseurl }}/images/races/Mentak.jpg "The Mentak Coalition")
 
-**THE MENTAK COALITION**
+##THE MENTAK COALITION
 
 **In a word:** Space pirates
 
@@ -229,7 +229,7 @@ Brian: Xxcha Kingdom
 
 ![The Sardakk N'orr]({{ site.baseurl }}/images/races/Norr.jpg "The Sardakk N'orr")
 
-**THE SARDAKK N'ORR**
+##THE SARDAKK N'ORR
 
 **In a word:** Warrior bugs
 
@@ -272,7 +272,7 @@ Brian: Xxcha Kingdom
 
 ![The Universities of Jol'Nar]({{ site.baseurl }}/images/races/Hylar.jpg "The Universities of Jol'Nar")
 
-**THE UNIVERSITIES OF JOL'NAR**
+##THE UNIVERSITIES OF JOL'NAR
 
 **In a word:** Technologists 
 
@@ -314,7 +314,7 @@ Brian: Xxcha Kingdom
 
 ![The Xxcha Kingdom]({{ site.baseurl }}/images/races/Xxcha.jpg "The Xxcha Kingdom")
 
-**THE XXCHA KINGDOM**
+##THE XXCHA KINGDOM
 
 **In a Word:** Politicians
 
@@ -353,7 +353,7 @@ Brian: Xxcha Kingdom
 
 ![The Embers of Muaat]({{ site.baseurl }}/images/races/Muaat.jpg "The Embers of Muaat")
 
-**THE EMBERS OF MUAAT**
+##THE EMBERS OF MUAAT
 
 **In a word:** Fire people
 
@@ -393,7 +393,7 @@ Brian: Xxcha Kingdom
 
 ![The Yin Brotherhood]({{ site.baseurl }}/images/races/Yin.jpg "The Yin Brotherhood")
 
-**THE BROTHERHOOD OF YIN**
+##THE BROTHERHOOD OF YIN
 
 **In a word:** Warrior Zealots
 
@@ -433,7 +433,7 @@ Brian: Xxcha Kingdom
 
 ![The Clan of Saar]({{ site.baseurl }}/images/races/Saar.jpg "The Clan of Saar")
 
-**THE CLAN OF SAAR**
+##THE CLAN OF SAAR
 
 **In a word:** Warrior Space gypsies 
 
@@ -478,7 +478,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 ![The Naalu Collective]({{ site.baseurl }}/images/races/Naalu.jpg "The Naalu Collective")
 
-**THE NAALU COLLECTIVE**
+##THE NAALU COLLECTIVE
 
 **In a word:** Telepathic Snakes
 
@@ -521,7 +521,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 ![The Yssaril Tribes]({{ site.baseurl }}/images/races/Yssaril.jpg "The Yssaril Tribes")
 
-**THE YSSARIL TRIBES**
+##THE YSSARIL TRIBES
 
 **In a word:** Sneaky chameleon-like goblins
 
@@ -563,7 +563,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 ![The Winnu]({{ site.baseurl }}/images/races/Winnu.jpg "The Winnu")
 
-**THE WINNU**
+##THE WINNU
 
 **In a word:** Custodians of the ancient empire
 
@@ -603,7 +603,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 ![The Nekro Virus]({{ site.baseurl }}/images/races/Nekro.jpg "The Nekro Virus")
 
-**THE NEKRO VIRUS**
+##THE NEKRO VIRUS
 
 **In a word:** Psychotic Machines
 
@@ -645,7 +645,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 ![The Ghosts of Cruess]({{ site.baseurl }}/images/races/Ghosts.jpg "The Ghosts of Cruess")
 
-**THE GHOSTS OF CREUSS**
+##THE GHOSTS OF CREUSS
 
 **In a word:** worm-hole beings of energy and light
 
@@ -687,7 +687,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 ![The Arborec]({{ site.baseurl }}/images/races/Arborec.jpg "The Arborec")
 
-**THE ARBOREC**
+##THE ARBOREC
 
 **In a word:** Sentient plants
 
