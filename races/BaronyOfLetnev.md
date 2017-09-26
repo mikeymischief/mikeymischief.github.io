@@ -1,3 +1,10 @@
+---
+layout: default
+title: Barony Of Letnev
+comments: true
+permalink: /races/BaronyOfLetnev/
+---
+
 ![The Barony of Letnev]({{ site.baseurl }}/images/races/Letnev.jpg "The Barony of Letnev")
 
 ## THE BARONY OF LETNEV
