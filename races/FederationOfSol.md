@@ -18,34 +18,35 @@ permalink: /races/FederationOfSol/
 
 **Style:** For the player who isn't entirely sure what his style is, or who likes to be a jack-of-all-trades; well-rounded, flexible, and adaptable.
 
->Homeworlds: Jord (4/2)
+>**Homeworlds**: Jord (4/2)
 >
->Starting Units: 2 carriers; 1 destroyer; 3 fighters; 5 infantry; 1 space dock
+>**Starting Units**: 2 carriers; 1 destroyer; 3 fighters; 5 infantry; 1 space dock
 >
->Starting Tech: Neural Motivator; Anitmass Deflector 
+>**Starting Tech**: Neural Motivator; Anitmass Deflector 
 >
->Commodities: 4
+>**Commodities**: 4
 >
->Promissory Note: Military Support - At the start of the Sol player's turn: Remove 1 token from the Sol player's strategy pool, if able, and return it to his reinforcements. Then, you may place 2 infantry from your reinforcements on any planet your control. Then, return this card to the Sol player. 
+>**Promissory Note**: _Military Support_ - At the start of the Sol player's turn: Remove 1 token from the Sol player's strategy pool, if able, and return it to his reinforcements. Then, you may place 2 infantry from your reinforcements on any planet your control. Then, return this card to the Sol player. 
 >
 >**Abilities**
 >
->Orbital Drop: ACTION: Spend 1 token from your strategy pool to place 2 infantry from your reinfrocements on 1 planet you control. 
+>_Orbital Drop_: ACTION: Spend 1 token from your strategy pool to place 2 infantry from your reinfrocements on 1 planet you control. 
 >
->Versatile: when you gain command token during the status phase, gain 1 additional command token. 
+>_Versatile_: when you gain command token during the status phase, gain 1 additional command token. 
 >
 >**Special units**
 >
->Genesis (flagship): cost 8, combat 5(x2), movement 1, capacity 12; 
+>_Genesis_ (flagship): cost 8, combat 5(x2), movement 1, capacity 12; 
 >>sustain damage; 
+>>
 >>At the end of the status phase, place 1 infantry from your reinforcements in the systems space area.  
 >
->Advanced carrier I (carrier): co 3/cm 9/m 1/ca 6
+>_Advanced carrier I_ (carrier): co 3/cm 9/m 1/ca 6
 >
->Spec Ops I (infantry): co 1(for 2)/cm 7
+>_Spec Ops I_ (infantry): co 1(for 2)/cm 7
 >
->Race tech
+>**Race tech**
 >
->Advanced carrier II (upgrade; req. BB): co 3/cm 9/m 2/ca 8; sustain damage
+>_Advanced carrier II_ (upgrade; req. BB): co 3/cm 9/m 2/ca 8; sustain damage
 >
->Spec Ops II (upgrade; req. GG): co 1(for 2)/cm 6; After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on your card on a planet you control in your home system.
+>_Spec Ops II_ (upgrade; req. GG): co 1(for 2)/cm 6; After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on your card on a planet you control in your home system.
