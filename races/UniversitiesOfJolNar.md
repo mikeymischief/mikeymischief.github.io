@@ -2,6 +2,7 @@
 layout: post
 title: Universities of Jol-Nar
 comments: true
+permalink: /races/UniversitiesOfJolNar/
 ---
 
 ##THE UNIVERSITIES OF JOL'NAR
