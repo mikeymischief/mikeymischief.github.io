@@ -36,6 +36,7 @@ permalink: /races/EmiratesOfHacan/
 >
 >Wrath of Kenara: cost 8, combat 7(x2), movement 1, capacity 3; 
 >>sustain damage; 
+>>
 >>After you roll a die during a space combat in this system, you may spend 1 trade good to apply +1 to the result. 
 >
 >Race tech
