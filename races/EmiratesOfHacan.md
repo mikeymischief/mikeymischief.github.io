@@ -27,7 +27,7 @@ permalink: /races/EmiratesOfHacan/
 >
 >Promissory Note: Trade Convoy - Action: Place this card faceup in your play area. While this card is in your play area, you may negotiate transactions with players who are not your neighbor. If your activate a system that contains 1 or more of the hacans player units , return this card to the Hacan player. 
 >
->Abilities
+>**Abilities**
 >
 >Masters of trade: You do not have to spend command token to resolve the secondary ability of the "trade" strategy card.
 >
@@ -35,7 +35,7 @@ permalink: /races/EmiratesOfHacan/
 >
 >Arbiters: When you are negotiating transactions, action cards can be exchanged as part of that transaction 
 >
->Special units
+>**Special units**
 >
 >Wrath of Kenara: cost 8, combat 7(x2), movement 1, capacity 3; 
 >>sustain damage; 
