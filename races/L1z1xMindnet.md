@@ -4,6 +4,7 @@ title: L1z1x Mindnet
 author: mikey
 comments: true
 permalink: /races/L1z1xMindnet/
+---
 
 ![The L1z1x Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1z1x Mindnet")
 
@@ -36,6 +37,7 @@ permalink: /races/L1z1xMindnet/
 >**Special units**
 >[0.0.1] (flagship): cost 8, combat 5(x2), movement 1, capacity 5; 
 >>sustain damage; 
+>>
 >>During a space combat, all hits produced by this ship and by your dreadnoughts in this system must be assigned to non-fighter ships, if able. 
 >
 >Super-Dreadnought I (dreadnought): co 4/cm 5/m 1/ca 2; sustain damage; bombardment 5 
