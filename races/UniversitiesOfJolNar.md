@@ -1,3 +1,9 @@
+---
+layout: post
+title: Universities of Jol-Nar
+comments: true
+---
+
 THE UNIVERSITIES OF JOL’NAR
 
 In a word: Technologists
