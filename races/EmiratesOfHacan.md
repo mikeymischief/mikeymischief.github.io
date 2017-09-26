@@ -17,33 +17,33 @@ permalink: /races/EmiratesOfHacan/
 
 **Style:** Master of trade. For the player who wants to forge an economic powerhouse, doing lots of wheeling-and-dealing on the diplomatic stage, but still nothing to sniff at warfare-wise, since all that filthy lucre can be used to build massive fleets. 
 
->Homeworlds: Arretze (2/0); Hercant (1/1); Kamdorn (0/1)
+>**Homeworlds**: Arretze (2/0); Hercant (1/1); Kamdorn (0/1)
 >
->Starting Units: 2 carriers; 1 cruiser; 2 fighters; 4 infantry; 1 space dock
+>**Starting Units**: 2 carriers; 1 cruiser; 2 fighters; 4 infantry; 1 space dock
 >
->Starting Tech: Antimass deflectors; sarween tools
+>**Starting Tech**: Antimass deflectors; sarween tools
 >
->Commodities: 6
+>**Commodities**: 6
 >
->Promissory Note: Trade Convoy - Action: Place this card faceup in your play area. While this card is in your play area, you may negotiate transactions with players who are not your neighbor. If your activate a system that contains 1 or more of the hacans player units , return this card to the Hacan player. 
+>**Promissory Note**: Trade Convoy - Action: Place this card faceup in your play area. While this card is in your play area, you may negotiate transactions with players who are not your neighbor. If your activate a system that contains 1 or more of the hacans player units , return this card to the Hacan player. 
 >
 >**Abilities**
 >
->Masters of trade: You do not have to spend command token to resolve the secondary ability of the "trade" strategy card.
+>_Masters of trade_: You do not have to spend command token to resolve the secondary ability of the "trade" strategy card.
 >
->Guild ships: You can negotiate transactions with players who are not your neighbor.
+>_Guild ships_: You can negotiate transactions with players who are not your neighbor.
 >
->Arbiters: When you are negotiating transactions, action cards can be exchanged as part of that transaction 
+>_Arbiters_: When you are negotiating transactions, action cards can be exchanged as part of that transaction 
 >
 >**Special units**
 >
->Wrath of Kenara: cost 8, combat 7(x2), movement 1, capacity 3; 
+>_Wrath of Kenara_: cost 8, combat 7(x2), movement 1, capacity 3; 
 >>sustain damage; 
 >>
 >>After you roll a die during a space combat in this system, you may spend 1 trade good to apply +1 to the result. 
 >
->Race tech
+>**Race tech**
 >
->Quantum Datahub Node (yellow; req. YYY): At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods. If you do, give 1 of your strategy cards to that player and take 1 of his strategy cards.  
+>_Quantum Datahub Node_ (yellow; req. YYY): At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods. If you do, give 1 of your strategy cards to that player and take 1 of his strategy cards.  
 >
->Production Biomes (green; req. GG): Action: Exhaust this card and spend 1 token from your strategy pool to gain 4 trade goods and choose 1 other player; that player gains 2 trade goods. 
+>_Production Biomes_ (green; req. GG): Action: Exhaust this card and spend 1 token from your strategy pool to gain 4 trade goods and choose 1 other player; that player gains 2 trade goods. 
