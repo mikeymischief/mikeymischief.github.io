@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: Barony Of Letnev
 comments: true
 permalink: /races/BaronyOfLetnev/
