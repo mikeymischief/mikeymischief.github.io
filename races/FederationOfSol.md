@@ -28,13 +28,13 @@ permalink: /races/FederationOfSol/
 >
 >Promissory Note: Military Support - At the start of the Sol player's turn: Remove 1 token from the Sol player's strategy pool, if able, and return it to his reinforcements. Then, you may place 2 infantry from your reinforcements on any planet your control. Then, return this card to the Sol player. 
 >
->Abilities
+>**Abilities**
 >
 >Orbital Drop: ACTION: Spend 1 token from your strategy pool to place 2 infantry from your reinfrocements on 1 planet you control. 
 >
 >Versatile: when you gain command token during the status phase, gain 1 additional command token. 
 >
->Special units
+>**Special units**
 >
 >Genesis (flagship): cost 8, combat 5(x2), movement 1, capacity 12; 
 >>sustain damage; 
