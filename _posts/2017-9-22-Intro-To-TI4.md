@@ -59,12 +59,6 @@ Brian: Xxcha Kingdom
 >
 >Non-Euclidean Shielding (Red; req. RR): When 1 of your units uses sustain damage, cancel 2 hits instead of 1.
 
-{% section %}
-
-YO MAH MAN
-
-{% endsection %}
-
 ![The Emirates of Hacan]({{ site.baseurl }}/images/races/Hacan.jpg "The Emirates of Hacan")
 
 ## THE EMIRATES OF HACAN
