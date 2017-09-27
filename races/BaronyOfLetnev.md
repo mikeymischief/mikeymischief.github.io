@@ -33,14 +33,14 @@ permalink: /races/BaronyOfLetnev/
 >
 >_Armada_: The maximum number of non-fighter ships you can have in each system is equal to 2 more than the number of tokens in your fleet pool.
 >
->**Special units**
+>**Special Units**
 >
 >_Arc Secundus_ (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; _Bombardment_ 5(x3); 
 >>
 >>Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship.
 >
->**Race tech**
+>**Race Technology**
 >
 >_L4 Disruptors_ (yellow; req. Y): During an invasion, units cannot us space cannon against your units. 
 >
