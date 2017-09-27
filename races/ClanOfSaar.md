@@ -10,7 +10,7 @@ permalink: /races/ClanOfSaar/
 
 ## THE CLAN OF SAAR
 
-**In a word:** Warrior Space gypsies 
+**In a word:** Warrior Space Gypsies 
 
 **Background:** Saar is believed to be the first race to begin galactic exploration outside of the Core. It is unknown if they began exploration out of need or curiousity but it is known that they spread their resources too thin in exploration and were almost brought to extinction by other races. Having no true planet to call home, the Clan of Saar reside on two large asteroids where they have begun to pull the remnants of their species to gather. Being the primary race responsible for their near extinction, the Clan of Saar hates Sardakk N'Orr and seek to weaken them as often as possible.
 
@@ -22,7 +22,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 
 >**Homeworlds**: Ragh (2/1); Lisis II (1/0)
 >
->**Starting Units**: 2 carriers; 1 cruiser; 2 fighters; 4 infantry; 1 space dock
+>**Starting Units**: 2 Carriers; 1 Cruiser; 2 Fighters; 4 Infantry; 1 Space Dock
 >
 >**Starting Tech**: _Antimass Deflectors_
 >
@@ -38,15 +38,15 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >**Special units**
 >
->_Son of Ragh_ (flagship): cost 8, combat 5(x2), movemtn 1, capacity 3; 
+>_Son of Ragh_ (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; _Anti-fighter Barrage_ 6(x4);
 >
->_Floating Factories I_ (space dock): movement 1, capacity 4; production 5; 
->>This unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
+>_Floating Factories I_ (space dock): Movement 1, Capacity 4; Production 5; 
+>>This unit is placed in a space area, instead of a planet. This unit can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
 >
 >**Race Technology**
 >
 >_Chaos Mapping_ (blue; req. B): Other players cannot activate asteroid fields that contain 1 or more of your ships. At the start of your turn during the action phase, you may produce 1 unit in a system that contains at lest 1 of your units that has production. 
 >
->_Floating Factories II_ (upgrade; req. YY): movement 2, capacity 5; production 7; 
+>_Floating Factories II_ (upgrade; req. YY): Movement 2, Capacity 5; Production 7; 
 >>This unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
