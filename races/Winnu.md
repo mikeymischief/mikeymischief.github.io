@@ -20,7 +20,7 @@ permalink: /races/Winnu/
 
 >**Homeworlds**: Winnu (3/4)
 >
->**Starting Units**: 1 carrier; 1 cruiser; 2 fighters; 2 infantry; 1 space dock; 1 pds
+>**Starting Units**: 1 Carrier; 1 Cruiser; 2 Fighters; 2 Infantry; 1 Space Dock; 1 PDS
 >
 >**Starting Tech**: Choose any 1 technology that has no prerequisites. 
 >
@@ -36,8 +36,8 @@ permalink: /races/Winnu/
 >
 >**Special Units**
 >
->_Salai Sai Corian_ (flagship): cost 8, combat 7, movement 1, capacity 3; 
->>sustain damage;
+>_Salai Sai Corian_ (Flagship): Cost 8, Combat 7, Movement 1, Capacity 3; 
+>>_Sustain Damage_;
 >>
 >>When this unit makes a combat roll, it rolls a number of dice equal to the number of your opponent's non-fighter ships in this system 
 >
