@@ -22,7 +22,7 @@ permalink: /races/FederationOfSol/
 >
 >**Starting Units**: 2 carriers; 1 destroyer; 3 fighters; 5 infantry; 1 space dock
 >
->**Starting Tech**: Neural Motivator; Anitmass Deflector 
+>**Starting Tech**: _Neural Motivator_; _Anitmass Deflector_
 >
 >**Commodities**: 4
 >
@@ -37,16 +37,20 @@ permalink: /races/FederationOfSol/
 >**Special units**
 >
 >_Genesis_ (flagship): cost 8, combat 5(x2), movement 1, capacity 12; 
->>sustain damage; 
+>>_Sustain Damage_; 
 >>
 >>At the end of the status phase, place 1 infantry from your reinforcements in the systems space area.  
 >
->_Advanced carrier I_ (carrier): co 3/cm 9/m 1/ca 6
+>_Advanced carrier I_ (carrier): cost 3, combat 9, movement 1, capacity 6;
 >
->_Spec Ops I_ (infantry): co 1(for 2)/cm 7
+>_Spec Ops I_ (infantry): cost 1 (for 2), combat 7;
 >
 >**Race tech**
 >
->_Advanced carrier II_ (upgrade; req. BB): co 3/cm 9/m 2/ca 8; sustain damage
+>_Advanced carrier II_ (upgrade; req. BB): cost 3, combat 9, movement 2, capacity 8; 
 >
->_Spec Ops II_ (upgrade; req. GG): co 1(for 2)/cm 6; After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on your card on a planet you control in your home system.
+>_Sustain Damage_
+>
+>_Spec Ops II_ (upgrade; req. GG): cost 1 (for 2), combat 6; 
+>
+>After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on your card on a planet you control in your home system.
