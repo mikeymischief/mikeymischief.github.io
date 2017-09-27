@@ -10,7 +10,7 @@ permalink: /races/SardakkNorr/
 
 ## THE SARDAKK N'ORR
 
-**In a word:** Warrior bugs
+**In a word:** Warrior Bugs
 
 **Background:** Repugnant insectoids who inhabit massive skyscrapers on their crowded homeworlds surrounded by great network of orbital space stations and massive complements of fleet units.
 
@@ -20,7 +20,7 @@ permalink: /races/SardakkNorr/
 
 >**Homeworlds**:  Tren’lak (1/0); Quinarra (3/1)
 >
->**Starting Units**: 2 carrier; 1 cruiser; 5 infantry; 1 space dock; 1 pds
+>**Starting Units**: 2 Carrier; 1 Cruiser; 5 Infantry; 1 Space Dock; 1 PDS
 >
 >**Starting Tech**: None
 >
@@ -32,19 +32,19 @@ permalink: /races/SardakkNorr/
 >
 >_Unrelenting_: Apply +1 to the result all your unit's combat rolls
 >
->**Special units**
+>**Special Units**
 >
->_C'moran N'orr_ (flag ship): cost 8, combat 6(x2), movement 1, capacity 3; 
+>_C'moran N'orr_ (Flagship): Cost 8, Combat 6(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_;
 >>
->>Apply +1 to the result off all your ship's combat rolls in this system
+>>Apply +1 to the result off all your ship's combat rolls in this system.
 >
->_Exotrireme I_ (dreadnought): cost 4, combat 5, movement 1, capacity 1; 
+>_Exotrireme I_ (Dreadnought): Cost 4, Combat 5, Movement 1, Capacity 1; 
 >>_Sustain Damage_; _Bombardment_ 4(x2) 
 >
->**Race tech**
+>**Race Technology**
 >
->_Exotrireme II (upgrade; req. BBY): cost 4, combat 5, movement 2, capacity 1; 
+>_Exotrireme II (Upgrade; req. BBY): Cost 4, Combat 5, Movement 2, Capacity 1; 
 >>_Sustain Damage_; _Bombardment_ 4(x2); 
 >>
 >>This unit cannot be destroyed by the "Direct Hit" action cards. After a round of space combat, you may destroy this unit to destroy up to 2 ships in this system. 
