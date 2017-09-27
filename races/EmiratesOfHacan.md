@@ -37,7 +37,7 @@ permalink: /races/EmiratesOfHacan/
 >
 >**Special Units**
 >
->_Wrath of Kenara_: Cost 8, Combat 7(x2), Movement 1, Capacity 3; 
+>_Wrath of Kenara_ (Flagship): Cost 8, Combat 7(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; 
 >>
 >>After you roll a die during a space combat in this system, you may spend 1 trade good to apply +1 to the result. 
