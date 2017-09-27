@@ -36,18 +36,18 @@ permalink: /races/FederationOfSol/
 >
 >**Special Units**
 >
->_Genesis_ (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 12; 
+>_Genesis_ (Flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 12; 
 >>_Sustain Damage_; 
 >>
 >>At the end of the status phase, place 1 infantry from your reinforcements in the systems space area.  
 >
->_Advanced carrier I_ (carrier): Cost 3, Combat 9, Movement 1, Capacity 6;
+>_Advanced Carrier I_ (Carrier): Cost 3, Combat 9, Movement 1, Capacity 6;
 >
 >_Spec Ops I_ (Infantry): Cost 1 (for 2), Combat 7;
 >
 >**Race Technology**
 >
->_Advanced carrier II_ (Upgrade; req. BB): Cost 3, Combat 9, Movement 2, Capacity 8; 
+>_Advanced Carrier II_ (Upgrade; req. BB): Cost 3, Combat 9, Movement 2, Capacity 8; 
 >
 >_Sustain Damage_
 >
