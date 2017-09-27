@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Barony Of Letnev
+author: mikey
 comments: true
 permalink: /races/BaronyOfLetnev/
 ---
@@ -19,7 +20,7 @@ permalink: /races/BaronyOfLetnev/
 
 >**Homeworlds**:  Wren Terra (2/1); Arc Prime (4/0)
 >
->**Starting Units**: 1 dreadnought; 1 carrier; 1 destroyer; 1 fighter; 3 infantry; 1 space dock
+>**Starting Units**: 1 Dreadnought; 1 Carrier; 1 Destroyer; 1 Fighter; 3 Infantry; 1 Space Dock
 >
 >**Starting Tech**: _Antimass Deflectors_; _Plasma Scoring_
 >
@@ -33,15 +34,39 @@ permalink: /races/BaronyOfLetnev/
 >
 >_Armada_: The maximum number of non-fighter ships you can have in each system is equal to 2 more than the number of tokens in your fleet pool.
 >
->**Special units**
+>**Special Units**
 >
->_Arc Secundus_ (flagship): cost 8, combat 5(x2), movement 1, capacity 3; 
+>_Arc Secundus_ (Flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; _Bombardment_ 5(x3); 
 >>
->>Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship
+>>Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship.
 >
->**Race tech**
+>**Race Technology**
 >
 >_L4 Disruptors_ (yellow; req. Y): During an invasion, units cannot us space cannon against your units. 
 >
 >_Non-Euclidean Shielding_ (Red; req. RR): When 1 of your units uses sustain damage, cancel 2 hits instead of 1.
+
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://mikeymischief-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
+{% endif %}
