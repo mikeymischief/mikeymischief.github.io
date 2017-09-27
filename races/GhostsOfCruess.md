@@ -38,7 +38,7 @@ permalink: /races/GhostsOfCruess/
 >
 >**Special Units**
 >
->_Hil Colish_ (flag ship): cost 8, combat 5, movement 1, capacity 3; 
+>_Hil Colish_ (Flagship): cost 8, combat 5, movement 1, capacity 3; 
 >>sustain damage;
 >>
 >>This ship's system contains a delta wormhole. During movement, this ship may move before or after your other ships
