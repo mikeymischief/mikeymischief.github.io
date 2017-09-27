@@ -35,7 +35,7 @@ permalink: /races/BaronyOfLetnev/
 >
 >**Special Units**
 >
->_Arc Secundus_ (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
+>_Arc Secundus_ (Flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; _Bombardment_ 5(x3); 
 >>
 >>Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship.
