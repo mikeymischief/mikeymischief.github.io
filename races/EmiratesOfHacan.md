@@ -35,14 +35,14 @@ permalink: /races/EmiratesOfHacan/
 >
 >_Arbiters_: When you are negotiating transactions, action cards can be exchanged as part of that transaction 
 >
->**Special units**
+>**Special Units**
 >
 >_Wrath of Kenara_: Cost 8, Combat 7(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; 
 >>
 >>After you roll a die during a space combat in this system, you may spend 1 trade good to apply +1 to the result. 
 >
->**Race tech**
+>**Race Technology**
 >
 >_Quantum Datahub Node_ (yellow; req. YYY): At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods. If you do, give 1 of your strategy cards to that player and take 1 of his strategy cards.  
 >
