@@ -34,7 +34,7 @@ permalink: /races/BrotherhoodOfYin/
 >
 >_Devotion_: After each space battle round, you may destroy 1 of your cruisers or destroyers to produce 1 hit and assign it to 1 of your opponents ships.  
 >
->**Special units**
+>**Special Units**
 >
 >_Van Hauge_ (flagship): Cost 8, Combat 9(x2), Movement 1, Capacity 3; 
 >>sustain damage; 
