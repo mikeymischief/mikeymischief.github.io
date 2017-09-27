@@ -36,7 +36,7 @@ permalink: /races/BrotherhoodOfYin/
 >
 >**Special Units**
 >
->_Van Hauge_ (flagship): Cost 8, Combat 9(x2), Movement 1, Capacity 3; 
+>_Van Hauge_ (Flagship): Cost 8, Combat 9(x2), Movement 1, Capacity 3; 
 >>sustain damage; 
 >>
 >>When this ship is destroyed, destroy all ships in this system.
