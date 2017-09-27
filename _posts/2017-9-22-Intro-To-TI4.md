@@ -1,8 +1,8 @@
 ---
 layout: post
+title: Intro to TI4
 author: mikey
 comments: true
-title: Intro to TI4
 ---
 
 Introduction to the races of Twilight Imperium!
@@ -29,61 +29,67 @@ Brian: Xxcha Kingdom
 
 Click on the title to read more detailed information about each race:
 
-## [THE BARONY OF LETNEV](/races/BaronyOfLetnev)
-Production
+## Base Races
+****
 
-## [THE EMIRATES OF HACAN](/races/EmiratesOfHacan)
-Trade
+### [THE BARONY OF LETNEV](/races/BaronyOfLetnev)
+Arrogant militarists. They have the best homeworld in the game.
 
-## [THE FEDERATION OF SOL](/races/FederationOfSol)
-Versatility
+### [THE EMIRATES OF HACAN](/races/EmiratesOfHacan)
+Space-merchant-cats. Masters of trade. 
 
-## [THE L1Z1X MINDNET](/races/L1z1xMindnet)
-Warfare/Technology
+### [THE FEDERATION OF SOL](/races/FederationOfSol)
+Humans. Versatile with a military slant.
 
-## [THE MENTAK COALITION](/races/MentakCoalition)
-Warfare/Pirate
+### [THE L1Z1X MINDNET](/races/L1z1xMindnet)
+Last decendants of the old empire. Masters of warfare through technology. Best Dreadnoughts in the game.
 
-## [THE NAALU COLLECTIVE](/races/NaaluCollective)
-Always Go First
+### [THE MENTAK COALITION](/races/MentakCoalition)
+Space pirates. Skirmish fights, steals trade goods.
 
-## [THE SARDAKK N'ORR](/races/SardakkNorr)
-Warfare/Combat
+### [THE NAALU COLLECTIVE](/races/NaaluCollective)
+Telepathic space-snakes. Always go first, best Fighters in the game.
 
-## [THE UNIVERSITIES OF JOL'NAR](/races/UniversitiesOfJolNar)
-Technology/Diplomacy
+### [THE SARDAKK N'ORR](/races/SardakkNorr)
+Insect warrior race. Good at combat.
 
-## [THE XXCHA KINGDOM](/races/XxchaKingdom)
-Diplomacy/Warfare
+### [THE UNIVERSITIES OF JOL'NAR](/races/UniversitiesOfJolNar)
+Fish scientists. Good at developing technology, bad at fighting.
 
-## [THE YSSARIL TRIBES](/races/YssarilTribes)
-Action Cards
+### [THE XXCHA KINGDOM](/races/XxchaKingdom)
+Peace-loving space turtles. Masters of politics and diplomacy.
 
-## [THE BROTHERHOOD OF YIN](/races/BrotherhoodOfYin)
-Terrorists
+### [THE YSSARIL TRIBES](/races/YssarilTribes)
+Sneaky goblins. Masters of espionage.
 
-## [THE CLAN OF SAAR](/races/ClanOfSaar)
-No Home System
+## Expert Races
+****
 
-## [THE EMBERS OF MUAAT](/races/EmbersOfMuaat)
-War Sun
+### [THE BROTHERHOOD OF YIN](/races/BrotherhoodOfYin)
+Religious zealot clones. Can convert ground forces and directly blow up ships.
 
-## [THE WINNU](/races/Winnu)
-Mecatol Rex
+### [THE CLAN OF SAAR](/races/ClanOfSaar)
+Space-gypsies. Their Space Docks are mobile.
 
-## [THE ARBOREC](/races/Arborec)
-Plants
+### [THE EMBERS OF MUAAT](/races/EmbersOfMuaat)
+Race of fire elementals. They start with a prototype War Sun.
 
-## [THE GHOSTS OF CREUSS](/races/GhostsOfCruess)
-Wormholes
+### [THE WINNU](/races/Winnu)
+Keepers of the old empire. Versatile with a economic slant. Needs to control Mecatol Rex.
 
-## [THE NEKRO VIRUS](/races/NekroVirus)
-Steal Technology
+### [THE ARBOREC](/races/Arborec)
+Sentient plants. Can grow spaceships from themselves.
+
+### [THE GHOSTS OF CREUSS](/races/GhostsOfCruess)
+Mysterious energy-based race. Can move anywhere through their control of wormholes.
+
+### [THE NEKRO VIRUS](/races/NekroVirus)
+Relentless robots. Can assimilate technology from the opponent. 
 
 
 
-**Strategy:**
-
+## Strategy
+****
 
 I guess the best races are either: Clan of Saar, Arborec, Nekro, Mentak, Naalu Or Nekro, Mentak, Naalu, Sol, L1Z1X
 
