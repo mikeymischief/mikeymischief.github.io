@@ -35,7 +35,7 @@ permalink: /races/L1z1xMindnet/
 >_Harrow_: After each round of ground combat, your ships in the active system may use there bombardment ability against your opponents ground forces on the planet. 
 >
 >**Special Units**
->[0.0.1] (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 5; 
+>[0.0.1] (Flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 5; 
 >>_Sustain Damage_; 
 >>
 >>During a space combat, all hits produced by this ship and by your Dreadnoughts in this system must be assigned to non-fighter ships, if able. 
