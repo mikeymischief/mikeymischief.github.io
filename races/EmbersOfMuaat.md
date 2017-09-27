@@ -34,7 +34,7 @@ permalink: /races/EmbersOfMuaat/
 >
 >**Special Units**
 >
->_The Inferno_ (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
+>_The Inferno_ (Flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; 
 >>
 >>Action: spend one command counter from your strategy pool to produce 1 cruiser in this ship's system
