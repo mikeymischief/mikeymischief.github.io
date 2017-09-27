@@ -38,7 +38,7 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >**Special Units**
 >
->_Son of Ragh_ (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
+>_Son of Ragh_ (Flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; _Anti-fighter Barrage_ 6(x4);
 >
 >_Floating Factories I_ (space dock): Movement 1, Capacity 4; Production 5; 
