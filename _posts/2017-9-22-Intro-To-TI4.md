@@ -9,50 +9,76 @@ Introduction to the races of Twilight Imperium!
 
 This document serves as a summary of the races to help people pick their race before their first game. I have scoured the interwebs and have combined/updated/summarized these for our use.
 
+Recommended races:
+
 Jubee: Federation of Sol
+
 Jared: Sardakk N'orr
+
 Gerf: Barony of Letnev
+
 Beaud: Universities of Jol-Nar
+
 Jos: Embers of Muaat
+
 Eyay: Clan of Saar
+
 Mikey: Emirates of Hacan
+
 Brian: Xxcha Kingdom
 
 Click on the title to read more detailed information about each race:
 
 ## [THE BARONY OF LETNEV](/races/BaronyOfLetnev)
+Production
 
 ## [THE EMIRATES OF HACAN](/races/EmiratesOfHacan)
+Trade
 
 ## [THE FEDERATION OF SOL](/races/FederationOfSol)
+Versatility
 
 ## [THE L1Z1X MINDNET](/races/L1z1xMindnet)
+Warfare/Technology
 
 ## [THE MENTAK COALITION](/races/MentakCoalition)
+Warfare/Pirate
 
 ## [THE NAALU COLLECTIVE](/races/NaaluCollective)
+Always Go First
 
 ## [THE SARDAKK N'ORR](/races/SardakkNorr)
+Warfare/Combat
 
 ## [THE UNIVERSITIES OF JOL'NAR](/races/UniversitiesOfJolNar)
+Technology/Diplomacy
 
 ## [THE XXCHA KINGDOM](/races/XxchaKingdom)
+Diplomacy/Warfare
 
 ## [THE YSSARIL TRIBES](/races/YssarilTribes)
+Action Cards
 
 ## [THE BROTHERHOOD OF YIN](/races/BrotherhoodOfYin)
+Terrorists
 
 ## [THE CLAN OF SAAR](/races/ClanOfSaar)
+No Home System
 
 ## [THE EMBERS OF MUAAT](/races/EmbersOfMuaat)
+War Sun
 
 ## [THE WINNU](/races/Winnu)
+Mecatol Rex
 
 ## [THE ARBOREC](/races/Arborec)
+Plants
 
 ## [THE GHOSTS OF CREUSS](/races/GhostsOfCruess)
+Wormholes
 
 ## [THE NEKRO VIRUS](/races/NekroVirus)
+Steal Technology
 
 
 
