@@ -18,39 +18,41 @@ Eyay: Clan of Saar
 Mikey: Emirates of Hacan
 Brian: Xxcha Kingdom
 
-[## THE BARONY OF LETNEV](/races/BaronyOfLetnev)
+Click on the title to read more detailed information about each race:
 
-## THE EMIRATES OF HACAN
+## [THE BARONY OF LETNEV](/races/BaronyOfLetnev)
 
-## THE FEDERATION OF SOL
+## [THE EMIRATES OF HACAN](/races/EmiratesOfHacan)
 
-## THE L1Z1X MINDNET
+## [THE FEDERATION OF SOL](/races/FederationOfSol)
 
-## THE MENTAK COALITION
+## [THE L1Z1X MINDNET](/races/L1z1xMindnet)
 
-## THE NAALU COLLECTIVE
+## [THE MENTAK COALITION](/races/MentakCoalition)
 
-## THE SARDAKK N'ORR
+## [THE NAALU COLLECTIVE](/races/NaaluCollective)
 
-## THE UNIVERSITIES OF JOL'NAR
+## [THE SARDAKK N'ORR](/races/SardakkNorr)
 
-## THE XXCHA KINGDOM
+## [THE UNIVERSITIES OF JOL'NAR](/races/UniversitiesOfJolNar)
 
-## THE YSSARIL TRIBES
+## [THE XXCHA KINGDOM](/races/XxchaKingdom)
 
-## THE BROTHERHOOD OF YIN
+## [THE YSSARIL TRIBES](/races/YssarilTribes)
 
-## THE CLAN OF SAAR
+## [THE BROTHERHOOD OF YIN](/races/BrotherhoodOfYin)
 
-## THE EMBERS OF MUAAT
+## [THE CLAN OF SAAR](/races/ClanOfSaar)
 
-## THE WINNU
+## [THE EMBERS OF MUAAT](/races/EmbersOfMuaat)
 
-## THE ARBOREC
+## [THE WINNU](/races/Winnu)
 
-## THE GHOSTS OF CREUSS
+## [THE ARBOREC](/races/Arborec)
 
-## THE NEKRO VIRUS
+## [THE GHOSTS OF CREUSS](/races/GhostsOfCruess)
+
+## [THE NEKRO VIRUS](/races/NekroVirus)
 
 
 
