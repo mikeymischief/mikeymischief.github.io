@@ -20,9 +20,9 @@ permalink: /races/MentakCoalition/
 
 >**Homeworlds**: Moll Primus (4/1)
 >
->**Starting Units**: 1 carrier; 2 cruisers; 3 fighters; 4 infantry; 1 space dock; 1 pds
+>**Starting Units**: 1 Carrier; 2 Cruisers; 3 Fighters; 4 Infantry; 1 Space Dock; 1 PDS
 >
->**Starting Tech**: sarween tools; plasma scoring 
+>**Starting Tech**: _Sarween Tools_; _Plasma Scoring_ 
 >
 >**Commodities**: 2
 >
@@ -34,14 +34,14 @@ permalink: /races/MentakCoalition/
 >
 >_Pillage_: After 1 of your neighbors gains trade goods or resolves a transaction, if he has 3 or more trade goods, you may take 1 of his trade goods or commodities 
 >
->**Special units**
+>**Special Units**
 >
->_Fourth Moon_ (flag ship): cost 8, combat 7(x2), movement 1, capacity 3; 
->>sustain damage; 
+>_Fourth Moon_ (Flagship): Cost 8, Combat 7(x2), Movement 1, Capacity 3; 
+>>_Sustain Damage_; 
 >>
->>enemy players ships in this system cannot use sustain damage 
+>>Enemy players ships in this system cannot use _Sustain Damage_. 
 >
->**Race tech**
+>**Race Technology**
 >
 >_Mirror Computing_ (yellow; req. YYY): When you spend trade goods, each trade good is worth 2 resources or influence instead of 1. 
 >
