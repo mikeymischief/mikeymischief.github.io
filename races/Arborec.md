@@ -34,16 +34,16 @@ permalink: /races/Arborec/
 >
 >**Special Units**
 >
->_Duha Menaimon_ (flagship): cost 8, combat 7(x2), movement 1, capacity 5; 
+>_Duha Menaimon_ (flagship): Cost 8, Combat 7(x2), Movement 1, Capacity 5; 
 >>sustain damage; 
 >>
 >>After you activate this system, you may produce up to 5 units in this system. 
 >
->_Letani Warrior I_ (infantry): co 1(for 2)/cm 8; production 1
+>_Letani Warrior I_ (infantry): Cost 1 (for 2), Combat 8; Production 1
 >
 >**Race Technology**
 >
->_Letani Warrior II_ (upgrade; req. GG): cost 1 (for 2), combat 7; production 2;
+>_Letani Warrior II_ (Upgrade; req. GG): Cost 1 (for 2), Combat 7; Production 2;
 >>After this unit is destroyed, roll 1 die. If the result is 6 or greater, place the unit on this card. At the start of your next turn, place each unit that is on this card on a planet you control in your home system. 
 >
 >_Bioplasmosis_ (green; req. GG): At the end of your status phase, you may remove any number of infantry from planets you control and place them on 1 or more planets you control in the same or adjacent systems. 
