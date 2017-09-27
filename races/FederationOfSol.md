@@ -34,7 +34,7 @@ permalink: /races/FederationOfSol/
 >
 >_Versatile_: when you gain command token during the status phase, gain 1 additional command token. 
 >
->**Special units**
+>**Special Units**
 >
 >_Genesis_ (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 12; 
 >>_Sustain Damage_; 
@@ -45,7 +45,7 @@ permalink: /races/FederationOfSol/
 >
 >_Spec Ops I_ (Infantry): Cost 1 (for 2), Combat 7;
 >
->**Race tech**
+>**Race Technology**
 >
 >_Advanced carrier II_ (Upgrade; req. BB): Cost 3, Combat 9, Movement 2, Capacity 8; 
 >
