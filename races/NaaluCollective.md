@@ -20,7 +20,7 @@ permalink: /races/NaaluCollective/
 
 >**Homeworlds**: Maaluuk (0/2); Druaa (3/1)
 >
->**Starting Units**: 1 carrier; 1 cruiser; 1 destroyer; 3 fighters; 4 infantry; 1 space dock; 1pds  
+>**Starting Units**: 1 Carrier; 1 Cruiser; 1 Destroyer; 3 Fighters; 4 Infantry; 1 Space Dock; 1 PDS  
 >
 >**Starting Tech**: _Neural Motivator_; _Sarween Tools_
 >
@@ -34,18 +34,18 @@ permalink: /races/NaaluCollective/
 >
 >_Foresight_: After another player moves ships into a system that contain 1 or more of your ships, you may place 1 token from your strategy pool in an adjacent system that does not contain another player's ships; move your ships from the active system into that system.
 >
->**Special units**
+>**Special Units**
 >
->_Matriarch_ (flagship): cost 8, combat 9(x2), movement 1, capacity 6; 
+>_Matriarch_ (Flagship): Cost 8, Combat 9(x2), Movement 1, Capacity 6; 
 >>_Sustain Damage_; 
 >>
 >>During an invasion in this system, you ma commit fighters to planets as if they were ground forces. After combat, return those units to the space area. 
 >
->_Hybrid crystal fighter_ (fighter): cost 1 (for 2), combat 8, movement -;
+>_Hybrid crystal fighter_ (Fighter): Cost 1 (for 2), Combat 8, Movement -;
 >
->**Race tech**
+>**Race Technology**
 >
->_Hybrid Crystal Fighter II_ (upgrade; req, GB): cost 1 (for 2), combat 7, movement 2; 
+>_Hybrid Crystal Fighter II_ (Upgrade; req, GB): Cost 1 (for 2), Combat 7, Movement 2; 
 >>
 >>This unit may move without being transported. Each fighter in excess of your ships' capacity counts as 1/2 of a ship against your fleet pool
 >
