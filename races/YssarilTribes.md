@@ -5,6 +5,7 @@ author: mikey
 comments: true
 permalink: /races/YssarilTribes/
 ---
+![The Yssaril Tribes]({{ site.baseurl }}/images/races/Yssaril.jpg "The Yssaril Tribes")
 
 ## THE YSSARIL TRIBES
 
@@ -18,7 +19,7 @@ permalink: /races/YssarilTribes/
  
 >**Homeworlds**: Retillion (2/3); Shalloq (1/2)
 >
->**Starting Units**: 2 carriers; 1 cruiser; 2 fighters; 5 infantry; 1 space dock; 1 pds
+>**Starting Units**: 2 Carriers; 1 Cruiser; 2 Fighters; 5 Infantry; 1 Space Dock; 1 PDS
 >
 >**Starting Tech**: _Neural Motivator_
 >
@@ -36,12 +37,12 @@ permalink: /races/YssarilTribes/
 >
 >**Special units**
 >
->_Y'sia Y'ssrila_ (flagship): cost 8, combat 5(x2), movement 2, capacity 3; 
->>sustain damage;
+>_Y'sia Y'ssrila_ (flagship): Cost 8, Combat 5(x2), Movement 2, Capacity 3; 
+>>_Sustain Damage_;
 >> 
 >>This ship can move through systems that contain other players' ships.
 >
->**Race tech**
+>**Race Technology**
 >
 >_Mageon Implants_ (green; req. GGG): Action: Exhaust this card to look at another player's had of action cards. Choose 1 of thouse cards and add it to your hand.
 >
