@@ -21,11 +21,11 @@ permalink: /races/BaronyOfLetnev/
 >
 >**Starting Units**: 1 dreadnought; 1 carrier; 1 destroyer; 1 fighter; 3 infantry; 1 space dock
 >
->**Starting Tech**: Antimass Deflectors; Plasma Scoring
+>**Starting Tech**: _Antimass Deflectors_; _Plasma Scoring_
 >
 >**Commodities**: 2
 >
->**Promissory Note**: War Funding - At the start of a round of space combat: The Letnev player loses 2 trade goods. During this combat round, reroll any number of your dice. Then, return this card to the Letnev player
+>**Promissory Note**: _War Funding_ - At the start of a round of space combat: The Letnev player loses 2 trade goods. During this combat round, reroll any number of your dice. Then, return this card to the Letnev player
 >
 >**Abilities**
 >
