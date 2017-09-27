@@ -20,7 +20,7 @@ permalink: /races/GhostsOfCruess/
 
 >**Homeworlds**: Creuss (4/2); delta wormhole
 >
->**Starting Units**: 1 carrier; 2 destroyers; 2 fighters; 4 infantry; 1 space dock
+>**Starting Units**: 1 Carrier; 2 Destroyers; 2 Fighters; 4 Infantry; 1 Space Dock
 >
 >**Starting Tech**: _Gravity Drive_
 >
