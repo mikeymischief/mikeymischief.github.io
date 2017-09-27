@@ -21,11 +21,11 @@ permalink: /races/EmiratesOfHacan/
 >
 >**Starting Units**: 2 carriers; 1 cruiser; 2 fighters; 4 infantry; 1 space dock
 >
->**Starting Tech**: Antimass deflectors; sarween tools
+>**Starting Tech**: _Antimass Deflectors_; _Sarween Tools_
 >
 >**Commodities**: 6
 >
->**Promissory Note**: Trade Convoy - Action: Place this card faceup in your play area. While this card is in your play area, you may negotiate transactions with players who are not your neighbor. If your activate a system that contains 1 or more of the hacans player units , return this card to the Hacan player. 
+>**Promissory Note**: _Trade Convoy_ - Action: Place this card faceup in your play area. While this card is in your play area, you may negotiate transactions with players who are not your neighbor. If your activate a system that contains 1 or more of the Hacan's player units , return this card to the Hacan player. 
 >
 >**Abilities**
 >
