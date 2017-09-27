@@ -35,9 +35,9 @@ permalink: /races/YssarilTribes/
 >
 >_Crafty_: you can have any number of action cards in your hand. Game effects cannot prevent you from using this ability .
 >
->**Special units**
+>**Special Units**
 >
->_Y'sia Y'ssrila_ (flagship): Cost 8, Combat 5(x2), Movement 2, Capacity 3; 
+>_Y'sia Y'ssrila_ (Flagship): Cost 8, Combat 5(x2), Movement 2, Capacity 3; 
 >>_Sustain Damage_;
 >> 
 >>This ship can move through systems that contain other players' ships.
