@@ -20,7 +20,7 @@ permalink: /races/Arborec/
 
 >**Homeworlds**: Nestphar (3/2)
 >
->**Starting Units**: 1 carrier; 1 cruiser; 2 fighters; 4 infantry; 1 space dock; 1 pds
+>**Starting Units**: 1 Carrier; 1 Cruiser; 2 Fighters; 4 Infantry; 1 Space Dock; 1 PDS
 >
 >**Starting Tech**: _Magen Defense Grid_
 >
