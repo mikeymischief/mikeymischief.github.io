@@ -29,7 +29,7 @@ Brian: Xxcha Kingdom
 
 Click on the title to read more detailed information about each race:
 
-## Base Races
+## Starter Races
 ****
 
 ### [THE BARONY OF LETNEV](/races/BaronyOfLetnev)
@@ -39,25 +39,28 @@ Arrogant militarists. They have the best homeworld in the game.
 Space-merchant-cats. Masters of trade. 
 
 ### [THE FEDERATION OF SOL](/races/FederationOfSol)
-Humans. Versatile with a military slant.
+Humans. Versatile with a military slant. Best Carriers in the game.
 
 ### [THE L1Z1X MINDNET](/races/L1z1xMindnet)
 Last decendants of the old empire. Masters of warfare through technology. Best Dreadnoughts in the game.
 
 ### [THE MENTAK COALITION](/races/MentakCoalition)
-Space pirates. Skirmish fights, steals trade goods.
-
-### [THE NAALU COLLECTIVE](/races/NaaluCollective)
-Telepathic space-snakes. Always go first, best Fighters in the game.
+Space pirates. Skirmish fights, steals trade goods. Best Cruisers in the game.
 
 ### [THE SARDAKK N'ORR](/races/SardakkNorr)
-Insect warrior race. Good at combat.
+Insect warrior race. Good at combat. Swarms opponents with its huge fleet.
 
 ### [THE UNIVERSITIES OF JOL'NAR](/races/UniversitiesOfJolNar)
 Fish scientists. Good at developing technology, bad at fighting.
 
 ### [THE XXCHA KINGDOM](/races/XxchaKingdom)
 Peace-loving space turtles. Masters of politics and diplomacy.
+
+## Intermediate Races
+****
+
+### [THE NAALU COLLECTIVE](/races/NaaluCollective)
+Telepathic space-snakes. Always go first, best Fighters in the game.
 
 ### [THE YSSARIL TRIBES](/races/YssarilTribes)
 Sneaky goblins. Masters of espionage.
