@@ -20,7 +20,7 @@ permalink: /races/EmbersOfMuaat/
 
 >**Homeworlds**: Muaat (4/1)
 >
->**Starting Units**: 1 war sun; 2 fighters; 4 infantry; 1 space dock
+>**Starting Units**: 1 War Sun; 2 Fighters; 4 Infantry; 1 Space Dock
 >
 >**Starting Tech**: _Plasma Scoring_
 >
@@ -34,8 +34,8 @@ permalink: /races/EmbersOfMuaat/
 >
 >**Special Units**
 >
->_The Inferno_ (flagship): cost 8, combat 5(x2), movement 1, capacity 3; 
->>sustain damage; 
+>_The Inferno_ (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
+>>_Sustain Damage_; 
 >>
 >>Action: spend one command counter from your strategy pool to produce 1 cruiser in this ship's system
 >
@@ -48,4 +48,4 @@ permalink: /races/EmbersOfMuaat/
 >>
 >>Other players' units in this system lose the planetary shield ability.
 >
->_Magnus Reactor_ (red; req. RR): Your ships can move into supernovas. After 1 or more of your units use production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good. 
+>_Magnus Reactor_ (red; req. RR): Your ships can move into supernovas. After 1 or more of your units use production in a system that either contains a War Sun or is adjacent to a supernova, gain 1 trade good. 
