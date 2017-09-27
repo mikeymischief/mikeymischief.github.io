@@ -19,7 +19,7 @@ permalink: /races/BaronyOfLetnev/
 
 >**Homeworlds**:  Wren Terra (2/1); Arc Prime (4/0)
 >
->**Starting Units**: 1 dreadnought; 1 carrier; 1 destroyer; 1 fighter; 3 infantry; 1 space dock
+>**Starting Units**: 1 Dreadnought; 1 Carrier; 1 Destroyer; 1 Fighter; 3 Infantry; 1 Space Dock
 >
 >**Starting Tech**: _Antimass Deflectors_; _Plasma Scoring_
 >
@@ -35,10 +35,10 @@ permalink: /races/BaronyOfLetnev/
 >
 >**Special units**
 >
->_Arc Secundus_ (flagship): cost 8, combat 5(x2), movement 1, capacity 3; 
+>_Arc Secundus_ (flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; _Bombardment_ 5(x3); 
 >>
->>Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship
+>>Other player's units in the system lose planetary shield. At the start of each space combat round, repair this ship.
 >
 >**Race tech**
 >
