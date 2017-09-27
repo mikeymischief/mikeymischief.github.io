@@ -20,7 +20,7 @@ permalink: /races/BrotherhoodOfYin/
 
 >**Homeworlds**:  Darien (4/4)
 >
->**Starting Units**: 2 carriers; 1 destroyer; 4 fighters; 4 infantry; 1 space dock 
+>**Starting Units**: 2 Carriers; 1 Destroyer; 4 Fighters; 4 Infantry; 1 Space Dock 
 >
 >**Starting Tech**: _Sarween Tools_
 >
@@ -34,9 +34,9 @@ permalink: /races/BrotherhoodOfYin/
 >
 >_Devotion_: After each space battle round, you may destroy 1 of your cruisers or destroyers to produce 1 hit and assign it to 1 of your opponents ships.  
 >
->**Special units**
+>**Special Units**
 >
->_Van Hauge_ (flag ship): cost 8, combat 9(x2), movement 1, capacity 3; 
+>_Van Hauge_ (Flagship): Cost 8, Combat 9(x2), Movement 1, Capacity 3; 
 >>sustain damage; 
 >>
 >>When this ship is destroyed, destroy all ships in this system.

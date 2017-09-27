@@ -20,7 +20,7 @@ permalink: /races/XxchaKingdom/
 
 >**Homeworlds**: Archon Ren (2/3); Archon Tau (1/1)
 >
->**Starting Units**: 1 carrier; 2 cruiser; 3 fighters; 4 infantry; 1 space dock; 1 pds
+>**Starting Units**: 1 Carrier; 2 Cruiser; 3 Fighters; 4 Infantry; 1 Space Dock; 1 PDS
 >
 >**Starting Tech**: _Graviton Laser System_
 >
@@ -34,16 +34,17 @@ permalink: /races/XxchaKingdom/
 >
 >_Quash_: When an agenda is revealed, you may spend 1 token from your strategy pool to discard that agenda and reveal 1 agenda from the top of the deck. Players vote on this agenda instead. 
 >
->**Special units**
+>**Special Units**
 >
->_Loncara_ (flag ship): cost 8, combat 7(x2), movement 1, capacity 3;
->>sustain damage; space cannon 5(x3);
+>_Loncara_ (Flagship): Cost 8, Combat 7(x2), Movement 1, Capacity 3;
+>>_Sustain Damage_; _Space Cannon_ 5(x3);
 >
->**Race tech**
+>**Race Technology**
 >
 >_Nullification Field_ (yellow; req. YY): After another player activates a system that contains 1 or more of your ships, you may exhaust this card and spend 1 token from your strategy pool; immediately end that player's turn.
 >
 >_Instinct Training_ (green; req. G) You may exhaust this card and spend 1 token from your strategy pool when another player plays an action card; cancel that action card.
+<<<<<<< HEAD
 {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
@@ -67,3 +68,5 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
+=======
+>>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9

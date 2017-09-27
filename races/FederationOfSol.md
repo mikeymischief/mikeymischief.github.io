@@ -20,7 +20,7 @@ permalink: /races/FederationOfSol/
 
 >**Homeworlds**: Jord (4/2)
 >
->**Starting Units**: 2 carriers; 1 destroyer; 3 fighters; 5 infantry; 1 space dock
+>**Starting Units**: 2 Carriers; 1 Destroyer; 3 Fighters; 5 Infantry; 1 Space Dock
 >
 >**Starting Tech**: _Neural Motivator_; _Anitmass Deflector_
 >
@@ -34,24 +34,24 @@ permalink: /races/FederationOfSol/
 >
 >_Versatile_: when you gain command token during the status phase, gain 1 additional command token. 
 >
->**Special units**
+>**Special Units**
 >
->_Genesis_ (flagship): cost 8, combat 5(x2), movement 1, capacity 12; 
+>_Genesis_ (Flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 12; 
 >>_Sustain Damage_; 
 >>
 >>At the end of the status phase, place 1 infantry from your reinforcements in the systems space area.  
 >
->_Advanced carrier I_ (carrier): cost 3, combat 9, movement 1, capacity 6;
+>_Advanced Carrier I_ (Carrier): Cost 3, Combat 9, Movement 1, Capacity 6;
 >
->_Spec Ops I_ (infantry): cost 1 (for 2), combat 7;
+>_Spec Ops I_ (Infantry): Cost 1 (for 2), Combat 7;
 >
->**Race tech**
+>**Race Technology**
 >
->_Advanced carrier II_ (upgrade; req. BB): cost 3, combat 9, movement 2, capacity 8; 
+>_Advanced Carrier II_ (Upgrade; req. BB): Cost 3, Combat 9, Movement 2, Capacity 8; 
 >
 >_Sustain Damage_
 >
->_Spec Ops II_ (upgrade; req. GG): cost 1 (for 2), combat 6; 
+>_Spec Ops II_ (Upgrade; req. GG): Cost 1 (for 2), Combat 6; 
 >
 >After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on your card on a planet you control in your home system.
 

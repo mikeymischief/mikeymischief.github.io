@@ -19,7 +19,7 @@ permalink: /races/EmiratesOfHacan/
 
 >**Homeworlds**: Arretze (2/0); Hercant (1/1); Kamdorn (0/1)
 >
->**Starting Units**: 2 carriers; 1 cruiser; 2 fighters; 4 infantry; 1 space dock
+>**Starting Units**: 2 Carriers; 1 Cruiser; 2 Fighters; 4 Infantry; 1 Space Dock
 >
 >**Starting Tech**: _Antimass Deflectors_; _Sarween Tools_
 >
@@ -35,14 +35,14 @@ permalink: /races/EmiratesOfHacan/
 >
 >_Arbiters_: When you are negotiating transactions, action cards can be exchanged as part of that transaction 
 >
->**Special units**
+>**Special Units**
 >
->_Wrath of Kenara_: cost 8, combat 7(x2), movement 1, capacity 3; 
+>_Wrath of Kenara_ (Flagship): Cost 8, Combat 7(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_; 
 >>
 >>After you roll a die during a space combat in this system, you may spend 1 trade good to apply +1 to the result. 
 >
->**Race tech**
+>**Race Technology**
 >
 >_Quantum Datahub Node_ (yellow; req. YYY): At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods. If you do, give 1 of your strategy cards to that player and take 1 of his strategy cards.  
 >

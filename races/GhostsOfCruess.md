@@ -20,7 +20,7 @@ permalink: /races/GhostsOfCruess/
 
 >**Homeworlds**: Creuss (4/2); delta wormhole
 >
->**Starting Units**: 1 carrier; 2 destroyers; 2 fighters; 4 infantry; 1 space dock
+>**Starting Units**: 1 Carrier; 2 Destroyers; 2 Fighters; 4 Infantry; 1 Space Dock
 >
 >**Starting Tech**: _Gravity Drive_
 >
@@ -38,7 +38,7 @@ permalink: /races/GhostsOfCruess/
 >
 >**Special Units**
 >
->_Hil Colish_ (flag ship): cost 8, combat 5, movement 1, capacity 3; 
+>_Hil Colish_ (Flagship): cost 8, combat 5, movement 1, capacity 3; 
 >>sustain damage;
 >>
 >>This ship's system contains a delta wormhole. During movement, this ship may move before or after your other ships

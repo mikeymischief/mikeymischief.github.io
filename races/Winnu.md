@@ -20,7 +20,7 @@ permalink: /races/Winnu/
 
 >**Homeworlds**: Winnu (3/4)
 >
->**Starting Units**: 1 carrier; 1 cruiser; 2 fighters; 2 infantry; 1 space dock; 1 pds
+>**Starting Units**: 1 Carrier; 1 Cruiser; 2 Fighters; 2 Infantry; 1 Space Dock; 1 PDS
 >
 >**Starting Tech**: Choose any 1 technology that has no prerequisites. 
 >
@@ -36,8 +36,8 @@ permalink: /races/Winnu/
 >
 >**Special Units**
 >
->_Salai Sai Corian_ (flagship): cost 8, combat 7, movement 1, capacity 3; 
->>sustain damage;
+>_Salai Sai Corian_ (Flagship): Cost 8, Combat 7, Movement 1, Capacity 3; 
+>>_Sustain Damage_;
 >>
 >>When this unit makes a combat roll, it rolls a number of dice equal to the number of your opponent's non-fighter ships in this system 
 >
@@ -46,6 +46,7 @@ permalink: /races/Winnu/
 >_Lazax Gate Folding_ (blue; req. BB): During your tactical actions, if you do not control Mecatol Rex, treat its system as if it contains both an alpha and beta wormhole; Action: If you control Mecatol Rex, exhaust this card to place 1 infantry from your reinforcements on Mecatol Rex.  
 >
 >_Hegemonic Trade Policy_ (yellow; req. YY): Exhaust this card when 1 or more of you units use Production; swap the resource and influence values of 1 planet you control until the end of your turn.
+<<<<<<< HEAD
 {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
@@ -69,3 +70,5 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
+=======
+>>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9

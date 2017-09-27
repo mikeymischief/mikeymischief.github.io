@@ -20,7 +20,7 @@ permalink: /races/NekroVirus/
 
 >**Homeworlds**: Mordai II (4/0)
 >
->**Starting Units**: 1 dreadnought; 1 carrier; 1 cruiser; 2 fighters; 2 infantry; 1 space dock 
+>**Starting Units**: 1 Dreadnought; 1 Carrier; 1 Cruiser; 2 Fighters; 2 Infantry; 1 Space Dock 
 >
 >**Starting Tech**: _Daxcive Animators_; _Valefar Assimilator X_; _Valefar Assimilator Y_
 >
@@ -38,7 +38,7 @@ permalink: /races/NekroVirus/
 >
 >**Special Units**
 >
->_The Alastor_ (flagship): cost 8, combat 5(x2), movement 1, capacity 3; 
+>_The Alastor_ (Flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 3; 
 >>_Sustain Damage_;
 >>
 >>At the start of a space combat, choose any number of ground forces in this system to participate in that combat as if they were ships. 

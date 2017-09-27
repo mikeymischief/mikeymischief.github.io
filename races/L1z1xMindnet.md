@@ -6,7 +6,7 @@ comments: true
 permalink: /races/L1z1xMindnet/
 ---
 
-![The L1z1x Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1z1x Mindnet")
+![The L1Z1X Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1Z1X Mindnet")
 
 ## THE L1Z1X MINDNET
 
@@ -18,34 +18,37 @@ permalink: /races/L1z1xMindnet/
 
 **Style:** For a player who wants to play a military aggressive style, but without the need to be quite as aggressive as Letnev since you've got good technology and strong Dreadnoughts. 
 
->Homeworlds: [0.0.0] (5/0)
+>**Homeworlds**: [0.0.0] (5/0)
 >
->Starting Units: 1 dreadnought; 1 carrier; 3 fighters; 5 infantry; 1 space dock; 1 pds
+>**Starting Units**: 1 Dreadnought; 1 Carrier; 3 Fighters; 5 Infantry; 1 Space Dock; 1 PDS
 >
->Starting Tech: neural motivator; plasma scoring 
+>**Starting Tech**: _Neural Motivator_; _Plasma Scoring_
 >
->Commodities: 2
+>**Commodities**: 2
 >
->Promissory Note: Cybernetic Enhancements - At the start of your turn - Remove 1 token from the L1Z1X player's strategy pool and return it to his reinforcements. Then, place 1 command token from your reinforcements in your strategy pool. Then, return This card to the L1Z1X player.   
+>**Promissory Note**: _Cybernetic Enhancements_ - At the start of your turn - Remove 1 token from the L1Z1X player's strategy pool and return it to his reinforcements. Then, place 1 command token from your reinforcements in your strategy pool. Then, return This card to the L1Z1X player.   
 >
 >**Abilities**
 >
->Assimilate: When you gain control of a planet, replace each PDS ans space dock that is on that planet with a matching unit from your reinforcements.  
+>_Assimilate_: When you gain control of a planet, replace each PDS ans space dock that is on that planet with a matching unit from your reinforcements.  
 >
->Harrow: After each round of ground combat, your ships in the active system may use there bombardment ability against your opponents ground forces on the planet. 
+>_Harrow_: After each round of ground combat, your ships in the active system may use there bombardment ability against your opponents ground forces on the planet. 
 >
->**Special units**
->[0.0.1] (flagship): cost 8, combat 5(x2), movement 1, capacity 5; 
->>sustain damage; 
+>**Special Units**
+>[0.0.1] (Flagship): Cost 8, Combat 5(x2), Movement 1, Capacity 5; 
+>>_Sustain Damage_; 
 >>
->>During a space combat, all hits produced by this ship and by your dreadnoughts in this system must be assigned to non-fighter ships, if able. 
+>>During a space combat, all hits produced by this ship and by your Dreadnoughts in this system must be assigned to non-fighter ships, if able. 
 >
->Super-Dreadnought I (dreadnought): co 4/cm 5/m 1/ca 2; sustain damage; bombardment 5 
+>_Super-Dreadnought I_ (dreadnought): Cost 4, Combat 5, Movement 1, Capacity 2; 
+>> _Sustain Damage_; _Bombardment_ 5;
 >
->Race tech
+>**Race Technology**
 >
->Super-Dreadnought II (upgrade; req. BBY): co 4/cm 4/m 2/ca 2; sustain damage; bombardment 5
+>_Super-Dreadnought II_ (Upgrade; req. BBY): cost 4, combat 4, movement 2, capacity 2; 
+>>_Sustain Damage_; _Bombardment_ 5;
 >
+<<<<<<< HEAD
 >Inheritance Systems (yellow; req. YY): You may exhaust this card and spend 2 resources when you research a technology; ignore all of that technology's prerequisites. 
 
 {% if page.comments %}
@@ -71,3 +74,6 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
+=======
+>_Inheritance Systems_ (yellow; req. YY): You may exhaust this card and spend 2 resources when you research a technology; ignore all of that technology's prerequisites. 
+>>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Universities of Jol'Nar
+author: mikey
 comments: true
 permalink: /races/UniversitiesOfJolNar/
 ---
@@ -19,13 +20,13 @@ permalink: /races/UniversitiesOfJolNar/
 
 >**Homeworlds**: Jol (1/2); Nar (2/3)
 >
->**Starting Units**: 1 dreadnought; 2 carriers; 1 fighter; 2 infantry; 1 space dock; 2 pds
+>**Starting Units**: 1 Dreadnought; 2 Carriers; 1 Fighter; 2 Infantry; 1 Space Dock; 2 PDS
 >
->**Starting Tech**: neural motivator; antimass deflectors; sarween tools; plasma scoring
+>**Starting Tech**: _Neural Motivator_; _Anti-mass Deflectors_; _Sarween Tools_; _Plasma Scoring_
 >
 >**Commodities**: 4
 >
->**Promissory Note**: Research Agreement - After the Jol-Nar player researches a technology that is not a faction technology: Gain that technology. Then, return this card to the Jol-Nar player.
+>**Promissory Note**: _Research Agreement_ - After the Jol-Nar player researches a technology that is not a faction technology: Gain that technology. Then, return this card to the Jol-Nar player.
 >
 >**Abilities**
 >
@@ -33,16 +34,16 @@ permalink: /races/UniversitiesOfJolNar/
 >
 >_Brilliant_: When you spend a command token to resolve the secondary ability of the "technology" strategy card, you may resolve the primary ability instead. 
 >
->_Analytical_: When you research a technology that is not a unit upgrade technology, you may ignore 1 prerequisite 
+>_Analytical_: When you research a technology that is not a unit upgrade technology, you may ignore 1 prerequisite.
 >
->**Special units**
+>**Special Units**
 >
->_J.N.S. Hylarim_: cost 8, combat 6(x2), movement 1, capacity 3; 
->>sustain damage; 
+>_J.N.S. Hylarim_: Cost 8, Combat 6(x2), Movement 1, Capacity 3; 
+>>_Sustain Damage_; 
 >>
->>When making a combat roll for this ship, each result of 9 or 10, before applying modifiers, produces 2 additional hits
+>>When making a combat roll for this ship, each result of 9 or 10, before applying modifiers, produces 2 additional hits.
 >
->**Race tech**
+>**Race Technology**
 >
 >_Spatial Conduit Cylinder_ (blue; req. BB):  You may exhaust this card after you activate a system that contains 1 or more of your units; that system is adjacent to all other systems that contain 1 or more of your units during this activation.
 >
