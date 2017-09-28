@@ -4,6 +4,7 @@ title: Universities of Jol'Nar
 author: mikey
 comments: true
 permalink: /races/UniversitiesOfJolNar/
+published: true
 ---
 
 ![The Universities of Jol'Nar]({{ site.baseurl }}/images/races/Hylar.jpg "The Universities of Jol'Nar")
@@ -14,7 +15,9 @@ permalink: /races/UniversitiesOfJolNar/
 
 **Background**: Although physically weak and aquatic, the Hylar (inhabitants of the twin planets Jol and Nar) are a proud people, often to the point of abrasiveness and arrogance. In the Imperium of old they were the chief technologists and now utilize the resources of they homeworlds building a secret force with which their will replace the Lazax as rulers of the galaxy.
 
-**Pros/Cons**: -1 to all combat rolls, can re-roll dice, can get free tech everytime the Technology card is played, twice as much starting techonology as everyone else, good trade agreements, mediocre home system, mediocre starting fleet.
+**Advantages**: Great starting technology, able to purchase technology faster than any other Race, large starting fleet, high starting Influence, good Trade, powerful Racial technologies, powerful Flagship.
+
+**Disadvantages**: Combat penalties for all die rolls, Resource-poor Home System, very easy to become distracted by technology.
 
 **Style**: Advancing your technologies will give you a big advantage over other races later in the game. Lay low and be friendly at the beginning, but once your technological machine is built, it will be tough for other races to withstand your power.
 
