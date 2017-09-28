@@ -4,6 +4,7 @@ title: Barony Of Letnev
 author: mikey
 comments: true
 permalink: /races/BaronyOfLetnev/
+published: true
 ---
 
 ![The Barony of Letnev]({{ site.baseurl }}/images/races/Letnev.jpg "The Barony of Letnev")
@@ -14,7 +15,7 @@ permalink: /races/BaronyOfLetnev/
 
 **Background:** A militaristic race that makes its home on a rocky asteroid floating in the darkness of space.  The Letnev are focused on the colonization of other lesser developed worlds and impose strict bureaucracy and discipline on those worlds.  As a subterranean race, they have a weakness to light.  Only those in the military who have achieved great victories may advance to the highest levels of society.  The Letnev are very ambitious and they are not afraid to use their military to achieve their ambitions.  The more war, the more glory.
 
-**Pros/Cons:** Can have a bigger fleet than others, can exchange trade goods for a temporary boost in combat, poor trade agreements, excellent home system, good starting fleet.
+**Pros/Cons:** Can have a bigger fleet than others (and durable!), can exchange trade goods for a temporary boost in combat, poor trade agreements, excellent home system, good starting fleet.
 
 **Style:** For the player militarily aggressive to the maximum with little regard for politics and trade (except maybe by coercion).
 
