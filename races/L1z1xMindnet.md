@@ -4,6 +4,7 @@ title: L1z1x Mindnet
 author: mikey
 comments: true
 permalink: /races/L1z1xMindnet/
+published: true
 ---
 
 ![The L1Z1X Mindnet]({{ site.baseurl }}/images/races/L1z1x.jpg "The L1Z1X Mindnet")
@@ -14,7 +15,9 @@ permalink: /races/L1z1xMindnet/
 
 **Background:** The remnants of the Lazax, ancient rulers of the Imperium, returned in cyborg form thirsty for revenge. They come from their remote, wealthy world, a nightmare planet of technology ready to reclaim the empire they fled from generations ago.
 
-**Pros/Cons:** Cheaper and more powerful dreadnaughts, twice as much starting techonology as everyone else (save the Universities of Jol-Nar), poor trade agreements, good home system, powerful starting fleet.
+**Advantages**: Rich Home System, Dreadnoughts are powerful and cheap, excellent balance of combat and technology, Inheritance Systems Racial technology.
+
+**Disadvantages**: Weak Trade, weak politically, slow moving early expansion.
 
 **Style:** For a player who wants to play a military aggressive style, but without the need to be quite as aggressive as Letnev since you've got good technology and strong Dreadnoughts. 
 
@@ -48,7 +51,6 @@ permalink: /races/L1z1xMindnet/
 >_Super-Dreadnought II_ (Upgrade; req. BBY): cost 4, combat 4, movement 2, capacity 2; 
 >>_Sustain Damage_; _Bombardment_ 5;
 >
-<<<<<<< HEAD
 >Inheritance Systems (yellow; req. YY): You may exhaust this card and spend 2 resources when you research a technology; ignore all of that technology's prerequisites. 
 
 {% if page.comments %}
