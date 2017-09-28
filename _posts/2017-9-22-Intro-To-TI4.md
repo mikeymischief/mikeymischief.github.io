@@ -4,13 +4,16 @@ title: Intro to TI4
 author: mikey
 comments: true
 categories: ti4 boardgames
+published: true
 ---
 
 Introduction to the races of Twilight Imperium!
 
 This document serves as a summary of the races to help people pick their race before their first game. I have scoured the interwebs and have combined/updated/summarized these for our use.
 
-Recommended races:
+Twilight Imperium (Fourth Edition) is a game of galactic conquest in which three to six players take on the role of one of seventeen factions vying for galactic domination through military might, political maneuvering, and economic bargaining. Every faction offers a completely different play experience, from the wormhole-hopping Ghosts of Creuss to the Emirates of Hacan, masters of trade and economics. These seventeen races are offered many paths to victory, but only one may sit upon the throne of Mecatol Rex as the new masters of the galaxy.
+
+Below is the recommended races for each person according to playstyle and personality:
 
 Jubee: Federation of Sol  
 Jared: Sardakk N'orr  
