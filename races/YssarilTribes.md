@@ -4,6 +4,7 @@ title: Yssaril Tribes
 author: mikey
 comments: true
 permalink: /races/YssarilTribes/
+published: true
 ---
 ![The Yssaril Tribes]({{ site.baseurl }}/images/races/Yssaril.jpg "The Yssaril Tribes")
 
@@ -13,7 +14,9 @@ permalink: /races/YssarilTribes/
 
 **Background:** Long ago, the ancient race of the Lazax ruled the cosmos. In a back corner of the galaxy, the Lazax colonized the smallish planet Retillion, harvesting the delicious menn root that grew there. For awhile, things were fantastic on Retillion – until the sneaky, aboriginal, green goblins that lived in the shadows there systematically kicked some Lazax butt. Over the eons, the various tribes of the Yssaril adapted to Lazax technology and took the stars, using subterfuge, stealth and their superior spies to spread like vermin throughout the colonized territories.
 
-**Pros/Cons:** Subterfuge. The Yssaril are the masters of the secret attack and sabotage. They draw one additional Action card per round, which means they are privy to a wealth of surprise powers, advantages and tricks. The Yssaril can also sneak a peek at one other opponent’s Action cards each round, providing them with very valuable information which they can use to subtly kick some butt at just the right moment.
+**Advantages**: Fast starting fleet, high-Influence Home System, can wait out opponents to strike at the right moment, extra Action Cards every turn and unlimited hand size.
+
+**Disadvantages**: Starting fleet is fast but weak, poor Home System economy, timing of turns can be tricky to work out.
 
 **Style:** Information junkies and those players who like to play a conniving, cerebral game of cat & mouse.
  
@@ -47,7 +50,7 @@ permalink: /races/YssarilTribes/
 >_Mageon Implants_ (green; req. GGG): Action: Exhaust this card to look at another player's had of action cards. Choose 1 of thouse cards and add it to your hand.
 >
 >_Transparasteel Plating_ (green; req. G): During your turn of the action phase, players that have passed cannot play action cards.
-<<<<<<< HEAD
+
 {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
@@ -71,5 +74,3 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
-=======
->>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9
