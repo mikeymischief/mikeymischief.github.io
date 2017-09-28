@@ -4,6 +4,7 @@ author: mikey
 title: Mentak Coalition
 comments: true
 permalink: /races/MentakCoalition/
+published: true
 ---
 
 ![The Mentak Coalition]({{ site.baseurl }}/images/races/Mentak.jpg "The Mentak Coalition")
@@ -14,7 +15,9 @@ permalink: /races/MentakCoalition/
 
 **Background:** The rag-tag inhabitants of a prison-planet who overthrew their Lazax masters when the Imperium began to crumble, and now terrorize the space-lanes with lightening raids, taking what they want then leaving.
 
-**Pros/Cons:** Can steal trade goods from other players, get free shots before battle begins, poor trade agreements, decent homeworld, strong starting fleet.
+**Advantages**: Ability to steal Trade Goods, first strike ability, good starting fleet, powerful Racial technologies, very powerful flagship, strong starting fleet.
+
+**Disadvantages**: Weak Trade, weak politically, piracy ability can worthless in low Trade Good game and/or prevented by savvy opponents, decent homeworld.
 
 **Style:** For the player who doesn't mind pissing-off the other players via dirty tricks like stealing trade goods and striking out for aggressive raids with their cruisers (which get a sneak attack before enemy can shoot back).
 
