@@ -4,6 +4,7 @@ author: mikey
 comments: true
 title: Arborec
 permalink: /races/Arborec/
+published: true
 ---
 
 ![The Arborec]({{ site.baseurl }}/images/races/Arborec.jpg "The Arborec")
@@ -14,7 +15,9 @@ permalink: /races/Arborec/
 
 **Background:** The Arborec are not truly a race but a living ecosystem. They are incapable of speech or any auditory communication. However, Arborec found human bodies from a Federation of Sol ship found destroyed in their system and their scientists had a theory. By injecting spores from the Arborec homeworld into the dead brainstem of the human, the Arborec were able to reanimate the human body and verbally communicate through it. The Arborec have insisted to the Galactic Council that the human bodies were quite dead and no trace of memory, emotion, or consciousness exists in these shells. The subject has been a suibject of heated debate for centuries, especially among the Sol, Xxcha, Letnev, and Winnu. These races have each witnessed corpses from their race being used by the Arborec for this purpose. The Galactic Council has ruled this act to be legal and many races believe this is due to the amount of unique resources, particularly of the medical variety, that Arborec affords the galaxy. It is not known if the Arborec have interest in the throne but they are very outspoken in politics and they have begun expansion from their homeworld.
 
-**Pros/Cons:** They can grow entire spaceships from themselves.
+**Advantages**: Solid Race with potentially staggering production capabilities (especially with _Spore Acceleration_) that does not rely on typical Space Dock production limits, ability to build units almost anywhere at will.
+
+**Disadvantages**: Increased reliance upon Ground Forces, poor Home System, odd production abilities often result in a slow start.
 
 **Style:** Spread amongst the galaxy like the weed they are
 
