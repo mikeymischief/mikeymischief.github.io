@@ -4,6 +4,7 @@ author: mikey
 title: Clan of Saar
 comments: true
 permalink: /races/ClanOfSaar/
+published: true
 ---
 
 ![The Clan of Saar]({{ site.baseurl }}/images/races/Saar.jpg "The Clan of Saar")
@@ -16,7 +17,9 @@ permalink: /races/ClanOfSaar/
 
 A highly mobile and nomadic race.  They don't stay in any one place for long.  They pick up and move everything with them.  These nomads have long been kicked around by more established races, but this has made the Clan strong.  The Clan is at home anywhere and are good at salvaging on planets they conquer.  Now that the Clan is strong, it is time to take some bigger prizes--perhaps the biggest one of all, Mecatol Rex.
 
-**Pros/Cons:** Have mobile star bases, can still collect victory points if their home system is occupied, gain bonus trade goods for capturing planets, good trade agreements, rubbish home system, good starting fleet.
+**Advantages**: Fast starting fleet, mobile Space Docks are powerful, not tied to poor Home System, gain Trade Goods for conquering planets, able to expand quickly.
+
+**Disadvantages**: Starting fleet is weak, poor Home System, Space Docks are very vulnerable, one Racial Technology is useless without Asteroid Fields.
 
 **Style:** For a player looking to play a subtle and crafty game, utilizing mobility and trade goods to gain influence in the galaxy.
 
@@ -48,9 +51,9 @@ A highly mobile and nomadic race.  They don't stay in any one place for long.  T
 >
 >_Chaos Mapping_ (blue; req. B): Other players cannot activate asteroid fields that contain 1 or more of your ships. At the start of your turn during the action phase, you may produce 1 unit in a system that contains at lest 1 of your units that has production. 
 >
-<<<<<<< HEAD
 >_Floating Factories II_ (upgrade; req. YY): movement 2, capacity 5; production 7; 
 >>This unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
+
 {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
@@ -74,7 +77,5 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
-=======
->_Floating Factories II_ (upgrade; req. YY): Movement 2, Capacity 5; Production 7; 
->>This unit is placed in a space area, instead of a planet. This unite can move and retread as if it where a ship. If this unit is blockaded, it is destroyed.
->>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9
+
+
