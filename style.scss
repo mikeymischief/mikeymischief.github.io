@@ -23,6 +23,11 @@ body {
   color: $darkGray;
 }
 
+.TitleBanner {
+  background-size: cover;
+  background-position: center;
+}
+
 .container {
   margin: 0 auto;
   max-width: 740px;
