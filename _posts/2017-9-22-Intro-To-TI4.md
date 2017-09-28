@@ -11,20 +11,13 @@ This document serves as a summary of the races to help people pick their race be
 
 Recommended races:
 
-Jubee: Federation of Sol
-
-Jared: Sardakk N'orr
-
-Gerf: Barony of Letnev
-
-Beaud: Universities of Jol-Nar
-
-Jos: Embers of Muaat
-
-Eyay: Clan of Saar
-
-Mikey: Emirates of Hacan
-
+Jubee: Federation of Sol  
+Jared: Sardakk N'orr  
+Gerf: Barony of Letnev  
+Beaud: Universities of Jol-Nar  
+Jos: Embers of Muaat  
+Eyay: Clan of Saar  
+Mikey: Emirates of Hacan  
 Brian: Xxcha Kingdom
 
 Click on the title to read more detailed information about each race:
