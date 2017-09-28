@@ -4,6 +4,7 @@ author: mikey
 title: Ghosts of Cruess
 comments: true
 permalink: /races/GhostsOfCruess/
+published: true
 ---
 
 ![The Ghosts of Cruess]({{ site.baseurl }}/images/races/Ghosts.jpg "The Ghosts of Cruess")
@@ -14,7 +15,9 @@ permalink: /races/GhostsOfCruess/
 
 **Background:** This race appeared suddenly centuries after the Twilight Wars. No one knows why they came but speculate it is for the vacant throne. They hail from a region Deep Space known as the "Shaleri Way", which contains many wormholes that significantly reduce travel time between trade routes. However, most races avoid this route due to many ships disappearing in that region of space, with only a few returning telling tales of severe equipment malfunctions and ghosts in space. However, the Mentak have been using this route for years to stage their operations. When the Ghosts of Creuss emerged, they came with envoys from the Mentak Coalition, prompting the galaxy to believe the Mentak had brokered a deal to bring them into the known galaxy.
 
-**Pros/Cons:** 
+**Advantages**: Everything revolves around wormholes.
+
+**Disadvantages**: Everything revolves around wormholes.
 
 **Style:** The Ghosts of Creuss are a very mobile race as they can maniuplate worm-holes or the areas around them to their needs.
 
