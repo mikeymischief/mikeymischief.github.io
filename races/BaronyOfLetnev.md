@@ -15,7 +15,9 @@ published: true
 
 **Background:** A militaristic race that makes its home on a rocky asteroid floating in the darkness of space.  The Letnev are focused on the colonization of other lesser developed worlds and impose strict bureaucracy and discipline on those worlds.  As a subterranean race, they have a weakness to light.  Only those in the military who have achieved great victories may advance to the highest levels of society.  The Letnev are very ambitious and they are not afraid to use their military to achieve their ambitions.  The more war, the more glory.
 
-**Pros/Cons:** Can have a bigger fleet than others (and durable!), can exchange trade goods for a temporary boost in combat, poor trade agreements, excellent home system, good starting fleet.
+**Advantages**: +1 Fleet Supply, most powerful Home System in the game, strong combat, powerful 2nd Racial Tech, powerful Flagship.
+
+**Disadvantages**: Weak Trade, weak politically (especially without Representatives), combat success can hinge on hard-to-acquire Trade Goods, somewhat bland.
 
 **Style:** For the player militarily aggressive to the maximum with little regard for politics and trade (except maybe by coercion).
 
