@@ -53,7 +53,7 @@ published: true
 >>This unit may move without being transported. Each fighter in excess of your ships' capacity counts as 1/2 of a ship against your fleet pool
 >
 >_Neuroglaive_ (green; req. GGG): After another player activates a system that contains 1 or more of your ships, that player removes 1 token form his fleet pool and returns it to his reinforcements.
-<<<<<<< HEAD
+
 {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
@@ -77,5 +77,3 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
-=======
->>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9
