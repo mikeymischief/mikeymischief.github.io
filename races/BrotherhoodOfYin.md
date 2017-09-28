@@ -4,6 +4,7 @@ title: Brotherhood of Yin
 author: mikey
 comments: true
 permalink: /races/BrotherhoodOfYin/
+published: true
 ---
 
 ![The Brotherhood of Yin]({{ site.baseurl }}/images/races/Yin.jpg "The Brotherhood of Yin")
@@ -15,6 +16,10 @@ permalink: /races/BrotherhoodOfYin/
 **Background:** Genetically-modified fanatic adherents of a bizarre cult centred around long-dead scientist named Darien who illegally cloned hundreds of his children in an effort to save his wife from a deadly disease who now seek to bind all to their religion.
 
 **Pros/Cons:** Beasts in ground combat, can do kamikaze runs to destroy enemy ships, poor trade agreements, poor home system, very strong starting fleet.
+
+**Advantages**: Ability to easily gain Ground Forces in many ways, can guarantee a hit on crucial targets in Space Combat.
+
+**Disadvantages**: Poor trade, lackluster Racial Technologies.
 
 **Style:** Another race for a very aggressive style of play. Can convert enemies.
 
