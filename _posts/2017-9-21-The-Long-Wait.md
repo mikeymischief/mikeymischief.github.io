@@ -1,6 +1,8 @@
 ---
 layout: post
 comments: true
+author: mikey
+categories: ti4 boardgames
 title: The Long Wait
 ---
 
