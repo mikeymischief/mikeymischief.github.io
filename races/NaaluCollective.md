@@ -4,6 +4,7 @@ author: mikey
 title: Naalu Collective
 comments: true
 permalink: /races/NaaluCollective/
+published: true
 ---
 
 ![The Naalu Collective]({{ site.baseurl }}/images/races/Naalu.jpg "The Naalu Collective")
@@ -14,7 +15,9 @@ permalink: /races/NaaluCollective/
 
 **Background:** The Naala are surrounded in mystery. During the rule of the Lazax over the Imperium, the existance of the Naalu were not even known to any race other than that of the Yssaril, who had a secret alliance with the Naalu. Toward the end of the Twilight Wars, the Naalu emerged from places unknown, ready to make their claim for the throne. Many of the Great Races sought an alliance with the beautiful, serpentine creatures, but quickly withdrew when learning of their telepathic abilities. The Naalu have no desire for war but are not fearful of it. They believe the time now nears when the rest of the galaxy will know the tranquillity, order, and the true beauty of the Naalu. The rest of the galaxy will submit to that beauty or be destroyed.
 
-**Pros/Cons:** A truly impressive starting fleet. The Naalu are also slippery little suckers – they always go first every round and can retreat from any space battle before it begins without suffering casualties. Their fighters also receive bonuses during combat, ensuring that most opponents are going to surrounded and swarmed to death by pesky little ships.
+**Advantages**: Always acts first in initiative order, powerful Fighters, several unique ways to mess with opponents, balanced starting fleet and Home System, one of the most powerful Racial Technologies in the game.
+
+**Disadvantages**: Always acts first in initiative order, difficult to master, annoying abilities may draw the ire of other players, not recommended for learning games.
 
 **Style:** Players with the confidence to go first to subtly dictate the flow and tempo of the game.
 
