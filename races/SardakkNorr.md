@@ -4,6 +4,7 @@ author: mikey
 title: Sardakk N'orr
 comments: true
 permalink: /races/SardakkNorr/
+published: true
 ---
 
 ![The Sardakk N'orr]({{ site.baseurl }}/images/races/Norr.jpg "The Sardakk N'orr")
@@ -14,7 +15,9 @@ permalink: /races/SardakkNorr/
 
 **Background:** Repugnant insectoids who inhabit massive skyscrapers on their crowded homeworlds surrounded by great network of orbital space stations and massive complements of fleet units.
 
-**Pros/Cons:** Get +1 to all combat rolls, decent trade agreements, mediocre home system, decent starting fleet. No starting technology (A lot of objectives require you to have technologies), hard for them to keep up.
+**Advantages**: Undisputed masters of combat, no need to research Red Technology Advances, powerful Flagship.
+
+**Disadvantages**: Poor starting fleet and average everything else creates the slowest start of all the Races. Abilities focus on combat, which is not always the best course of action.
 
 **Style:** For the players who likes the idea of swarming the enemy with lots of cheap ships that hit harder than anyone else's ship-for-ship.
 
