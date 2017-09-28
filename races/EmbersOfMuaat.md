@@ -4,6 +4,7 @@ author: mikey
 comments: true
 title: Embers of Muaat
 permalink: /races/EmbersOfMuaat/
+published: true
 ---
 
 ![The Embers of Muaat]({{ site.baseurl }}/images/races/Muaat.jpg "The Embers of Muaat")
@@ -14,7 +15,9 @@ permalink: /races/EmbersOfMuaat/
 
 **Background:** The Embers of Muaat are a mysterious race.  Their bodies are always on fire, so no one has seen them outside of their specially constructed suits which they have built to interact with other races.  In the past, the Muaat were enslaved by the Jol Nar to develop a technology to convert energy into mass.  The Muaat eventually rebelled against the Jol Nar, and in the process took control of a Jol Nar prototype--the War Sun.  Armed with this super weapon, the Muaat have sworn never to be enslaved again.  To ensure this, they will use their War Sun to take control of the galaxy.
 
-**Pros/Cons:** The start the game with a War Sun, can move through supernovas, their War Suns can spawn fighters without a space dock, good trade agreements, mediocre home system, start the game with a War Sun although the rest of their fleet is weak.
+**Advantages**: Begins the game with access to War Suns. Can move through supernovas, their War Suns can spawn fighters without a space dock.
+
+**Disadvantages**: Slow start, most abilities require a War Sun, average to worthless without a War Sun on the board.
 
 **Style:** For the cautious player who wants to be left alone in the early game (having a War Sun will have that effect on neighbours), yet able to play with some finesse as the Embers are not considered one of the strongest races.
 
@@ -48,7 +51,6 @@ permalink: /races/EmbersOfMuaat/
 >>
 >>Other players' units in this system lose the planetary shield ability.
 >
-<<<<<<< HEAD
 >_Magnus Reactor_ (red; req. RR): Your ships can move into supernovas. After 1 or more of your units use production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good. 
 
 {% if page.comments %}
@@ -74,6 +76,3 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
-=======
->_Magnus Reactor_ (red; req. RR): Your ships can move into supernovas. After 1 or more of your units use production in a system that either contains a War Sun or is adjacent to a supernova, gain 1 trade good. 
->>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9
