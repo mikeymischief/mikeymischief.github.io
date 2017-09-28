@@ -4,6 +4,7 @@ author: mikey
 title: Winnu
 comments: true
 permalink: /races/Winnu/
+published: true
 ---
 
 ![The Winnu]({{ site.baseurl }}/images/races/Winnu.jpg "The Winnu")
@@ -14,9 +15,11 @@ permalink: /races/Winnu/
 
 **Background:** Now that the empire has fallen and the imperial race has disappeared from the universe, the Winnu have upheld the lore, tradition, and culture of the old empire.  Although they had hoped that the imperial race would return and restore the glory of the empire, they have started to lose hope in that dream.  Now many of the Winnu feel that they are the rightful successors to the Empire.  Now is the time to put an end to this age of chaos and return the universe to it's former glory.  The Winnu will protect and honor the heritage of the empire forever.
 
-**Pros/Cons:** The Winnu always add the influence of their home system planet to votes, even if the home system planet has been exhausted.  This gives them a bit more political power than other races.  Also, if they have at least one ground force on a planet, it is immune from the Local Unrest Action card.  This prevents you from losing planets due to this pesky card.  Finally, you don't need to spend a command counter to execute the secondary ability of the Technology Strategy.  This gives you a minor boost in developing technologies.
+**Advantages**: Unique Racial Abilities and Racial Technologies, only Race with a Yellow Technology Specialty Home System, all-around solid Race.
 
-**Style:** Everything centers around controlling Mecatol Rex with this race.
+**Disadvantages**: Racial abilities all center around controlling Mecatol Rex, not especially powerful in any one area, mediocre flagship.
+
+**Style:** Versatile with economic/diplomatic slant.
 
 >**Homeworlds**: Winnu (3/4)
 >
@@ -46,7 +49,7 @@ permalink: /races/Winnu/
 >_Lazax Gate Folding_ (blue; req. BB): During your tactical actions, if you do not control Mecatol Rex, treat its system as if it contains both an alpha and beta wormhole; Action: If you control Mecatol Rex, exhaust this card to place 1 infantry from your reinforcements on Mecatol Rex.  
 >
 >_Hegemonic Trade Policy_ (yellow; req. YY): Exhaust this card when 1 or more of you units use Production; swap the resource and influence values of 1 planet you control until the end of your turn.
-<<<<<<< HEAD
+
 {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
@@ -70,5 +73,3 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
-=======
->>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9
