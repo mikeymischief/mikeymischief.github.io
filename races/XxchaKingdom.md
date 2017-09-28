@@ -4,6 +4,7 @@ author: mikey
 title: Xxcha Kingdom
 comments: true
 permalink: /races/XxchaKingdom/
+published: true
 ---
 
 ![The Xxcha Kingdom]({{ site.baseurl }}/images/races/Xxcha.jpg "The Xxcha Kingdom")
@@ -14,7 +15,9 @@ permalink: /races/XxchaKingdom/
 
 **Background:** One of the first great civilizations of the galaxy.  These space turtles are peaceful and prefer to solve problems through diplomacy rather than through violence.  In the fall of the Empire, they were caught weaponless and defenseless, which led to the destruction of one of their home worlds.  Although they prefer the path of peace, the Xxcha do not want to suffer such a tragedy again.  Therefore, they have focused on developing strong defenses.  In order to insure a peaceful galaxy for future generations, the Xxcha have no choice but to take the Imperial throne for themselves and make war a thing of the past.
 
-**Pros/Cons:** Can veto political agendas, enemies get a -1 to hit in the first round of combat against them, good trade agreements, mediocre home system, weak starting fleet.
+**Advantages**: Powerful in the Political arena, may always use Diplomacy Strategy to their best advantage, strong Racial technologies, well-balanced in many ways.
+
+**Disadvantages**: Starting fleet can hinder early advancement, most abilities require Command Counters to activate and can only be used once per turn.
 
 **Style:** For someone who prefers political wrangling to brute force, but with a decent stick to beat people with using a defensive military, waiting for that perfect moment to strike.
 
@@ -44,7 +47,7 @@ permalink: /races/XxchaKingdom/
 >_Nullification Field_ (yellow; req. YY): After another player activates a system that contains 1 or more of your ships, you may exhaust this card and spend 1 token from your strategy pool; immediately end that player's turn.
 >
 >_Instinct Training_ (green; req. G) You may exhaust this card and spend 1 token from your strategy pool when another player plays an action card; cancel that action card.
-<<<<<<< HEAD
+
 {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
@@ -68,5 +71,4 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
-=======
->>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9
+
