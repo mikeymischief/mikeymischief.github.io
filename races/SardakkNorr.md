@@ -53,7 +53,7 @@ published: true
 >>This unit cannot be destroyed by the "Direct Hit" action cards. After a round of space combat, you may destroy this unit to destroy up to 2 ships in this system. 
 >
 >_Valkyrie Particle Wave_ (red; req. RR): After making combat rolls during a round of ground combat, if your opponent produces 1 or more hits, you produce 1 additional hit.
-<<<<<<< HEAD
+
 {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
@@ -77,5 +77,3 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
-=======
->>>>>>> 388d68511277b51fa4215ddebf5969132fc08aa9
