@@ -4,6 +4,7 @@ title: Federation of Sol
 author: Mikey
 comments: true
 permalink: /races/FederationOfSol/
+published: true
 ---
 
 ![The Federation of Sol]({{ site.baseurl }}/images/races/Sol.jpg "The Federation of Sol")
@@ -14,7 +15,9 @@ permalink: /races/FederationOfSol/
 
 **Background:** One of the newest races to enter the Imperium, and also one of the first to rebel against it; the Twilight Wars were touched-off when a Sol fleet opened fire of the Barony of Letnev's blockade of the Quann wormhole. The humans represent the most numerous and most diverse species of the galaxy.
 
-**Pros/Cons:**  Can deploy free ground troops each turn, receive bonus command counters, good trade agreements, decent homeworld, mediocre starting fleet.
+**Advantages**: Solid Race, lots of Ground Forces, very flexible/forgiving due to extra Command Counter each turn.
+
+**Disadvantages**: Mediocre starting fleet, very bland/generic.
 
 **Style:** For the player who isn't entirely sure what his style is, or who likes to be a jack-of-all-trades; well-rounded, flexible, and adaptable.
 
