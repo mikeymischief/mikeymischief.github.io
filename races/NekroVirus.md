@@ -4,6 +4,7 @@ author: mikey
 title: Nekro Virus
 comments: true
 permalink: /races/NekroVirus/
+published: true
 ---
 
 ![The Nekro Virus]({{ site.baseurl }}/images/races/Nekro.jpg "The Nekro Virus")
@@ -14,9 +15,11 @@ permalink: /races/NekroVirus/
 
 **Background:**  The Nekro Virus is a believed extinct race that was created, by mistake, by the L1z1x race. After a great civil war between the two races, the L1z1x believed they had eliminated the threat created by their science. 700 years later, the race reimerged with one purpose in mind: the utter extinction of all organic matter.
 
-**Pros/Cons:** Can assimilate technology from the opponent.
+**Advantages**: Does not need to build technology, can steal technology.
 
-**Style:** Assimilate or be destroyed
+**Disadvantages**: Everyone will avoid all dealings with The Nekro Virus both in trade and in combat.
+
+**Style:** Assimilate or be destroyed.
 
 >**Homeworlds**: Mordai II (4/0)
 >
