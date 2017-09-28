@@ -13,5 +13,9 @@ layout: default
     Written on {{ page.date | date: "%B %e, %Y" }}
   </div>
 
+  <div class="FeaturedImgBanner" {% if page.featured-img %} style="background-image: url('{{ page.featured-img }}');" {% endif %}>
+    <!-- Include your post title, byline, date, and other info inside the header here. -->
+  </div>  
+  
   {% include disqus.html %}
 </article>
