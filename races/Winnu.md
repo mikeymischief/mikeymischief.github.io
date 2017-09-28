@@ -15,7 +15,7 @@ published: true
 
 **Background:** Now that the empire has fallen and the imperial race has disappeared from the universe, the Winnu have upheld the lore, tradition, and culture of the old empire.  Although they had hoped that the imperial race would return and restore the glory of the empire, they have started to lose hope in that dream.  Now many of the Winnu feel that they are the rightful successors to the Empire.  Now is the time to put an end to this age of chaos and return the universe to it's former glory.  The Winnu will protect and honor the heritage of the empire forever.
 
-**Advantages**: Unique Racial Abilities and Racial Technologies, only Race with a Yellow Technology Specialty Home System, all-around solid Race.
+**Advantages**: Unique Racial Abilities and Racial Technologies, resource-influence swapping very useful, all-around solid Race.
 
 **Disadvantages**: Racial abilities all center around controlling Mecatol Rex, not especially powerful in any one area, mediocre flagship.
 
