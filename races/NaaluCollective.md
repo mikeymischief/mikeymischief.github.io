@@ -19,7 +19,7 @@ published: true
 
 **Disadvantages**: Always acts first in initiative order, difficult to master, annoying abilities may draw the ire of other players, not recommended for learning games.
 
-**Style:** Players with the confidence to go first to subtly dictate the flow and tempo of the game.
+**Style:** The psychic snakes like to attack into their opponents and then retreat immediately. By performing these hit-and-run tactics, they are using their racial abilities to the maximum. Any race that chases them costs them a bunch of Command Counters, slowly defeating their enemies through manipulation.
 
 >**Homeworlds**: Maaluuk (0/2); Druaa (3/1)
 >

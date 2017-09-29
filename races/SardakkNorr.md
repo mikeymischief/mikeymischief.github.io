@@ -15,7 +15,7 @@ published: true
 
 **Background:** Repugnant insectoids who inhabit massive skyscrapers on their crowded homeworlds surrounded by great network of orbital space stations and massive complements of fleet units.
 
-**Advantages**: Undisputed masters of combat, no need to research Red Technology Advances, powerful Flagship.
+**Advantages**: Undisputed masters of combat, no need to research Red Technology Advances, powerful Flagship, their Destroyers and Cruisers are top-notch.
 
 **Disadvantages**: Poor starting fleet and average everything else creates the slowest start of all the Races. Abilities focus on combat, which is not always the best course of action.
 

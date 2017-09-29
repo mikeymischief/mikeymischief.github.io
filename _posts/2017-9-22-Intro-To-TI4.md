@@ -15,14 +15,14 @@ Twilight Imperium (Fourth Edition) is a game of galactic conquest in which three
 
 Below is the recommended races for each person according to playstyle and personality:
 
-Jubee: Federation of Sol  
+Jubee: Xxcha Kingdom  
 Jared: Sardakk N'orr  
 Gerf: Barony of Letnev  
 Beaud: Universities of Jol-Nar  
 Jos: Embers of Muaat  
 Eyay: Clan of Saar  
 Mikey: Emirates of Hacan  
-Brian: Xxcha Kingdom
+Brian: Federation of Sol  
 
 Click on the title to read more detailed information about each race:
 

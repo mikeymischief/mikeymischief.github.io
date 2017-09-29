@@ -12,7 +12,9 @@ published: true
 
 **In a word:** Sneaky chameleon-like goblins
 
-**Background:** Long ago, the ancient race of the Lazax ruled the cosmos. In a back corner of the galaxy, the Lazax colonized the smallish planet Retillion, harvesting the delicious menn root that grew there. For awhile, things were fantastic on Retillion – until the sneaky, aboriginal, green goblins that lived in the shadows there systematically kicked some Lazax butt. Over the eons, the various tribes of the Yssaril adapted to Lazax technology and took the stars, using subterfuge, stealth and their superior spies to spread like vermin throughout the colonized territories.
+**Background:** An aboriginal race native to Retillion, the Yssaril tribes had the misfortune of living on world that was the only known source of the delicious Menn root. The root was a delicacy throughout the Lazax Imperium, and the farming operations encroached upon the swamps that the diminutive Yssaril called home. Though the Lazax met resistance from the native population, the Menn root was so beloved that the Lazax sent an entire division to suppress the uprising.
+
+The operation soon became an embarrassment, as the Yssaril’s stealthy abilities prevented the military from ever fully suppressing the native population. Throughout the rebellion, the Tribes adapted the Lazax style of warfare, learning the value of technology and the power of information. With the coming of the Age of Dusk, the Yssaril came into their potential, creating the much-feared Guild of Spies and eventually ousting the Lazax from their home world. Since then, no off-worlders have set foot on Retillion, the Tribes instead conducting all business on the planet Shalloq. From here, the Yssaril plan their strategies… and the rest of the galaxy would tremble in fear if they knew the true extent of the Yssaril’s ambitions.
 
 **Advantages**: Fast starting fleet, high-Influence Home System, can wait out opponents to strike at the right moment, extra Action Cards every turn and unlimited hand size.
 
