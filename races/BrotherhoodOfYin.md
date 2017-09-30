@@ -35,7 +35,7 @@ published: true
 >
 >**Abilities**
 >
->_Indoctrination_: At the start of a ground combat, you may spend 2 influence to repleace on ouf your opponent's participating infantry with 1 infantry from your reinforcements.
+>_Indoctrination_: At the start of a ground combat, you may spend 2 influence to replace one of your opponent's participating infantry with 1 infantry from your reinforcements.
 >
 >_Devotion_: After each space battle round, you may destroy 1 of your cruisers or destroyers to produce 1 hit and assign it to 1 of your opponents ships.  
 >
