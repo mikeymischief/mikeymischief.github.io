@@ -38,7 +38,7 @@ published: true
 >**Special Units**
 >
 >_Duha Menaimon_ (Flagship): Cost 8, Combat 7(x2), Movement 1, Capacity 5; 
->>sustain damage; 
+>>_Sustain Damage_; 
 >>
 >>After you activate this system, you may produce up to 5 units in this system. 
 >
