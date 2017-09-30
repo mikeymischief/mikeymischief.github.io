@@ -53,6 +53,9 @@ Fish scientists. Good at developing technology, bad at fighting.
 ### [THE XXCHA KINGDOM](/races/XxchaKingdom)
 Peace-loving space turtles. Masters of politics and diplomacy.
 
+### [THE CLAN OF SAAR](/races/ClanOfSaar)
+Space-gypsies. Their Space Docks are mobile.
+
 ## Intermediate Races
 ****
 
@@ -67,9 +70,6 @@ Sneaky goblins. Masters of espionage.
 
 ### [THE BROTHERHOOD OF YIN](/races/BrotherhoodOfYin)
 Religious zealot clones. Can convert ground forces and directly blow up ships.
-
-### [THE CLAN OF SAAR](/races/ClanOfSaar)
-Space-gypsies. Their Space Docks are mobile.
 
 ### [THE EMBERS OF MUAAT](/races/EmbersOfMuaat)
 Race of fire elementals. They start with a prototype War Sun.
