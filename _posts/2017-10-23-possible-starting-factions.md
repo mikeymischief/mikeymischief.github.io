@@ -1,7 +1,7 @@
 ---
 published: true
 layout: post
-title: Possible Starting Facitons
+title: Possible Starting Factions
 author: mikey
 comments: true
 categories: ti4 boardgames
