@@ -1,13 +1,11 @@
 ---
 published: true
 layout: post
-title: Possible Starting Factions
+title: Possible Starting Facitons
 author: mikey
 comments: true
 categories: ti4 boardgames
 ---
-## Possible Starting Factions
-
 This ranking is taking into account the relative strengths of the factions:
 
 Mikey - Emirates of Hacan
@@ -16,6 +14,10 @@ Jared - Barony of Letnev
 Gerf - L1z1x Mindnet
 Eyay - Mentak Coalition
 Brian - Universities of Jol-Nar
+
+Many are speculating that some of the default factions are not as powerful as others. Which may be the case, but for the first session, I want it to at least feel as fair as possible.
+
+I hate power discussions, because for anything other than the highest caliber players, it doesn't mean much. I'm just as tempted to go back to the original setting.
 
 {% if page.comments %}
 <div id="disqus_thread"></div>
