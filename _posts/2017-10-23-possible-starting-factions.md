@@ -10,9 +10,9 @@ This ranking is taking into account the relative strengths of the factions:
 
 Mikey - Emirates of Hacan  
 Jubee - Federation of Sol  
-Jared - Barony of Letnev  
-Gerf - L1z1x Mindnet  
-Eyay - Mentak Coalition  
+Jared - Sardakk N'orr  
+Gerf - Barony of Letnev  
+Eyay - Xxcha Kingdom  
 Brian - Universities of Jol-Nar
 
 Many are speculating that some of the default factions are not as powerful as others. Which may be the case, but for the first session, I want it to at least feel as fair as possible.
