@@ -22,7 +22,7 @@ Jared: Sardakk N'orr
 Gerf: Barony of Letnev  
 Beaud: Universities of Jol-Nar  
 Jos: Embers of Muaat  
-Eyay: Clan of Saar  
+Eyay: Naalu Collective  
 Mikey: Emirates of Hacan  
 Brian: Xxcha Kingdom
 
@@ -32,61 +32,64 @@ Click on the title to read more detailed information about each race:
 ****
 
 ### [THE BARONY OF LETNEV](/races/BaronyOfLetnev)
-Arrogant militarists. They have the best homeworld in the game.
+Warrior-nobles with a powerful two-planet home system that gives them arguably the best starting position in the game. Their mastery of logistics lets them “buy” offensive power and handle larger than usual fleets.
 
 ### [THE EMIRATES OF HACAN](/races/EmiratesOfHacan)
-Space-merchant-cats. Masters of trade. 
+Peaceful lion-like humanoids who value trade and diplomacy over militaristic might. They have more commodities to trade than any other race, can make deals with anyone, and may even trade action cards.
 
 ### [THE FEDERATION OF SOL](/races/FederationOfSol)
-Humans. Versatile with a military slant. Best Carriers in the game.
-
-### [THE L1Z1X MINDNET](/races/L1z1xMindnet)
-Last decendants of the old empire. Masters of warfare through technology. Best Dreadnoughts in the game.
-
-### [THE MENTAK COALITION](/races/MentakCoalition)
-Space pirates. Skirmish fights, steals trade goods. Best Cruisers in the game.
+The space forces of humanity, empowered by their ability to quickly breed and train new troops. They have countless special ops forces at their disposal (which they can upgrade further), their carriers are second to none, and they recover quickly if they overextend themselves.
 
 ### [THE SARDAKK N'ORR](/races/SardakkNorr)
-Insect warrior race. Good at combat. Swarms opponents with its huge fleet.
+Insectoid tacticians who start with modest resources and a small fleet, but who can use their straightforward combat advantages to quickly build and conquer. Their dreadnoughts are custom-built to bombard ground forces before invasion.
 
 ### [THE UNIVERSITIES OF JOL'NAR](/races/UniversitiesOfJolNar)
-Fish scientists. Good at developing technology, bad at fighting.
+Intelligent, peaceful people known for the scientific research facilities on their twin planets. They are not great in a fight, but can research new technology faster and more easily than any other race.
 
 ### [THE XXCHA KINGDOM](/races/XxchaKingdom)
-Peace-loving space turtles. Masters of politics and diplomacy.
+A proud, ancient race of humanoid space turtles who can use their political contacts to avoid confrontation and to veto dangerous agendas (and action cards, with the right tech). They can annex other planets via pure diplomacy.
 
-### [THE CLAN OF SAAR](/races/ClanOfSaar)
-Space-gypsies. Their Space Docks are mobile.
+## Beginner Races
+****
+
+### [THE BROTHERHOOD OF YIN](/races/BrotherhoodOfYin)
+A “race” of male clones driven by a shared religious fanaticism. Their holy fervor lets them convert the populace as they invade and make kamikaze ship attacks without hesitation. Their home system is particularly strong.
+
+### [THE L1Z1X MINDNET](/races/L1z1xMindnet)
+Aggressive cyborgs with immediate access to plenty of home-system resources, but little diplomatic influence. They rely heavily on their powerful dreadnoughts and flagship, both in space combat and to bombard the enemy while invading.
+
+### [THE MENTAK COALITION](/races/MentakCoalition)
+A consortium of space pirates, all descend¬ants of what was once a system of prison planets, with an impressive fleet of ships. They can steal trade goods from other players and end certain space battles before their foe even gets off a shot.
 
 ## Intermediate Races
 ****
 
+### [THE EMBERS OF MUAAT](/races/EmbersOfMuaat)
+Sentient fire creatures who can travel through supernovas effortlessly. At the beginning of the game, they are the only race who knows the secret of producing war suns, the deadliest ship that exists.
+
+### [THE GHOSTS OF CREUSS](/races/GhostsOfCruess)
+Beings of energy and light who control wormholes, for rapid movement and potentially even offensive ability. Their home system is very difficult to reach, which is a mixed blessing: good for defense, bad for fast expansion.
+
 ### [THE NAALU COLLECTIVE](/races/NaaluCollective)
-Telepathic space-snakes. Always go first, best Fighters in the game.
+Psychic snake-women who use telepathy to out-maneuver their foes. They act before everyone else, may retreat from unwinnable battles, and operate their fighters mentally (to devastating effect).
+
+### [THE WINNU](/races/Winnu)
+Former stewards of Mecatol Rex who still have many supporters there. This makes it easier for them to quickly take control of Mecatol Rex, and lets them reinforce it easily. They can also choose their starting technology, which gives you plenty of options.
 
 ### [THE YSSARIL TRIBES](/races/YssarilTribes)
-Sneaky goblins. Masters of espionage.
+Goblin-like guerilla fighters, masters of secret attacks and sabotage. They get a better selection of action cards, which they can also discard to “stall” indefinitely. And they start with a solid fleet and home system.
 
 ## Expert Races
 ****
 
-### [THE BROTHERHOOD OF YIN](/races/BrotherhoodOfYin)
-Religious zealot clones. Can convert ground forces and directly blow up ships.
-
-### [THE EMBERS OF MUAAT](/races/EmbersOfMuaat)
-Race of fire elementals. They start with a prototype War Sun.
-
-### [THE WINNU](/races/Winnu)
-Keepers of the old empire. Versatile with a economic slant. Needs to control Mecatol Rex.
-
 ### [THE ARBOREC](/races/Arborec)
-Sentient plants. Can grow spaceships from themselves.
+Plant people who produce new soldiers naturally and organically rather than via recruitment. They start off weak but grow exponentially more powerful as they amass ground forces on each planet.
 
-### [THE GHOSTS OF CREUSS](/races/GhostsOfCruess)
-Mysterious energy-based race. Can move anywhere through their control of wormholes.
+### [THE CLAN OF SAAR](/races/ClanOfSaar)
+A scattered, nomadic race, whose space docks need not be anchored to a planet. Instead, they use them to journey from system to system, usually preferring to explore new planets rather than fighting to keep the ones they have.
 
 ### [THE NEKRO VIRUS](/races/NekroVirus)
-Relentless robots. Can assimilate technology from the opponent. 
+A corrupted offshoot of the L1z1x, standing completely apart from galactic civilization. They cannot take part in politics or technological advancement, but they steal tech from every foe they injure, even if they lose the battle. 
 
 
 {% if page.comments %}
