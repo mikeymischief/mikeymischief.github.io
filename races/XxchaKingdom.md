@@ -21,6 +21,8 @@ published: true
 
 **Style:** For someone who prefers political wrangling to brute force, but with a decent stick to beat people with using a defensive military, waiting for that perfect moment to strike.
 
+**How to Play:** In general, you will want to play defensive and use the Construction Strategy Card a lot to build up a network of Planetary Defense System (PDS). You do have a decent starting fleet to expand early, keep control of those and score objectives. Technologies that are important to the Xxcha are Plasma Scoring and going for PDS II. Overall, as the space turtles, you will like green technology the best.
+
 >**Homeworlds**: Archon Ren (2/3); Archon Tau (1/1)
 >
 >**Starting Units**: 1 Carrier; 2 Cruiser; 3 Fighters; 4 Infantry; 1 Space Dock; 1 PDS
@@ -71,4 +73,3 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script id="dsq-count-scr" src="//mikeymischief-github-io.disqus.com/count.js" async></script>                            
 {% endif %}
-
