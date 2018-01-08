@@ -15,9 +15,7 @@ Gerf - Barony of Letnev
 Eyay - Xxcha Kingdom  
 Brian - Universities of Jol-Nar
 
-Many are speculating that some of the default factions are not as powerful as others. Which may be the case, but for the first session, I want it to at least feel as fair as possible.
-
-I hate power discussions, because for anything other than the highest caliber players, it doesn't mean much. I'm just as tempted to go back to the original setting.
+I hate power discussions, because for anything other than the highest caliber players, it doesn't mean much.
 
 {% if page.comments %}
 <div id="disqus_thread"></div>
