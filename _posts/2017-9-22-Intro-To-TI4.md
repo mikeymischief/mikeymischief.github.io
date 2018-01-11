@@ -27,7 +27,9 @@ Mikey: Emirates of Hacan
 Brian: Xxcha Kingdom
 
 Click on the title to read more detailed information about each race:
-
+  
+  
+  
 ## Starter Races
 ****
 
@@ -60,7 +62,10 @@ The Hylar are intelligent, peaceful people known for their scientific research f
 Placid and calm reptile-creatures, they find their strength in the political arena, and have a strongly defensive tendency when it comes to warfare.  
 
 A proud, ancient race of humanoid space turtles who can use their political contacts to avoid confrontation and to veto dangerous agendas (and action cards, with the right tech). They can annex other planets via pure diplomacy.
-
+  
+  
+  
+  
 ## Beginner Races
 ****
 
@@ -78,7 +83,10 @@ These robots have immediate access to plenty of home-system resources, but very 
 A group of renegades and thieves, the Mentak are the perfect rendition of a space pirate, preferring small skirmishes and ambushes to full-fledged battles. Their ability to intercept trade convoys and rebuild damaged ships after conflicts make them a pain in the neck of everyone who dare cross their area of space, but a wealthy backer might just be able to sway them enough to gain their help... for a price.  
 
 The Mentak, all descendants of what was once a system of prison planets, comes with an impressive fleet of ships. They can steal trade goods from other players and end certain space battles before their foe even gets off a shot.
-
+  
+  
+  
+  
 ## Intermediate Races
 ****
 
@@ -106,7 +114,10 @@ These former stewards of Mecatol Rex have many supporters there. This makes it e
 A people of small-sized, highly intelligent creatures once used as spies and infiltrators, finally acting independently. Their culture has a strong emphasis on the art of subterfuge and surprise, and one can never be sure what to expect of them.  
 
 These Goblin-like guerilla fighters are masters of secret attacks and sabotage. They get a better selection of action cards, which they can also discard to “stall” indefinitely. And they start with a solid fleet and home system.
-
+  
+  
+  
+  
 ## Expert Races
 ****
 
