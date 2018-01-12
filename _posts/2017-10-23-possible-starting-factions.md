@@ -6,16 +6,16 @@ author: mikey
 comments: true
 categories: ti4 boardgames
 ---
-This ranking is taking into account the relative strengths of the factions:
+I think these would be a good start to play TI4:
 
 Mikey - Emirates of Hacan  
 Jubee - Federation of Sol  
-Jared - Sardakk N'orr  
+Jared - L1z1x  
 Gerf - Barony of Letnev  
 Eyay - Xxcha Kingdom  
 Brian - Universities of Jol-Nar
 
-I hate power discussions, because for anything other than the highest caliber players, it doesn't mean much.
+These suggestions may change as time passes.
 
 {% if page.comments %}
 <div id="disqus_thread"></div>
