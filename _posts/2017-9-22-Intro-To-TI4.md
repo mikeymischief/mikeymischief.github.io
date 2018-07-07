@@ -11,7 +11,9 @@ Introduction to the races of Twilight Imperium!
 
 This document serves as a summary of the races to help people pick their race before their first game. I have scoured the interwebs and have combined/updated/summarized these for our use.
 
-Twilight Imperium (Fourth Edition) is a game of galactic conquest in which three to six players take on the role of one of seventeen factions vying for galactic domination through military might, political maneuvering, and economic bargaining. Every faction offers a completely different play experience, from the wormhole-hopping Ghosts of Creuss to the Emirates of Hacan, masters of trade and economics. These seventeen races are offered many paths to victory, but only one may sit upon the throne of Mecatol Rex as the new masters of the galaxy.
+Twilight Imperium's premise is a large-scale space opera. It is set in the unstable power vacuum left after the centuries-long decline and collapse of the previously dominant Lazax race. The old galactic central capital, Mecatol Rex, located in center of the map is maintained by custodians who maintain the imperial libraries and oversee the meetings of the galactic council. Players assume the roles of rising empires on the fringes of the galaxy, vying for military and political control, until one finally becomes sufficiently dominant to take over as a new galactic emperor.
+
+Twilight Imperium is a game of galactic conquest in which three to six players take on the role of one of seventeen factions vying for galactic domination through military might, political maneuvering, and economic bargaining. Every one of the seventeen faction offers a completely different play experience. These races are offered many paths to victory, but only one may sit upon the throne of Mecatol Rex as the new masters of the galaxy.
 
 Below is the recommended races for each person according to playstyle and personality:
 
@@ -20,116 +22,119 @@ Jared: Sardakk N'orr
 Gerf: Barony of Letnev  
 Beaud: Universities of Jol-Nar  
 Jos: Embers of Muaat  
-Eyay: Clan of Saar  
+Eyay: Naalu Collective  
 Mikey: Emirates of Hacan  
 Brian: Federation of Sol  
 
 Click on the title to read more detailed information about each race:
-
+  
+  
+  
 ## Starter Races
 ****
 
 ### [THE BARONY OF LETNEV](/races/BaronyOfLetnev)
-Arrogant militarists. They have the best homeworld in the game.
+Hailing from a strongly industrialized system, the Letnev race has a prominent leading caste that controls most of the sector's riches. They are known for their ability to mobilize and utilize their riches to power their massive fleet, and for the authority and leading ability to manage them effectively.  
+
+These Warrior-nobles have a powerful two-planet home system that gives them arguably the best starting position in the game. Their mastery of logistics lets them “buy” offensive power and handle larger than usual fleets.
 
 ### [THE EMIRATES OF HACAN](/races/EmiratesOfHacan)
-Space-merchant-cats. Masters of trade. 
+A desert-dwelling race of feline humanoids, their homeworlds are relatively poor in resources but abundant in rare herbs and spices. They built themselves up as a massive trading power and control much of the galaxy's wealth and economy.  
+
+The Hacan value trade and diplomacy over militaristic might. They have more commodities to trade than any other race and can make deals with anyone, including trading action cards.
 
 ### [THE FEDERATION OF SOL](/races/FederationOfSol)
-Humans. Versatile with a military slant. Best Carriers in the game.
+While humans are found basically everywhere in the universe, the ones that hail from their homeworld of Jord are unified in their purpose and seek to expand their influence. A most recent race to join the Empire, they are many, and use this as their strength.  
 
-### [THE L1Z1X MINDNET](/races/L1z1xMindnet)
-Last decendants of the old empire. Masters of warfare through technology. Best Dreadnoughts in the game.
-
-### [THE MENTAK COALITION](/races/MentakCoalition)
-Space pirates. Skirmish fights, steals trade goods. Best Cruisers in the game.
+Empowered by their ability to quickly breed and train new troops, the Federation of Sol's carriers are second to none, and they recover quickly if they overextend themselves.
 
 ### [THE SARDAKK N'ORR](/races/SardakkNorr)
-Insect warrior race. Good at combat. Swarms opponents with its huge fleet.
+Insectoid creatures with a war-like attitude, the Sardakk excel in all forms of combat, in space as on the ground. However, they have never been the best in class and as such start a bit behind with tech.  
+
+The Sardakk N'orr start with modest resources and a small fleet, but who can use their straightforward combat advantages to quickly build and conquer. Their dreadnoughts are custom-built to bombard ground forces before invasion.
 
 ### [THE UNIVERSITIES OF JOL'NAR](/races/UniversitiesOfJolNar)
-Fish scientists. Good at developing technology, bad at fighting.
+The opposite to the Norr, this fish-like race dwells in large oceans and marine cities, exploring knowledge with enthusiasm and dedication. Their attitude for self-improvement is somehow mitigated by their innate ineptitude with weaponry and combat.  
+
+The Hylar are intelligent, peaceful people known for their scientific research facilities on the twin planets Jol and Nar. They are not great in a fight, but can research new technology faster and more easily than any other race.
 
 ### [THE XXCHA KINGDOM](/races/XxchaKingdom)
-Peace-loving space turtles. Masters of politics and diplomacy.
+Placid and calm reptile-creatures, they find their strength in the political arena, and have a strongly defensive tendency when it comes to warfare.  
 
-## Intermediate Races
-****
-
-### [THE NAALU COLLECTIVE](/races/NaaluCollective)
-Telepathic space-snakes. Always go first, best Fighters in the game.
-
-### [THE YSSARIL TRIBES](/races/YssarilTribes)
-Sneaky goblins. Masters of espionage.
-
-## Expert Races
+A proud, ancient race of humanoid space turtles who can use their political contacts to avoid confrontation and to veto dangerous agendas (and action cards, with the right tech). They can annex other planets via pure diplomacy.
+  
+  
+  
+  
+## Beginner Races
 ****
 
 ### [THE BROTHERHOOD OF YIN](/races/BrotherhoodOfYin)
-Religious zealot clones. Can convert ground forces and directly blow up ships.
+Once originated from a rogue human, the Yin Brotherhood is a population of clones that revere their genetic blueprint as something not unlike a divine essence, a life-giver, and live and die by their devotion, to the point of being more than willing to die for it.  
 
-### [THE CLAN OF SAAR](/races/ClanOfSaar)
-Space-gypsies. Their Space Docks are mobile.
+A “race” of male clones driven by a shared religious fanaticism. Their holy fervor lets them convert the populace as they invade and make kamikaze ship attacks without hesitation. Once they take control of a planet, it's very hard to wrest control from them.
 
-### [THE EMBERS OF MUAAT](/races/EmbersOfMuaat)
-Race of fire elementals. They start with a prototype War Sun.
+### [THE L1Z1X MINDNET](/races/L1z1xMindnet)
+Cyborgs that claim to have been birthed from the remains of the Lazax emperors, the Mindnet wishes to retake what is rightfully theirs. Aggressively conquering everything they set their eyes on, their approach is marked by their characteristical Super Dreadnoughts, heavy capital ships that carry large amount of troops and fighter squadrons and are able to rain fire on the unfortunate defenders.  
 
-### [THE WINNU](/races/Winnu)
-Keepers of the old empire. Versatile with a economic slant. Needs to control Mecatol Rex.
+These robots have immediate access to plenty of home-system resources, but very little diplomatic influence. They rely heavily on their powerful dreadnoughts and flagship, both in space combat and to bombard the enemy while invading.
 
-### [THE ARBOREC](/races/Arborec)
-Sentient plants. Can grow spaceships from themselves.
+### [THE MENTAK COALITION](/races/MentakCoalition)
+A group of renegades and thieves, the Mentak are the perfect rendition of a space pirate, preferring small skirmishes and ambushes to full-fledged battles. Their ability to intercept trade convoys and rebuild damaged ships after conflicts make them a pain in the neck of everyone who dare cross their area of space, but a wealthy backer might just be able to sway them enough to gain their help... for a price.  
 
-### [THE GHOSTS OF CREUSS](/races/GhostsOfCruess)
-Mysterious energy-based race. Can move anywhere through their control of wormholes.
-
-### [THE NEKRO VIRUS](/races/NekroVirus)
-Relentless robots. Can assimilate technology from the opponent. 
-
-
-
-## Strategy
+The Mentak, all descendants of what was once a system of prison planets, comes with an impressive fleet of ships. They can steal trade goods from other players and end certain space battles before their foe even gets off a shot.
+  
+  
+  
+  
+## Intermediate Races
 ****
 
-I guess the best races are either: Clan of Saar, Arborec, Nekro, Mentak, Naalu Or Nekro, Mentak, Naalu, Sol, L1Z1X
+### [THE EMBERS OF MUAAT](/races/EmbersOfMuaat)
+A race of burning energies barely contained in their own bodies, the strength of the stars fueling their very core, the Muaat were once enslaved by the Jol-Nar, and built their weapons with the ease of those who can mold metal with their bare hands. As the Hylars lost their grip on their world during the wars, the Muaat rose as an independent people, bringing the best of their handiwork to life in the powerful War Sun; a battlestation to rival any other ship in the galaxy... if not yet fully operational.  
 
-See below:
+These sentient fire-creatures can travel through supernovas effortlessly. At the beginning of the game, they are the only race who knows the secret of producing war suns, the deadliest ship that exists.
 
-Clan of Saar with space docks is very strong now. You can retreat with them. You can build right after moving. No need for logistical thinking, build it where you need it. And when you conquer planets, you get extra trade goods.
+### [THE GHOSTS OF CREUSS](/races/GhostsOfCruess)
+Strange, alien beings made of pure energy, they hail not from a planet within the galaxy, but from a planet outside of it, connected only by a spacial anomaly not unlike a wormhole. The Ghosts, as they are called, are master of dimensional travel and can easily slip through folds in space to reappear almost anywhere and use this mobility to prey on the unprepared.  
 
-Similarly with Arborec. Just move and build. Place GFs on planets as backup. Not sure which race is stronger here. Maybe Saar with the extra capacity on the space docks. But Arborec also has to defend the home system. Both neighbors would have to keep the plants at bay.
+These beings of energy and light control wormholes for rapid movement and potentially use this movement for tactical advantage. Their home system is very difficult to reach, which is a mixed blessing: good for defense, bad for fast expansion.
 
-Then again, these two races could be blown apart by 3xDestroyerII-s and a decent fleet to back it up. Yin would probably focus on destroyers. Or Sardakk N'orr if they are your neighbors. Not sure about that. So these 2 races could be either very strong or just decent.
+### [THE NAALU COLLECTIVE](/races/NaaluCollective)
+A race of snake-like women with telepatic abilities, the Naalu can come across as slippery, treacherous, and nasty, or otherwise as insightful, reactive, and clever.  
 
-Nekro is more or less the same but it can gain a bit more technologies than before. Since Command Counters are so rare in the new edition, I imagine Nekro would intentionally take Technology himself to get 3 CCs, maybe even spend another 6 resources to get another 3 CCs. Seems like this abuse would benefit Nekro much more than picking Leadership. That's why Nekro would be much stronger in this game.
+The Naalu act before everyone else and may retreat from unwinnable battles. Their fleets tend to heavily favor small ships and agile fighters.
 
-Mentak is mostly same as before. Can get CruiserII as 2nd tech, could get war suns quickly. Could also go for racial techs. I think it depends whether you can get a planet with a tech specialty and what type, anything but blue. The starting fleet is a bit weak. Hard to expand. Very Nekro-like hit-and-run tactics. Best flagship IMO. Works against Letnev, L1Z1X and anyone who builds War Suns. My favorite race so I am a bit biased.
+### [THE WINNU](/races/Winnu)
+The Winnu race was the first to be encountered by the Lazax, a millennia ago, and has served faithfully as custodians, servants, ambassadors and care-takers until the end of the empire. Now, they see themselves as the only logical successor as the ones who most rightfully can preserve the glorious inheritance and cultural history of the Lazax.  
 
-Naalu is still strong, a bit weaker than before, I think. 0 Initiative is always powerful. If they can get the racial techs, no-one would want to attack them.
+These former stewards of Mecatol Rex have many supporters there. This makes it easier for them to quickly take control of Mecatol Rex, and lets them reinforce it easily. They can also choose their starting technology, which gives you plenty of starting options.
 
-Sol can have bigger fighter screens than others. Also the extra Command Counter is super useful. Seems like most races would prefer to get the tech which gives extra Command Counters. The flagship can carry 12 units! That could be stupidly strong. Also all the infantry bonuses, it seems like this race is more about numbers than anyone else. Having the production and logistics to get the swarm anywhere is going to be hard, especially when there is a Saar Ball of Death rolling around regenerating all the time.
+### [THE YSSARIL TRIBES](/races/YssarilTribes)
+A people of small-sized, highly intelligent creatures once used as spies and infiltrators, finally acting independently. Their culture has a strong emphasis on the art of subterfuge and surprise, and one can never be sure what to expect of them.  
 
-L1Z1X Dreadnoughts are super nice now. And they can bombard every round during ground invasion. That is incredibly powerful en masse. No need to carry that much infantry anymore. Just nuke it from orbit. If you are lucky and can get a yellow tech planet, you could get Inheritance System and get any tech by the 3rd round. War Suns or better Dreadnoughts? The flagship is strong.
+These Goblin-like guerilla fighters are masters of secret attacks and sabotage. They get a better selection of action cards, which they can also discard to “stall” indefinitely. And they start with a solid fleet and home system.
+  
+  
+  
+  
+## Expert Races
+****
 
-Letnev is mostly same as before. If they can hoard trade goods, they could really shine in combat. In large battles, being able to reroll all missed dice is huge. Very nice production at home too.
+### [THE ARBOREC](/races/Arborec)
+A single-minded organism spanning several star systems, Arborec's spores can germinate fruit eveywhere in its domain, giving its growth a terrifying quality for those near its tendrils.  
 
-Jol-Nar can build a lot of tech as before. Not sure if it negates the -1 to combat rolls.
+These plant people produce new soldiers naturally and organically rather than via recruitment. They start off weak but grow exponentially more powerful as they amass ground forces on each planet, growing like a giant weed in the galaxy.
 
-Yssaril is still strong with the extra action cards. Then again, he does not really have get that many action cards per round. The expanding force is quite strong though.
+### [THE CLAN OF SAAR](/races/ClanOfSaar)
+One of the most ancient races of the galaxy, the Clan does not really have a world to call their own. Instead, they move from place to place, wandering and collecting what resources they can before moving on, seeking a new home where they can one day be a proud people again.  
 
-Hacan seems quite strong by itself. I guess you can trade in the beginning but once you start getting ahead, other players will just stop trading with you. The 3-planet home system is nice and all but if your only special ability is eliminated, you're going to fall behind.
+A scattered, nomadic race, whose space docks need not be anchored to a planet. Instead, they use them to journey from system to system, usually preferring to explore new planets rather than fighting to keep the ones they have.
 
-Xxcha can turtle a lot. That's mostly it. Based on the public objectives, that might be better than it sounds. The flagship with 4 space docks in one system could defend 7 systems simultaneously. 8 hits (with first red tech) before combat to anyone who gets near you.
+### [THE NEKRO VIRUS](/races/NekroVirus)
+As the L1z1x were born, not everything worked out correctly. Some experiments, some attempts, gave life to something extreme, an intelligence that was too much machine and too little man, learning, absorbing, churning flesh and data, able to quickly imitate but never innovate, hungry for knowledge and conquest alike. Able to copy any technological advancement but unable to curb their ambitions, the Nekro are a threat to the whole galaxy.  
 
-Muaat is a bit stronger than before. Getting War Sun with movement of 3 is much easier now. Seems like getting War Sun is not that important for other races - they have other things going on. Jol-Nar and Mentak could because they are already half-way there.
-
-Sardakk N'orr starts with no techs. A lot of objectives require you to have technologies. So if you are not lucky with the objective deck, you are fucked. Starting with 2 carriers is nice though.
-
-Yin is OK. Nothing that great about them. Not sure if stronger than other races. The ability to sacrifice units to kill enemy ships could pay off in small-sized battles.
-
-Creuss can be all over the map easily. Not sure if that is good or not. Overextending with them can be really easy.
-
-Winnu is super weak now. Where to start... The only thing it has going for it is controlling Mecatol Rex. If it doesn't it has nothing. Starting with only one technology which can be chosen at the beginning of the game. The starting fleet moves slowly. You can reach MR by round 3. Maybe round 2 if lucky and you get Warfare. The other players can still stop you from reaching MR at relatively low costs. First, during the galaxy creation phase they can just place the supernova between Winnu HS and MR. This adds 2 movement to reach MR. Another thing they can do is to move their faster ships to hover over MR so you wouldn't get it. Mentak and Jol Nar would probably research Cruiser II so moving in there is quite easy for them. And then they can take it whenever they want to. Yeah, you could buy some techs to speed you up but by then the opponents could already be swarming MR. Since your starting fleet honestly sucks, you can not justify rushing MR. Maybe you will get there by round 4. By then EVERYONE already wants to take MR anyway. You getting there first to be immediately kicked out is not worth it but that's the only thing that makes you different from others. 
+A corrupted offshoot of the L1z1x, the Nekro Virus cannot take part in politics or technological advancement, but they will steal tech from every foe they injure, even if they lose the battle. 
 
 
 {% if page.comments %}
