@@ -13,7 +13,7 @@ permalink: /dota/
 
 ### Safe Lane
 
-<img src="https://github.com/mikeymischief/mikeymischief.github.io/tree/master/images/Dota/morphling_full.png" width="200" height="100" />
+<img src="https://github.com/mikeymischief/mikeymischief.github.io/blob/master/images/Dota/morphling_full.png" width="255" height="142" />
 ![Phantom Lancer](/images/Dota/phantom_lancer_full.png)
 
 ### Offlane
