@@ -8,7 +8,7 @@ permalink: /dota/
 ### Mid
 
 ![Invoker](/images/Dota/invoker_full.png)
-![Queen of Pain](/images/Dota/queen_of_pain_full.png)
+![Queen of Pain](/images/Dota/queenofpain_full.png)
 ![Zeus](/images/Dota/zeus_full.png)
 
 ### Safe Lane
