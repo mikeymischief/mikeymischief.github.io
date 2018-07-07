@@ -8,10 +8,12 @@ permalink: /dota/
 ### Mid
 
 ![Invoker](/images/Dota/invoker_full.png)
+![Queen of Pain](/images/Dota/queen_of_pain_full.png)
+![Zeus](/images/Dota/zeus_full.png)
 
 ### Safe Lane
 
-![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png =250x)
 ![Morphling](/images/Dota/morphling_full.png)
 ![Morphling](/images/Dota/morphling_full.png)
 ![Morphling](/images/Dota/morphling_full.png)
@@ -34,6 +36,7 @@ permalink: /dota/
 ### 4 Support
 
 ![Rubick](/images/Dota/rubick_full.png)
+![Skywrath Mage](/images/Dota/skywrath_mage_full.png)
 
 ### 5 Support
 
