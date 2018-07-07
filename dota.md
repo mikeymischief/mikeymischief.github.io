@@ -13,17 +13,8 @@ permalink: /dota/
 
 ### Safe Lane
 
-![Morphling](/images/Dota/morphling_full.png =250x)
-![Morphling](/images/Dota/morphling_full.png)
-![Morphling](/images/Dota/morphling_full.png)
-![Morphling](/images/Dota/morphling_full.png)
-![Morphling](/images/Dota/morphling_full.png)
-![Morphling](/images/Dota/morphling_full.png)
-![Morphling](/images/Dota/morphling_full.png)
-![Morphling](/images/Dota/morphling_full.png)
-![Morphling](/images/Dota/morphling_full.png)
-![Morphling](/images/Dota/morphling_full.png)
-![Morphling](/images/Dota/morphling_full.png)
+<img src="images/Dota/morphling_full.png" width="200" height="200" />
+![Phantom Lancer](/images/Dota/phantom_lancer_full.png)
 
 ### Offlane
 
