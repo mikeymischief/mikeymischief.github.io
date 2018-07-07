@@ -7,7 +7,7 @@ permalink: /dota/
 
 ### Safe Lane
 
-![Morphling](/images/dota/morphling_full.jpg)
+![Morphling](/images/dota/morphling_full.png)
 
 
 
