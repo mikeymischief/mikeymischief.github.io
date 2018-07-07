@@ -5,8 +5,6 @@ author: mikey
 permalink: /dota/
 ---
 
-![](/images/Dota/
-
 ### Mid Melee
 ![Alchemist](/images/Dota/alchemist_full.png)
 ![Bloodseeker](/images/Dota/bloodseeker_full.png)
