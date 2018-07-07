@@ -5,13 +5,41 @@ author: mikey
 permalink: /dota/
 ---
 
+### Mid
+
+![Invoker](/images/Dota/invoker_full.png)
+
 ### Safe Lane
 
-![Morphling](/images/dota/morphling_full.png)
-
+![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png)
+![Morphling](/images/Dota/morphling_full.png)
 ![Morphling](/images/Dota/morphling_full.png)
 
-![Pugna](/images/dota/pugna_full.png)
+### Offlane
+
+![Tidehunter](/images/Dota/tidehunter_full.png)
+
+### Roaming
+
+![Bounty Hunter](/images/Dota/bounty_hunter_full.png)
+
+### 4 Support
+
+![Rubick](/images/Dota/rubick_full.png)
+
+### 5 Support
+
+![Crystal Maiden](/images/Dota/crystal_maiden_full.png)
+
+
 
 ### Contact me
 
