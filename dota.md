@@ -12,8 +12,7 @@ permalink: /dota/
 ![Zeus](/images/Dota/zeus_full.png)
 
 ### Safe Lane
-
-<img src="https://github.com/mikeymischief/mikeymischief.github.io/blob/master/images/Dota/morphling_full.png" width="191" height="106" />
+![Morphling](/images/Dota/morphling_full.png)<img src="images/Dota/morphling_full.png" width="191" height="106" />
 ![Phantom Lancer](/images/Dota/phantom_lancer_full.png)
 
 ### Offlane
