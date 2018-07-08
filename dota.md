@@ -5,6 +5,9 @@ author: mikey
 permalink: /dota/
 ---
 
+---
+<p>
+
 ### Mid Melee (active)
 <img src="/images/Dota/bloodseeker_full.png" width="80px"/>
 <img src="/images/Dota/alchemist_full.png" width="80px"/>
@@ -33,7 +36,7 @@ permalink: /dota/
 <img src="/images/Dota/lina_full.png" width="80px"/>
 <img src="/images/Dota/queenofpain_full.png" width="80px"/>
 
-
+</p>
 ---
 
 
