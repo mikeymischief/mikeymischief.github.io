@@ -6,14 +6,17 @@ permalink: /dota/
 ---
 
 ---
-```
+
 ### Mid Melee (active)
+```
 <img src="/images/Dota/bloodseeker_full.png" width="80px"/>
 <img src="/images/Dota/alchemist_full.png" width="80px"/>
 <img src="/images/Dota/dragon_knight_full.png" width="80px"/>
 <img src="/images/Dota/huskar_full.png" width="80px"/>
+```
 
 ### Mid Ranged (farm)
+```
 <img src="/images/Dota/invoker_full.png" width="80px"/>
 <img src="/images/Dota/nevermore_full.png" width="80px"/>
 <img src="/images/Dota/sniper_full.png" width="80px"/>
@@ -22,8 +25,10 @@ permalink: /dota/
 <img src="/images/Dota/obsidian_destroyer_full.png" width="80px"/>
 <img src="/images/Dota/medusa_full.png" width="80px"/>
 <img src="/images/Dota/visage_full.png" width="80px"/>
+```
 
 ### Mid Ranged (active)
+```
 <img src="/images/Dota/templar_assassin_full.png" width="80px"/>
 <img src="/images/Dota/zeus_full.png" width="80px"/>
 <img src="/images/Dota/death_prophet_full.png" width="80px"/>
@@ -33,6 +38,7 @@ permalink: /dota/
 <img src="/images/Dota/lina_full.png" width="80px"/>
 <img src="/images/Dota/queenofpain_full.png" width="80px"/>
 ```
+
 ---
 ---
 
