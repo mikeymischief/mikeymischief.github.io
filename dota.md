@@ -5,8 +5,9 @@ author: mikey
 permalink: /dota/
 ---
 
----
-
+Mid
+------
+------
 ### Mid Melee (active)
 <img src="/images/Dota/bloodseeker_full.png" width="80px"/>
 <img src="/images/Dota/alchemist_full.png" width="80px"/>
@@ -33,9 +34,10 @@ permalink: /dota/
 <img src="/images/Dota/lina_full.png" width="80px"/>
 <img src="/images/Dota/queenofpain_full.png" width="80px"/>
 
----
----
 
+Safe Lane
+------
+------
 ### Safe Lane Melee (farm)
 <img src="/images/Dota/spectre_full.png" width="80px"/>
 <img src="/images/Dota/phantom_assassin_full.png" width="80px"/>
@@ -73,9 +75,10 @@ permalink: /dota/
 <img src="/images/Dota/venomancer_full.png" width="80px"/>
 <img src="/images/Dota/razor_full.png" width="80px"/>
 
----
----
 
+Offlane
+------
+------
 ### Offlane (solo) Melee
 <img src="/images/Dota/rattletrap_full.png" width="80px"/>
 <img src="/images/Dota/shredder_full.png" width="80px"/>
@@ -116,9 +119,9 @@ permalink: /dota/
 <img src="/images/Dota/jakiro_full.png" width="80px"/>
 <img src="/images/Dota/lich_full.png" width="80px"/>
 
----
----
-
+Roaming
+------
+------
 ### Roaming
 <img src="/images/Dota/earth_spirit_full.png" width="80px"/>
 <img src="/images/Dota/bounty_hunter_full.png" width="80px"/>
@@ -128,8 +131,9 @@ permalink: /dota/
 <img src="/images/Dota/windrunner_full.png" width="80px"/>
 <img src="/images/Dota/kunkka_full.png" width="80px"/>
 
----
----
+Support
+------
+------
 
 ### 4 Support
 <img src="/images/Dota/rubick_full.png" width="80px"/>
@@ -158,8 +162,10 @@ permalink: /dota/
 <img src="/images/Dota/shadow_demon_full.png" width="80px"/>
 <img src="/images/Dota/keeper_of_the_light_full.png" width="80px"/>
 
----
----
+
+Jungle / Misc
+------
+------
 
 ### Jungle
 <img src="/images/Dota/enigma_full.png" width="80px"/>
