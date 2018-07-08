@@ -5,6 +5,8 @@ author: mikey
 permalink: /dota/
 ---
 
+<img src="/images/Dota/alchemist_full.png" width="106px"/>
+
 ### Mid Melee
 ![Alchemist](/images/Dota/alchemist_full.png)
 ![Bloodseeker](/images/Dota/bloodseeker_full.png)
@@ -67,6 +69,7 @@ permalink: /dota/
 
 ### Offlane (solo) Melee
 ![Clockwork](/images/Dota/rattletrap_full.png)
+![Timbersaw](/images/Dota/shredder_full.png)
 ![Beastmaster](/images/Dota/beastmaster_full.png)
 ![Pangolier](/images/Dota/pangolier_full.png)
 ![Omniknight](/images/Dota/omniknight_full.png)
@@ -150,7 +153,6 @@ permalink: /dota/
 
 ### Misc
 ![Techies](/images/Dota/techies_full.png)
-![Shredder](/images/Dota/shredder_full.png)
 ![Wisp](/images/Dota/wisp_full.png)
 
 ### Contact me
