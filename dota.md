@@ -7,13 +7,17 @@ permalink: /dota/
 
 ---
 
+
+<details>
+  <summary>
 ### Mid Melee (active)
-<p>
+  </summary>
 <img src="/images/Dota/bloodseeker_full.png" width="80px"/>
 <img src="/images/Dota/alchemist_full.png" width="80px"/>
 <img src="/images/Dota/dragon_knight_full.png" width="80px"/>
 <img src="/images/Dota/huskar_full.png" width="80px"/>
-</p>
+</details>
+
 
 ### Mid Ranged (farm)
 ```
