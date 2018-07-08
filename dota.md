@@ -34,6 +34,9 @@ permalink: /dota/
 <img src="/images/Dota/queenofpain_full.png" width="80px"/>
 
 
+---
+
+
 ### Safe Lane Melee (farm)
 <img src="/images/Dota/spectre_full.png" width="80px"/>
 <img src="/images/Dota/phantom_assassin_full.png" width="80px"/>
@@ -73,6 +76,9 @@ permalink: /dota/
 <img src="/images/Dota/gyrocopter_full.png" width="80px"/>
 <img src="/images/Dota/venomancer_full.png" width="80px"/>
 <img src="/images/Dota/razor_full.png" width="80px"/>
+
+
+---
 
 
 ### Offlane (solo) Melee
@@ -119,6 +125,9 @@ permalink: /dota/
 <img src="/images/Dota/lich_full.png" width="80px"/>
 
 
+---
+
+
 ### Roaming
 <img src="/images/Dota/earth_spirit_full.png" width="80px"/>
 <img src="/images/Dota/bounty_hunter_full.png" width="80px"/>
@@ -127,6 +136,9 @@ permalink: /dota/
 <img src="/images/Dota/riki_full.png" width="80px"/>
 <img src="/images/Dota/windrunner_full.png" width="80px"/>
 <img src="/images/Dota/kunkka_full.png" width="80px"/>
+
+
+---
 
 
 ### 4 Support
@@ -156,6 +168,9 @@ permalink: /dota/
 <img src="/images/Dota/dazzle_full.png" width="80px"/>
 <img src="/images/Dota/shadow_demon_full.png" width="80px"/>
 <img src="/images/Dota/keeper_of_the_light_full.png" width="80px"/>
+
+
+---
 
 
 ### Jungle
