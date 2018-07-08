@@ -6,14 +6,12 @@ permalink: /dota/
 ---
 
 ---
-<p>
-
+```
 ### Mid Melee (active)
 <img src="/images/Dota/bloodseeker_full.png" width="80px"/>
 <img src="/images/Dota/alchemist_full.png" width="80px"/>
 <img src="/images/Dota/dragon_knight_full.png" width="80px"/>
 <img src="/images/Dota/huskar_full.png" width="80px"/>
-
 
 ### Mid Ranged (farm)
 <img src="/images/Dota/invoker_full.png" width="80px"/>
@@ -25,7 +23,6 @@ permalink: /dota/
 <img src="/images/Dota/medusa_full.png" width="80px"/>
 <img src="/images/Dota/visage_full.png" width="80px"/>
 
-
 ### Mid Ranged (active)
 <img src="/images/Dota/templar_assassin_full.png" width="80px"/>
 <img src="/images/Dota/zeus_full.png" width="80px"/>
@@ -35,10 +32,9 @@ permalink: /dota/
 <img src="/images/Dota/leshrac_full.png" width="80px"/>
 <img src="/images/Dota/lina_full.png" width="80px"/>
 <img src="/images/Dota/queenofpain_full.png" width="80px"/>
-
-</p>
+```
 ---
-
+---
 
 ### Safe Lane Melee (farm)
 <img src="/images/Dota/spectre_full.png" width="80px"/>
@@ -48,7 +44,6 @@ permalink: /dota/
 <img src="/images/Dota/sven_full.png" width="80px"/>
 <img src="/images/Dota/terrorblade_full.png" width="80px"/>
 <img src="/images/Dota/meepo_full.png" width="80px"/>
-
 
 ### Safe Lane Melee (active)
 <img src="/images/Dota/ember_spirit_full.png" width="80px"/>
@@ -63,7 +58,6 @@ permalink: /dota/
 <img src="/images/Dota/lycan_full.png" width="80px"/>
 <img src="/images/Dota/chaos_knight_full.png" width="80px"/>
 
-
 ### Safe Lane Ranged (farm)
 <img src="/images/Dota/morphling_full.png" width="80px"/>
 <img src="/images/Dota/arc_warden_full.png" width="80px"/>
@@ -72,7 +66,6 @@ permalink: /dota/
 <img src="/images/Dota/drow_ranger_full.png" width="80px"/>
 <img src="/images/Dota/lone_druid_full.png" width="80px"/>
 
-
 ### Safe Lane Ranged (active)
 <img src="/images/Dota/clinkz_full.png" width="80px"/>
 <img src="/images/Dota/necrolyte_full.png" width="80px"/>
@@ -80,9 +73,8 @@ permalink: /dota/
 <img src="/images/Dota/venomancer_full.png" width="80px"/>
 <img src="/images/Dota/razor_full.png" width="80px"/>
 
-
 ---
-
+---
 
 ### Offlane (solo) Melee
 <img src="/images/Dota/rattletrap_full.png" width="80px"/>
@@ -99,13 +91,11 @@ permalink: /dota/
 <img src="/images/Dota/broodmother_full.png" width="80px"/>
 <img src="/images/Dota/brewmaster_full.png" width="80px"/>
 
-
 ### Offlane (solo) Ranged
 <img src="/images/Dota/weaver_full.png" width="80px"/>
 <img src="/images/Dota/batrider_full.png" width="80px"/>
 <img src="/images/Dota/furion_full.png" width="80px"/>
 <img src="/images/Dota/phoenix_full.png" width="80px"/>
-
 
 ### Dual Offlane Melee
 <img src="/images/Dota/faceless_void_full.png" width="80px"/>
@@ -119,7 +109,6 @@ permalink: /dota/
 <img src="/images/Dota/doom_bringer_full.png" width="80px"/>
 <img src="/images/Dota/omniknight_full.png" width="80px"/>
 
-
 ### Dual Offlane Ranged
 <img src="/images/Dota/pugna_full.png" width="80px"/>
 <img src="/images/Dota/mirana_full.png" width="80px"/>
@@ -127,9 +116,8 @@ permalink: /dota/
 <img src="/images/Dota/jakiro_full.png" width="80px"/>
 <img src="/images/Dota/lich_full.png" width="80px"/>
 
-
 ---
-
+---
 
 ### Roaming
 <img src="/images/Dota/earth_spirit_full.png" width="80px"/>
@@ -140,9 +128,8 @@ permalink: /dota/
 <img src="/images/Dota/windrunner_full.png" width="80px"/>
 <img src="/images/Dota/kunkka_full.png" width="80px"/>
 
-
 ---
-
+---
 
 ### 4 Support
 <img src="/images/Dota/rubick_full.png" width="80px"/>
@@ -154,7 +141,6 @@ permalink: /dota/
 <img src="/images/Dota/warlock_full.png" width="80px"/>
 <img src="/images/Dota/silencer_full.png" width="80px"/>
 <img src="/images/Dota/naga_siren_full.png" width="80px"/>
-
 
 ### 5 Support
 <img src="/images/Dota/ancient_apparition_full.png" width="80px"/>
@@ -172,19 +158,18 @@ permalink: /dota/
 <img src="/images/Dota/shadow_demon_full.png" width="80px"/>
 <img src="/images/Dota/keeper_of_the_light_full.png" width="80px"/>
 
-
 ---
-
+---
 
 ### Jungle
 <img src="/images/Dota/enigma_full.png" width="80px"/>
 <img src="/images/Dota/chen_full.png" width="80px"/>
 
-
 ### Misc
 <img src="/images/Dota/techies_full.png" width="80px"/>
 <img src="/images/Dota/wisp_full.png" width="80px"/>
 
+---
 
 ### Contact me
 [mikey_mischief@hotmail.com](mailto:mikey_mischief@hotmail.com)
