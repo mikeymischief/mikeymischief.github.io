@@ -10,7 +10,7 @@ permalink: /dota/
 
 <details>
   <summary>
-### Mid Melee (active)
+<h2>Mid Melee (active)</h2>
   </summary>
 <img src="/images/Dota/bloodseeker_full.png" width="80px"/>
 <img src="/images/Dota/alchemist_full.png" width="80px"/>
