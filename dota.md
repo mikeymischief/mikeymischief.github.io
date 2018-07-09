@@ -17,8 +17,8 @@ permalink: /dota/
     <li><a data-toggle="pill" href="#misc">Misc</a></li>
   </ul>
 
-  <ul class="list-inline">
-    <li class="active"><a data-toggle="pill" href="#mid">Mid</a></li>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#mid">Mid</a></li>
     <li><a href="#safe">Safe Lane</a></li>
     <li><a href="#offlane">Offlane</a></li>
     <li><a href="#position4">Position 4 Support</a></li>
@@ -141,7 +141,6 @@ Dual Offlane Ranged
     </div>
     <div id="position4" class="tab-pane fade">
       <h3>Position 4 / Roaming</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
 Roaming
 <img src="/images/Dota/earth_spirit_full.png" width="80px"/>
 <img src="/images/Dota/bounty_hunter_full.png" width="80px"/>
@@ -165,7 +164,6 @@ Position 4 Support
     </div>
     <div id="support" class="tab-pane fade">
       <h3>SUPPORT</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
 5 Support
 <img src="/images/Dota/ancient_apparition_full.png" width="80px"/>
 <img src="/images/Dota/oracle_full.png" width="80px"/>
@@ -184,7 +182,6 @@ Position 4 Support
     </div>
     <div id="misc" class="tab-pane fade">
       <h3>JUNGLE / MISC</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
 Jungle
 <img src="/images/Dota/enigma_full.png" width="80px"/>
 <img src="/images/Dota/chen_full.png" width="80px"/>
