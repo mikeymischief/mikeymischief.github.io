@@ -19,17 +19,17 @@ permalink: /dota/
 
   <ul class="nav nav-tabs">
     <li class="active"><a href="#mid">Mid</a></li>
-    <li><a href="#safe">Safe Lane</a></li>
-    <li><a href="#offlane">Offlane</a></li>
-    <li><a href="#position4">Position 4 Support</a></li>
-    <li><a href="#support">Support</a></li>
-    <li><a href="#misc">Misc</a></li>
+    <li><a data-toggle="tab" href="#safe">Safe Lane</a></li>
+    <li><a data-toggle="tab" href="#offlane">Offlane</a></li>
+    <li><a data-toggle="tab" href="#position4">Position 4 Support</a></li>
+    <li><a data-toggle="tab" href="#support">Support</a></li>
+    <li><a data-toggle="tab" href="#misc">Misc</a></li>
   </ul>
   
   <div class="tab-content">
     <div id="mid" class="tab-pane fade in active">
       <h3>MID</h3>
-
+<p>
 Mid Melee (active)
 <img src="/images/Dota/bloodseeker_full.png" width="80px"/>
 <img src="/images/Dota/alchemist_full.png" width="80px"/>
@@ -55,6 +55,7 @@ Mid Ranged (active)
 <img src="/images/Dota/leshrac_full.png" width="80px"/>
 <img src="/images/Dota/lina_full.png" width="80px"/>
 <img src="/images/Dota/queenofpain_full.png" width="80px"/>
+</p>
     </div>
     <div id="safe" class="tab-pane fade">
       <h3>SAFE LANE</h3>
