@@ -30,13 +30,13 @@ permalink: /dota/
     <div id="mid" class="tab-pane fade in active">
       <h3>MID</h3>
 <p>
-Mid Melee (active)
+Mid Melee (active)<br>
 <img src="/images/Dota/bloodseeker_full.png" width="80px"/>
 <img src="/images/Dota/alchemist_full.png" width="80px"/>
 <img src="/images/Dota/dragon_knight_full.png" width="80px"/>
 <img src="/images/Dota/huskar_full.png" width="80px"/>
 <br>
-Mid Ranged (farm)
+Mid Ranged (farm)<br>
 <img src="/images/Dota/invoker_full.png" width="80px"/>
 <img src="/images/Dota/nevermore_full.png" width="80px"/>
 <img src="/images/Dota/sniper_full.png" width="80px"/>
@@ -46,7 +46,7 @@ Mid Ranged (farm)
 <img src="/images/Dota/medusa_full.png" width="80px"/>
 <img src="/images/Dota/visage_full.png" width="80px"/>
 <br>
-Mid Ranged (active)
+Mid Ranged (active)<br>
 <img src="/images/Dota/templar_assassin_full.png" width="80px"/>
 <img src="/images/Dota/zeus_full.png" width="80px"/>
 <img src="/images/Dota/death_prophet_full.png" width="80px"/>
@@ -59,8 +59,7 @@ Mid Ranged (active)
     </div>
     <div id="safe" class="tab-pane fade">
       <h3>SAFE LANE</h3>
-
-Safe Lane Melee (farm)
+Safe Lane Melee (farm)<br>
 <img src="/images/Dota/spectre_full.png" width="80px"/>
 <img src="/images/Dota/phantom_assassin_full.png" width="80px"/>
 <img src="/images/Dota/antimage_full.png" width="80px"/>
@@ -69,7 +68,7 @@ Safe Lane Melee (farm)
 <img src="/images/Dota/terrorblade_full.png" width="80px"/>
 <img src="/images/Dota/meepo_full.png" width="80px"/>
 <br>
-Safe Lane Melee (active)
+Safe Lane Melee (active)<br>
 <img src="/images/Dota/ember_spirit_full.png" width="80px"/>
 <img src="/images/Dota/troll_warlord_full.png" width="80px"/>
 <img src="/images/Dota/monkey_king_full.png" width="80px"/>
@@ -82,7 +81,7 @@ Safe Lane Melee (active)
 <img src="/images/Dota/lycan_full.png" width="80px"/>
 <img src="/images/Dota/chaos_knight_full.png" width="80px"/>
 <br>
-Safe Lane Ranged (farm)
+Safe Lane Ranged (farm)<br>
 <img src="/images/Dota/morphling_full.png" width="80px"/>
 <img src="/images/Dota/arc_warden_full.png" width="80px"/>
 <img src="/images/Dota/luna_full.png" width="80px"/>
@@ -90,7 +89,7 @@ Safe Lane Ranged (farm)
 <img src="/images/Dota/drow_ranger_full.png" width="80px"/>
 <img src="/images/Dota/lone_druid_full.png" width="80px"/>
 <br>
-Safe Lane Ranged (active)
+Safe Lane Ranged (active)<br>
 <img src="/images/Dota/clinkz_full.png" width="80px"/>
 <img src="/images/Dota/necrolyte_full.png" width="80px"/>
 <img src="/images/Dota/gyrocopter_full.png" width="80px"/>
@@ -99,8 +98,7 @@ Safe Lane Ranged (active)
     </div>
     <div id="offlane" class="tab-pane fade">
       <h3>Offlane</h3>
-
-Offlane (solo) Melee
+Offlane (solo) Melee<br>
 <img src="/images/Dota/rattletrap_full.png" width="80px"/>
 <img src="/images/Dota/shredder_full.png" width="80px"/>
 <img src="/images/Dota/tidehunter_full.png" width="80px"/>
@@ -115,13 +113,13 @@ Offlane (solo) Melee
 <img src="/images/Dota/broodmother_full.png" width="80px"/>
 <img src="/images/Dota/brewmaster_full.png" width="80px"/>
 <br>
-Offlane (solo) Ranged
+Offlane (solo) Ranged<br>
 <img src="/images/Dota/weaver_full.png" width="80px"/>
 <img src="/images/Dota/batrider_full.png" width="80px"/>
 <img src="/images/Dota/furion_full.png" width="80px"/>
 <img src="/images/Dota/phoenix_full.png" width="80px"/>
 <br>
-Dual Offlane Melee
+Dual Offlane Melee<br>
 <img src="/images/Dota/faceless_void_full.png" width="80px"/>
 <img src="/images/Dota/spirit_breaker_full.png" width="80px"/>
 <img src="/images/Dota/centaur_full.png" width="80px"/>
@@ -133,7 +131,7 @@ Dual Offlane Melee
 <img src="/images/Dota/doom_bringer_full.png" width="80px"/>
 <img src="/images/Dota/omniknight_full.png" width="80px"/>
 <br>
-Dual Offlane Ranged
+Dual Offlane Ranged<br>
 <img src="/images/Dota/pugna_full.png" width="80px"/>
 <img src="/images/Dota/mirana_full.png" width="80px"/>
 <img src="/images/Dota/enchantress_full.png" width="80px"/>
@@ -142,7 +140,7 @@ Dual Offlane Ranged
     </div>
     <div id="position4" class="tab-pane fade">
       <h3>Position 4 / Roaming</h3>
-Roaming
+Roaming<br>
 <img src="/images/Dota/earth_spirit_full.png" width="80px"/>
 <img src="/images/Dota/bounty_hunter_full.png" width="80px"/>
 <img src="/images/Dota/tusk_full.png" width="80px"/>
@@ -151,7 +149,7 @@ Roaming
 <img src="/images/Dota/windrunner_full.png" width="80px"/>
 <img src="/images/Dota/kunkka_full.png" width="80px"/>
 <br>
-Position 4 Support
+Position 4 Support<br>
 <img src="/images/Dota/rubick_full.png" width="80px"/>
 <img src="/images/Dota/elder_titan_full.png" width="80px"/>
 <img src="/images/Dota/night_stalker_full.png" width="80px"/>
@@ -165,7 +163,7 @@ Position 4 Support
     </div>
     <div id="support" class="tab-pane fade">
       <h3>SUPPORT</h3>
-5 Support
+Position 5 Support<br>
 <img src="/images/Dota/ancient_apparition_full.png" width="80px"/>
 <img src="/images/Dota/oracle_full.png" width="80px"/>
 <img src="/images/Dota/bane_full.png" width="80px"/>
