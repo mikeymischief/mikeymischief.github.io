@@ -21,7 +21,7 @@ permalink: /dota/
     <li class="active"><a href="#mid">Mid</a></li>
     <li><a data-toggle="tab" href="#safe">Safe Lane</a></li>
     <li><a data-toggle="tab" href="#offlane">Offlane</a></li>
-    <li><a data-toggle="tab" href="#position4">Position 4 Support</a></li>
+    <li><a data-toggle="tab" href="#position4">Roaming / Support</a></li>
     <li><a data-toggle="tab" href="#support">Support</a></li>
     <li><a data-toggle="tab" href="#misc">Misc</a></li>
   </ul>
