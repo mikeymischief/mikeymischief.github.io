@@ -8,26 +8,35 @@ permalink: /dota/
 <div class="container">
   <h2>Dota 2 Roles</h2>
 
-  <ul class="nav nav-pills">
+  <ul class="list-inline">
     <li class="active"><a data-toggle="pill" href="#mid">Mid</a></li>
     <li><a data-toggle="pill" href="#safe">Safe Lane</a></li>
     <li><a data-toggle="pill" href="#offlane">Offlane</a></li>
-    <li><a data-toggle="pill" href="#position4">Support</a></li>
-    <li><a data-toggle="pill" href="#support">Offlane</a></li>
-    <li><a data-toggle="pill" href="#misc">Support</a></li>
+    <li><a data-toggle="pill" href="#position4">Position 4 Support</a></li>
+    <li><a data-toggle="pill" href="#support">Support</a></li>
+    <li><a data-toggle="pill" href="#misc">Misc</a></li>
+  </ul>
+
+  <ul class="list-inline">
+    <li class="active"><a data-toggle="pill" href="#mid">Mid</a></li>
+    <li><a href="#safe">Safe Lane</a></li>
+    <li><a href="#offlane">Offlane</a></li>
+    <li><a href="#position4">Position 4 Support</a></li>
+    <li><a href="#support">Support</a></li>
+    <li><a href="#misc">Misc</a></li>
   </ul>
   
   <div class="tab-content">
     <div id="mid" class="tab-pane fade in active">
       <h3>MID</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-### Mid Melee (active)
+
+Mid Melee (active)
 <img src="/images/Dota/bloodseeker_full.png" width="80px"/>
 <img src="/images/Dota/alchemist_full.png" width="80px"/>
 <img src="/images/Dota/dragon_knight_full.png" width="80px"/>
 <img src="/images/Dota/huskar_full.png" width="80px"/>
-
-### Mid Ranged (farm)
+<br>
+Mid Ranged (farm)
 <img src="/images/Dota/invoker_full.png" width="80px"/>
 <img src="/images/Dota/nevermore_full.png" width="80px"/>
 <img src="/images/Dota/sniper_full.png" width="80px"/>
@@ -36,8 +45,8 @@ permalink: /dota/
 <img src="/images/Dota/obsidian_destroyer_full.png" width="80px"/>
 <img src="/images/Dota/medusa_full.png" width="80px"/>
 <img src="/images/Dota/visage_full.png" width="80px"/>
-
-### Mid Ranged (active)
+<br>
+Mid Ranged (active)
 <img src="/images/Dota/templar_assassin_full.png" width="80px"/>
 <img src="/images/Dota/zeus_full.png" width="80px"/>
 <img src="/images/Dota/death_prophet_full.png" width="80px"/>
@@ -49,8 +58,8 @@ permalink: /dota/
     </div>
     <div id="safe" class="tab-pane fade">
       <h3>SAFE LANE</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-### Safe Lane Melee (farm)
+
+Safe Lane Melee (farm)
 <img src="/images/Dota/spectre_full.png" width="80px"/>
 <img src="/images/Dota/phantom_assassin_full.png" width="80px"/>
 <img src="/images/Dota/antimage_full.png" width="80px"/>
@@ -58,8 +67,8 @@ permalink: /dota/
 <img src="/images/Dota/sven_full.png" width="80px"/>
 <img src="/images/Dota/terrorblade_full.png" width="80px"/>
 <img src="/images/Dota/meepo_full.png" width="80px"/>
-
-### Safe Lane Melee (active)
+<br>
+Safe Lane Melee (active)
 <img src="/images/Dota/ember_spirit_full.png" width="80px"/>
 <img src="/images/Dota/troll_warlord_full.png" width="80px"/>
 <img src="/images/Dota/monkey_king_full.png" width="80px"/>
@@ -71,16 +80,16 @@ permalink: /dota/
 <img src="/images/Dota/tiny_full.png" width="80px"/>
 <img src="/images/Dota/lycan_full.png" width="80px"/>
 <img src="/images/Dota/chaos_knight_full.png" width="80px"/>
-
-### Safe Lane Ranged (farm)
+<br>
+Safe Lane Ranged (farm)
 <img src="/images/Dota/morphling_full.png" width="80px"/>
 <img src="/images/Dota/arc_warden_full.png" width="80px"/>
 <img src="/images/Dota/luna_full.png" width="80px"/>
 <img src="/images/Dota/phantom_lancer_full.png" width="80px"/>
 <img src="/images/Dota/drow_ranger_full.png" width="80px"/>
 <img src="/images/Dota/lone_druid_full.png" width="80px"/>
-
-### Safe Lane Ranged (active)
+<br>
+Safe Lane Ranged (active)
 <img src="/images/Dota/clinkz_full.png" width="80px"/>
 <img src="/images/Dota/necrolyte_full.png" width="80px"/>
 <img src="/images/Dota/gyrocopter_full.png" width="80px"/>
@@ -89,8 +98,8 @@ permalink: /dota/
     </div>
     <div id="offlane" class="tab-pane fade">
       <h3>Offlane</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-### Offlane (solo) Melee
+
+Offlane (solo) Melee
 <img src="/images/Dota/rattletrap_full.png" width="80px"/>
 <img src="/images/Dota/shredder_full.png" width="80px"/>
 <img src="/images/Dota/tidehunter_full.png" width="80px"/>
@@ -104,14 +113,14 @@ permalink: /dota/
 <img src="/images/Dota/dark_seer_full.png" width="80px"/>
 <img src="/images/Dota/broodmother_full.png" width="80px"/>
 <img src="/images/Dota/brewmaster_full.png" width="80px"/>
-
-### Offlane (solo) Ranged
+<br>
+Offlane (solo) Ranged
 <img src="/images/Dota/weaver_full.png" width="80px"/>
 <img src="/images/Dota/batrider_full.png" width="80px"/>
 <img src="/images/Dota/furion_full.png" width="80px"/>
 <img src="/images/Dota/phoenix_full.png" width="80px"/>
-
-### Dual Offlane Melee
+<br>
+Dual Offlane Melee
 <img src="/images/Dota/faceless_void_full.png" width="80px"/>
 <img src="/images/Dota/spirit_breaker_full.png" width="80px"/>
 <img src="/images/Dota/centaur_full.png" width="80px"/>
@@ -122,8 +131,8 @@ permalink: /dota/
 <img src="/images/Dota/slardar_full.png" width="80px"/>
 <img src="/images/Dota/doom_bringer_full.png" width="80px"/>
 <img src="/images/Dota/omniknight_full.png" width="80px"/>
-
-### Dual Offlane Ranged
+<br>
+Dual Offlane Ranged
 <img src="/images/Dota/pugna_full.png" width="80px"/>
 <img src="/images/Dota/mirana_full.png" width="80px"/>
 <img src="/images/Dota/enchantress_full.png" width="80px"/>
@@ -133,7 +142,7 @@ permalink: /dota/
     <div id="position4" class="tab-pane fade">
       <h3>Position 4 / Roaming</h3>
       <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-### Roaming
+Roaming
 <img src="/images/Dota/earth_spirit_full.png" width="80px"/>
 <img src="/images/Dota/bounty_hunter_full.png" width="80px"/>
 <img src="/images/Dota/tusk_full.png" width="80px"/>
@@ -141,8 +150,8 @@ permalink: /dota/
 <img src="/images/Dota/riki_full.png" width="80px"/>
 <img src="/images/Dota/windrunner_full.png" width="80px"/>
 <img src="/images/Dota/kunkka_full.png" width="80px"/>
-
-### Position 4 Support
+<br>
+Position 4 Support
 <img src="/images/Dota/rubick_full.png" width="80px"/>
 <img src="/images/Dota/elder_titan_full.png" width="80px"/>
 <img src="/images/Dota/night_stalker_full.png" width="80px"/>
@@ -157,7 +166,7 @@ permalink: /dota/
     <div id="support" class="tab-pane fade">
       <h3>SUPPORT</h3>
       <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-### 5 Support
+5 Support
 <img src="/images/Dota/ancient_apparition_full.png" width="80px"/>
 <img src="/images/Dota/oracle_full.png" width="80px"/>
 <img src="/images/Dota/bane_full.png" width="80px"/>
@@ -176,11 +185,11 @@ permalink: /dota/
     <div id="misc" class="tab-pane fade">
       <h3>JUNGLE / MISC</h3>
       <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-### Jungle
+Jungle
 <img src="/images/Dota/enigma_full.png" width="80px"/>
 <img src="/images/Dota/chen_full.png" width="80px"/>
-
-### Misc
+<br>
+Misc
 <img src="/images/Dota/techies_full.png" width="80px"/>
 <img src="/images/Dota/wisp_full.png" width="80px"/>
     </div>
