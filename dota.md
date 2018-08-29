@@ -356,10 +356,12 @@ Jungle / Misc
 ------
 
 ### Jungle
+<br>
 <img src="/images/Dota/enigma_full.png" width="80px"/>
 <img src="/images/Dota/chen_full.png" width="80px"/>
 
 ### Misc
+<br>
 <img src="/images/Dota/techies_full.png" width="80px"/>
 <img src="/images/Dota/wisp_full.png" width="80px"/>
 
