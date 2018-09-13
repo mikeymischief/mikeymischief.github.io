@@ -15,7 +15,7 @@ Gerf - Barony of Letnev
 Eyay - Xxcha Kingdom  
 Brian - Universities of Jol-Nar
 
-These suggestions may change as time passes.
+These suggestions may change as time passes. Nicol Bolas, the Ravager
 
 {% if page.comments %}
 <div id="disqus_thread"></div>
