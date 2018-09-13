@@ -15,7 +15,7 @@ Gerf - Barony of Letnev
 Eyay - Xxcha Kingdom  
 Brian - Universities of Jol-Nar
 
-These suggestions may change as time passes. Nicol Bolas, the Ravager
+These suggestions may change as time passes. https://deckbox.org/mtg/Nicol%20Bolas,%20Planeswalker
 
 {% if page.comments %}
 <div id="disqus_thread"></div>
