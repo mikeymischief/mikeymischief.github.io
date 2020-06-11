@@ -81,7 +81,7 @@ Another classic archtype deck, Green and Black Graveyard recursion. The idea is 
 ### Kallax Instants
 [Temur Kallax Instants](https://www.cubecobra.com/cube/deck/5edffc3064abb70f9b340d2f)
 
-<img src="/images/mtg/c20-9-kalamax-the-stormsire.jpg" alt="Kalamax, the Stormsire" width="200"/><img src="/images/mtg/m14-163-young-pyromancer.jpg" alt="Young Pyromancer" width="200"/><img src="war-234-saheeli-sublime-artificer.jpg" alt="Saheeli, Sublime Artificer" width="200"/>
+<img src="/images/mtg/c20-9-kalamax-the-stormsire.jpg" alt="Kalamax, the Stormsire" width="200"/><img src="/images/mtg/m14-163-young-pyromancer.jpg" alt="Young Pyromancer" width="200"/><img src="/images/mtg/war-234-saheeli-sublime-artificer.jpg" alt="Saheeli, Sublime Artificer" width="200"/>
 
 This one is a new build-around; Kalamax, the Stormsire. This deck just asks that you build him with instants to churn through your deck. You can be more spell-based or creature-based, but the namesake card just ties what this shard is trying to do; use green for the beats and the spells for controlling the board.
 
