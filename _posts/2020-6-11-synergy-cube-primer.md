@@ -28,6 +28,7 @@ You can see the list of the cube [here](https://www.cubecobra.com/cube/list/misc
 In all the highlighted archetypes below, I will include a sample draft of that deck.
 
 ## Archetypes
+----
 
 ### Selesnya Tokens
 [WG Tokens](https://www.cubecobra.com/cube/deck/5ee06b3e4724960f53959a08)
@@ -98,6 +99,8 @@ One of my favorite archetypes, Grixis Control is drafted by trying to control th
 <img src="/images/mtg/uma-172-life-from-the-loam.jpg" alt="Life from the Loam" width="200"/><img src="/images/mtg/mh1-217-wrenn-and-six.jpg" alt="Wrenn and Six" width="200"/><img src="/images/mtg/c14-50-titania-protector-of-argoth.jpg" alt="Titania, Protector of Argoth" width="200"/>
 
 Another new archetype that can shine since the removal of the power-oppressive cards. The lands deck was always just a bit underpowered with 
+
+----
 
 ## Discover the Cube
 
