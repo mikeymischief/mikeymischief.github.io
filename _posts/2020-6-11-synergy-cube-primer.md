@@ -74,14 +74,14 @@ There is plenty of support for the UG Self-Mill deck and just as many payoffs. Y
 ### Golgari Graveyard
 [Golgari Graveyard](https://www.cubecobra.com/cube/deck/5edd58284724960f536fed04)
 
-<img src="/images/mtg/c15-49-meren-of-clan-nel-toth.jpg" alt="Meren of Clan Nel Toth" width="200"/><img src="/images/mtg/ori-106-liliana-heretical-healer.jpg" alt="Liliana, Heretical Healer" width="200"/><img src="/images/mtg/mma-166-tarmogoyf.jpg.jpg" alt="Tarmogoyf" width="200"/>
+<img src="/images/mtg/c15-49-meren-of-clan-nel-toth.jpg" alt="Meren of Clan Nel Toth" width="200"/><img src="/images/mtg/ori-106-liliana-heretical-healer.jpg" alt="Liliana, Heretical Healer" width="200"/><img src="/images/mtg/mma-166-tarmogoyf.jpg" alt="Tarmogoyf" width="200"/>
 
 Another classic archtype deck, Green and Black Graveyard recursion. The idea is to try and reuse creatures from an endless graveyard. You don't care about your creatures as you expect to get them back. For kicks, you can power up this archetype by drafting the large bombs: Living Death or Twilight's Call. You can just build a value version which just reuses creature over and over from cards like Phyrexian Reclamation. You can go for a combo and try running reanimator with Dread Return or Vicitmize paired with any of the green or black fatties.
 
 ### Kallax Instants
 [Temur Kallax Instants](https://www.cubecobra.com/cube/deck/5edffc3064abb70f9b340d2f)
 
-<img src="/images/mtg/c20-9-kalamax-the-stormsire.jpg" alt="Kalamax, the Stormsire" width="200"/><img src="/images/mtg/m14-163-young-pyromancer.jpg" alt="Young Pyromancer" width="200"/><img src="/images/mtg/mma-166-tarmogoyf.jpg" alt="Tarmogoyf" width="200"/>
+<img src="/images/mtg/c20-9-kalamax-the-stormsire.jpg" alt="Kalamax, the Stormsire" width="200"/><img src="/images/mtg/m14-163-young-pyromancer.jpg" alt="Young Pyromancer" width="200"/><img src="war-234-saheeli-sublime-artificer.jpg" alt="Saheeli, Sublime Artificer" width="200"/>
 
 This one is a new build-around; Kalamax, the Stormsire. This deck just asks that you build him with instants to churn through your deck. You can be more spell-based or creature-based, but the namesake card just ties what this shard is trying to do; use green for the beats and the spells for controlling the board.
 
