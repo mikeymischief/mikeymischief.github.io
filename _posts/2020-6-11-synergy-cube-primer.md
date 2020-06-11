@@ -1,7 +1,7 @@
 ---
 published: true
 layout: post
-title: cube primer
+title: Synergy Cube Primer
 author: mikey
 comments: true
 categories: mtg boardgames
