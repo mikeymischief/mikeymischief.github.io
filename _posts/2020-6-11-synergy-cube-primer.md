@@ -32,7 +32,7 @@ In all the highlighted archetypes below, I will include a sample draft of that d
 ### Selesnya Tokens
 [WG Tokens](https://www.cubecobra.com/cube/deck/5ee06b3e4724960f53959a08)
 
-<img src="/images/mtg/isd-19-intangible-virtue.jpg" alt="Intangible Virtue" width="200"/><img src="/images/mtg/isd-17-geist-honored-monk.jpg" alt="Geist-Honored Monk" width="200"/><img src="/images/mtg/dtk-36-secure-the-wastes.jpg" alt="Secure the Wastes" width="200"/>
+<img src="/images/mtg/isd-19-intangible-virtue.jpg" alt="Intangible Virtue" width="200"/><img src="/images/mtg/grn-208-trostani-discordant.jpg" alt="Trostani Discordant" width="200"/><img src="/images/mtg/dtk-36-secure-the-wastes.jpg" alt="Secure the Wastes" width="200"/>
 
 The token deck looks to pair token creators with anthems in order to create overwhelming board states. This deck plays much like a white aggro deck during the early stages of the game then pivots into exploding with many flying tokens to finish off unsuspecting opponents. Using green, you get Trostani Discordant, red has even more token creators with Hanweir Garrison and Goblin Rabblemaster. Don't forget there is a perfect signpost card in Boros with Heroic Reinforcements.
 
