@@ -67,14 +67,14 @@ Everyone loves ninjas! This tempo deck plays like an aggro control deck with som
 ### UG Self-Mill
 [Simic Laboratory](https://www.cubecobra.com/cube/deck/5edd53bad65648101a0cbcd6)
 
-<img src="/images/mtg/uma-61-laboratory-maniac.jpg" alt="Laboratory Maniac" width="200"/><img src="/images/mtg/uma-167-golgari-grave-troll.jpg" alt="Golgari Grave-Troll" width="200"/><img src="/images/mtg/uma-167-golgari-grave-troll.jpg" alt="Jace, Wielder of Mysteries" width="200"/>
+<img src="/images/mtg/uma-61-laboratory-maniac.jpg" alt="Laboratory Maniac" width="200"/><img src="/images/mtg/uma-167-golgari-grave-troll.jpg" alt="Golgari Grave-Troll" width="200"/><img src="/images/mtg/war-54-jace-wielder-of-mysteries.jpg" alt="Jace, Wielder of Mysteries" width="200"/>
 
 There is plenty of support for the UG Self-Mill deck and just as many payoffs. You can take this deck to the extreme with the Laboratory Maniac, Jace, Wielder of Mysteries and Thassa's Oracle "combo" route, or you can take it to a beatdown aspect. Cards like Golgari Grave-Troll can come back to play if you accidentally mill them, and Body Double feels like a tutor for the best creature in your graveyard, there is an Embalm on Vizier of Many Faces. This deck is only restricted by your creativity. With multiple looters in blue and filtering in green, this deck is definitely one to watch.
 
 ### Golgari Graveyard
 [Golgari Graveyard](https://www.cubecobra.com/cube/deck/5edd58284724960f536fed04)
 
-<img src="/images/mtg/c15-49-meren-of-clan-nel-toth.jpg" alt="Meren of Clan Nel Toth" width="200"/><img src="/images/mtg/ori-106-liliana-heretical-healer.jpg" alt="Liliana, Heretical Healer" width="200"/><img src="/images/mtg/war-234-saheeli-sublime-artificer.jpg" alt="Saheeli, Sublime Artificer" width="200"/>
+<img src="/images/mtg/c15-49-meren-of-clan-nel-toth.jpg" alt="Meren of Clan Nel Toth" width="200"/><img src="/images/mtg/ori-106-liliana-heretical-healer.jpg" alt="Liliana, Heretical Healer" width="200"/><img src="/images/mtg/mma-166-tarmogoyf.jpg.jpg" alt="Tarmogoyf" width="200"/>
 
 Another classic archtype deck, Green and Black Graveyard recursion. The idea is to try and reuse creatures from an endless graveyard. You don't care about your creatures as you expect to get them back. For kicks, you can power up this archetype by drafting the large bombs: Living Death or Twilight's Call. You can just build a value version which just reuses creature over and over from cards like Phyrexian Reclamation. You can go for a combo and try running reanimator with Dread Return or Vicitmize paired with any of the green or black fatties.
 
