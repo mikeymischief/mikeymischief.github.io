@@ -65,7 +65,7 @@ Human Tribal aggro is viable and fast aggro deck, and one of the newer enabled a
 
 Everyone loves ninjas! This tempo deck plays like an aggro control deck with some disruption, abusing Enter-the-battlefield effects on creatures and drawing cards. With a few ninjas, this is still a competitive deck, just don't leave home without enablers for _ninjutsu_: blue fliers, black menace, deathtouch and even some artifact assistance with cards like Key to the City! 
 
-### UG Self-Mill
+### Simic Self-Mill
 [Simic Laboratory](https://www.cubecobra.com/cube/deck/5edd53bad65648101a0cbcd6)
 
 <img src="/images/mtg/uma-61-laboratory-maniac.jpg" alt="Laboratory Maniac" width="200"/><img src="/images/mtg/uma-167-golgari-grave-troll.jpg" alt="Golgari Grave-Troll" width="200"/><img src="/images/mtg/war-54-jace-wielder-of-mysteries.jpg" alt="Jace, Wielder of Mysteries" width="200"/>
@@ -79,12 +79,12 @@ There is plenty of support for the UG Self-Mill deck and just as many payoffs. Y
 
 Another classic archtype deck, Green and Black Graveyard recursion. The idea is to try and reuse creatures from an endless graveyard. You can go for a combo deck and try running reanimator with Dread Return or Vicitmize, paired with any of the green or black fatties. For kicks, you can power up this archetype by drafting the large bombs: Living Death or Twilight's Call and get all your creatures in the graveyard. You can just build a value version which just reuses creature over and over from cards like Phyrexian Reclamation. Experienced drafters already know to employ this strategy along with creatures that have enter-the-battlefield abilities!
 
-### Kallax Instants
-[Temur Kallax Instants](https://www.cubecobra.com/cube/deck/5edffc3064abb70f9b340d2f)
+### Orzhov Control
+[Orzhov Control](https://www.cubecobra.com/cube/deck/5ee3ada13bbe87101d2891c3)
 
-<img src="/images/mtg/c20-9-kalamax-the-stormsire.jpg" alt="Kalamax, the Stormsire" width="200"/><img src="/images/mtg/m14-163-young-pyromancer.jpg" alt="Young Pyromancer" width="200"/><img src="/images/mtg/war-234-saheeli-sublime-artificer.jpg" alt="Saheeli, Sublime Artificer" width="200"/>
+<img src="/images/mtg/roe-53-wall-of-omens" alt="Wall of Omens" width="200"/><img src="/images/mtg/isd-105-liliana-of-the-veil" alt="Liliana of the Veil" width="200"/><img src="/images/mtg/zen-9-day-of-judgment" alt="Day of Judgment" width="200"/>
 
-This one is a new build-around; Kalamax, the Stormsire. This deck just asks that you build him with instants to churn through your deck. You can be more spell-based or creature-based, but the namesake card just ties what this shard is trying to do; use green for the beats and the spells for controlling the board.
+Orhov Control decks have the access to the most powerful spells against creature decks; sweepers! Cards like Day of Judgment, the classic Wrath of God, even Toxic Deluge. By keeping the board clear of threatening creatures and breaking that symmetry with enlisting in planeswalkers (Liliana, Elspeth and Sorin), Orzhov Control seeks to generate incremental advantage every turn while keeping tabs on it's opposition. Obzedat would be proud!
 
 ### Grixis Control
 [UBR Control](https://www.cubecobra.com/cube/deck/5edea3c664abb70f9b2b3bfb)
