@@ -82,7 +82,7 @@ Another classic archtype deck, Green and Black Graveyard recursion. The idea is 
 ### Orzhov Control
 [Orzhov Control](https://www.cubecobra.com/cube/deck/5ee3ada13bbe87101d2891c3)
 
-<img src="/images/mtg/roe-53-wall-of-omens" alt="Wall of Omens" width="200"/><img src="/images/mtg/isd-105-liliana-of-the-veil" alt="Liliana of the Veil" width="200"/><img src="/images/mtg/zen-9-day-of-judgment" alt="Day of Judgment" width="200"/>
+<img src="/images/mtg/roe-53-wall-of-omens.jpg" alt="Wall of Omens" width="200"/><img src="/images/mtg/isd-105-liliana-of-the-veil.jpg" alt="Liliana of the Veil" width="200"/><img src="/images/mtg/zen-9-day-of-judgment.jpg" alt="Day of Judgment" width="200"/>
 
 Orhov Control decks have the access to the most powerful spells against creature decks; sweepers! Cards like Day of Judgment, the classic Wrath of God, even Toxic Deluge. By keeping the board clear of threatening creatures and breaking that symmetry with enlisting in planeswalkers (Liliana, Elspeth and Sorin), Orzhov Control seeks to generate incremental advantage every turn while keeping tabs on it's opposition. Obzedat would be proud!
 
