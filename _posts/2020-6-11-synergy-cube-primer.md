@@ -106,8 +106,6 @@ Another new archetype that can shine since the removal of the power-oppressive c
 
 There are many more archetypes not listed here, which are meant for players to explore and find on their own. There's blue-white blink, 5-color Golos, Hellbent Rakdos Aggro and many more. The cube is changing all the time; balancing archetypes add unexpected synergies that tranform the cube metagame. I hope you have as much fun drafting and playing this cube as much as I've had creating it!
 
-You can head over to the site where I host my [cube](https://cubecobra.com/cube/list/mischief_unpowered) to see the list. You can also practice [drafting](https://cubecobra.com/cube/playtest/mischief_unpowered) it as much as you like!
-
 {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
