@@ -4,7 +4,7 @@ title: Intro to TI4
 author: mikey
 comments: true
 categories: ti4 boardgames
-published: true
+published: false
 ---
 
 Introduction to the races of Twilight Imperium!
