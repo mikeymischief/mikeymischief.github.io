@@ -9,9 +9,7 @@ permalink: /about/
 
 I love to play games with emergent gameplay. Anything that allows the player the agency to play how they want.
 
-Card games: Magic the Gathering  
-Boardgames: Twilight Imperium 4  
-Video games: Dota 2  
+This blog is a general gaming blog for when I want to write things about games, design, etc.
 
 ### Contact me
 
