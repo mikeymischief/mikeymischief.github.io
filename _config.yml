@@ -27,7 +27,7 @@ avatar: https://mikeymischief.github.io/images/ScroogeMcDuck.png
 footer-links:
   dribbble:
   email: mikey_mischief@hotmail.com
-  facebook: mikeymischief
+  facebook: 
   flickr: mikeymischief
   github: mikeymischief
   instagram: mikeymischief
@@ -36,8 +36,8 @@ footer-links:
   rss: mikeymischief
   twitter: mikeymischief
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
-  youtube: user/mikeymischief
-  googleplus: +michaelgan12
+  youtube:
+  googleplus:
 
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
