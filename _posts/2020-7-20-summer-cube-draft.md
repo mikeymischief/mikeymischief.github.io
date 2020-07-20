@@ -11,10 +11,11 @@ Summer 2020 Cube Draft
 
 This day was cut short because of the EMM launch (I had to work). Despite that, the other players still hunkered on. Gerf beat both Jubee and Jeddy's deck, then beat my Simic Deck (in a best of 1) the day after (to be concluded).
 
+Don't forget to click the decknames to link to their deck in Cube Cobra.
+
 ----
 
-## Jubee's Deck - Rakdos Land Destruction
-[Rakdos Land Destruction](https://cubecobra.com/cube/deck/5f1543f1415026108ac375fa)
+## Jubee's Deck - [Rakdos Land Destruction](https://cubecobra.com/cube/deck/5f1543f1415026108ac375fa)
 
 <img src="/images/mtg/5dn-114-crucible-of-worlds.jpg" alt="Crucible of Worlds" width="200"/><img src="/images/mtg/ptk-104-burning-of-xinye.jpg" alt="Burning of Xinye" width="200"/><img src="/images/mtg/tmp-330-wasteland.jpg" alt="Wasteland" width="200"/>
 
@@ -24,8 +25,7 @@ To me, the best use of the cards drafted would be to forget all the controlling 
 
 ----
 
-## Jeddy's Deck - Orzhov Midrange
-[Orzhov Midrange](https://cubecobra.com/cube/deck/5f153f9240729e103f494220)
+## Jeddy's Deck - [Orzhov Midrange](https://cubecobra.com/cube/deck/5f153f9240729e103f494220)
 
 <img src="/images/mtg/m10-4-baneslayer-angel.jpg" alt="Baneslayer Angel" width="200"/><img src="/images/mtg/emn-189-spell-queller.jpg" alt="Spell Queller" width="200"/><img src="/images/mtg/ori-60-jace-vryn-s-prodigy.jpg" alt="Jace, Vryn's Prodigy" width="200"/>
 
@@ -35,8 +35,7 @@ In my opinion, I would cut the black entirely, and just run a WU control deck wi
 
 ----
 
-## Gerf's Deck - Golgari Graveyard
-[Golgari Reanimator](https://cubecobra.com/cube/deck/5f1547cf415026108ac3acf9)
+## Gerf's Deck - [Golgari Reanimator](https://cubecobra.com/cube/deck/5f1547cf415026108ac3acf9)
 
 <img src="/images/mtg/emn-6-emrakul-the-promised-end.jpg" alt="Emrakul, the Promised End" width="200"/><img src="/images/mtg/shm-229-kitchen-finks.jpg" alt="Kitchen Finks" width="200"/><img src="/images/mtg/ddj-77-life.jpg" alt="Life/Death" width="200"/>
 
@@ -44,8 +43,7 @@ A Golgari Graveyard deck! Multiple pieces of graveyard dumping (Ransack the Lab,
 
 ----
 
-## Mikey's Deck - Simic Tempo
-[Simic Tempo](https://cubecobra.com/cube/deck/5f154af740729e103f49cff1)
+## Mikey's Deck - [Simic Tempo](https://cubecobra.com/cube/deck/5f154af740729e103f49cff1)
 
 <img src="/images/mtg/cmd-196-edric-spymaster-of-trest.jpg" alt="Edric, Spymaster of Trest" width="200"/><img src="/images/mtg/kld-235-smuggler-s-copter.jpg" alt="Smuggler's Copter" width="200"/><img src="/images/mtg/m21-318-scavenging-ooze.jpg" alt="Scavenging Ooze" width="200"/>
 
