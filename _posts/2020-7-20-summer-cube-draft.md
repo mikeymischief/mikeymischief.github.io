@@ -19,7 +19,7 @@ Don't forget you can click the decknames to link to their deck in Cube Cobra, wh
 
 <img src="/images/mtg/5dn-114-crucible-of-worlds.jpg" alt="Crucible of Worlds" width="200"/><img src="/images/mtg/ptk-104-burning-of-xinye.jpg" alt="Burning of Xinye" width="200"/><img src="/images/mtg/tmp-330-wasteland.jpg" alt="Wasteland" width="200"/>
 
-<img src="/images/decks/200719_rakdos_land_destruction.jpg" alt="Rakdos Land Destruction" width="600"/>
+<img src="/images/decks/200719_rakdos_land_destruction.png" alt="Rakdos Land Destruction" width="600"/>
 
 Jubee's deck looks to control the game with Red sweepers like Anger of the Gods, and Burning of Xinye, then hopes to land a critical Crucible of Worlds to reap his lands and end the game. A mixture of recursive aggro breaters, Dread Wanderer and Bloodghast don't disappear after Burning is cast. They expect to come back and hopefully finish what they started. There is a sacrifice package of Rankle, Master of Pranks and Braids, Cabal Minion which in this deck hopefully hits their mana resources, something that Jubee's deck has planned for in the long game.
 
@@ -31,7 +31,7 @@ To me, the best use of the cards drafted would be to forget all the controlling 
 
 <img src="/images/mtg/m10-4-baneslayer-angel.jpg" alt="Baneslayer Angel" width="200"/><img src="/images/mtg/emn-189-spell-queller.jpg" alt="Spell Queller" width="200"/><img src="/images/mtg/ori-60-jace-vryn-s-prodigy.jpg" alt="Jace, Vryn's Prodigy" width="200"/>
 
-<img src="/images/decks/200719_rakdos_land_destruction.jpg" alt="Orzhov Midrange" width="600"/>
+<img src="/images/decks/200719_Orzhov_Midrange.png" alt="Orzhov Midrange" width="600"/>
 
 Jeddy's midrange deck also looks to be focused on 2 different archetypes. There is flashes of the Blink ETB deck and then there are controlling elements of Esper we have all come to expect. Fitting aggressive creatures like Seeker of the Way, Thalia, Heretic Cathar and Mikaeus, the Lunarch in a deck with Baneslayer Angel, Hostage Taker and Fumigate divide the purpose of what this deck wants to do. Then there is the splash of the Blink deck with key pieces, Ephemerate, Restoration Angel and Blink support all-star Mulldrifter.
 
@@ -43,7 +43,7 @@ In my opinion, I would cut the black entirely, and just run a WU control deck wi
 
 <img src="/images/mtg/emn-6-emrakul-the-promised-end.jpg" alt="Emrakul, the Promised End" width="200"/><img src="/images/mtg/shm-229-kitchen-finks.jpg" alt="Kitchen Finks" width="200"/><img src="/images/mtg/ddj-77-life.jpg" alt="Life/Death" width="200"/>
 
-<img src="/images/decks/200719_Golgari_Graveyard.jpg" alt="Golgari Graveyard" width="600"/>
+<img src="/images/decks/200719_Golgari_Graveyard.png" alt="Golgari Graveyard" width="600"/>
 
 A Golgari Graveyard deck! Multiple pieces of graveyard dumping (Ransack the Lab, Survival of the Fittest, Satyr Wayfinder), many recursive creatures: Woe Strider doesn't mind getting milled away and Gravecrawler is fine there too, until you get another zombie in play, then he comes right back. Another layer amongst this deck is the mini-reanimator package (Animate Dead, Life/Death, Dread Return), with Emrakul, the Promised End as the big baddie! There are also many control elements: Damnation, Liliana of the Veil, Archfiend of Ifnir which Gerf doesn't mind having everything die, as his reanimation card will save him in the long game. I might try to make Multani, Yavimaya's Avatar work in this deck, but there is not much to complain about with the cards drafted.
 
@@ -53,7 +53,7 @@ A Golgari Graveyard deck! Multiple pieces of graveyard dumping (Ransack the Lab,
 
 <img src="/images/mtg/cmd-196-edric-spymaster-of-trest.jpg" alt="Edric, Spymaster of Trest" width="200"/><img src="/images/mtg/kld-235-smuggler-s-copter.jpg" alt="Smuggler's Copter" width="200"/><img src="/images/mtg/m21-318-scavenging-ooze.jpg" alt="Scavenging Ooze" width="200"/>
 
-<img src="/images/decks/200719_Simic_Tempo.jpg" alt="Simic Tempo" width="600"/>
+<img src="/images/decks/200719_Simic_Tempo.png" alt="Simic Tempo" width="600"/>
 
 Now, my deck does one thing and one thing only; applies pressure and then leaves the opponent off balance enough to finish the game. Once a couple of creatures are in play, the counterspell suite, or flash creatures or bounce creatures just keep the defender off balance enough to not be able to stabilize. With 4 counterspells, 4 bounce creatures (excluding the Phantasmal Image), and 2 ways of taking control of opponent's creatures (Sower of Temptation, Control Magic), there is not much a person can play to the board that I won't have an answer for. 
 
