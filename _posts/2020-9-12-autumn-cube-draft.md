@@ -29,7 +29,7 @@ Without further ado, onto the decklists!
 
 <img src="/images/decks/200912_Mono-U_Artifacts.jpg" alt="Mono-U Artifacts" width="600"/>
 
-Jubee's deck looks to control the game with blue's signature cards and an Icy Manipulator. Once he's wrestled control of the game, then he can drop a *hexproof* Shimmer Dragon to quickly end the game. At least that looked like the gameplan, but unfortunately that never happened in any of the games. There was not enough emphasis on interacting in the early game so Jubee could never control the late game.
+Jubee's deck looks to control the game with blue's signature cards and an **Icy Manipulator**. Once he's wrestled control of the game, then he can drop a *hexproof* **Shimmer Dragon** to quickly end the game. At least that looked like the gameplan, but unfortunately that never happened in any of the games. There was not enough emphasis on interacting in the early game so Jubee could never control the late game.
 
 ----
 
@@ -39,7 +39,7 @@ Jubee's deck looks to control the game with blue's signature cards and an Icy Ma
 
 <img src="/images/decks/200912_Rakdos_Aggro.jpg" alt="Rakdos Aggro" width="600"/>
 
-This deck was too ambitious. The first cut was a grixis build that stumbled on blue mana too much, which lead to many of the losses in games. Editing the deck to a Rakdos build looks like it would succeed much more better and would put pressure on many of the opponents.
+This deck was too ambitious. The first cut was a grixis build that stumbled on blue mana too much, which lead to many of the losses in games. Editing the deck to a Rakdos build looks like it would succeed much better and would put pressure on many of the opponents.
 
 ----
 
@@ -49,7 +49,7 @@ This deck was too ambitious. The first cut was a grixis build that stumbled on b
 
 <img src="/images/decks/200912_Golgari_Midrange.jpg" alt="Golgari Midrange" width="600"/>
 
-This is a midrange deck with not much focus. It plays a bunch of green and black cards with some Survival of the Fittest synergies that didn't interact with the graveyard too much. Originally, the deck was a Birthing Pod deck but also didn't employ many of the tool box creatures known in that deck. Jeddy was wise to change this to a generic midrange build, he got more wins because of it.
+This is a midrange deck with not much focus. It plays a bunch of green and black cards with some **Survival of the Fittest** creatures synergies, but ones that didn't interact with the graveyard too much. Originally, the deck was a **Birthing Pod** deck but also didn't employ many of the tool box creatures known in that deck. Jeddy was wise to change this to a generic midrange build, he got more wins because of it.
 
 ----
 
@@ -59,7 +59,7 @@ This is a midrange deck with not much focus. It plays a bunch of green and black
 
 <img src="/images/decks/200912_Dimir_Artifacts.jpg" alt="Dimir Artifacts" width="600"/>
 
-With a P1P1 Tezzeret, Agent of Bolas pick, the drafting was pretty simple - take artifacts. With the plan in motion to maximize Tezzeret, it didn't fail Brian for most of the day. Looking at the build now, it's not as daunting as I initially gave it credit for. It wasn't built particularly well, I think most of the victories had to be based off the power of Tezzeret and just the artifact synergies with removal at the right time. Getting lucky helps a bunch too; every dog has their day!
+With a P1P1 **Tezzeret, Agent of Bolas** pick, the drafting was pretty simple - take artifacts. With the plan in motion to maximize Tezzeret, it didn't fail Brian for most of the day. Looking at the build now, it's not as daunting as I initially gave it credit for. It wasn't built particularly well, I think most of the victories had to be based off the power of Tezzeret and just the artifact synergies with key removal at the right time. Getting lucky helps a bunch too; every dog has their day!
 
 ----
 
@@ -69,7 +69,7 @@ With a P1P1 Tezzeret, Agent of Bolas pick, the drafting was pretty simple - take
 
 <img src="/images/decks/200912_Selesnya_Aggro.jpg" alt="Selesnya Aggro" width="600"/>
 
-This deck looks really good. It has a solid plan going in that attacks opponents going wide and with a +1/+1 counter theme to go tall as well. Then in the late game, if anyone has managed to quell the Selesnya forces, Titania synergies with the lands to create an army of 5/3 Elementals is as sound as any. This definitely is the best deck for the first pod!
+This deck looks really good. It has a solid plan going in that attacks opponents going wide and with a +1/+1 counter theme to go tall as well. Then in the late game, if anyone has managed to quell the Selesnya forces, **Titania, Protector of Argoth** synergies with the lands to create an army of 5/3 Elementals is as sound as any. This definitely is the best deck for the first pod!
 
 ----
 # The Afternoon Draft (Draft #1)
@@ -81,7 +81,7 @@ This deck looks really good. It has a solid plan going in that attacks opponents
 
 <img src="/images/decks/200912_2_Grixis_Midrange.jpg" alt="Grixis Midrange" width="600"/>
 
-Another midrange special from Jeddy. This looks to maximize Kess to replay spells over and over. At least that loks to be the idea, but the draft doesn't tell the same story. There's a bunch of high casting cost creatures with no way to accelerate that, some meddling disruption that doesn't synergize with spells and creatures with ETB abilties, that again, don't have anything to do with what this Grixis shell should be doing. No wonder Jeddy got out early!
+Another midrange special from Jeddy. This looks to maximize **Kess, Dissident Mage** to replay spells over and over. At least that loks to be the idea, but the draft doesn't tell the same story. There's a bunch of high casting cost creatures with no way to accelerate that, some meddling disruption that doesn't synergize with spells and creatures with ETB abilties, that again, don't have anything to do with what this Grixis shell should be doing. No wonder Jeddy got out early!
 
 ----
 
@@ -111,7 +111,7 @@ This is a decent deck, but it's mostly a midrange pile of cards that got Brian 2
 
 <img src="/images/decks/200912_Boros_Artifact_Aggro.jpg" alt="Boros Artifact Aggro" width="600"/>
 
-The winning deck from the afternoon draft, is one with a solid game plan; attack! Mostly a Boros aggro deck with heavy artifact synergies (Someone stole my Court Hussar!). A very low curve and several ways to mitigate sweepers, this deck had it all. In the middle of pack 3 I started drafting black recursive craetures just to mitigate the feel-bads of said sweepers. In addition, Smuggler's Copter for some deck velocity and sweeper insurance (Gideon Blackblade as well!). With only 2 actual spells in this deck and ways to interact, I had to put pressure on the opponents and keep them on the back foot at all times!
+The winning deck from the afternoon draft, is one with a solid game plan; attack! Mostly a Boros aggro deck with heavy artifact synergies (Someone stole my Court Hussar!). A very low curve and several ways to mitigate sweepers, this deck had it all. In the middle of pack 3 was when I started drafting cards just to mitigate the feel-bads of said sweepers. In addition, Smuggler's Copter for some deck velocity and sweeper insurance (Gideon Blackblade as well!). With only 2 actual spells in this deck and ways to interact, I had to put pressure on the opponents and keep them on the back foot at all times! One criticism of the deck was that **Winota, Joiner of Forces** wasn't a great fit. Which I assumed I had some other Human synergies, but it was only actually on 1 or 2 cards. That said, I should've removed **Winota, Joiner of Forces** and put in more burn.
 
 ----
 
