@@ -7,7 +7,7 @@ comments: true
 categories: mtg cube
 ---
 
-Autumn 2020 Cube Draft
+# Autumn 2020 Cube Draft
 
 This day we started early at 9am, so that we eventually got 2 drafts to play. We decided to use both the Utility Land Draft and the Wildcard Duplicates. I would say both are a resounding success at creating an environment that is more about decks and not cards.
 
@@ -21,7 +21,7 @@ Without further ado, onto the decklists!
 
 ----
 # The Morning Draft (Draft #1)
-----
+
 
 ## Jubee's Deck - [Mono-U Artifacts](https://cubecobra.com/cube/deck/5f5d7ecfed60231051651f02)
 
@@ -73,7 +73,7 @@ This deck looks really good. It has a solid plan going in that attacks opponents
 
 ----
 # The Afternoon Draft (Draft #1)
-----
+
 
 ## Jeddy's Deck - [Grixis Midrange](https://cubecobra.com/cube/deck/5f5d856ded602310516556a1)
 
