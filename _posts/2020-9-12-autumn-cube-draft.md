@@ -87,7 +87,7 @@ Another midrange special from Jeddy. This looks to maximize **Kess, Dissident Ma
 
 ## Gerf's Deck - [Izzet Tempo](https://cubecobra.com/cube/deck/5f5d83f7ed60231051654d5d)
 
-<img src="/images/mtg/drtr-172-izzet-charm.jpg" alt="Izzet Charm" width="200"/><img src="/images/mtg/iko-342-rielle-the-everwise.jpg" alt="Rielle, the Everwise" width="200"/><img src="/images/mtg/eld-39-brazen-borrower.jpg" alt="Brazen Borrower" width="200"/>
+<img src="/images/mtg/rtr-172-izzet-charm.jpg" alt="Izzet Charm" width="200"/><img src="/images/mtg/iko-342-rielle-the-everwise.jpg" alt="Rielle, the Everwise" width="200"/><img src="/images/mtg/eld-39-brazen-borrower.jpg" alt="Brazen Borrower" width="200"/>
 
 <img src="/images/decks/200912_2_Izzet_Tempo.jpg" alt="Izzet Tempo" width="600"/>
 
