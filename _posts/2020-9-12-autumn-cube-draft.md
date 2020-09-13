@@ -13,7 +13,7 @@ This day we started early at 9am, so that we eventually got 2 drafts to play. We
 
 The first draft had 5 players - Mikey, Gerf, Jeddy, Jubee and Brian, and was won by Gerf's Selesnya Aggro deck.
 
-<img src="/images/mtg/9587E205-1E92-4323-9D56-C1148B5A7350.jpeg" alt="The Morning Draft" width="800"/>
+<img src="/images/photos/9587E205-1E92-4323-9D56-C1148B5A7350.jpeg" alt="The Morning Draft" width="800"/>
 
 The second draft Jubee had to leave so we only had 4 players. We drafted decks from the left over undrafted cards from the earlier draft and created 4 more packs of 13 cards to complete our decks. Jeddy did leave after his first match, but played out Mikey won with his Boros Artifact Aggro deck.
 
