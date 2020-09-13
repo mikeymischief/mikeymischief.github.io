@@ -109,7 +109,7 @@ This is a decent deck, but it's mostly a midrange pile of cards that got Brian 2
 
 <img src="/images/mtg/dtk-169-zurgo-bellstriker.jpg" alt="Zurgo Bellstriker" width="200"/><img src="/images/mtg/kld-231-scrapheap-scrounger.jpg" alt="Scrapheap Scrounger" width="200"/><img src="/images/mtg/m15-145-goblin-rabblemaster.jpg" alt="Goblin Rabblemaster" width="200"/>
 
-<img src="/images/decks/200912_Boros_Artifact_Aggro.jpg" alt="Boros Artifact Aggro" width="600"/>
+<img src="/images/decks/200912_2_Boros_Artifact_Aggro.jpg" alt="Boros Artifact Aggro" width="600"/>
 
 The winning deck from the afternoon draft, is one with a solid game plan; attack! Mostly a Boros aggro deck with heavy artifact synergies (Someone stole my Court Hussar!). A very low curve and several ways to mitigate sweepers, this deck had it all. In the middle of pack 3 was when I started drafting cards just to mitigate the feel-bads of said sweepers. In addition, Smuggler's Copter for some deck velocity and sweeper insurance (Gideon Blackblade as well!). With only 2 actual spells in this deck and ways to interact, I had to put pressure on the opponents and keep them on the back foot at all times! One criticism of the deck was that **Winota, Joiner of Forces** wasn't a great fit. Which I assumed I had some other Human synergies, but it was only actually on 1 or 2 cards. That said, I should've removed **Winota, Joiner of Forces** and put in more burn.
 
