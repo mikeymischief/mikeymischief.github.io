@@ -31,7 +31,7 @@ For the second draft, after lunch, we remembered to use the Utility Land Draft a
 
 A blazingly fast deck with access to Winota, Joiner of Forces to keep the pressure on! Gerf has hit on 3 humans in one attack which is nigh-unstoppable (those creatures get indestructible!). Backed up with enough burn to finish off opponents if the creature attack is halted, this Boros deck has a lot going for it. With many synergies from all the artifact payoffs, creatures like Toolcraft exemplar combined with Stoneforge Mystic can create starts that are hard to defeat. It's good that white aggro decks are contenders for winning some cube drafts. I'm loving the variety of decks that end up winning the cube!
 
-Gerf won with this deck going 3-0, beating Mikey 2-0, Jeddy 2-1, and Brian 2-1.
+Gerf won with this deck going 3-0, beating Mikey 2-0, Jeddy 2-0, and Brian 2-1.
 
 ----
 
