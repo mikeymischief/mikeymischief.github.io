@@ -11,6 +11,8 @@ categories: mtg cube
 
 This fine sunday we started at 10am and got to play 2 drafts again (I'm so glad this is becoming the norm!). We had lunch from Domino's so that we could play more games and there was nigh a break in between. Onto the drafts!
 
+<img src="https://www.flickr.com/photos/mikeymischief/51068889838/" alt="Drafting"/>
+
 ## Draft 1
 
 The first draft had 4 players - Mikey, Gerf, Jeddy, and Brian, and was won by Gerf's Boros Artifact aggro deck (Similar to my deck from last draft [Boros Artifact Aggro](https://cubecobra.com/cube/deck/5f5d800ded60231051653cf4). I played a Golgari Graveyard / Living Death deck which seemed pretty slow against the other decks that were drafted (I needed some board wipes or more spot removal). Jeddy's deck was a Grixis tempo deck powered by Embercleave and Brutal Hordechief. Finally, Brian's deck was a pile of Green and Black good stuff (some ramp, some midrange, some control). We had forgotten to do the Utility Land Draft and thus we just drafted the cube normally.
