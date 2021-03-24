@@ -11,7 +11,7 @@ categories: mtg cube
 
 This fine sunday we started at 10am and got to play 2 drafts again (I'm so glad this is becoming the norm!). We had lunch from Domino's so that we could play more games and there was nigh a break in between. Onto the drafts!
 
-<img src="https://www.flickr.com/photos/mikeymischief/51068889838/" alt="Drafting"/>
+<img src="/images/photos/201122_The_First_Draft.jpg" alt="Drafting" width="200"/>
 
 ## Draft 1
 
