@@ -7,30 +7,25 @@ comments: true
 categories: mtg cube
 ---
 
-# Kaldheim Cube Draft
-
-Another Cube Draft! In the future, I think I'll be naming the drafts after the latest retail limited set ala WotC.
+Another Cube Draft! In the future, I think I'll be naming the drafts after the latest retail limited set ala WotC. For instance, this one would be named Kaldheim Cube Draft, which would be appropos as Kaldheim is the last set the cube has been updated in (do you see all the _fortell_ cards?).
 
 We only got one cube draft in, but we got to play the Innistrad cube draft (decklists not recorded) in the afternoon (followed by some commander afterward). Lunch was again Domino's as we tried to maxmimize our playing time. This draft would see many archetypes not present in any other cube draft.
 
 We drafted a little over half the cube (using the Utility Land Draft), since we only had 4 players this time (Mike, Gerf, Jeddy and Brian). We drafted 6 packs of 9 cards, which, I think with 4 players, is the best way to draft with this number as it allows many of the archetypes designed with 8 players to somewhat shine with the lower player count.
 
-The draft order was:
-Mikey -> Brian -> Jeddy -> Gerf
+The draft order was: Mikey -> Brian -> Jeddy -> Gerf
 
 The winning 3-0 deck was my Naya Wildfire deck, the second place deck was Jeddy's Orzhov Aggro deck (2-1), followed by Gerf's Bant Soulherder list (1-2) and then a 60-card Yorion Aggro deck (0-3).
 
 ![Tough Decisions](/images/photos/210327_GvB.jpg "Gerf v Brian")
 > "I teach you guys how to build good decks." -Gerf
 
-<style>
 |       | Mikey | Gerf  | Jeddy | Brian |
 |-------|-------|-------|-------|-------|
 | Mikey |       |  2-1  |  2-1  |  2-0  |
 | Gerf  |  1-2  |       |  1-2  |  2-1  |
 | Jeddy |  1-2  |  2-1  |       |  2-1  |
 | Brian |  0-2  |  1-2  |  1-2  |       |
-</style>
 
 ![Game Rule Violation](/images/photos/210327_GRV.jpg "Game Rule Violation")
 

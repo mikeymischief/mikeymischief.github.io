@@ -5,15 +5,15 @@
 theme: jekyll-theme-minimal
 
 # Name of your site (displayed in the header)
-name: Mischief's Gaming Blog
+name: Mischief's Cube Blog
 
-plugins: 
+plugins:
  - jekyll-feed
  - jekyll-avatar
  - jemoji
 
 # Short bio or description (displayed in the header)
-description: Blog for Gaming
+description: Blog for Cubing
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 #avatar: https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png
@@ -27,7 +27,7 @@ avatar: https://mikeymischief.github.io/images/ScroogeMcDuck.png
 footer-links:
   dribbble:
   email: mikey_mischief@hotmail.com
-  facebook: 
+  facebook:
   flickr: mikeymischief
   github: mikeymischief
   instagram: mikeymischief
