@@ -8,8 +8,6 @@ excerpt_separator: <!--more-->
 categories: mtg cube
 ---
 
-# Autumn 2020 Cube Draft
-
 This day we started early at 9am, so that we eventually got 2 drafts to play. We decided to use both the Utility Land Draft and the Wildcard Duplicates. I would say both are a resounding success at creating an environment that is more about decks and not cards.
 
 The first draft had 5 players - Mikey, Gerf, Jeddy, Jubee and Brian, and was won by Gerf's Selesnya Aggro deck.
