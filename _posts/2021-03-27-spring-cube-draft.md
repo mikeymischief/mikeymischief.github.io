@@ -4,13 +4,14 @@ layout: post
 title: Spring Cube Draft 2021
 author: mikey
 comments: true
+excerpt_separator: <!--more-->
 categories: mtg cube
 ---
 
 Another Cube Draft! In the future, I think I'll be naming the drafts after the latest retail limited set ala WotC. For instance, this one would be named Kaldheim Cube Draft, which would be appropos as Kaldheim is the last set the cube has been updated in (do you see all the _fortell_ cards?).
 
-We only got one cube draft in, but we got to play the Innistrad cube draft (decklists not recorded) in the afternoon (followed by some commander afterward). Lunch was again Domino's as we tried to maxmimize our playing time. This draft would see many archetypes not present in any other cube draft.
-
+We only got one cube draft in, but we got to play the Innistrad cube draft (decklists not recorded) in the afternoon (followed by some commander afterward). Lunch was again Domino's as we tried to maxmimize our playing time. This draft would see many archetypes not present in any other cube draft. Who would end up winning this draft?
+<!--more-->
 We drafted a little over half the cube (using the Utility Land Draft), since we only had 4 players this time (Mike, Gerf, Jeddy and Brian). We drafted 6 packs of 9 cards, which, I think with 4 players, is the best way to draft with this number as it allows many of the archetypes designed with 8 players to somewhat shine with the lower player count.
 
 The draft order was: Mikey -> Brian -> Jeddy -> Gerf
@@ -57,7 +58,7 @@ Game 3 against Jeddy was especially excruciating, since his discard picked the c
 
 ## Jeddy's Deck - [Orzhov Aggro](https://www.cubecobra.com/cube/deck/60602509a0f0791063d31bea)
 
-<img src="/images/mtg/isd-23-mikaeus-the-lunarch.jpg" alt="Mikaeus, the Lunarch" width="200"/><img src="/images/mtg/iko-335-general-kudro-of-drannith" alt="General Kudro of Drannith" width="200"/><img src="/images/mtg/emn-85-collective-brutality.jpg" alt="Collective Brutality" width="200"/>
+<img src="/images/mtg/isd-23-mikaeus-the-lunarch.jpg" alt="Mikaeus, the Lunarch" width="200"/><img src="/images/mtg/iko-335-general-kudro-of-drannith.jpg" alt="General Kudro of Drannith" width="200"/><img src="/images/mtg/emn-85-collective-brutality.jpg" alt="Collective Brutality" width="200"/>
 
 [![Orzhov Aggro](/images/decks/210327_Jeddy_Orzhov_Aggro.jpg "Orzhov Aggro")]
 
