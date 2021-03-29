@@ -19,7 +19,7 @@ Mikey -> Brian -> Jeddy -> Gerf
 
 The winning 3-0 deck was my Gruul Wildfire deck, the second place deck was Jeddy's Orzhov Aggro deck (2-1), followed by Gerf's Bant Soulherder list (1-2) and then a 60-card Yorion deck (0-3).
 
-[![Tough Decisions](/images/photos/210327_GvB.jpg "Gerf v Brian")]
+![Tough Decisions](/images/photos/210327_GvB.jpg "Gerf v Brian")
 > "I teach you guys how to build good decks." -Gerf
 
 |       | Mikey | Gerf  | Jeddy | Brian |
@@ -29,7 +29,7 @@ The winning 3-0 deck was my Gruul Wildfire deck, the second place deck was Jeddy
 | Jeddy |  1-2  |  2-1  |       |  2-1  |
 | Brian |  0-2  |  1-2  |  1-2  |       |
 
-[![Game Rule Violation](/images/photos/210327_GRV.jpg "Game Rule Violation")]
+![Game Rule Violation](/images/photos/210327_GRV.jpg "Game Rule Violation")
 Apparently, Jeddy doesn't read his cards, as he had several Game Rule Violations during the day. He thought Mikaeus, the Lunarch gave each of his creatures the number of counters on Mikaeus (if Mikaeus had 3 +1/+1 counters, activating his ability only gives each creature a single +1/+1 counter, not THREE), which turned his game 2 against Brian around. Jeddy eventually conceded that he probably would've lost that game, if he read Mikaeus correctly.
 
 > "Mikkekus" -Jeddy
