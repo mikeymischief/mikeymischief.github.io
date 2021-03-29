@@ -15,7 +15,7 @@ We only got one cube draft in, but we got to play the Innistrad cube draft (deck
 
 We drafted a little over half the cube (using the Utility Land Draft), since we only had 4 players this time (Mike, Gerf, Jeddy and Brian). We drafted 6 packs of 9 cards, which, I think with 4 players, is the best way to draft with this number as it allows many of the archetypes designed with 8 players to somewhat shine with the lower player count.
 
-The draft order was:</p>
+The draft order was:
 Mikey -> Brian -> Jeddy -> Gerf
 
 The winning 3-0 deck was my Naya Wildfire deck, the second place deck was Jeddy's Orzhov Aggro deck (2-1), followed by Gerf's Bant Soulherder list (1-2) and then a 60-card Yorion Aggro deck (0-3).
