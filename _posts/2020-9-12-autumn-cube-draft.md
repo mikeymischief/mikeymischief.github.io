@@ -72,7 +72,7 @@ With a P1P1 **Tezzeret, Agent of Bolas** pick, the drafting was pretty simple - 
 This deck looks really good. It has a solid plan going in that attacks opponents going wide and with a +1/+1 counter theme to go tall as well. Then in the late game, if anyone has managed to quell the Selesnya forces, **Titania, Protector of Argoth** synergies with the lands to create an army of 5/3 Elementals is as sound as any. This definitely is the best deck for the first pod!
 
 ----
-# The Afternoon Draft (Draft #1)
+# The Afternoon Draft (Draft #2)
 
 
 ## Jeddy's Deck - [Grixis Midrange](https://cubecobra.com/cube/deck/5f5d856ded602310516556a1)
