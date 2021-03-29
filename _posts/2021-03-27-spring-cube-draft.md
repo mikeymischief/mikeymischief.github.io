@@ -24,7 +24,7 @@ The winning 3-0 deck was my Naya Wildfire deck, the second place deck was Jeddy'
 > "I teach you guys how to build good decks." -Gerf
 
 |       | Mikey | Gerf  | Jeddy | Brian |
-| :---: | :---: | :---: | :---: | :---: |
+| ----- | ----- | ----- | ----- | ----- |
 | Mikey |       |  2-1  |  2-1  |  2-0  |
 | Gerf  |  1-2  |       |  1-2  |  2-1  |
 | Jeddy |  1-2  |  2-1  |       |  2-1  |
