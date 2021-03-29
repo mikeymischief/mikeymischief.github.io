@@ -7,8 +7,6 @@ comments: true
 categories: mtg cube
 ---
 
-Summer 2020 Cube Draft
-
 This day was cut short because of the EMM launch (I had to work). Despite that, the other players still hunkered on. Gerf beat both Jubee and Jeddy's deck, then beat my Simic Deck (in a best of 1) the day after (to be concluded).
 
 Don't forget you can click the decknames to link to their deck in Cube Cobra, which has a lot more functionality and will contain the full sideboards!
@@ -55,7 +53,7 @@ A Golgari Graveyard deck! Multiple pieces of graveyard dumping (Ransack the Lab,
 
 <img src="/images/decks/200719_Simic_Tempo.jpg" alt="Simic Tempo" width="600"/>
 
-Now, my deck does one thing and one thing only; applies pressure and then leaves the opponent off balance enough to finish the game. Once a couple of creatures are in play, the counterspell suite, or flash creatures or bounce creatures just keep the defender off balance enough to not be able to stabilize. With 4 counterspells, 4 bounce creatures (excluding the Phantasmal Image), and 2 ways of taking control of opponent's creatures (Sower of Temptation, Control Magic), there is not much a person can play to the board that I won't have an answer for. 
+Now, my deck does one thing and one thing only; applies pressure and then leaves the opponent off balance enough to finish the game. Once a couple of creatures are in play, the counterspell suite, or flash creatures or bounce creatures just keep the defender off balance enough to not be able to stabilize. With 4 counterspells, 4 bounce creatures (excluding the Phantasmal Image), and 2 ways of taking control of opponent's creatures (Sower of Temptation, Control Magic), there is not much a person can play to the board that I won't have an answer for.
 
 Edric provides some gas when played and Mystic Snake just helps round out my creature suite. If I could change how I drafted, I would take more 2-drops and less 3 drops. Otherwise, this is nearly what you want in a Simic tempo build.
 

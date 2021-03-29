@@ -4,6 +4,7 @@ layout: post
 title: Autumn Cube Draft
 author: mikey
 comments: true
+excerpt_separator: <!--more-->
 categories: mtg cube
 ---
 
@@ -12,6 +13,8 @@ categories: mtg cube
 This day we started early at 9am, so that we eventually got 2 drafts to play. We decided to use both the Utility Land Draft and the Wildcard Duplicates. I would say both are a resounding success at creating an environment that is more about decks and not cards.
 
 The first draft had 5 players - Mikey, Gerf, Jeddy, Jubee and Brian, and was won by Gerf's Selesnya Aggro deck.
+
+<!--more-->
 
 <img src="/images/photos/200912_The_Morning_Draft.jpg" alt="The Morning Draft" width="800"/>
 

@@ -4,20 +4,21 @@ layout: post
 title: Synergy Cube Primer
 author: mikey
 comments: true
+excerpt_separator: <!--more-->
 categories: mtg
 ---
 
 Welcome to the Synergy Cube!
 
-If you're here, it's probably because you want to learn about my cube. I have recently changed my philosophy behind the design of the environment. Back when I started, the idea was to play the most powerful cards in MTG, so naturally, I built a Legacy max-power cube. I tried to limit the swingyness of that playstyle (I've always hated it), but could never quite get over the feel-bads when they happened. Eventually, I got to where I am today; a cube built on synergies and archetypes. The main difference from before was that many cards could not see play because the powerband of existing cards would just push out fun/synergistic decks. Having a flatter power level should do wonders for the gameplay as well. 
-
+If you're here, it's probably because you want to learn about my cube. I have recently changed my philosophy behind the design of the environment. Back when I started, the idea was to play the most powerful cards in MTG, so naturally, I built a Legacy max-power cube. I tried to limit the swingyness of that playstyle (I've always hated it), but could never quite get over the feel-bads when they happened. Eventually, I got to where I am today; a cube built on synergies and archetypes. The main difference from before was that many cards could not see play because the powerband of existing cards would just push out fun/synergistic decks. Having a flatter power level should do wonders for the gameplay as well.
+<!--more-->
 ## Building a Cube
 
 In the course of my journey, I've probably changed upwards of 100 cards to reflect this, removing major powerstones of the previous format (Skullclamp, Opposition, Umezawa's Jitte...) and replaced them with synergistic archetypes that are built on themes placed in the mono-colored sections. Each of these sections comprises of many themes, that, while distinct from each other, are synergistic when put together. This differs from a lower-powered cube built the same way because those drafts tend to be "on-rails". This draft environment is very much in the middle, which straddles power with synergy; where one does not overwhelm the other, but instead plays in harmony together.
 
-How is this done? Well, by introducing many archetypes in each color, along with themes that align with seamlessly, and peppering that philosophy with payoff cards to reward drafters in those lanes. Therefore, choosing a build-around card can create decks, but so can picking archetype-strengthening cards as well. Too many strictly defined archetypes will result in "on-rails" drafting and too many powerful cards will have players draft piles of "good stuff" decks; that's not what I want in this environment. Seeded within the cube's multicolor sections are cards that hint towards archetypes, much like a retail draft. Depending on the depth of these archetypes, each guild pair can support multiple deck types using just a couple cards. The best thing about cube is that it's not about drafting these creator-defined decks, but drafting things you can make up on your own; emergent gameplay! 
+How is this done? Well, by introducing many archetypes in each color, along with themes that align with seamlessly, and peppering that philosophy with payoff cards to reward drafters in those lanes. Therefore, choosing a build-around card can create decks, but so can picking archetype-strengthening cards as well. Too many strictly defined archetypes will result in "on-rails" drafting and too many powerful cards will have players draft piles of "good stuff" decks; that's not what I want in this environment. Seeded within the cube's multicolor sections are cards that hint towards archetypes, much like a retail draft. Depending on the depth of these archetypes, each guild pair can support multiple deck types using just a couple cards. The best thing about cube is that it's not about drafting these creator-defined decks, but drafting things you can make up on your own; emergent gameplay!
 
-You can be as creative as you wish, but just know that this isn't a purely Johnny/Jenny cube in that your deck still needs to follow in the normal trappings of a draft deck. Aggro, mid-range, tempo and control are all present here and your deck will likely fall under one of those macro-archetypes. 
+You can be as creative as you wish, but just know that this isn't a purely Johnny/Jenny cube in that your deck still needs to follow in the normal trappings of a draft deck. Aggro, mid-range, tempo and control are all present here and your deck will likely fall under one of those macro-archetypes.
 
 ## My Cube
 
@@ -49,7 +50,7 @@ Rakdos (and red in particular) has a subtheme of artifacts to create texture wit
 
 <img src="/images/mtg/usg-228-wildfire.jpg" alt="Wildfire" width="200"/><img src="/images/mtg/5dn-114-crucible-of-worlds.jpg" alt="Crucible of Worlds" width="200"/><img src="/images/mtg/m11-192-primeval-titan.jpg" alt="Primeval Titan" width="200"/>
 
-A classic deck from back in the power-max cube days. This archetype has still survived and is poised to still be a threat. What this deck does is try to accelerate mana production by using numerous manarocks (Mind Stone, Guardian Idol), droping a 5+ toughness creature, preferably something like Primeval Titan, and then playing a Wildfire or Burning of Xinye the following turn. Pairing this with blue, gets you card filtering to find Wildfire faster, pairing with green get you recursive lands and many large fatties. Wildfile works with any of the other colors and is one of the premier big red decks in the format. 
+A classic deck from back in the power-max cube days. This archetype has still survived and is poised to still be a threat. What this deck does is try to accelerate mana production by using numerous manarocks (Mind Stone, Guardian Idol), droping a 5+ toughness creature, preferably something like Primeval Titan, and then playing a Wildfire or Burning of Xinye the following turn. Pairing this with blue, gets you card filtering to find Wildfire faster, pairing with green get you recursive lands and many large fatties. Wildfile works with any of the other colors and is one of the premier big red decks in the format.
 
 ### Orzhov Human Aggro
 [WB Human Aggro](https://www.cubecobra.com/cube/deck/5edee99a4724960f53823b99)
@@ -63,7 +64,7 @@ Human Tribal aggro is viable and fast aggro deck, and one of the newer enabled a
 
 <img src="/images/mtg/mh1-204-ingenious-infiltrator.jpg" alt="Ingenious Infiltrator" width="200"/><img src="/images/mtg/bok-44-ninja-of-the-deep-hours.jpg" alt="Ninja of the Deep Hours" width="200"/><img src="/images/mtg/bok-88-throat-slitter.jpg" alt="Throat Slitter" width="200"/>
 
-Everyone loves ninjas! This tempo deck plays like an aggro control deck with some disruption, abusing Enter-the-battlefield effects on creatures and drawing cards. With a few ninjas, this is still a competitive deck, just don't leave home without enablers for _ninjutsu_: blue fliers, black menace, deathtouch and even some artifact assistance with cards like Key to the City! 
+Everyone loves ninjas! This tempo deck plays like an aggro control deck with some disruption, abusing Enter-the-battlefield effects on creatures and drawing cards. With a few ninjas, this is still a competitive deck, just don't leave home without enablers for _ninjutsu_: blue fliers, black menace, deathtouch and even some artifact assistance with cards like Key to the City!
 
 ### Simic Self-Mill
 [Simic Laboratory](https://www.cubecobra.com/cube/deck/5edd53bad65648101a0cbcd6)
