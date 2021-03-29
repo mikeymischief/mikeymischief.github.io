@@ -11,18 +11,17 @@ categories: mtg cube
 
 This fine sunday we started at 10am and got to play 2 drafts again (I'm so glad this is becoming the norm!). We had lunch from Domino's so that we could play more games and there was nigh a break in between. Onto the drafts!
 
-<<<<<<< HEAD
-=======
 <img src="/images/photos/201122_The_First_Draft.jpg" alt="Drafting" width="200"/>
 
->>>>>>> 2e9a4854c6945cab92f13d4d8a2f73fdb5e87816
+![Drafting](/images/photos/201122_The_First_Draft.jpg "Drafting")
+
 ## Draft 1
 
 The first draft had 4 players - Mikey, Gerf, Jeddy, and Brian, and was won by Gerf's Boros Artifact aggro deck (Similar to my deck from last draft [Boros Artifact Aggro](https://cubecobra.com/cube/deck/5f5d800ded60231051653cf4). I played a Golgari Graveyard / Living Death deck which seemed pretty slow against the other decks that were drafted (I needed some board wipes or more spot removal). Jeddy's deck was a Grixis tempo deck powered by Embercleave and Brutal Hordechief. Finally, Brian's deck was a pile of Green and Black good stuff (some ramp, some midrange, some control). We had forgotten to do the Utility Land Draft and thus we just drafted the cube normally.
 
 ## Draft 2
 
-For the second draft, after lunch, we remembered to use the Utility Land Draft and thus put in some of the vouchers into our draft packs. The draft was won by my BR Artifact Control deck amongst a sea of midrange decks (Gerf's Temur midrange, Jeddy's Grixis Midrange and Brian's Gruul Midrange decks). 
+For the second draft, after lunch, we remembered to use the Utility Land Draft and thus put in some of the vouchers into our draft packs. The draft was won by my BR Artifact Control deck amongst a sea of midrange decks (Gerf's Temur midrange, Jeddy's Grixis Midrange and Brian's Gruul Midrange decks).
 
 ----
 # The Morning Draft (Draft #1)
@@ -34,15 +33,9 @@ For the second draft, after lunch, we remembered to use the Utility Land Draft a
 
 <img src="/images/decks/201122_BorosArtifactAggro.jpg" alt="Boros Artifact Aggro" width="600"/>
 
-<<<<<<< HEAD
 A blazingly fast deck with access to Winota, Joiner of Forces to keep the pressure on! Gerf has hit on 3 humans in one attack which is nigh-unstoppable (those creatures get indestructable!). Backed up with enough burn to finish off opponents if the creature attack is halted, this Boros deck has a lot going for it. With many synergies from all the artifact payoffs, creatures like Toolcraft exemplar combined with Stoneforge Mystic can create starts that are hard to defeat. It's good that white aggro decks are contenders for winning some cube drafts. I'm loving the variety of decks that end up winning the cube!
 
 Gerf won with this deck going 3-0, being Mikey 2-0, Jeddy 2-1, and Brian 2-1.
-=======
-A blazingly fast deck with access to Winota, Joiner of Forces to keep the pressure on! Gerf has hit on 3 humans in one attack which is nigh-unstoppable (those creatures get indestructible!). Backed up with enough burn to finish off opponents if the creature attack is halted, this Boros deck has a lot going for it. With many synergies from all the artifact payoffs, creatures like Toolcraft exemplar combined with Stoneforge Mystic can create starts that are hard to defeat. It's good that white aggro decks are contenders for winning some cube drafts. I'm loving the variety of decks that end up winning the cube!
-
-Gerf won with this deck going 3-0, beating Mikey 2-0, Jeddy 2-0, and Brian 2-1.
->>>>>>> 2e9a4854c6945cab92f13d4d8a2f73fdb5e87816
 
 ----
 
@@ -55,7 +48,7 @@ Gerf won with this deck going 3-0, beating Mikey 2-0, Jeddy 2-0, and Brian 2-1.
 A nice tight little deck with a great game plan for victory. Jeddy's deck seeks to drop a lot of creatures down in the early turns to generate some tempo, then can use small burn spells to get past little blockers. If there is a large creature that seeks to get in his way, he has Liliana of the Veil to sacrifice that blocker, Hostage Taker to remove him for an attack cycle, or can just Embercleave past the blocker if necessary. Grixis is usually the color of control decks, but Jeddy has managed to carve out a unique build that capitalizes on all the strength of his 3 colors.
 
 Jeddy's deck finished in second place, defeating both Mikey's deck and Brian's deck, but losing to Gerf.
-     
+
 ----
 
 ## Mikey's Deck - [Golgari Graveyard](https://www.cubecobra.com/cube/deck/5fbb59d48e1dc31071c0c329)
@@ -64,11 +57,7 @@ Jeddy's deck finished in second place, defeating both Mikey's deck and Brian's d
 
 <img src="/images/decks/201122_GolgariGraveyard.jpg" alt="Golgari Graveyard" width="600"/>
 
-<<<<<<< HEAD
 I thought I had a good shot at winning this first draft with this deck. My first cut of the build was way too linear on the reanimation plan and after losing game 2 to Brian, I took out some cards to put in some spot removal, which ended up being the default build for me. My game plan really revolved around Scavenging Ooze and Deathrite Shaman, to remove creatures I've previously killed from the opponent's graveyard then cast a game winning Living Death; allowing me to get back all my creatures and leave the opponent with nothing. I was so happy I got to do this twice in my games. The problem with the deck, as I alluded to earlier, was that there was some serious aggro decks in the environment. I needed a better plan to deal with those decks, which I didn't have. With Black being split 3 ways in the draft, most of the removal was taken by Brian and Jeddy and so I really only got Eat to Extinction and Heartless Act. Two more removal spells, or a sweeper like Damnation or Languish could've made this deck spectacular. As is, it was still a fun deck to pilot, despite only winning one match against Brian. I lost to Gerf 0-2 and to Jeddy 1-2 in 3 close games (one of which I was only on 3 lands).
-=======
-I thought I had a good shot at winning this first draft with this deck. My first cut of the build was way too linear on the reanimation plan and after losing game 2 to Brian, I took out some cards to put in some spot removal, which ended up being the default build for me. My game plan really revolved around Scavenging Ooze and Deathrite Shaman to remove creatures I've previously killed from the opponent's graveyard, then cast a game winning Living Death; allowing me to get back all my creatures and leave the opponent with nothing. I was so happy I got to do this twice in my games. The problem with the deck, as I alluded to earlier, was that there was some serious aggro decks in the environment. I needed a better plan to deal with those decks, which I didn't have. With Black being split 3 ways in the draft, most of the removal was taken by Brian and Jeddy and so I really only got Eat to Extinction and Heartless Act. Two more removal spells, or a sweeper like Damnation or Languish could've made this deck spectacular. As is, it was still a fun deck to pilot, despite only winning one match against Brian. I lost to Gerf 0-2 and to Jeddy 1-2 in 3 close games (one of which I was only on 3 lands).
->>>>>>> 2e9a4854c6945cab92f13d4d8a2f73fdb5e87816
 
 ----
 
@@ -78,11 +67,7 @@ I thought I had a good shot at winning this first draft with this deck. My first
 
 <img src="/images/decks/201122_BGGoodStuff.jpg" alt="BG Good Stuff" width="600"/>
 
-<<<<<<< HEAD
 Not so great this time, eh Brian? Last time Brian got a P1P1 Tezzeret, Agent of Bolas to start off his draft and proceeded to draft all the artifacts into a pretty easy draft. That got him a solid second place for that draft. This time, Brian ended up in the same colors as me, but drafted removal and some ramp and some midrange/high end threats. It turned into a hodge-podge of a deck that tried to do several things, but nothing great. Decks like these tend to struggle with consistency because when you get the part of your deck that works together, it will perform great (Brian got a game off of Gerf's Boros Aggro deck because he got all his ramp pieces early), but normally, you will just get a mixture of your game plan and stumble to a loss. Brian's deck was saved by the fact he has several high-power flexible things to do as long as he can get a bunch of mana: Stonecoil Serpent and Pernicious Deed. Rotting Regisaur is also a great generic threat that is hard to deal (it's how he won a game off of me!).
-=======
-Not so great this time, eh Brian? Last time Brian got a P1P1 Tezzeret, Agent of Bolas to start off his draft and proceeded to draft all the artifacts into a pretty easy draft. That got him a solid second place for that draft. This time, Brian ended up in the same colors as me, but drafted removal and some ramp and some midrange/high end threats. It turned into a hodge-podge of a deck that tried to do several things, but nothing great. Decks like these tend to struggle with consistency because when you get the part of your deck that works together, it will perform great (Brian got a game off of Gerf's Boros Aggro deck because he got all his ramp pieces early), but normally, you will just get a mixture of your game plan and stumble to a loss. Brian's deck was saved by the fact he has several high-power flexible things to do as long as he can get a bunch of mana: Stonecoil Serpent and Pernicious Deed. Rotting Regisaur is also a great generic threat that is hard to deal with (it's how he won a game off of me!).
->>>>>>> 2e9a4854c6945cab92f13d4d8a2f73fdb5e87816
 
 Overall, Brian lost to everyone in this first draft for a solid last place.
 
@@ -95,11 +80,7 @@ Overall, Brian lost to everyone in this first draft for a solid last place.
 
 <img src="/images/decks/201122_2_BRArtifactControl.jpg" alt="BR Artifact Control" width="600"/>
 
-<<<<<<< HEAD
 I won the second draft despite not enough time to play the final round (I was 2-0 against both Jeddy and Brian, everyone else was split 1-1). My Rakdos Artifact control deck was positioned well against all the mid-range decks in the environment. I had several pockets of synergy that would appear in almost every draft: Daretti, Scrap Savant swapping Noxious Gearhulk or Duplicant from my graveyard after sacrificing them to the other Daretti, Ingenious Iconoclast. Even just milling them from my Faithless Looting and Ransack the Lab. Hangarback Walker was also great because when I sacrificed him, I would get several other artifacts to use as fodder for my other artifact synergies or as simple chump blockers. The effective game plan of planeswalkers like Liliana, Death's Majesty and board wipes: Damnation or Pernicious Deed. Speaking of which, Deed was a godsend against Jeddys deck, going 4-for-1 several times against him with plenty of cheap artifacts and his man-lands. My last game against Jeddy, I actually got Korvold, Fae-cursed King out and he took it to victory with 3 short swings. All my games were long and grindy, so I would always get to see most of my cards. The weakest card in my deck was probably survival of the fittest, as it's green (my splash color) and I don't have much creatures anyway. It was in the deck because I thought I would be pitching my larger creatures to get them in the 'yard in order to swap them back in the Daretti.
-=======
-I won the second draft despite not enough time to play the final round (I was 2-0 against both Jeddy and Brian, everyone else was split 1-1). My Rakdos Artifact control deck was positioned well against all the mid-range decks in the environment. I had several pockets of synergy that would appear in almost every draft: Daretti, Scrap Savant swapping Noxious Gearhulk or Duplicant from my graveyard after sacrificing them to the other Daretti (Ingenious Iconoclast). Even just milling them from Faithless Looting and Ransack the Lab got the job done. Hangarback Walker was also great because when I sacrificed him (or if he died), I would get several Thopters to use as fodder for other artifact synergies or, in a pinch, I could use them as simple chump blockers. The tried-and-true game plan of planeswalkers like Liliana, Death's Majesty and board wipes is also present here with Damnation and Pernicious Deed. Speaking of which, Deed was a godsend against Jeddys deck, going 4-for-1 several times against him with plenty of cheap artifacts and his man-lands. My last game against Jeddy, I actually got Korvold, Fae-cursed King out and he took me to victory with 3 short swings. All my games were long and grindy, so I would always get to see most of my cards. The weakest card in my deck was probably Survival of the Fittest, as it's green (my splash color) and I don't have too much creatures anyway. It was in the deck because I thought I would be pitching my larger creatures to get them in the 'yard in order to swap them back into play with Daretti.
->>>>>>> 2e9a4854c6945cab92f13d4d8a2f73fdb5e87816
 
 Overall, this was a great deck that was immensely fun to play!
 
