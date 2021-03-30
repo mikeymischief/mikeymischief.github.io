@@ -3,6 +3,7 @@
 #
 
 theme: jekyll-theme-minimal
+remote_theme: "mmistakes/minimal-mistakes@4.22.0"
 
 # Name of your site (displayed in the header)
 name: Mischief's Cube Blog
@@ -11,6 +12,7 @@ plugins:
  - jekyll-feed
  - jekyll-avatar
  - jemoji
+ - jekyll-include-cache
 
 # Short bio or description (displayed in the header)
 description: Blog for Cubing
