@@ -40,7 +40,7 @@ Apparently, Jeddy doesn't read his cards, as he had several Game Rule Violations
 
 <img src="/images/mtg/usg-228-wildfire.jpg" alt="Wildfire" width="200"/><img src="/images/mtg/m12-188-primeval-titan.jpg" alt="Primeval Titan" width="200"/><img src="/images/mtg/ss3-1-chandra-torch-of-defiance.jpg" alt="Chandra, Torch of Defiance" width="200"/>
 
-[![Wildfire Control](/images/decks/210327_Mikey_Wildfire.jpg "Wildfire Control")]
+![Wildfire Control](/images/decks/210327_Mikey_Wildfire.jpg "Wildfire Control")
 
 One of, if not, my favorite deck archetypes that I have drafted in the cube. I love drafting synergistic archetypes and Wildfire sure is one of the classic decks in MTG history and in cube. This deck has been in the cube since the beginning (2008!) and has survived the change from the max-power iteration of the cube to today's high-synergy, highly interactive version.
 
@@ -60,7 +60,7 @@ Game 3 against Jeddy was especially excruciating, since his discard picked the c
 
 <img src="/images/mtg/isd-23-mikaeus-the-lunarch.jpg" alt="Mikaeus, the Lunarch" width="200"/><img src="/images/mtg/iko-335-general-kudro-of-drannith.jpg" alt="General Kudro of Drannith" width="200"/><img src="/images/mtg/emn-85-collective-brutality.jpg" alt="Collective Brutality" width="200"/>
 
-[![Orzhov Aggro](/images/decks/210327_Jeddy_Orzhov_Aggro.jpg "Orzhov Aggro")]
+![Orzhov Aggro](/images/decks/210327_Jeddy_Orzhov_Aggro.jpg "Orzhov Aggro")
 
 Jeddy's deck is a pretty nice streamlined aggro deck. Since he was the only black drafter, he got his choice of all the removal spells for his white weenie deck. The combination of white aggressive creatures, backed by a suite of removal and disruption effects is always how I pictured the Orzhov aggro decks playing in cube (Tidehollow Sculler, where you at now?). Jeddy could simply curve out against slower decks, going wide with evasive fliers and Mikaeus to pump them up. He had a lot of creatures with built-in resiliency; Woe Strider and Lingering Souls. Not even to mention, he had all the removal he needed to clear blockers out of his way.
 
@@ -72,7 +72,7 @@ Despite Jeddy's missteps in how his cards played out, his deck was actually pret
 
 <img src="/images/mtg/mh1-214-soulherder.jpg" alt="Soulherder" width="200"/><img src="/images/mtg/tsr-311-mulldrifter.jpg" alt="Mulldrifter" width="200"/><img src="/images/mtg/m21-376-jolrael-mwonvuli-recluse.jpg" alt="Jolrael, Mwonvuli Recluse" width="200"/>
 
-[![Bant Soulherder](/images/decks/210327_Gerf_Bant_Soulherder.jpg "Bant Soulherder")]
+![Bant Soulherder](/images/decks/210327_Gerf_Bant_Soulherder.jpg "Bant Soulherder")
 
 With 2 copies of Soulherder in his deck, Gerf looks to abuse Enter the Battlefield effects to generate a ton of value. His targets: Man-o'-War, Mulldrifter, Triskelion and Acidic Slime are more than enough synergy once he gets his engine going. Another payoff is Ranar the Ever-Watchful every time he blinks something, he'll produce a 1/1 Spirit token.
 
@@ -84,7 +84,7 @@ I know with a deck like this it's hard to get the mixure just right and it seeme
 
 <img src="/images/mtg/iko-359-yorion-sky-nomad.jpg" alt="Yorion, Sky Nomad" width="200"/><img src="/images/mtg/isd-6-champion-of-the-parish.jpg" alt="Champion of the Parish" width="200"/><img src="/images/mtg/c14-50-titania-protector-of-argoth.jpg" alt="Titania, Protector of Argoth" width="200"/>
 
-[![Yorion Aggro](/images/decks/210327_Brian_Yorion_Aggro.jpg "Yorion Aggro")]
+![Yorion Aggro](/images/decks/210327_Brian_Yorion_Aggro.jpg "Yorion Aggro")
 
 This deck was a mess from top to bottom (sorry, Brian). It has no direction as there are aggressive elements to the deck, but then there is Yorion for blink strategies and Titania for land strategies? There are +1/+1 counters, a Sun Titan and Combustible Gearhulk. I don't know what the plan for this deck is, so I will just present it here as is.
 
