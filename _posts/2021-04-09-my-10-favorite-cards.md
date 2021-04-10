@@ -22,6 +22,7 @@ I loved the 2004 Green/White Control deck by Julien Juijten which used 4 copies 
 I think this card is solely responsible for all the graveyard synergies that I crave. One of the reasons the cube was switched to a synergy cube (and all the graveyard interactions) was because of my love for Eternal Witness.
 
 I don't care too much for the new art in particular, but I do love the old Time Spiral Remastered 1997 frame, so that is why this is the version currently in the cube.
+
 -----
 ## 9. Teferi, Hero of Dominaria
 ![Teferi, Hero of Dominaria](/images/mtg/sld-248-teferi-hero-of-dominaria.jpg "Teferi, Hero of Dominaria"){: width="250" }
@@ -31,6 +32,7 @@ Teferi is definitely a powerful card, it does all the things you want in a contr
 Teferi is the ideal control card and any control deck in white and blue will likely start with this card. In the cube, this card can single-handedly draw a drafter into playing blue/white control, which is why it's such a great card. In limited, it's power is muted by only having a single copy, but in cube, the aggressive decks tend to keep this in check. Playing Teferi only once you've wrested control of the game is important, so that you don't lose this one-card control engine.
 
 The reason I brought this back into the cube is because I think white/blue control needed something to pull drafters into it. Control lately has been getting harder to play because all of the efficient creatures and this card should give, at least white/blue, a puncher's chance at being a great deck.
+
 -----
 ## 8. Tezzeret, Agent of Bolas
 ![Tezzeret, Agent of Bolas](/images/mtg/mbs-97-tezzeret-agent-of-bolas.jpg "Tezzeret, Agent of Bolas"){: width="250" }
@@ -42,6 +44,7 @@ Tezzeret is in my favorite color combination Dimir (Blue and Black). These days 
 In the past, I've always tried to jam this guy in my decks, like Modern Urza in the sideboard for playing against other control strategies. Much like Teferi, the +1 provides some marginal card advantage as long as you have artifacts in your deck. The -1 mode is definitely the "main" mode, as turning your artifacts in to 5/5s is how you basically win. Keep in mind that this is a permanent transformation and does not end at the end of turn.
 
 Tezzeret is one of my favorite planeswalker designs in that it encourages players to build their decks accordingly and it's situational in that regard. Having a planeswalker with generic abilities is sometimes necessary (see: Teferi, Hero of Dominaria), but Tezzeret is of the high enough power-level I would like my cube to rest at.  
+
 -----
 ## 7. Juzam Djinn
 ![Juzam Djinn](/images/mtg/arn-29-juzam-djinn.jpg "Juzam Djinn"){: width="250" }
@@ -51,6 +54,7 @@ Nostalgia is such a dangerous drug. Juzam Djinn is literally here only because I
 While Juzam is considered underpowered by most players these days, his role as the most powerful black creature at the time was unparalleled. The art by Mark Tedin is one of my favorites (I'm going to get a print of this one day).
 
 If I could put him back in the cube and be playable, I would. My concern for playing with a card with such a high price tag would increase. As a relic of the past, Juzam Djinn is still one of my favorite cards and that is not likely to change anytime soon.
+
 -----
 ## 6. Yawgmoth's Will
 ![Yawgmoth's Will](/images/mtg/usg-171-yawgmoth-s-will.jpg "Yawgmoth's Will"){: width="250" }
@@ -58,6 +62,7 @@ If I could put him back in the cube and be playable, I would. My concern for pla
 Yawgmoth's Will is so broken in vintage. With access to rituals and fast artifact mana, this card can do so many powerful things. If you have to pay 3 mana in a normal game, it's quite a mortal card. Maybe in cube you can double your fetchlands and _flashback_ a removal spell or replay a cheap creature.
 
 I can't even justify this in commander, but I want to try. Maybe putting it in my Dralnu deck with Dark Ritual might make it work, just so I can play this again. The theme of replaying things back from the graveyard persists, which is a main reason Dralnu is my "main" commander.
+
 -----
 ## 5. Force Spike
 ![Force Spike](/images/mtg/leg-58-force-spike.jpg "Force Spike"){: width="250" }
@@ -65,6 +70,7 @@ I can't even justify this in commander, but I want to try. Maybe putting it in m
 A one-mana counterspell. Playing things on curve is such a vital part of Magic these days and having to keep open a mana just in case an opponent has a Force Spike is such a taxing line of play. I'm always trying to find room for this card in cube because the curves are so tight that this *should* see play, but many cube curators have moved away from this spell. They cite reasons that once you know a deck has this you can play around it, but then that's exactly what a control deck wants to do; slow down its opponent.
 
 I may have convinced myself to bring this card back in.
+
 -----
 ## 4. Damnation
 ![Damnation](/images/mtg/plc-85-damnation.jpg "Damnation"){: width="250" }
@@ -72,6 +78,7 @@ I may have convinced myself to bring this card back in.
 As mentioned above, this card is so out of the color pie, it should never be reprinted in a premier set. Despite that, being in the cube, I can always relive the glory of this card in Dimir control decks. Black having access to an unconditional sweeper lynchpins the entire black control decks in cube. This is always a pretty high pick for me and for anyone looking to play control.
 
 The art by Kev Walker is also simple yet iconic. The black sun against a white background is so stark. The elegance of the card also hits all the right notes for the design of it. With many of the sets of today (Ikoria, Strixhaven) that are breaking the average word counts for the set, I'm starting to appreciate more and more the elegance of a simple card.
+
 -----
 ## 3. Cryptic Command
 ![Cryptic Command](/images/mtg/lrw-56-cryptic-command.jpg "Cryptic Command"){: width="250" }
@@ -81,6 +88,7 @@ A toolbox for blue control mages. This card does everything you want it to and w
 The best things I like to do with Cryptic Command come from the Modern format where you can bounce your Snapcaster Mage along with any other mode to do this over and over again. For high powered formats, tapping the opponent's team down for the turn can feel like cheating.
 
 Being in my top 3 cards, I will always play Cryptic Command in any deck that warrants it. I even have mine signed by Patrick Chapin at GP Vegas in 2013.
+
 -----
 ## 2. Ponder
 ![Ponder](/images/mtg/tsr-315-ponder.jpg "Ponder"){: width="250" }
@@ -90,6 +98,7 @@ Ah, Ponder, the best cantrip in all of Magic. The reason this is so good is beca
 I doubt anything will top Ponder as one of my favorite blue spells. It's as cheap as it can be while providing the player with so much flexibility.
 
 I also purchased a framed print of Ponder from Dan Scott along with the playmat at GP Vegas a couple years ago.
+
 -----
 ## 1. Snapcaster Mage
 ![Snapcaster Mage](/images/mtg/isd-78-snapcaster-mage.jpg "Snapcaster Mage"){: width="250" }
@@ -97,6 +106,7 @@ I also purchased a framed print of Ponder from Dan Scott along with the playmat 
 What else could this be? Blue card? Check. Can be played as an _instant_? Check. Replay cards from your graveyard? Check.
 
 If you've been following the theme of what cards I like to play, it's basically recursive strategies. I own no less than 10 snapcasters, and all of them go into several decks and several of my cubes. Tiago Chan got a good card to be put on.
+
 -----
 Well that seems to be it for my top 10 cards. As you can surmise, many of these are in the cube that we regularly play with. I wonder if I do this every year how often this list would change (probably not much given how many "new" cards have made this list), but it would be interesting to see how I feel about this in the future.
 
