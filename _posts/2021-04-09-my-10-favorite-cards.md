@@ -17,7 +17,7 @@ Without further ado, my 10 favorite cards in Magic: The Gathering.
 
 Eternal Witness is the only green card on this list. This was my favorite card for the longest time. Back when this card first came out in Fifth Dawn, I loved it. Yes, it was a more expensive Regrowth, but you got a 2/1 body attached.
 
-I loved the 2004 Green/White Control deck by Julien Juijten which used 4 copies of Eternal Witness and 4 Eternal Dragon, alongside 4 Wrath of Gods and several ramp elements. I still have a copy of that deck too.
+I loved the 2004 Green/White Control deck by Julien Nuijten which used 4 copies of Eternal Witness and 4 Eternal Dragons, alongside 4 Wrath of Gods and several ramp elements. I still have a copy of that deck too.
 
 I think this card is solely responsible for all the graveyard synergies that I crave. One of the reasons the cube was switched to a synergy cube (and all the graveyard interactions) was because of my love for Eternal Witness.
 
