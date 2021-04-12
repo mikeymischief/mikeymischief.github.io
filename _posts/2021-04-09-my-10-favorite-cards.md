@@ -12,6 +12,16 @@ I've been playing Magic: The Gathering for a long time (since 1993-1994). This m
 Without further ado, my 10 favorite cards in Magic: The Gathering.
 <!--more-->
 
+## Honorable Mention: Juzam Djinn
+![Juzam Djinn](/images/mtg/arn-29-juzam-djinn.jpg "Juzam Djinn"){: width="250" }
+
+Nostalgia is such a dangerous drug. Juzam Djinn is literally here only because I love the art and that Arabian Nights is my favorite expansion. My dream is to one day own the full set, but that is definitely a pipe dream.
+
+While Juzam is considered underpowered by most players these days, his role as the most powerful black creature at the time was unparalleled. The art by Mark Tedin is one of my favorites (I'm going to get a print of this one day).
+
+If I could put him back in the cube and be playable, I would. My concern for playing with a card with such a high price tag would increase. As a relic of the past, Juzam Djinn is still one of my favorite cards and that is not likely to change anytime soon.
+
+-----
 ## 10. Eternal Witness
 ![Eternal Witness](/images/mtg/tsr-361-eternal-witness.jpg "Eternal Witness"){: width="250" }
 
@@ -46,17 +56,7 @@ In the past, I've always tried to jam this guy in my decks, like Modern Urza in 
 Tezzeret is one of my favorite planeswalker designs in that it encourages players to build their decks accordingly and it's situational in that regard. Having a planeswalker with generic abilities is sometimes necessary (see: Teferi, Hero of Dominaria), but Tezzeret is of the high enough power-level I would like my cube to rest at.  
 
 -----
-## 7. Juzam Djinn
-![Juzam Djinn](/images/mtg/arn-29-juzam-djinn.jpg "Juzam Djinn"){: width="250" }
-
-Nostalgia is such a dangerous drug. Juzam Djinn is literally here only because I love the art and that Arabian Nights is my favorite expansion. My dream is to one day own the full set, but that is definitely a pipe dream.
-
-While Juzam is considered underpowered by most players these days, his role as the most powerful black creature at the time was unparalleled. The art by Mark Tedin is one of my favorites (I'm going to get a print of this one day).
-
-If I could put him back in the cube and be playable, I would. My concern for playing with a card with such a high price tag would increase. As a relic of the past, Juzam Djinn is still one of my favorite cards and that is not likely to change anytime soon.
-
------
-## 6. Yawgmoth's Will
+## 7. Yawgmoth's Will
 ![Yawgmoth's Will](/images/mtg/usg-171-yawgmoth-s-will.jpg "Yawgmoth's Will"){: width="250" }
 
 Yawgmoth's Will is so broken in vintage. With access to rituals and fast artifact mana, this card can do so many powerful things. If you have to pay 3 mana in a normal game, it's quite a mortal card. Maybe in cube you can double your fetchlands and _flashback_ a removal spell or replay a cheap creature.
@@ -64,7 +64,7 @@ Yawgmoth's Will is so broken in vintage. With access to rituals and fast artifac
 I can't even justify this in commander, but I want to try. Maybe putting it in my Dralnu deck with Dark Ritual might make it work, just so I can play this again. The theme of replaying things back from the graveyard persists, which is a main reason Dralnu is my "main" commander.
 
 -----
-## 5. Force Spike
+## 6. Force Spike
 ![Force Spike](/images/mtg/leg-58-force-spike.jpg "Force Spike"){: width="250" }
 
 A one-mana counterspell. Playing things on curve is such a vital part of Magic these days and having to keep open a mana just in case an opponent has a Force Spike is such a taxing line of play. I'm always trying to find room for this card in cube because the curves are so tight that this *should* see play, but many cube curators have moved away from this spell. They cite reasons that once you know a deck has this you can play around it, but then that's exactly what a control deck wants to do; slow down its opponent.
@@ -72,7 +72,7 @@ A one-mana counterspell. Playing things on curve is such a vital part of Magic t
 I may have convinced myself to bring this card back in.
 
 -----
-## 4. Damnation
+## 5. Damnation
 ![Damnation](/images/mtg/plc-85-damnation.jpg "Damnation"){: width="250" }
 
 As mentioned above, this card is so out of the color pie, it should never be reprinted in a premier set. Despite that, being in the cube, I can always relive the glory of this card in Dimir control decks. Black having access to an unconditional sweeper lynchpins the entire black control decks in cube. This is always a pretty high pick for me and for anyone looking to play control.
@@ -80,7 +80,7 @@ As mentioned above, this card is so out of the color pie, it should never be rep
 The art by Kev Walker is also simple yet iconic. The black sun against a white background is so stark. The elegance of the card also hits all the right notes for the design of it. With many of the sets of today (Ikoria, Strixhaven) that are breaking the average word counts for the set, I'm starting to appreciate more and more the elegance of a simple card.
 
 -----
-## 3. Cryptic Command
+## 4. Cryptic Command
 ![Cryptic Command](/images/mtg/lrw-56-cryptic-command.jpg "Cryptic Command"){: width="250" }
 
 A toolbox for blue control mages. This card does everything you want it to and will get the blue mage out of any situation they will find themselves in. Mystic Confluence and Sublime Epiphanany are 2 cards they are trying to capture the essence of Cryptic Command, but it's not quite the same. The 4 casting cost along with 3 blue pips means that this card goes into the correct hands of the heavy blue drafter. I more consider it a feature of this card, much like Vraska's Contempt for the black control player.
@@ -88,6 +88,14 @@ A toolbox for blue control mages. This card does everything you want it to and w
 The best things I like to do with Cryptic Command come from the Modern format where you can bounce your Snapcaster Mage along with any other mode to do this over and over again. For high powered formats, tapping the opponent's team down for the turn can feel like cheating.
 
 Being in my top 3 cards, I will always play Cryptic Command in any deck that warrants it. I even have mine signed by Patrick Chapin at GP Vegas in 2013.
+
+-----
+## 3. Torrential Gearhulk
+![Torrential Gearhulk](/images/mtg/kld-67-torrential-gearhulk.jpg "Torrential Gearhulk"){:width="250"}
+
+The blue gearhulk is another in a long line of cards replaying spells from the graveyard. It's a big beater too at 5/6, so it ends the game fast once you've taken control of the game. Also, it's an artifact for all those wonderfully artifact synergies with Tinker, Reshape, etc. It's a blue finisher for white/blue or blue/black control decks. It's a tempo top end card for blue/x tempo decks. It has synergies with the graveyard for replaying spells in Blue/Red lists, it can be blinked for even more value in the white/blue flicker decks. Enough can't be said about this card.
+
+Torrential Gearhulk is my favorite "finisher" in the cube exactly because of all the major and minor synergies it creates.
 
 -----
 ## 2. Ponder
