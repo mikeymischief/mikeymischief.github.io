@@ -27,6 +27,10 @@ Mikey -> Jeddy -> Gerf -> Brian
 
 I won the draft with a Grixis artifact control deck. Jeddy finished second with a Simic Tempo deck, followed by gerf's Abzan graveyard deck. Finally, Brian finished last with a Naya aggro deck. Is the fixing a bit too much? There were 3 decks that went for 3-colors and only a single 2-color deck. Maybe the draft pool had a bunch of lands, or maybe people didn't find their lane until later and were forced to play 3 colors. I think the sample size is a bit too small to base cube changes on this single draft.
 
+> "Who says blue isn't strong?!"
+
+The top 2 deck were primarily blue quelling thoughts that blue is only a supporting color. I've always had faith, as I try to play blue when I can, but I always play what the packs dictate.
+
 |       | Mikey | Gerf  | Jeddy | Brian |
 |-------|-------|-------|-------|-------|
 | Mikey |       |  2-1  |  2-1  |  2-1  |
@@ -62,7 +66,7 @@ I also had near perfect mana as it seems I may have been the only one in the gri
 
 Another cube draft another second place for Jeddy. He's pretty consistently finishing second in the last couple drafts. Last time he took it down he had a Jeskai based tempo deck with some control elements. He kept telling me that I was wrong in my assessment that he was playing control. This deck, is a tempo deck that leans to play a lot of creatures early and apply pressure. With Brazen Borrower and Vendilion Clique, Jeddy has plenty of opportunity to maximize his mana in the early game.
 
-If the game goes long, he was Biogenic Ooze (see the board state in the picture above) and Stormwing Entity to finish off opponents.
+If the game goes long, he has Biogenic Ooze (see the board state in the picture above) and Stormwing Entity to finish off opponents.
 
 His deck is solid all around, has a familiar game plan of trying to out tempo his opponent, but this time he's using blue to keep his enemy off-kilter while his little dorks get in for damage. Jeddy's quickly becoming the tempo guy, just like I've been playing the control decks of the format. Jeddy knows one style and he plays it well.
 
@@ -76,7 +80,7 @@ His deck is solid all around, has a familiar game plan of trying to out tempo hi
 
 Talking with Gerf about his deck, he was in the middle of several archetypes: +1/+1 Counters, Golgari Graveyard synergies and Orzhov Humans. His deck does have a great plan of trying to push out damage early and then have several ways to get back his creatures from the graveyard if someone happens to stop him. The deck looks pretty lean, I think we can chalk it up to some variance that he didn't perform better. I would trade a couple of his 5-drops for some 3-drops to really apply pressure.
 
-With a great set of removal and a plan for the late game, this Abzan deck seems prett solid.
+With a great set of removal and a plan for the late game, this Abzan deck seems pretty solid.
 
 ----
 
