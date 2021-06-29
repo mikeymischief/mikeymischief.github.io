@@ -68,7 +68,7 @@ Despite Jeddy's missteps in how his cards played out, his deck was actually pret
 
 ----
 
-## Gerf's Deck - [Bant Soulherder](hhttps://www.cubecobra.com/cube/deck/6060220ca0f0791063d30ccd)
+## Gerf's Deck - [Bant Soulherder](https://www.cubecobra.com/cube/deck/6060220ca0f0791063d30ccd)
 
 <img src="/images/mtg/mh1-214-soulherder.jpg" alt="Soulherder" width="200"/><img src="/images/mtg/tsr-311-mulldrifter.jpg" alt="Mulldrifter" width="200"/><img src="/images/mtg/m21-376-jolrael-mwonvuli-recluse.jpg" alt="Jolrael, Mwonvuli Recluse" width="200"/>
 
