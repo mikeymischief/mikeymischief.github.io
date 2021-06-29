@@ -29,7 +29,7 @@ I won the draft with a Grixis artifact control deck. Jeddy finished second with 
 
 > "Who says blue isn't strong?!"
 
-The top 2 deck were primarily blue quelling thoughts that blue is only a supporting color. I've always had faith, as I try to play blue when I can, but I always play what the packs dictate.
+The top 2 decks were primarily blue, quelling thoughts that blue is only a "supporting" color. I've always had faith, as I try to play blue when I can, but I always play what the packs dictate.
 
 |       | Mikey | Gerf  | Jeddy | Brian |
 |-------|-------|-------|-------|-------|
