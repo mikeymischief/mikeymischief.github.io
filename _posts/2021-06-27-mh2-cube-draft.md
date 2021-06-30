@@ -38,55 +38,6 @@ The top 2 decks were primarily blue, quelling thoughts that blue is only a "supp
 | Jeddy |  1-2  |  2-1  |       |  2-1  |
 | Brian |  1-2  |  1-2  |  1-2  |       |
 
-<table>
-<colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Mikey</th>
-<th>Gerf</th>
-<th>Jeddy</th>
-<th>Brian</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Mikey</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">2-1</td>
-<td style="text-align:center">2-1</td>
-<td style="text-align:center">2-1</td>
-</tr>
-<tr>
-<td style="text-align:center">Gerf</td>
-<td style="text-align:center">1-2</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">1-2</td>
-<td style="text-align:center">2-1</td>
-</tr>
-<tr>
-<td style="text-align:center">Jeddy</td>
-<td style="text-align:center">1-2</td>
-<td style="text-align:center">2-1</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">2-1</td>
-</tr>
-<tr>
-<td style="text-align:center">Brian</td>
-<td style="text-align:center">1-2</td>
-<td style="text-align:center">1-2</td>
-<td style="text-align:center">1-2</td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table>
-
 ----
 
 ## Mikey's Deck - [Grixis Artifact Control](https://cubecobra.com/cube/deck/60da0e7d1712e56b7958c86b)
