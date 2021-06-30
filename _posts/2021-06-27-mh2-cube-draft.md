@@ -57,32 +57,32 @@ The top 2 decks were primarily blue, quelling thoughts that blue is only a "supp
 </thead>
 <tbody>
 <tr>
-<td markdown="span">Mikey</td>
-<td markdown="span"></td>
-<td markdown="span">2-1</td>
-<td markdown="span">2-1</td>
-<td markdown="span">2-1</td>
+<td style="text-align:center">Mikey</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">2-1</td>
+<td style="text-align:center">2-1</td>
+<td style="text-align:center">2-1</td>
 </tr>
 <tr>
-<td markdown="span">Gerf</td>
-<td markdown="span">1-2</td>
-<td markdown="span"></td>
-<td markdown="span">1-2</td>
-<td markdown="span">2-1</td>
+<td style="text-align:center">Gerf</td>
+<td style="text-align:center">1-2</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">1-2</td>
+<td style="text-align:center">2-1</td>
 </tr>
 <tr>
-<td markdown="span">Jeddy</td>
-<td markdown="span">1-2</td>
-<td markdown="span">2-1</td>
-<td markdown="span"></td>
-<td markdown="span">2-1</td>
+<td style="text-align:center">Jeddy</td>
+<td style="text-align:center">1-2</td>
+<td style="text-align:center">2-1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">2-1</td>
 </tr>
 <tr>
-<td markdown="span">Brian</td>
-<td markdown="span">1-2</td>
-<td markdown="span">1-2</td>
-<td markdown="span">1-2</td>
-<td markdown="span"></td>
+<td style="text-align:center">Brian</td>
+<td style="text-align:center">1-2</td>
+<td style="text-align:center">1-2</td>
+<td style="text-align:center">1-2</td>
+<td style="text-align:center"></td>
 </tr>
 </tbody>
 </table>
