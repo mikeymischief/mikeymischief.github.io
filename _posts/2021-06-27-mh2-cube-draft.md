@@ -38,6 +38,55 @@ The top 2 decks were primarily blue, quelling thoughts that blue is only a "supp
 | Jeddy |  1-2  |  2-1  |       |  2-1  |
 | Brian |  1-2  |  1-2  |  1-2  |       |
 
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Mikey</th>
+<th>Gerf</th>
+<th>Jeddy</th>
+<th>Brian</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="span">Mikey</td>
+<td markdown="span"></td>
+<td markdown="span">2-1</td>
+<td markdown="span">2-1</td>
+<td markdown="span">2-1</td>
+</tr>
+<tr>
+<td markdown="span">Gerf</td>
+<td markdown="span">1-2</td>
+<td markdown="span"></td>
+<td markdown="span">1-2</td>
+<td markdown="span">2-1</td>
+</tr>
+<tr>
+<td markdown="span">Jeddy</td>
+<td markdown="span">1-2</td>
+<td markdown="span">2-1</td>
+<td markdown="span"></td>
+<td markdown="span">2-1</td>
+</tr>
+<tr>
+<td markdown="span">Brian</td>
+<td markdown="span">1-2</td>
+<td markdown="span">1-2</td>
+<td markdown="span">1-2</td>
+<td markdown="span"></td>
+</tr>
+</tbody>
+</table>
+
 ----
 
 ## Mikey's Deck - [Grixis Artifact Control](https://cubecobra.com/cube/deck/60da0e7d1712e56b7958c86b)
