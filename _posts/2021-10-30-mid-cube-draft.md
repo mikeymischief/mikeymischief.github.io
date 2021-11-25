@@ -52,6 +52,7 @@ This gets my vote for the best deck of the draft as its a pretty streamlined mon
 From what I heard, even if Jeddy managed to switch into his Dimir midrange/control deck, he got a bit lucky that Gerf's Goblin Guide in game 3 gave him 3 lands to help him ensure his land drops. Without that help, we might be seeing a different deck finishing first this time around. 
 
 Plenty of burn and only 2 cards with mana value above 3, this is a scary sight to behold. My only issue is that Gerf should've drafted 2 wastelands instead of the Grate Furnace and Den of the Bugbear for his aggro deck to hold down midrange and control decks alike. A couple more 1mv creatures would've gone a long way too in place of some of the 3-drops he has in the deck.
+
 ----
 
 ## Mikey's Deck (3rd) - [Jeskai Aggro](https://cubecobra.com/cube/deck/617d9a72254836102d12f529)
