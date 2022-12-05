@@ -1,7 +1,7 @@
 ---
 published: false
 layout: post
-title: Commander 12/2022
+title: Commander in December
 author: mikey
 comments: true
 excerpt_separator: <!--more-->
