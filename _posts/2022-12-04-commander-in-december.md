@@ -26,6 +26,7 @@ Anhelo kill
 
 Karn's Temporal Sundering (copied with Anhelo, the Painter and again with Twinning Staff), Attacks Brian and Me to kill, leaving Jubee
 Jubee Cast Terror of the Peaks, then cast Rivaz of the Claw to trigget Terror and finish Gerf
+
 ----
 
 ## Game 2 - Prosper, Tome-Bound / Elzuri of the Claw / (Captain N'ghathrod) / Aminatou, the Fatestitcher
