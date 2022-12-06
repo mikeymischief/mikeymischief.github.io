@@ -18,6 +18,14 @@ Then after Jubee left we played 2 more games at 3 players.
 
 Overall, the wins were pretty evened out amongst everyone with Jubee winning twice Rivaz of the Claw and Minsc and Boo, Timeless Heroes, Gerf winning once with Captain N'ghathrod, Brian winning with The Mimeoplasm and my win with Tasigur, the Golden Fang.
 
+| Player | Commander      | Wins |
+| ----- | ------- | ----- |
+| Brian | The Mimeoplasm | 1 |
+| Gerf | Captain N'ghathrod  | 1 |
+| Jubee | Minsc & Boo, Timeless Heroes | 1 |
+|  | Rivaz of the Claw | 1 |
+| Mike | Tasigur, the Golden Fang | 1 |
+
 ----
 # Game 1
 
