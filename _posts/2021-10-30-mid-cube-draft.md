@@ -32,6 +32,7 @@ Jeddy won the draft with his Simic Midrange deck. It's recorded as a Dimir midra
 | Gerf  |  2-1  |       |  1-2  |  2-1  |
 | Jeddy |  2-1  |  2-1  |       |  1-2  |
 | Brian |  0-2  |  1-2  |  2-1  |       |
+{: .tablelines}
 
 ----
 
