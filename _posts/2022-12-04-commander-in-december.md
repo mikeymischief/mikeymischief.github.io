@@ -31,7 +31,7 @@ Overall, the wins were pretty evened out amongst everyone with Jubee winning twi
 | Jubee | Minsc & Boo, Timeless Heroes | 1 |
 |  | Rivaz of the Claw | 1 |
 | Mike | Tasigur, the Golden Fang | 1 |
-{: .tablelines}
+
 
 ----
 # Game 1
