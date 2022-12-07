@@ -8,6 +8,12 @@ excerpt_separator: <!--more-->
 categories: mtg commander
 ---
 
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
+
 It's been a long time since I've updated this blog. The main reason being that while I still update my cube and hope to get a draft some day, the playgroup has moved onto playing commander. So in attempt to capture what we're playing, I'll be updating the blog with our commander games.
 
 <!--more-->
@@ -25,6 +31,7 @@ Overall, the wins were pretty evened out amongst everyone with Jubee winning twi
 | Jubee | Minsc & Boo, Timeless Heroes | 1 |
 |  | Rivaz of the Claw | 1 |
 | Mike | Tasigur, the Golden Fang | 1 |
+{: .tablelines}
 
 ----
 # Game 1
