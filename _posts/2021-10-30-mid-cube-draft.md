@@ -8,12 +8,6 @@ excerpt_separator: <!--more-->
 categories: mtg cube
 ---
 
-<style>
-.tablelines table, .tablelines td, .tablelines th {
-        border: 1px solid black;
-        }
-</style>
-
 It's been another long while since we got together for a cube draft. On the eve of Halloween, we drafted the cube with Innistrad: Midnight Hunt cards! This time around we only had time for a single draft, despite trying to get 2 draft in. We had the typical lunch of Domino's Pizza as everyone played through the games. Four players showed up: Mikey, Gerf, Jeddy, and Brian. 
 
 Who will come out a victor on this spooky draft pod?!
@@ -32,7 +26,6 @@ Jeddy won the draft with his Simic Midrange deck. It's recorded as a Dimir midra
 | Gerf  |  2-1  |       |  1-2  |  2-1  |
 | Jeddy |  2-1  |  2-1  |       |  1-2  |
 | Brian |  0-2  |  1-2  |  2-1  |       |
-{: .tablelines}
 
 ----
 
