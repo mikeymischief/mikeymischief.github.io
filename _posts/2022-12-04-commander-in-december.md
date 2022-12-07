@@ -29,7 +29,7 @@ Overall, the wins were pretty evened out amongst everyone with Jubee winning twi
 ----
 # Game 1
 
-<img src="/images/mtg/clb-266-baba-lysaga-night-witch.jpg" alt="Baba Lysaga, Night Witch" width="150"/><img src="/images/mtg/dmu-215-rivaz-of-the-claw.jpg" alt="Rivaz of the Claw" width="150"/><img src="/images/mtg/ncc-1-anhelo-the-painter.jpg" alt="Anhelo, the Painter" width="150"/><img src="/images/mtg/brc-39-mishra-eminent-one.jpg" alt="Mishra, Eminent One" width="150"/>
+<img src="/images/mtg/clb-266-baba-lysaga-night-witch.jpg" alt="Baba Lysaga, Night Witch" width="180"/><img src="/images/mtg/dmu-215-rivaz-of-the-claw.jpg" alt="Rivaz of the Claw" width="180"/><img src="/images/mtg/ncc-1-anhelo-the-painter.jpg" alt="Anhelo, the Painter" width="180"/><img src="/images/mtg/brc-39-mishra-eminent-one.jpg" alt="Mishra, Eminent One" width="180"/>
 
 Gerf played [Karn's Temporal Sundering](https://scryfall.com/card/dom/55/karns-temporal-sundering) which was copied with [Anhelo, the Painter](https://scryfall.com/card/ncc/1/anhelo-the-painter) and again with [Twinning Staff](https://scryfall.com/card/ncc/383/twinning-staff). With those 3 extra turns, Gerf attacks and kills both Brian and myself, leaving just Jubee in the game.  
 
@@ -44,7 +44,7 @@ Winner: Rivaz of the Claw
 ----
 # Game 2
 
-<img src="/images/mtg/afc-324-prosper-tome-bound.jpg" alt="Prosper, Tome-Bound" width="150"/><img src="/images/mtg/2x2-211-ezuri-claw-of-progress.jpg" alt="Ezuri, Claw of Progress" width="150"/><img src="/images/mtg/clb-646-captain-n-ghathrod.jpg" alt="Captain N'ghathrod" width="150"/><img src="/images/mtg/2x2-169-aminatou-the-fateshifter.jpg" alt="Aminatou, the Fateshifter" width="150"/>
+<img src="/images/mtg/afc-324-prosper-tome-bound.jpg" alt="Prosper, Tome-Bound" width="180"/><img src="/images/mtg/2x2-211-ezuri-claw-of-progress.jpg" alt="Ezuri, Claw of Progress" width="180"/><img src="/images/mtg/clb-646-captain-n-ghathrod.jpg" alt="Captain N'ghathrod" width="180"/><img src="/images/mtg/2x2-169-aminatou-the-fateshifter.jpg" alt="Aminatou, the Fateshifter" width="180"/>
 
 During the midgame, Brian's [Night Incarnate](https://scryfall.com/card/c18/17/night-incarnate) was blinked with [Teleporation Circle](https://scryfall.com/card/afr/39/teleportation-circle), [Aminatou, the Fatestitcher](https://scryfall.com/card/2x2/169/aminatou-the-fateshifter) or [Kaya, Ghost Assassin](https://scryfall.com/card/cn2/75/kaya-ghost-assassin), which kept all the small creatures off the board, so Jubee and I couldn't build our boards back, essentially leaving only Gerf's creatures, a [Hullbreak Horror](https://scryfall.com/card/clb/724/hullbreaker-horror), on the battlefield. Eventually, Gerf attacks for the win.
 
@@ -57,7 +57,7 @@ Winner: Captain N'ghathrod
 ----
 # Game 3
 
-<img src="/images/mtg/puma-U13-tasigur-the-golden-fang.jpg" alt="Tasigur, the Golden Fang" width="150"/><img src="/images/mtg/mh2-69-svyelun-of-sea-and-sky.jpg" alt="Svyelun of Sea and Sky" width="150"/><img src="/images/mtg/c21-6-willowdusk-essence-seer.jpg" alt="Willowdusk, Essence Seer" width="150"/><img src="/images/mtg/c13-203-oloro-ageless-ascetic.jpg" alt="Oloro, Ageless Ascetic" width="150"/>
+<img src="/images/mtg/puma-U13-tasigur-the-golden-fang.jpg" alt="Tasigur, the Golden Fang" width="180"/><img src="/images/mtg/mh2-69-svyelun-of-sea-and-sky.jpg" alt="Svyelun of Sea and Sky" width="180"/><img src="/images/mtg/c21-6-willowdusk-essence-seer.jpg" alt="Willowdusk, Essence Seer" width="180"/><img src="/images/mtg/c13-203-oloro-ageless-ascetic.jpg" alt="Oloro, Ageless Ascetic" width="180"/>
 
 Turn 3, I drop a [Rhystic Study](https://scryfall.com/card/pcy/45/rhystic-study), drawing multiple cards and making each of my land drops. Brian's [Oloro, Ageless Ascetic](https://scryfall.com/card/c13/203/oloro-ageless-ascetic) keeps gaining him so much life with [Serra Ascendant](https://scryfall.com/card/ima/31/serra-ascendant) and doubling it with [Rhox Faithmender](https://scryfall.com/card/jmp/130/rhox-faithmender). He gets up to 91 life and quickly becomes the archenemy. Jubee empties his hand of creatures and gets extremely salty when I tutor up and cast (the following turn) a [The Meathook Massacre](https://scryfall.com/card/mid/348/the-meathook-massacre). My thinking was that we were not going to outpace his life gain by attacking and we needed to get all his creatures off the battlefield. Despite that, I had a plan to drop [Toxrill, the Corrosive](https://scryfall.com/card/vow/132/toxrill-the-corrosive) the following turn and control the game into a win from there.  
 
@@ -78,7 +78,7 @@ Winner: Tasigur, the Golden Fang
 ----
 # Game 4
 
-<img src="/images/mtg/c17-46-taigam-ojutai-master.jpg" alt="Taigam, Ojutai Master" width="150"/><img src="/images/mtg/clb-285-minsc-boo-timeless-heroes.jpg" alt="Minsc & Boo, Timeless Heroes" width="150"/><img src="/images/mtg/ncc-2-henzie-toolbox-torre.jpg" alt="Henzie Toolbox Torre" width="150"/><img src="/images/mtg/2x2-254-the-mimeoplasm.jpg" alt="The Mimeoplasm" width="150"/>
+<img src="/images/mtg/c17-46-taigam-ojutai-master.jpg" alt="Taigam, Ojutai Master" width="180"/><img src="/images/mtg/clb-285-minsc-boo-timeless-heroes.jpg" alt="Minsc & Boo, Timeless Heroes" width="180"/><img src="/images/mtg/ncc-2-henzie-toolbox-torre.jpg" alt="Henzie Toolbox Torre" width="180"/><img src="/images/mtg/2x2-254-the-mimeoplasm.jpg" alt="The Mimeoplasm" width="180"/>
 
 This game saw an unimpeded 20/20 [Mimeoplasm](https://scryfall.com/card/2x2/254/the-mimeoplasm) just trample over everyone, killing everyone by commander damage. Brian casted an early game [Buried Alive](https://scryfall.com/card/uma/88/buried-alive) to set up [The Mimeoplasm](https://scryfall.com/card/2x2/254/the-mimeoplasm). I tried to delay for anyone to have an answer, with [Said/Done](https://scryfall.com/card/mh2/60/said-done), by tapping it for 2 turns (since I get _rebound_ through [Taigam](https://scryfall.com/card/c17/46/taigam-ojutai-master)), but no one had removal. Brian's commander was paired with [Rhonas, the Indomitable](https://scryfall.com/card/akh/182/rhonas-the-indomitable) to kill Jubee with commander damage even through blocks. Then Brian quickly turned his focus towards both Gerf and I and we couldn't stop the monstrosity either.
 
@@ -91,7 +91,7 @@ Winner: The Mimeoplasm
 ----
 # Game 5
 
-<img src="/images/mtg/afc-324-prosper-tome-bound.jpg" alt="Prosper, Tome-Bound" width="150"/><img src="/images/mtg/clb-285-minsc-boo-timeless-heroes.jpg" alt="Minsc & Boo, Timeless Heroes" width="150"/><img src="/images/mtg/2xm-190-atraxa-praetors-voice.jpg" alt="Atraxa, Praetors Voice" width="150"/><img src="/images/mtg/uma-199-gaddock-teeg.jpg" alt="Gaddock Teeg" width="150"/>
+<img src="/images/mtg/afc-324-prosper-tome-bound.jpg" alt="Prosper, Tome-Bound" width="180"/><img src="/images/mtg/clb-285-minsc-boo-timeless-heroes.jpg" alt="Minsc & Boo, Timeless Heroes" width="180"/><img src="/images/mtg/2xm-190-atraxa-praetors-voice.jpg" alt="Atraxa, Praetors Voice" width="180"/><img src="/images/mtg/uma-199-gaddock-teeg.jpg" alt="Gaddock Teeg" width="180"/>
 
 This was another close game I could've won, if I only had one more treasure.  
 
