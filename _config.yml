@@ -3,12 +3,13 @@
 #
 
 theme: jekyll-theme-minimal
-# remote_theme: "mmistakes/minimal-mistakes@4.22.0"
+remote_theme: "mmistakes/minimal-mistakes@4.22.0"
 
 # Name of your site (displayed in the header)
 name: Mischief's Gaming Blog
 
 plugins:
+ - jekyll-remote-theme
  - jekyll-feed
  - jekyll-avatar
  - jemoji
