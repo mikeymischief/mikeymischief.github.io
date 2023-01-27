@@ -24,13 +24,26 @@ Then after Jubee left we played 2 more games at 3 players (not recorded).
 
 Overall, the wins were pretty evened out amongst everyone with Jubee winning twice with [Rivaz of the Claw](https://scryfall.com/card/dmu/215/rivaz-of-the-claw) and [Minsc and Boo, Timeless Heroes](https://scryfall.com/card/clb/285/minsc-&-boo-timeless-heroes), Gerf winning once with [Captain N'ghathrod](https://scryfall.com/card/clb/646/captain-nghathrod), Brian winning with [The Mimeoplasm](https://scryfall.com/card/2x2/254/the-mimeoplasm) and my win with [Tasigur, the Golden Fang](https://scryfall.com/card/puma/U13/tasigur-the-golden-fang).
 
-| Player | Commander      | Wins |
-| ----- | ----- | ----- |
-| Brian | The Mimeoplasm | 1 |
-| Gerf | Captain N'ghathrod  | 1 |
-| Jubee | Minsc & Boo, Timeless Heroes | 1 |
-|  | Rivaz of the Claw | 1 |
-| Mike | Tasigur, the Golden Fang | 1 |
+| Player | Commander      | Wins | Plays |
+| ----- | ----- | ----- | ----- |
+| Brian | The Mimeoplasm | 1 | 1 |
+|  | Mishra, Eminent One |  | 1 |
+|  | Aminatou, the Fateshifter |  | 1 |
+|  | Gaddock Teeg |  | 1 |
+|  | Oloro, Ageless Ascetic |  | 1 |
+| Gerf | Captain N'ghathrod | 1 | 1 |
+|  | Anhelo, the Painter |  | 1 |
+|  | Atraxa, Praetors Voice |  | 1 |
+|  | Willowdusk, Essence Seer |  | 1 |
+|  | Henzie Toolbox Torre |  | 1 |
+| Jubee | Minsc & Boo, Timeless Heroes | 1 | 2 |
+|  | Rivaz of the Claw | 1 | 1 |
+|  | Ezuri, Claw of Progress |  | 1 |
+|  | Svyelun of Sea and Sky |  | 1 |
+| Mike | Tasigur, the Golden Fang | 1 | 1 |
+|  | Baba Lysaga, Night Witch |  | 1 |
+|  | Prosper, Tome-Bound |  | 2 |
+|  | Taigam, Ojutai Master |  | 1 |
 {: .tablelines}
 
 ----
