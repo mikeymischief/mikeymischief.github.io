@@ -5,7 +5,7 @@ title: Synergy Cube Primer
 author: mikey
 comments: true
 excerpt_separator: <!--more-->
-categories: mtg
+categories: mtg cube
 ---
 
 Welcome to the Synergy Cube!
