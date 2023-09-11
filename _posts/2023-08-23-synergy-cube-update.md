@@ -28,11 +28,11 @@ Dimir Ninjas is also another archetype that has been long gone. It was extrememl
 ----
 
 ### Azorius Control
-<img src="/images/mtg/2xm-334-jace-the-mind-sculptor.jpg" alt="Jace, the Mind Sculptor" width="200"/><img src="/images/mtg/lrw-56-cryptic-command.jpg" alt="Cryptic Command" width="200"/><img src="/images/mtg/ktk-36-dig-through-time.jpg" alt="Dig Through Time" width="200"/>
+<img src="/images/mtg/2xm-334-jace-the-mind-sculptor.jpg" alt="Jace, the Mind Sculptor" width="200"/><img src="/images/mtg/leb-41-swords-to-plowshares.jpg" alt="Swords to Plowshares" width="200"/><img src="/images/mtg/ktk-36-dig-through-time.jpg" alt="Dig Through Time" width="200"/>
 
-Azorius Control is a classic deck archetype that still is a pillar of the modern environment. This deck seeks to control the early game and then win late game with some form of inevitability. Packing your deck with Wrath of God or Supreme Verdict, and then some draw spells in order to get them on time, like Dig Through Time or Memory Deluge are keys to victory. Pairing your wraths with planeswalkers is especially heinous. Once you're wrestled control you can win with pretty much anything, especially lands like Hall of Storm Giants help you hit those land drops early game, then give you a win condition late. Torrential Gearhulk flashing back a Swords to Plowshares is another great way stop an aggro deck from getting their way. You'll need some mana rocks (Mind Stone, Liquimetal Torque) to accelerate yourself to get to your high mana value spells.
+Azorius Control is a classic deck archetype that still is a pillar of the modern environment. This deck seeks to control the early game and then win late game with some form of inevitability. Packing your deck with Wrath of God or Supreme Verdict, and then some draw spells in order to get them on time, like Dig Through Time, are keys to victory. Pairing your wraths with planeswalkers is especially heinous. Once you're wrestled control you can win with pretty much anything, especially lands like Hall of Storm Giants help you hit those land drops early game, then give you a win condition late. Torrential Gearhulk flashing back a Swords to Plowshares is another great way stop an aggro deck from getting their way. You'll need some mana rocks (Mind Stone, Liquimetal Torque) to accelerate yourself to get to your high mana value spells.
 
-Probably the premier control deck in the cube, this archetype will always remain a classic, and for good reason, the cards fit so well together
+Probably the premier control deck in the cube, this archetype will always remain a classic, and for good reason, the cards fit so well together!
 
 
 ### Dimir Robots
