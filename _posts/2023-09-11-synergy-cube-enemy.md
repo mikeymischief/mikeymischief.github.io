@@ -9,6 +9,9 @@ categories: mtg cube
 ---
 
 Last time we went over a sample of the allied color decks. This time, will be a showcase of the enemy colors!
+
+Without much more ado, enemy colors are a bit more powerful due to the +1 shockland manabase in the cube. I'm still waiting for WotC to finish printing the enemy colored, dual-typed lands from BFZ.
+
 <!--more-->
 
 ## Archetypes
@@ -35,7 +38,7 @@ The Golgari guild in the cube will attract players that like to sacrifice things
 ### Boros Equipment
 <img src="/images/mtg/eld-359-embercleave.jpg" alt="Embercleave" width="200"/><img src="/images/mtg/wwk-20-stoneforge-mystic.jpg" alt="Stoneforge Mystic" width="200"/><img src="/images/mtg/woe-298-kellan-the-fae-blooded.jpg" alt="Kellan, the Fae-Blooded" width="200"/>
 
-The Boros Equipment deck is a straight aggro deck that uses Equipment in order to quickly defeat opponents. The best of these is [Embercleave](https://mikeymischief.github.io/images/mtg/eld-359-embercleave.jpg) as it can deal massive amounts of damage in a short period of time. Both Kellan, the Fae-Blooded and Stoneforge Mystic can fetch your best equipment making the performance of this Boros deck consistent enough to be a threat anytime you see any of these cards in the draft. Players can opt-in to the Legends-matter subtheme with cards like [Merry, Esquire of Rohan](https://mikeymischief.github.io/images/mtg/ltr-437-merry-esquire-of-rohan.jpg) and [Yoshimaru, Ever-Faithful](https://mikeymischief.github.io/images/mtg/nec-46-yoshimaru-ever-faithful.jpg). The benefits to Boros over the mono color decks is that you will be trading consistency for power. Don't forget that [](https://mikeymischief.github.io/images/mtg/.jpg) is her own, one-card, archetype!
+The Boros Equipment deck is a straight aggro deck that uses Equipment in order to quickly defeat opponents. The best of these is [Embercleave](https://mikeymischief.github.io/images/mtg/eld-359-embercleave.jpg) as it can deal massive amounts of damage in a short period of time. Both Kellan, the Fae-Blooded and Stoneforge Mystic can fetch your best equipment making the performance of this Boros deck consistent enough to be a threat anytime you see any of these cards in the draft. Players can opt-in to the Legends-matter subtheme with cards like [Merry, Esquire of Rohan](https://mikeymischief.github.io/images/mtg/ltr-437-merry-esquire-of-rohan.jpg) and [Yoshimaru, Ever-Faithful](https://mikeymischief.github.io/images/mtg/nec-46-yoshimaru-ever-faithful.jpg). The benefits to Boros over the mono color decks is that you will be trading consistency for power. Don't forget that [Winota, Joiner of Forces](https://mikeymischief.github.io/images/mtg/iko-349-winota-joiner-of-forces.jpg) is her own, one-card, archetype!
 
 
 ### Simic Tokens
