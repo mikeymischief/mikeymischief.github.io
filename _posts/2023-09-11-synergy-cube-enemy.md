@@ -15,7 +15,8 @@ Last time we went over a sample of the allied color decks. This time, will be a 
 ----
 
 ### Orzhov Stax
-<img src="/images/mtg/.jpg" alt="Braids, Cabal Minion" width="200"/><img src="/images/mtg/.jpg" alt="Smokestack" width="200"/><img src="/images/mtg/.jpg" alt="Liliana of the Veil" width="200"/>
+<img src="/images/mtg/ody-117-braids-cabal-minion.jpg" alt="Braids, Cabal Minion" width="200"/><img src="/images/mtg/usg-309-smokestack.jpg" alt="Smokestack" width="200"/><img src="/images/mtg/isd-105-liliana-of-the-veil.jpg" alt="Liliana of the Veil" width="200"/>
+
 Another classic archetype that marries black removal and sacrifice enablers with white's token making to really put the squeeze on opponents resources. By having a persistent way of sacrificing things (and eventually, possibly, attacking the landbase), this deck really mess with what the opponent is trying to do. If you mix it with [Crucible of Worlds](https://mikeymischief.github.io/images/mtg/5dn-114-crucible-of-worlds.jpg) to recover your own lands, or any of the recursive creatures in black [Gravecrawler](https://mikeymischief.github.io/images/mtg/dka-64-gravecrawler.jpg) and you will definitely relive the days of Dead Guy Ale/Stax. This deck also goes well with any of the artistocrat pieces as sacrificing things and getting an additional benefit can propel you even further ahead of your opponent. The goal is truely to deny the opponent's resources (which is why this also likes to have discard effects) and use that advantage to ride to victory.
 
 
