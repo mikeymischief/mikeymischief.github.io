@@ -3,9 +3,10 @@ published: true
 layout: post
 title: Spring Cube Draft 2021
 author: mikey
+date: 2021-03-27 20:00:00 -0800
 comments: true
 excerpt_separator: <!--more-->
-categories: mtg cube
+categories: mtg cube draft
 ---
 
 Another Cube Draft! In the future, I think I'll be naming the drafts after the latest retail limited set ala WotC. For instance, this one would be named Kaldheim Cube Draft, which would be appropos as Kaldheim is the last set the cube has been updated in (do you see all the _fortell_ cards?).

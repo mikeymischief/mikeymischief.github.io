@@ -5,7 +5,7 @@ title: Winter Cube Draft
 author: mikey
 date: 2020-11-22 20:00:00 -0800
 comments: true
-categories: mtg cube
+categories: mtg cube draft
 ---
 
 This fine sunday we started at 10am and got to play 2 drafts again (I'm so glad this is becoming the norm!). We had lunch from Domino's so that we could play more games and there was nigh a break in between. Onto the drafts!

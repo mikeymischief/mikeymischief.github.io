@@ -3,9 +3,10 @@ published: true
 layout: post
 title: MH2 Cube Draft 2021
 author: mikey
+date: 2021-06-27 20:00:00 -0800
 comments: true
 excerpt_separator: <!--more-->
-categories: mtg cube
+categories: mtg cube draft
 ---
 
 Alrighty, it's been almost 3 months since our last draft and since then 2 sets have dropped from Wizards; Strixhaven and Modern Horizons 2. Strixhaven didn't add a lot of cards, but many of them were powerful enough to include. A lot of the Mystical Archive cards were already present, so there wasn't a lot to glean from that.

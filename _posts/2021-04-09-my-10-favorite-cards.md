@@ -3,6 +3,7 @@ published: true
 layout: post
 title: My 10 Favorite Cards in Magic
 author: mikey
+date: 2021-04-09 20:00:00 -0800
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube favorite

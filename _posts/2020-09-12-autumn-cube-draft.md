@@ -3,9 +3,10 @@ published: true
 layout: post
 title: Autumn Cube Draft
 author: mikey
+date: 2020-09-12 20:00:00 -0800
 comments: true
 excerpt_separator: <!--more-->
-categories: mtg cube
+categories: mtg cube draft
 ---
 
 This day we started early at 9am, so that we eventually got 2 drafts to play. We decided to use both the Utility Land Draft and the Wildcard Duplicates. I would say both are a resounding success at creating an environment that is more about decks and not cards.

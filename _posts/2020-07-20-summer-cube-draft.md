@@ -3,8 +3,9 @@ published: true
 layout: post
 title: Summer Cube Draft
 author: mikey
+date: 2020-07-20 20:00:00 -0800
 comments: true
-categories: mtg cube
+categories: mtg cube draft
 ---
 
 This day was cut short because of the EMM launch (I had to work). Despite that, the other players still hunkered on. Gerf beat both Jubee and Jeddy's deck, then beat my Simic Deck (in a best of 1) the day after (to be concluded).

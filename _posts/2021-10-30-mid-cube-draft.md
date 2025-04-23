@@ -3,9 +3,10 @@ published: true
 layout: post
 title: MID Cube Draft 2021
 author: mikey
+date: 2021-10-30 20:00:00 -0800
 comments: true
 excerpt_separator: <!--more-->
-categories: mtg cube
+categories: mtg cube draft
 ---
 
 It's been another long while since we got together for a cube draft. On the eve of Halloween, we drafted the cube with Innistrad: Midnight Hunt cards! This time around we only had time for a single draft, despite trying to get 2 draft in. We had the typical lunch of Domino's Pizza as everyone played through the games. Four players showed up: Mikey, Gerf, Jeddy, and Brian. 
