@@ -3,6 +3,7 @@ published: true
 layout: post
 title: Winter Cube Draft
 author: mikey
+date: 2020-11-22 20:00:00 -0800
 comments: true
 categories: mtg cube
 ---
