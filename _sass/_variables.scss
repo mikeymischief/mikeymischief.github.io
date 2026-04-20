@@ -3,21 +3,36 @@
 // VARIABLES
 //
 
-// Colors
-$blue: #4183C4;
+// Dark theme colors
+$bg-page:     #0d0f1a;
+$bg-header:   #07080f;
+$bg-content:  #111320;
+$bg-footer:   #07080f;
 
-// Grays
-$black: #000;
-$darkerGray: #222;
-$darkGray: #333;
-$gray: #666;
-$lightGray: #eee;
-$white: #fff;
+$text-primary:   #d4cfc9;
+$text-secondary: #8b8ea8;
+$text-heading:   #e8d5a3;
+
+$gold:        #d4af37;
+$gold-light:  #f0d060;
+$gold-dark:   #8b6914;
+
+$border:      #2a2a3a;
+$border-light: #3a3a50;
+
+// Legacy aliases (used throughout style.scss)
+$blue:       $gold;
+$black:      #000;
+$darkerGray: $text-heading;
+$darkGray:   $text-primary;
+$gray:       $text-secondary;
+$lightGray:  $border;
+$white:      $bg-page;
 
 // Font stacks
-$helvetica: Helvetica, Arial, sans-serif;
-$helveticaNeue: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$georgia: Georgia, serif;
+$helvetica:    'Crimson Text', Georgia, serif;
+$helveticaNeue: 'Cinzel', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$georgia:      'Crimson Text', Georgia, serif;
 
 // Mobile breakpoints
 @mixin mobile {
