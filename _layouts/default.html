@@ -19,16 +19,8 @@
   </head>
 
   <body>
-    <div class="power9-banner">
-      <img src="https://api.scryfall.com/cards/named?exact=Black+Lotus&set=lea&format=image&version=small" alt="Black Lotus" title="Black Lotus">
-      <img src="https://api.scryfall.com/cards/named?exact=Mox+Pearl&set=lea&format=image&version=small" alt="Mox Pearl" title="Mox Pearl">
-      <img src="https://api.scryfall.com/cards/named?exact=Mox+Sapphire&set=lea&format=image&version=small" alt="Mox Sapphire" title="Mox Sapphire">
-      <img src="https://api.scryfall.com/cards/named?exact=Mox+Jet&set=lea&format=image&version=small" alt="Mox Jet" title="Mox Jet">
-      <img src="https://api.scryfall.com/cards/named?exact=Mox+Ruby&set=lea&format=image&version=small" alt="Mox Ruby" title="Mox Ruby">
-      <img src="https://api.scryfall.com/cards/named?exact=Mox+Emerald&set=lea&format=image&version=small" alt="Mox Emerald" title="Mox Emerald">
-      <img src="https://api.scryfall.com/cards/named?exact=Ancestral+Recall&set=lea&format=image&version=small" alt="Ancestral Recall" title="Ancestral Recall">
-      <img src="https://api.scryfall.com/cards/named?exact=Time+Walk&set=lea&format=image&version=small" alt="Time Walk" title="Time Walk">
-      <img src="https://api.scryfall.com/cards/named?exact=Timetwister&set=lea&format=image&version=small" alt="Timetwister" title="Timetwister">
+    <div id="card-popup" style="display:none;position:fixed;z-index:9999;pointer-events:none;">
+      <img id="card-popup-img" src="" alt="" style="width:220px;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.8),0 0 0 2px #d4af37;display:block;">
     </div>
 
     <div class="wrapper-masthead">
@@ -62,5 +54,71 @@
     </div>
 
     {% include analytics.html %}
+
+    <script>
+      (function() {
+        var popup = document.getElementById('card-popup');
+        var popupImg = document.getElementById('card-popup-img');
+        var fadeTimer = null;
+
+        // Match links pointing at card images (local /images/mtg/ or full domain)
+        function isCardLink(href) {
+          return href && (/\/images\/mtg\/.*\.(jpg|png|jpeg)/i.test(href));
+        }
+
+        function showPopup(e, src) {
+          clearTimeout(fadeTimer);
+          popupImg.src = src;
+          popup.style.opacity = '0';
+          popup.style.display = 'block';
+          popup.style.transition = 'opacity 0.15s ease';
+          positionPopup(e);
+          // Trigger fade-in after paint
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() { popup.style.opacity = '1'; });
+          });
+        }
+
+        function hidePopup() {
+          popup.style.transition = 'opacity 0.2s ease';
+          popup.style.opacity = '0';
+          fadeTimer = setTimeout(function() { popup.style.display = 'none'; }, 200);
+        }
+
+        function positionPopup(e) {
+          var x = e.clientX, y = e.clientY;
+          var pw = 220, ph = 310; // approx card size
+          var vw = window.innerWidth, vh = window.innerHeight;
+          // Prefer above the cursor, shift left if near right edge
+          var left = Math.min(x + 16, vw - pw - 16);
+          var top = y - ph - 16;
+          if (top < 8) top = y + 24; // flip below if near top
+          popup.style.left = left + 'px';
+          popup.style.top  = top  + 'px';
+        }
+
+        document.addEventListener('mouseover', function(e) {
+          var a = e.target.closest('a');
+          if (a && isCardLink(a.getAttribute('href'))) {
+            showPopup(e, a.getAttribute('href'));
+          }
+        });
+
+        document.addEventListener('mousemove', function(e) {
+          if (popup.style.display !== 'none') positionPopup(e);
+        });
+
+        document.addEventListener('mouseout', function(e) {
+          var a = e.target.closest('a');
+          if (a && isCardLink(a.getAttribute('href'))) hidePopup();
+        });
+
+        // Prevent the link from navigating — it's just for the popup
+        document.addEventListener('click', function(e) {
+          var a = e.target.closest('a');
+          if (a && isCardLink(a.getAttribute('href'))) e.preventDefault();
+        });
+      })();
+    </script>
   </body>
 </html>
