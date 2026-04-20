@@ -34,5 +34,10 @@ Card images are stored in `/images/mtg/` and referenced like:
 <img src="/images/mtg/set-num-card-name.jpg" alt="Card Name" width="200"/>
 ```
 
+## Git workflow
+- Never run `git push` — always leave that to mikey
+- Commit changes to the worktree branch, then merge into master locally
+- mikey will push when ready
+
 ## Useful scripts
 - `./new-post.sh` — scaffold a new post with correct filename and frontmatter
