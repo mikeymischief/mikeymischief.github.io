@@ -4,6 +4,8 @@ layout: post
 title: Summer Cube Draft
 author: mikey
 date: 2020-07-20 20:00:00 -0800
+pubDate: 2020-07-20
+description: A summer cube draft cut short by work, featuring Gerf's winning run through the pod.
 comments: true
 categories: mtg cube draft
 ---

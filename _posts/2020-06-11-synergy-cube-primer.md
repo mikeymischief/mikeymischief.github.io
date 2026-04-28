@@ -4,6 +4,8 @@ layout: post
 title: Synergy Cube Primer
 author: mikey
 date: 2020-06-11 20:00:00 -0800
+pubDate: 2020-06-11
+description: An introduction to the Synergy Cube — a cube built on archetypes and synergies rather than raw card power.
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube primer

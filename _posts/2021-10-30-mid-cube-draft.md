@@ -4,6 +4,8 @@ layout: post
 title: MID Cube Draft 2021
 author: mikey
 date: 2021-10-30 20:00:00 -0800
+pubDate: 2021-10-30
+description: A Halloween eve cube draft featuring Innistrad: Midnight Hunt cards with four players.
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube draft

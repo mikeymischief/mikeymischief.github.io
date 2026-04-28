@@ -4,6 +4,8 @@ layout: post
 title: MH2 Cube Draft 2021
 author: mikey
 date: 2021-06-27 20:00:00 -0800
+pubDate: 2021-06-27
+description: Cube draft updated with Strixhaven and Modern Horizons 2 — new archetypes emerge from the fresh card pool.
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube draft

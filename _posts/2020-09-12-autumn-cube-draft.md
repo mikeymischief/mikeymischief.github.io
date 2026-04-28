@@ -4,6 +4,8 @@ layout: post
 title: Autumn Cube Draft
 author: mikey
 date: 2020-09-12 20:00:00 -0800
+pubDate: 2020-09-12
+description: Two drafts in one day with five players, using Utility Land Draft and Wildcard Duplicates.
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube draft

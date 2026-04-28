@@ -4,6 +4,8 @@ layout: post
 title: Synergy Cube Enemy colors
 author: mikey
 date: 2024-01-25 20:00:00 -0800
+pubDate: 2024-01-25
+description: A showcase of the enemy color archetypes in the Synergy Cube
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube primer

@@ -4,6 +4,8 @@ layout: post
 title: Winter Cube Draft
 author: mikey
 date: 2020-11-22 20:00:00 -0800
+pubDate: 2020-11-22
+description: Two cube drafts on a Sunday with the crew, fueled by Domino's and a full day of Magic.
 comments: true
 categories: mtg cube draft
 ---

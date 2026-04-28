@@ -4,6 +4,8 @@ layout: post
 title: Spring Cube Draft 2021
 author: mikey
 date: 2021-03-27 20:00:00 -0800
+pubDate: 2021-03-27
+description: The Kaldheim cube draft featuring unique archetypes, fortell cards, and an Innistrad bonus draft.
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube draft

@@ -4,6 +4,8 @@ layout: post
 title: Commander in December
 author: mikey
 date: 2022-12-04 20:00:00 -0800
+pubDate: 2022-12-04
+description: A December Commander session with the usual crew — decks, games, and holiday vibes.
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg commander
