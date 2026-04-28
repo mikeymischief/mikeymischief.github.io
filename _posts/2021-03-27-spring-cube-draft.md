@@ -43,7 +43,7 @@ Apparently, Jeddy doesn't read his cards, as he had several Game Rule Violations
 
 <img src="/images/mtg/usg-228-wildfire.jpg" alt="Wildfire" width="200"/><img src="/images/mtg/m12-188-primeval-titan.jpg" alt="Primeval Titan" width="200"/><img src="/images/mtg/ss3-1-chandra-torch-of-defiance.jpg" alt="Chandra, Torch of Defiance" width="200"/>
 
-![Wildfire Control](/images/decks/210327_Mikey_[Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg).jpg "Wildfire Control")
+![Wildfire Control](/images/decks/210327_Mikey_Wildfire.jpg "Wildfire Control")
 
 One of, if not, my favorite deck archetypes that I have drafted in the cube. I love drafting synergistic archetypes and [Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg) sure is one of the classic decks in MTG history and in cube. This deck has been in the cube since the beginning (2008!) and has survived the change from the max-power iteration of the cube to today's high-synergy, highly interactive version.
 
@@ -75,7 +75,7 @@ Despite Jeddy's missteps in how his cards played out, his deck was actually pret
 
 <img src="/images/mtg/mh1-214-soulherder.jpg" alt="Soulherder" width="200"/><img src="/images/mtg/tsr-311-mulldrifter.jpg" alt="Mulldrifter" width="200"/><img src="/images/mtg/m21-376-jolrael-mwonvuli-recluse.jpg" alt="Jolrael, Mwonvuli Recluse" width="200"/>
 
-![Bant Soulherder](/images/decks/210327_Gerf_Bant_[Soulherder](https://mikeymischief.github.io/images/mtg/mh1-214-soulherder.jpg).jpg "Bant [Soulherder](https://mikeymischief.github.io/images/mtg/mh1-214-soulherder.jpg)")
+![Bant Soulherder](/images/decks/210327_Gerf_Bant_Soulherder.jpg "Bant Soulherder")
 
 With 2 copies of [Soulherder](https://mikeymischief.github.io/images/mtg/mh1-214-soulherder.jpg) in his deck, Gerf looks to abuse Enter the Battlefield effects to generate a ton of value. His targets: [Man-o'-War](https://mikeymischief.github.io/images/mtg/vis-37-man-o-war.jpg), [Mulldrifter](https://mikeymischief.github.io/images/mtg/tsr-311-mulldrifter.jpg), [Triskelion](https://mikeymischief.github.io/images/mtg/mrd-269-triskelion.jpg) and [Acidic Slime](https://mikeymischief.github.io/images/mtg/m10-165-acidic-slime.jpg) are more than enough synergy once he gets his engine going. Another payoff is [Ranar the Ever-Watchful](https://mikeymischief.github.io/images/mtg/khc-2-ranar-the-ever-watchful.jpg) every time he blinks something, he'll produce a 1/1 Spirit token.
 
