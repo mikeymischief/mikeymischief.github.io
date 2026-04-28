@@ -19,7 +19,7 @@ We drafted a little over half the cube (using the Utility Land Draft), since we 
 
 The draft order was: Mikey -> Brian -> Jeddy -> Gerf
 
-The winning 3-0 deck was my Naya Wildfire deck, the second place deck was Jeddy's Orzhov Aggro deck (2-1), followed by Gerf's Bant Soulherder list (1-2) and then a 60-card Yorion Aggro deck (0-3).
+The winning 3-0 deck was my Naya [Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg) deck, the second place deck was Jeddy's Orzhov Aggro deck (2-1), followed by Gerf's Bant [Soulherder](https://mikeymischief.github.io/images/mtg/mh1-214-soulherder.jpg) list (1-2) and then a 60-card Yorion Aggro deck (0-3).
 
 ![Tough Decisions](/images/photos/210327_GvB.jpg "Gerf v Brian")
 > "I teach you guys how to build good decks." -Gerf
@@ -33,7 +33,7 @@ The winning 3-0 deck was my Naya Wildfire deck, the second place deck was Jeddy'
 
 ![Game Rule Violation](/images/photos/210327_GRV.jpg "Game Rule Violation")
 
-Apparently, Jeddy doesn't read his cards, as he had several Game Rule Violations during the day. He thought Mikaeus, the Lunarch gave each of his creatures the number of counters on Mikaeus (if Mikaeus had 3 +1/+1 counters, activating his ability only gives each creature a single +1/+1 counter, not THREE), which turned his game 2 against Brian around. Jeddy eventually conceded that he probably would've lost that game, if he read Mikaeus correctly.
+Apparently, Jeddy doesn't read his cards, as he had several Game Rule Violations during the day. He thought [Mikaeus, the Lunarch](https://mikeymischief.github.io/images/mtg/isd-23-mikaeus-the-lunarch.jpg) gave each of his creatures the number of counters on Mikaeus (if Mikaeus had 3 +1/+1 counters, activating his ability only gives each creature a single +1/+1 counter, not THREE), which turned his game 2 against Brian around. Jeddy eventually conceded that he probably would've lost that game, if he read Mikaeus correctly.
 
 > "Mikkekus" -Jeddy
 
@@ -43,19 +43,19 @@ Apparently, Jeddy doesn't read his cards, as he had several Game Rule Violations
 
 <img src="/images/mtg/usg-228-wildfire.jpg" alt="Wildfire" width="200"/><img src="/images/mtg/m12-188-primeval-titan.jpg" alt="Primeval Titan" width="200"/><img src="/images/mtg/ss3-1-chandra-torch-of-defiance.jpg" alt="Chandra, Torch of Defiance" width="200"/>
 
-![Wildfire Control](/images/decks/210327_Mikey_Wildfire.jpg "Wildfire Control")
+![Wildfire Control](/images/decks/210327_Mikey_[Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg).jpg "Wildfire Control")
 
-One of, if not, my favorite deck archetypes that I have drafted in the cube. I love drafting synergistic archetypes and Wildfire sure is one of the classic decks in MTG history and in cube. This deck has been in the cube since the beginning (2008!) and has survived the change from the max-power iteration of the cube to today's high-synergy, highly interactive version.
+One of, if not, my favorite deck archetypes that I have drafted in the cube. I love drafting synergistic archetypes and [Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg) sure is one of the classic decks in MTG history and in cube. This deck has been in the cube since the beginning (2008!) and has survived the change from the max-power iteration of the cube to today's high-synergy, highly interactive version.
 
 > "Limited gameplay, contstructed power"
 
-My draft started with a P1P1 Wrath of God; a beautiful way to start. I was fully planning on going into any of the white control strategies (especially since I passed a bunch of RG cards to Brian), but I was determined to build W/U Control. When I got a P1P2 Primeval Titan, I then decided to pivot and opened myself to go into the WG _Landfall_ deck, since that was the newest archetype introduced in the cube and it's really fun (see my practice draft [here](https://www.cubecobra.com/cube/deck/60593a0b099bcd10492e3c3e)). Then I saw a Burning of Xinye in pack 3 and decided to go for it. I didn't get the second copy (Wildfire) until near the end of the draft. I just drafted all the red control elements (Anger of the Gods, Radiant Flames, Fiery Confluence), creatures that survive Wildfire (Pheonix of Ash, Epochrasite), planeswalkers (Chandra, Acolyte of Flame, Chandra, Torch of Defiance, Garruk Wildspeaker), and as many mana rocks as I could get my hands on (just 2, apparently).
+My draft started with a P1P1 [Wrath of God](https://mikeymischief.github.io/images/mtg/ced-46-wrath-of-god.jpg); a beautiful way to start. I was fully planning on going into any of the white control strategies (especially since I passed a bunch of RG cards to Brian), but I was determined to build W/U Control. When I got a P1P2 [Primeval Titan](https://mikeymischief.github.io/images/mtg/m12-188-primeval-titan.jpg), I then decided to pivot and opened myself to go into the WG _Landfall_ deck, since that was the newest archetype introduced in the cube and it's really fun (see my practice draft [here](https://www.cubecobra.com/cube/deck/60593a0b099bcd10492e3c3e)). Then I saw a [Burning of Xinye](https://mikeymischief.github.io/images/mtg/ptk-104-burning-of-xinye.jpg) in pack 3 and decided to go for it. I didn't get the second copy ([Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg)) until near the end of the draft. I just drafted all the red control elements ([Anger of the Gods](https://mikeymischief.github.io/images/mtg/tsr-339-anger-of-the-gods.jpg), [Radiant Flames](https://mikeymischief.github.io/images/mtg/bfz-151-radiant-flames.jpg), [Fiery Confluence](https://mikeymischief.github.io/images/mtg/ss3-3-fiery-confluence.jpg)), creatures that survive [Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg) ([Phoenix of Ash](https://mikeymischief.github.io/images/mtg/thb-319-phoenix-of-ash.jpg), [Epochrasite](https://mikeymischief.github.io/images/mtg/fut-162-epochrasite.jpg)), planeswalkers ([Chandra, Acolyte of Flame](https://mikeymischief.github.io/images/mtg/m20-126-chandra-acolyte-of-flame.jpg), [Chandra, Torch of Defiance](https://mikeymischief.github.io/images/mtg/ss3-1-chandra-torch-of-defiance.jpg), [Garruk Wildspeaker](https://mikeymischief.github.io/images/mtg/lrw-213-garruk-wildspeaker.jpg)), and as many mana rocks as I could get my hands on (just 2, apparently).
 
 This was a really fun draft and my deck was well positioned for the other decks in the pod.
 
-Game 1 against Jeddy's Orzhov Aggro deck, he managed to survive a Wrath of God, and both Wildfire and Burning of Xinye. Depite the loss, his deck was very resilient to any of the sweepers. Lingering Souls was key to keeping the pressure on and not activating _flashback_ until my first sweeper.
+Game 1 against Jeddy's Orzhov Aggro deck, he managed to survive a [Wrath of God](https://mikeymischief.github.io/images/mtg/ced-46-wrath-of-god.jpg), and both [Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg) and [Burning of Xinye](https://mikeymischief.github.io/images/mtg/ptk-104-burning-of-xinye.jpg). Depite the loss, his deck was very resilient to any of the sweepers. [Lingering Souls](https://mikeymischief.github.io/images/mtg/tsr-296-lingering-souls.jpg) was key to keeping the pressure on and not activating _flashback_ until my first sweeper.
 
-Game 3 against Jeddy was especially excruciating, since his discard picked the crucial the sweeper from my hand; Wildfire. With 2 turns left and the cube championship on the line, I needed to top deck a sweeper of some sort. My white splash for a single Wrath of God saved me! The decision for Jeddy to go for it or hold resources is a tough decision, but with 6 sweepers in my deck, all my draws were live. The clean up afterwards was pretty typical of a control deck.
+Game 3 against Jeddy was especially excruciating, since his discard picked the crucial the sweeper from my hand; [Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg). With 2 turns left and the cube championship on the line, I needed to top deck a sweeper of some sort. My white splash for a single [Wrath of God](https://mikeymischief.github.io/images/mtg/ced-46-wrath-of-god.jpg) saved me! The decision for Jeddy to go for it or hold resources is a tough decision, but with 6 sweepers in my deck, all my draws were live. The clean up afterwards was pretty typical of a control deck.
 
 ----
 
@@ -65,7 +65,7 @@ Game 3 against Jeddy was especially excruciating, since his discard picked the c
 
 ![Orzhov Aggro](/images/decks/210327_Jeddy_Orzhov_Aggro.jpg "Orzhov Aggro")
 
-Jeddy's deck is a pretty nice streamlined aggro deck. Since he was the only black drafter, he got his choice of all the removal spells for his white weenie deck. The combination of white aggressive creatures, backed by a suite of removal and disruption effects is always how I pictured the Orzhov aggro decks playing in cube (Tidehollow Sculler, where you at now?). Jeddy could simply curve out against slower decks, going wide with evasive fliers and Mikaeus to pump them up. He had a lot of creatures with built-in resiliency; Woe Strider and Lingering Souls. Not even to mention, he had all the removal he needed to clear blockers out of his way.
+Jeddy's deck is a pretty nice streamlined aggro deck. Since he was the only black drafter, he got his choice of all the removal spells for his white weenie deck. The combination of white aggressive creatures, backed by a suite of removal and disruption effects is always how I pictured the Orzhov aggro decks playing in cube ([Tidehollow Sculler](https://mikeymischief.github.io/images/mtg/ala-202-tidehollow-sculler.jpg), where you at now?). Jeddy could simply curve out against slower decks, going wide with evasive fliers and Mikaeus to pump them up. He had a lot of creatures with built-in resiliency; [Woe Strider](https://mikeymischief.github.io/images/mtg/thb-317-woe-strider.jpg) and [Lingering Souls](https://mikeymischief.github.io/images/mtg/tsr-296-lingering-souls.jpg). Not even to mention, he had all the removal he needed to clear blockers out of his way.
 
 Despite Jeddy's missteps in how his cards played out, his deck was actually pretty sweet. Applying pressure early and using black to keep his opponents off-kilter is a great strategy for winning magic games. While straight forward, Jeddy always manages to get a good draft in.
 
@@ -75,9 +75,9 @@ Despite Jeddy's missteps in how his cards played out, his deck was actually pret
 
 <img src="/images/mtg/mh1-214-soulherder.jpg" alt="Soulherder" width="200"/><img src="/images/mtg/tsr-311-mulldrifter.jpg" alt="Mulldrifter" width="200"/><img src="/images/mtg/m21-376-jolrael-mwonvuli-recluse.jpg" alt="Jolrael, Mwonvuli Recluse" width="200"/>
 
-![Bant Soulherder](/images/decks/210327_Gerf_Bant_Soulherder.jpg "Bant Soulherder")
+![Bant Soulherder](/images/decks/210327_Gerf_Bant_[Soulherder](https://mikeymischief.github.io/images/mtg/mh1-214-soulherder.jpg).jpg "Bant [Soulherder](https://mikeymischief.github.io/images/mtg/mh1-214-soulherder.jpg)")
 
-With 2 copies of Soulherder in his deck, Gerf looks to abuse Enter the Battlefield effects to generate a ton of value. His targets: Man-o'-War, Mulldrifter, Triskelion and Acidic Slime are more than enough synergy once he gets his engine going. Another payoff is Ranar the Ever-Watchful every time he blinks something, he'll produce a 1/1 Spirit token.
+With 2 copies of [Soulherder](https://mikeymischief.github.io/images/mtg/mh1-214-soulherder.jpg) in his deck, Gerf looks to abuse Enter the Battlefield effects to generate a ton of value. His targets: [Man-o'-War](https://mikeymischief.github.io/images/mtg/vis-37-man-o-war.jpg), [Mulldrifter](https://mikeymischief.github.io/images/mtg/tsr-311-mulldrifter.jpg), [Triskelion](https://mikeymischief.github.io/images/mtg/mrd-269-triskelion.jpg) and [Acidic Slime](https://mikeymischief.github.io/images/mtg/m10-165-acidic-slime.jpg) are more than enough synergy once he gets his engine going. Another payoff is [Ranar the Ever-Watchful](https://mikeymischief.github.io/images/mtg/khc-2-ranar-the-ever-watchful.jpg) every time he blinks something, he'll produce a 1/1 Spirit token.
 
 I know with a deck like this it's hard to get the mixure just right and it seemed that Gerf was tinkering to find the best version of his deck throughout the day. I'm sure the final version of the deck played much better than in the morning.
 
@@ -89,13 +89,13 @@ I know with a deck like this it's hard to get the mixure just right and it seeme
 
 ![Yorion Aggro](/images/decks/210327_Brian_Yorion_Aggro.jpg "Yorion Aggro")
 
-This deck was a mess from top to bottom (sorry, Brian). It has no direction as there are aggressive elements to the deck, but then there is Yorion for blink strategies and Titania for land strategies? There are +1/+1 counters, a Sun Titan and Combustible Gearhulk. I don't know what the plan for this deck is, so I will just present it here as is.
+This deck was a mess from top to bottom (sorry, Brian). It has no direction as there are aggressive elements to the deck, but then there is Yorion for blink strategies and Titania for land strategies? There are +1/+1 counters, a [Sun Titan](https://mikeymischief.github.io/images/mtg/sld-1550-sun-titan.jpg) and [Combustible Gearhulk](https://mikeymischief.github.io/images/mtg/kld-112-combustible-gearhulk.jpg). I don't know what the plan for this deck is, so I will just present it here as is.
 
-> "Brian took all the synergy cards from all the other decks and put it in his own; Titania from the Wildfire deck, Champion of the Parish from the Orzhov Aggro deck and Yorion from the blink deck"
+> "Brian took all the synergy cards from all the other decks and put it in his own; Titania from the [Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg) deck, [Champion of the Parish](https://mikeymischief.github.io/images/mtg/isd-6-champion-of-the-parish.jpg) from the Orzhov Aggro deck and Yorion from the blink deck"
 
 ----
 
-Overall, this was a great day for cube and not solely because I won with Wildfire. The cube drafted well and played great. There were decks that were drafted that haven't shown up before and I hope that's because people are getting better at drafting this cube.
+Overall, this was a great day for cube and not solely because I won with [Wildfire](https://mikeymischief.github.io/images/mtg/usg-228-wildfire.jpg). The cube drafted well and played great. There were decks that were drafted that haven't shown up before and I hope that's because people are getting better at drafting this cube.
 
 I don't know if many noticed, but a lot of the cards were updated with the old border cards from Time Spiral Remastered, which I think absolutely look wonderful; especially the blue and artifact cards. It's a bit sad because the borderless Solemn Simulacrum from Double Masters was replaced with the original art old border one.
 

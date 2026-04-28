@@ -40,7 +40,7 @@ Jeddy won the draft with his Simic Midrange deck. It's recorded as a Dimir midra
 
 As mentioned earlier, Jeddy's original deck was a Simic midrange deck, but because he faced Gerf's Mono-red aggro deck in the finals, he needed to switch to something that would give him a fighting chance. As is, I don't really have much to say about this deck since I didn't personally face it. 
 
-On the surface, it seems that Jeddy's deck is a bit of a blue-black good stuff deck that happened to pair well against Gerf's aggro deck in Game 3. With 3 Wraths and multiple ways to deal with the board with 2-for-1s (Sower of Temptation, Hostage Taker), it would've been hostile to any creature based aggro deck.
+On the surface, it seems that Jeddy's deck is a bit of a blue-black good stuff deck that happened to pair well against Gerf's aggro deck in Game 3. With 3 Wraths and multiple ways to deal with the board with 2-for-1s ([Sower of Temptation](https://mikeymischief.github.io/images/mtg/lrw-88-sower-of-temptation.jpg), [Hostage Taker](https://mikeymischief.github.io/images/mtg/xln-223-hostage-taker.jpg)), it would've been hostile to any creature based aggro deck.
 
 ----
 
@@ -64,7 +64,7 @@ Plenty of burn and only 2 cards with mana value above 3, this is a scary sight t
 
 ![Jeskai Aggro](/images/decks/211030_Mikey_Jeskai_Aggro.jpg "Jeskai Aggro")
 
-My deck was mostly a white aggro deck that had the mana to splash both red and blue. Red mainly to complete my aggressive creature suite and blue was my plan in case games went longer than I expected. Reflector Mage was great as 2-for-1 removal for larger creatures (Swords to Plowshares and Path to Exile too), as I had plenty of removal for the cheaper early game threats (Portable Hole, Prismatic Ending).
+My deck was mostly a white aggro deck that had the mana to splash both red and blue. Red mainly to complete my aggressive creature suite and blue was my plan in case games went longer than I expected. [Reflector Mage](https://mikeymischief.github.io/images/mtg/ogw-157-reflector-mage.jpg) was great as 2-for-1 removal for larger creatures ([Swords to Plowshares](https://mikeymischief.github.io/images/mtg/leb-41-swords-to-plowshares.jpg) and [Path to Exile](https://mikeymischief.github.io/images/mtg/tsr-299-path-to-exile.jpg) too), as I had plenty of removal for the cheaper early game threats (Portable Hole, [Prismatic Ending](https://mikeymischief.github.io/images/mtg/spg-40-prismatic-ending.jpg)).
 
 Finishing 3rd is a hard pill to swallow because I thought my deck was pretty good and had answers for all the other decks in the field.
 
@@ -76,7 +76,7 @@ Finishing 3rd is a hard pill to swallow because I thought my deck was pretty goo
 
 ![Golgari Aggro](/images/decks/211030_Brian_Golgari.jpg "Golgari Aggro")
 
-Brian's drafting and deck building is getting better and better each time we play. This time a Golgari Aggro deck. He was wise to keep his casting costs low and Living Death was a nice surprise once his initial onslaught was quelled. I think improving this deck would be to focus it a bit more on attacking by removing Meren of Clan Nel Toth, Sylvan Library, Satyr Wayfinder and even Living Death to apply more pressure early. Rely on the fact that many of your creatures already return from the graveyard. Or you can take it the other direction where you focus on the midrange capabilities and have a bit of a sacrifice theme and run Meren with Living Death and all your creatures are 3-4 mana value.
+Brian's drafting and deck building is getting better and better each time we play. This time a Golgari Aggro deck. He was wise to keep his casting costs low and [Living Death](https://mikeymischief.github.io/images/mtg/tmp-142-living-death.jpg) was a nice surprise once his initial onslaught was quelled. I think improving this deck would be to focus it a bit more on attacking by removing [Meren of Clan Nel Toth](https://mikeymischief.github.io/images/mtg/c15-49-meren-of-clan-nel-toth.jpg), Sylvan Library, [Satyr Wayfinder](https://mikeymischief.github.io/images/mtg/bng-136-satyr-wayfinder.jpg) and even [Living Death](https://mikeymischief.github.io/images/mtg/tmp-142-living-death.jpg) to apply more pressure early. Rely on the fact that many of your creatures already return from the graveyard. Or you can take it the other direction where you focus on the midrange capabilities and have a bit of a sacrifice theme and run Meren with [Living Death](https://mikeymischief.github.io/images/mtg/tmp-142-living-death.jpg) and all your creatures are 3-4 mana value.
 
 ----
 
