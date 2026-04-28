@@ -4,6 +4,8 @@ layout: post
 title: Synergy Cube Update
 author: mikey
 date: 2023-08-23 20:00:00 -0800
+pubDate: 2023-08-23
+description: A look at the allied color archetypes in the Synergy Cube after three years of updates.
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube primer
@@ -61,7 +63,7 @@ It was one of my favorite decks to ever play in cube and I can only look back in
 ### Selesnya Landfall
 <img src="/images/mtg/znr-292-felidar-retreat.jpg" alt="Felidar Retreat" width="200"/><img src="/images/mtg/aer-133-renegade-rallier.jpg" alt="Renegade Rallier" width="200"/><img src="/images/mtg/inv-189-harrow.jpg" alt="Harrow" width="200"/>
 
-Selesnya Landfall is a deck that hasn't come together, but the pieces are present in the cube. The idea is that you play a bunch of landfall payoffs, and then draft things that generate landfall, or use the white creatures to bring back lands from the graveyard. You can use [Primeval Titan](https://mikeymischief.github.io/images/mtg/tsr-365-primeval-titan.jpg) or [Life from the Loam](https://mikeymischief.github.io/images/mtg/uma-172-life-from-the-loam.jpg) in green, [Knight of the Reliquary](https://mikeymischief.github.io/images/mtg/tsr-379-knight-of-the-reliquary.jpg), [Renegade Rallier](https://mikeymischief.github.io/images/mtg/aer-133-renegade-rallier.jpg) in selesnya, or [Sun Titan](https://mikeymischief.github.io/images/mtg/https://scryfall.com/card/m11/35/sun-titan.jpg) in white. By playing all these cards, you can generate some massive turns with 4+ landfall triggers. 
+Selesnya Landfall is a deck that hasn't come together, but the pieces are present in the cube. The idea is that you play a bunch of landfall payoffs, and then draft things that generate landfall, or use the white creatures to bring back lands from the graveyard. You can use [Primeval Titan](https://mikeymischief.github.io/images/mtg/tsr-365-primeval-titan.jpg) or [Life from the Loam](https://mikeymischief.github.io/images/mtg/uma-172-life-from-the-loam.jpg) in green, [Knight of the Reliquary](https://mikeymischief.github.io/images/mtg/tsr-379-knight-of-the-reliquary.jpg), [Renegade Rallier](https://mikeymischief.github.io/images/mtg/aer-133-renegade-rallier.jpg) in selesnya, or [Sun Titan](https://mikeymischief.github.io/images/mtg/m11-35-sun-titan.jpg) in white. By playing all these cards, you can generate some massive turns with 4+ landfall triggers. 
 
 -----
 

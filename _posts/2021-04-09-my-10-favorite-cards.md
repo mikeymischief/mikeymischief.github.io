@@ -4,6 +4,8 @@ layout: post
 title: My 10 Favorite Cards in Magic
 author: mikey
 date: 2021-04-09 20:00:00 -0800
+pubDate: 2021-04-09
+description: Mikey's personal top 10 favorite Magic: The Gathering cards after decades of playing.
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube favorite
@@ -28,7 +30,7 @@ If I could put him back in the cube and be playable, I would. My concern for pla
 
 Eternal Witness is the only green card on this list. This was my favorite card for the longest time. Back when this card first came out in Fifth Dawn, I loved it. Yes, it was a more expensive Regrowth, but you got a 2/1 body attached.
 
-I loved the 2004 Green/White Control deck by Julien Nuijten which used 4 copies of Eternal Witness and 4 Eternal Dragons, alongside 4 Wrath of Gods and several ramp elements. I still have a copy of that deck too.
+I loved the 2004 Green/White Control deck by Julien Nuijten which used 4 copies of Eternal Witness and 4 Eternal Dragons, alongside 4 [Wrath of Gods](https://mikeymischief.github.io/images/mtg/ced-46-wrath-of-god.jpg) and several ramp elements. I still have a copy of that deck too.
 
 I think this card is solely responsible for all the graveyard synergies that I crave. One of the reasons the cube was switched to a synergy cube (and all the graveyard interactions) was because of my love for Eternal Witness.
 
@@ -38,7 +40,7 @@ I don't care too much for the new art in particular, but I do love the old Time 
 ## 9. Teferi, Hero of Dominaria
 ![Teferi, Hero of Dominaria](/images/mtg/sld-248-teferi-hero-of-dominaria.jpg "Teferi, Hero of Dominaria"){: width="250" }
 
-Teferi is definitely a powerful card, it does all the things you want in a control deck, which is why I gravitate towards this card. With all the control cards like Wrath of God, play great with planeswalkers as they still remain on the battlefield once you've swept all the other creatures away. Teferi will continue to draw cards and keep mana up on opposing players turns. If there is something that is troublesome, you can always force them to tuck it back into their deck. The ultimate, while attainable, is devastating as you draw at least a card a turn.
+Teferi is definitely a powerful card, it does all the things you want in a control deck, which is why I gravitate towards this card. With all the control cards like [Wrath of God](https://mikeymischief.github.io/images/mtg/ced-46-wrath-of-god.jpg), play great with planeswalkers as they still remain on the battlefield once you've swept all the other creatures away. Teferi will continue to draw cards and keep mana up on opposing players turns. If there is something that is troublesome, you can always force them to tuck it back into their deck. The ultimate, while attainable, is devastating as you draw at least a card a turn.
 
 Teferi is the ideal control card and any control deck in white and blue will likely start with this card. In the cube, this card can single-handedly draw a drafter into playing blue/white control, which is why it's such a great card. In limited, it's power is muted by only having a single copy, but in cube, the aggressive decks tend to keep this in check. Playing Teferi only once you've wrested control of the game is important, so that you don't lose this one-card control engine.
 
@@ -50,7 +52,7 @@ The reason I brought this back into the cube is because I think white/blue contr
 
 Another planeswalker! Tezzeret seems like he's a pretty synergistic walker, but it turns out many of the times, you just attack opponents with 5/5 artifacts. I like blue control strategies which typically tend to lend themselves to using a bunch of artifacts for mana acceleration. While the cube doesn't have a ton of mana rocks (as to have the drafter prioritize them accordingly), this strategy is definitely possible (as seen with Brian's draft [Dimir Artifacts](https://cubecobra.com/cube/deck/5f5d7ab3ed6023105164e2fc)).
 
-Tezzeret is in my favorite color combination Dimir (Blue and Black). These days the design of black is that it gets premier single-target removal, but that mass removal is conditional. This means we won't be seeing cards like Damnation in a retail set anymore. We will see more cards released like Shadow's Verdict or Extinction Event.
+Tezzeret is in my favorite color combination Dimir (Blue and Black). These days the design of black is that it gets premier single-target removal, but that mass removal is conditional. This means we won't be seeing cards like [Damnation](https://mikeymischief.github.io/images/mtg/plc-85-damnation.jpg) in a retail set anymore. We will see more cards released like Shadow's Verdict or Extinction Event.
 
 In the past, I've always tried to jam this guy in my decks, like Modern Urza in the sideboard for playing against other control strategies. Much like Teferi, the +1 provides some marginal card advantage as long as you have artifacts in your deck. The -1 mode is definitely the "main" mode, as turning your artifacts in to 5/5s is how you basically win. Keep in mind that this is a permanent transformation and does not end at the end of turn.
 
@@ -86,7 +88,7 @@ The art by Kev Walker is also simple yet iconic. The black sun against a white b
 
 A toolbox for blue control mages. This card does everything you want it to and will get the blue mage out of any situation they will find themselves in. Mystic Confluence and Sublime Epiphanany are 2 cards they are trying to capture the essence of Cryptic Command, but it's not quite the same. The 4 casting cost along with 3 blue pips means that this card goes into the correct hands of the heavy blue drafter. I more consider it a feature of this card, much like Vraska's Contempt for the black control player.
 
-The best things I like to do with Cryptic Command come from the Modern format where you can bounce your Snapcaster Mage along with any other mode to do this over and over again. For high powered formats, tapping the opponent's team down for the turn can feel like cheating.
+The best things I like to do with Cryptic Command come from the Modern format where you can bounce your [Snapcaster Mage](https://mikeymischief.github.io/images/mtg/isd-78-snapcaster-mage.jpg) along with any other mode to do this over and over again. For high powered formats, tapping the opponent's team down for the turn can feel like cheating.
 
 Being in my top 3 cards, I will always play Cryptic Command in any deck that warrants it. I even have mine signed by Patrick Chapin at GP Vegas in 2013.
 
