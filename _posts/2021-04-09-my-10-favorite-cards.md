@@ -5,7 +5,7 @@ title: My 10 Favorite Cards in Magic
 author: mikey
 date: 2021-04-09 20:00:00 -0800
 pubDate: 2021-04-09
-description: Mikey's personal top 10 favorite Magic: The Gathering cards after decades of playing.
+description: "Mikey's personal top 10 favorite Magic: The Gathering cards after decades of playing."
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube favorite
