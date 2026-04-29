@@ -25,7 +25,7 @@ In 2025, we have had 6 sets:
 - Marvel's Spider-Man (October)
 - Avatar: The Last Airbender (November/December)
 
-From this list, Marvel's Spider-Man is immediatly removed. I do hope that [Superior Spider-man](https://mikeymischief.github.io/images/mtg/spm-155-superior-spider-man.jpg) gets an in-universe printing, because I think that would be an awesome design for {u/b}. The other UB properties (Final Fantasy and Avatar: The Last Airbender), I carefully selected which cards I added, trying to not pick cards that invoke any of those IPs directly by avoiding named characters when I could. Finally, I also didn't care too much for the theme of Aetherdrift (drift/racing). So many of these cards will be from Tarkir: Dragonstorm and Edge of Eternities. At this moment, there are still [35 cards](https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler&f=%28set%3Adft+or+set%3Adrc+or+set%3Atdm+or+set%3Atdc+or+set%3Afin+or+set%3Afic+or+set%3Aeoe+or+set%3Aeoc+or+set%3Aspm+or+set%3Atla+or+set%3Atle%29) from the last year in this cube. Which ones make the cut?
+From this list, Marvel's Spider-Man is immediatly removed (I did add one non-IP specific card - look below). I do hope that [Superior Spider-man](https://mikeymischief.github.io/images/mtg/spm-155-superior-spider-man.jpg) gets an in-universe printing, because I think that would be an awesome design for {u/b}. The other UB properties (Final Fantasy and Avatar: The Last Airbender), I carefully selected which cards I added, trying to not pick cards that invoke any of those IPs directly by avoiding named characters when I could. Finally, I also didn't care too much for the theme of Aetherdrift (drift/racing), so there were only 3 cards added. So many of these cards will be from Tarkir: Dragonstorm and Edge of Eternities. At this moment, there are still [35 cards](https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler&f=%28set%3Adft+or+set%3Adrc+or+set%3Atdm+or+set%3Atdc+or+set%3Afin+or+set%3Afic+or+set%3Aeoe+or+set%3Aeoc+or+set%3Aspm+or+set%3Atla+or+set%3Atle%29) from the last year in this cube. Which ones make the cut?
 
 ----
 
@@ -102,8 +102,18 @@ Ah, lands, my favorite card type in Magic. This one is great because it's a 5-co
 If you've never played with the card, it just feels like you're playing a land-turbo deck when in a fetch heavy environment. Imagine: play fetchland, crack fetchland, grab a basic-typed land, play the just-cracked-fetch again from your gravyard, crack fetchland, search out another basic-typed land. All while adding 4 landfall triggers, milling 4 cards from the top of your library. All done with a single fetchland. This card touches so many archetypes, I don't know what it isn't useful in. That said, maybe I should change the image of my cube on cubecobra to this card?
 
 ----
-Thanks for reading my retrospective of the cards I've added in the cube for 2025. Hopefully, I will continue to do this every year, or at least update this blog more often than once every 3 years.
+Thanks for reading my retrospective of the cards I've added in the cube for 2025. 
 
+The final tally for all the cards added this last year:
+
+- Aetherdrift - 3
+- Tarkir: Dragonstorm - 6
+- Final Fantasy - 11
+- Edge of Eternities - 7
+- Marvel's Spider-Man - 1
+- Avatar: The Last Airbender - 7
+
+It's kinda funny that the UB sets have the most additions (I think they tend to "juice" these up more, so designs from these sets will tend to make it into cubes). Hopefully, I will continue to do this every year, or at least update this blog more often than once every 3 years.
 
 {% if page.comments %}
 <div id="disqus_thread"></div>

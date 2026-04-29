@@ -73,28 +73,14 @@
           '2/W':'ms-2w','2/U':'ms-2u','2/B':'ms-2b','2/R':'ms-2r','2/G':'ms-2g'
         };
 
-        // Canonical ordering for hybrid pairs so {U/W} == {W/U}, etc.
-        var hybridOrder = ['W','U','B','R','G','P'];
-        function normalizeHybrid(sym) {
-          var parts = sym.split('/');
-          if (parts.length !== 2) return sym;
-          var a = parts[0], b = parts[1];
-          // 2/X hybrids: numeric always first
-          if (/^\d+$/.test(a) || /^\d+$/.test(b)) {
-            return /^\d+$/.test(a) ? a+'/'+b : b+'/'+a;
-          }
-          // Phyrexian: color always first, P always last
-          if (b === 'P') return a+'/P';
-          if (a === 'P') return b+'/P';
-          // Color pairs: sort by hybridOrder
-          var ai = hybridOrder.indexOf(a), bi = hybridOrder.indexOf(b);
-          return (ai <= bi ? a+'/'+b : b+'/'+a);
-        }
-
         function manaHTML(sym) {
           var upper = sym.toUpperCase();
-          var normalized = upper.indexOf('/') !== -1 ? normalizeHybrid(upper) : upper;
-          var cls = symbolMap[normalized];
+          var cls = symbolMap[upper];
+          // For hybrid symbols, try the reversed order if the first lookup fails
+          if (!cls && upper.indexOf('/') !== -1) {
+            var parts = upper.split('/');
+            cls = symbolMap[parts[1] + '/' + parts[0]];
+          }
           if (!cls) return '{' + sym + '}';
           return '<i class="ms ms-cost ms-shadow ' + cls + '" title="{' + sym + '}"></i>';
         }
