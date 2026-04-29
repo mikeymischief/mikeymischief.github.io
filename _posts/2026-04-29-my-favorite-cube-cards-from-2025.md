@@ -17,7 +17,7 @@ Welcome to the first of the retrospective articles for this blog. This time we'r
 
 These cards make this list for a variety of reasons: bolstering archetypes, awesome build-around card, or a card that just supercedes an older card. Keep in mind, that I do have a prediliction for older cards and I try to preserve that feeling in this cube more than anything else. I'm allergic to cards that are just all-in-one or snowballs into a victory by itself. I also am limiting most Universes Beyond products, especially ones that don't fit the MTG aesthetic.
 
-In 2025, we have had 7 sets:
+In 2025, we have had 6 sets:
 - Aetherdrift (February)
 - Tarkir: Dragonstorm (April)
 - Final Fantasy (June)
@@ -33,7 +33,7 @@ From this list, Marvel's Spider-Man is immediatly removed. I do hope that [Super
 
 ![Monument to Endurance](/images/mtg/dft-394-monument-to-endurance.jpg "Monument to Endurance"){: width="250" }
 
-[Monument to Endurance](https://mikeymischief.github.io/images/mtg/dft-394-monument-to-endurance.jpg) is a card that fills a bunch of roles; all for {3}. It helps the {u/r} discard decks, it produces treasures for {b/g} decks, and for the really aggressive decks, it can deal 3 damage. It's a wonderful synergy piece that doesn't cost that much, goes well in {w/r} decks for being an artifact as well.
+[Monument to Endurance](https://mikeymischief.github.io/images/mtg/dft-394-monument-to-endurance.jpg) is a card that fills a bunch of roles; all for {3}. It helps the {u/r} discard decks, it produces treasures for {b/g} decks, and for the really aggressive decks, it can deal 3 damage. It's a wonderful synergy piece that doesn't cost that much, goes well in {r/w} decks for being an artifact as well.
 
 ----
 ## 9. [Tersa Lightshatter](https://mikeymischief.github.io/images/mtg/tdm-127-tersa-lightshatter.jpg)
@@ -47,21 +47,22 @@ From this list, Marvel's Spider-Man is immediatly removed. I do hope that [Super
 
 ![Voice of Victory](/images/mtg/tdm-33-voice-of-victory.jpg "Voice of Victory"){: width="250" }
 
-[Voice of Victory](https://mikeymischief.github.io/images/mtg/tdm-33-voice-of-victory.jpg) is a great card for those same {w/r} decks that want to be attacking every turn. It also plays well with the {w/b} sacrifice/stax decks since it can produce so many tokens. Finally, locking out _instant_ spells from your opponent so that you don't get surprised in combat is especially appreciated when playing these low-to-the-ground {w} decks. [Voice of Victory](https://mikeymischief.github.io/images/mtg/tdm-33-voice-of-victory.jpg) would likely be higher on this list if I liked playing this archetype more (I'm a {u/b} player through-and-through).
+[Voice of Victory](https://mikeymischief.github.io/images/mtg/tdm-33-voice-of-victory.jpg) is a great card for those same {r/w} decks that want to be attacking every turn. It also plays well with the {w/b} sacrifice/stax decks since it can produce so many tokens. Finally, locking out _instant_ spells from your opponent so that you don't get surprised in combat is especially appreciated when playing these low-to-the-ground {w} decks. [Voice of Victory](https://mikeymischief.github.io/images/mtg/tdm-33-voice-of-victory.jpg) would likely be higher on this list if I liked playing this archetype more (I'm a {u/b} control player through-and-through).
 
 ----
 ## 7. [Wan shi Tong, Librarian](https://mikeymischief.github.io/images/mtg/tla-78-wan-shi-tong-librarian.jpg)
 
 ![Wan shi Tong, Librarian](/images/mtg/tla-78-wan-shi-tong-librarian.jpg "Wan shi Tong, Librarian"){: width="250" }
 
-[Wan shi Tong, Librarian](https://mikeymischief.github.io/images/mtg/tla-78-wan-shi-tong-librarian.jpg) is perfect as the updated version of [Hydroid Krasis](https://mikeymischief.github.io/images/mtg/rna-183-hydroid-krasis.jpg), but just mono-color. It's fine playing this early in a fetch-land heavy environment as it will grow as the game progresses, so {u} tempo decks can play this creature. The _flash_ on [Wan shi Tong, Librarian](https://mikeymischief.github.io/images/mtg/tla-78-wan-shi-tong-librarian.jpg) means that it also plays well in control where you want to be able to use your mana every turn, but leave open mana on the opponent's turn. The card draw really throws this card above and beyond. I hadn't realized until I was doing the research for this article that this card has more than doubled its value since release.
+[Wan shi Tong, Librarian](https://mikeymischief.github.io/images/mtg/tla-78-wan-shi-tong-librarian.jpg) is perfect as an updated version of [Hydroid Krasis](https://mikeymischief.github.io/images/mtg/rna-183-hydroid-krasis.jpg), but mono-color. It's fine playing this early in a fetch-land heavy environment as she will grow as the game progresses, so it wouldn't be odd when cast in {u} tempo decks. The _flash_ on [Wan shi Tong, Librarian](https://mikeymischief.github.io/images/mtg/tla-78-wan-shi-tong-librarian.jpg) means that it also plays well in a control archetype, where you want to be able to use your mana every turn, but leave open mana on the opponent's turn. The card draw really ties this card together, pushing it above and beyond what you might expect any creature to do. 
+I hadn't realized until I was doing the research for this article that this card has more than doubled its monetary value since release.
 
 ----
 ## 6. [Multiversal Passage](https://mikeymischief.github.io/images/mtg/spm-180-multiversal-passage.jpg)
 
 ![Multiversal Passage](/images/mtg/spm-180-multiversal-passage.jpg "Multiversal Passage"){: width="250" }
 
-Ah, lands, my favorite card type in Magic. This one is great because it's a 5-color land that doesn't produce all 5 colors. It's not fetchable at all, but it's versatility in getting your splash color is unparalleled without having cost you life. Also, sometimes the land becoming the basic you choose is helpful in not-insignificant amount of games.
+Ah, lands, my favorite card type in Magic. This one is great because it's a 5-color land that doesn't produce all 5 colors. It's not fetchable at all, but it's versatility in getting your splash color is unparalleled without having cost you life. Also, sometimes the land becoming the basic you choose is helpful in a not-insignificant amount of games.
 
 ----
 ## 5. [Cori-steel Cutter](https://mikeymischief.github.io/images/mtg/tdm-103-cori-steel-cutter.jpg)
