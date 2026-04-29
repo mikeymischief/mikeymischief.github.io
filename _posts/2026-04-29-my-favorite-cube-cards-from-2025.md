@@ -26,6 +26,7 @@ In 2025, we have had 7 sets:
 - Avatar: The Last Airbender (November/December)
 
 From this list, Marvel's Spider-Man is immediatly removed. I do hope that [Superior Spider-man](https://mikeymischief.github.io/images/mtg/spm-155-superior-spider-man.jpg) gets an in-universe printing, because I think that would be an awesome design for {u/b}. The other UB properties (Final Fantasy and Avatar: The Last Airbender), I carefully selected which cards I added, trying to not pick cards that invoke any of those IPs directly by avoiding named characters when I could. Finally, I also didn't care too much for the theme of Aetherdrift (drift/racing). So many of these cards will be from Tarkir: Dragonstorm and Edge of Eternities. At this moment, there are still [35 cards](https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler&f=%28set%3Adft+or+set%3Adrc+or+set%3Atdm+or+set%3Atdc+or+set%3Afin+or+set%3Afic+or+set%3Aeoe+or+set%3Aeoc+or+set%3Aspm+or+set%3Atla+or+set%3Atle%29) from the last year in this cube. Which ones make the cut?
+
 ----
 
 ## 10. [Monument to Endurance](https://mikeymischief.github.io/images/mtg/dft-394-monument-to-endurance.jpg)
