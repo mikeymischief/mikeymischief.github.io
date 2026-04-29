@@ -8,7 +8,7 @@ pubDate: 2021-10-30
 description: "A Halloween eve cube draft featuring Innistrad: Midnight Hunt cards with four players."
 comments: true
 excerpt_separator: <!--more-->
-categories: mtg cube draft
+categories: mtg cube draft event
 ---
 
 It's been another long while since we got together for a cube draft. On the eve of Halloween, we drafted the cube with Innistrad: Midnight Hunt cards! This time around we only had time for a single draft, despite trying to get 2 draft in. We had the typical lunch of Domino's Pizza as everyone played through the games. Four players showed up: Mikey, Gerf, Jeddy, and Brian. 

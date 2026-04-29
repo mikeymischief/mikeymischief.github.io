@@ -8,7 +8,7 @@ pubDate: 2020-09-12
 description: Two drafts in one day with five players, using Utility Land Draft and Wildcard Duplicates.
 comments: true
 excerpt_separator: <!--more-->
-categories: mtg cube draft
+categories: mtg cube draft event
 ---
 
 This day we started early at 9am, so that we eventually got 2 drafts to play. We decided to use both the Utility Land Draft and the Wildcard Duplicates. I would say both are a resounding success at creating an environment that is more about decks and not cards.

@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mana-font@latest/css/mana.min.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
@@ -54,6 +55,77 @@
     </div>
 
     {% include analytics.html %}
+
+    <script>
+      (function() {
+        var symbolMap = {
+          'W':'ms-w', 'U':'ms-u', 'B':'ms-b', 'R':'ms-r', 'G':'ms-g',
+          'C':'ms-c', 'X':'ms-x', 'Y':'ms-y', 'Z':'ms-z',
+          'T':'ms-tap', 'Q':'ms-untap', 'S':'ms-s', 'E':'ms-e',
+          '0':'ms-0','1':'ms-1','2':'ms-2','3':'ms-3','4':'ms-4',
+          '5':'ms-5','6':'ms-6','7':'ms-7','8':'ms-8','9':'ms-9',
+          '10':'ms-10','11':'ms-11','12':'ms-12','13':'ms-13','14':'ms-14',
+          '15':'ms-15','16':'ms-16','17':'ms-17','18':'ms-18','19':'ms-19','20':'ms-20',
+          'W/U':'ms-wu','W/B':'ms-wb','U/B':'ms-ub','U/R':'ms-ur',
+          'B/R':'ms-br','B/G':'ms-bg','R/G':'ms-rg','R/W':'ms-rw',
+          'G/W':'ms-gw','G/U':'ms-gu',
+          'W/P':'ms-wp','U/P':'ms-up','B/P':'ms-bp','R/P':'ms-rp','G/P':'ms-gp',
+          '2/W':'ms-2w','2/U':'ms-2u','2/B':'ms-2b','2/R':'ms-2r','2/G':'ms-2g'
+        };
+
+        // Canonical ordering for hybrid pairs so {U/W} == {W/U}, etc.
+        var hybridOrder = ['W','U','B','R','G','P'];
+        function normalizeHybrid(sym) {
+          var parts = sym.split('/');
+          if (parts.length !== 2) return sym;
+          var a = parts[0], b = parts[1];
+          // 2/X hybrids: numeric always first
+          if (/^\d+$/.test(a) || /^\d+$/.test(b)) {
+            return /^\d+$/.test(a) ? a+'/'+b : b+'/'+a;
+          }
+          // Phyrexian: color always first, P always last
+          if (b === 'P') return a+'/P';
+          if (a === 'P') return b+'/P';
+          // Color pairs: sort by hybridOrder
+          var ai = hybridOrder.indexOf(a), bi = hybridOrder.indexOf(b);
+          return (ai <= bi ? a+'/'+b : b+'/'+a);
+        }
+
+        function manaHTML(sym) {
+          var upper = sym.toUpperCase();
+          var normalized = upper.indexOf('/') !== -1 ? normalizeHybrid(upper) : upper;
+          var cls = symbolMap[normalized];
+          if (!cls) return '{' + sym + '}';
+          return '<i class="ms ms-cost ms-shadow ' + cls + '" title="{' + sym + '}"></i>';
+        }
+
+        function replaceInText(text) {
+          return text.replace(/\{([^}]+)\}/g, function(match, sym) {
+            return manaHTML(sym);
+          });
+        }
+
+        function processNode(node) {
+          if (node.nodeType === 3) {
+            if (node.textContent.indexOf('{') === -1) return;
+            var span = document.createElement('span');
+            span.innerHTML = node.textContent
+              .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            span.innerHTML = replaceInText(span.innerHTML);
+            node.parentNode.replaceChild(span, node);
+          } else if (node.nodeType === 1) {
+            var tag = node.tagName;
+            if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'CODE' || tag === 'PRE') return;
+            Array.from(node.childNodes).forEach(processNode);
+          }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+          var main = document.getElementById('main');
+          if (main) processNode(main);
+        });
+      })();
+    </script>
 
     <script>
       (function() {

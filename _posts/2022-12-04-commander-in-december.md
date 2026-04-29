@@ -8,7 +8,7 @@ pubDate: 2022-12-04
 description: A December Commander session with the usual crew — decks, games, and holiday vibes.
 comments: true
 excerpt_separator: <!--more-->
-categories: mtg commander
+categories: mtg commander event
 ---
 
 <style>
