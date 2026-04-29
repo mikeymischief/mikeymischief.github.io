@@ -265,6 +265,78 @@ nav {
   border-bottom: none;
 }
 
+.post-with-date {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.post-date-stamp {
+  flex-shrink: 0;
+  width: 48px;
+  text-align: center;
+  padding-top: 4px;
+
+  .post-date-month {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $gold;
+    font-family: $helveticaNeue;
+  }
+
+  .post-date-day {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1;
+    color: $text-heading;
+    font-family: $helveticaNeue;
+  }
+
+  .post-date-year {
+    display: block;
+    font-size: 11px;
+    color: $text-secondary;
+    font-family: $helveticaNeue;
+  }
+}
+
+.post-content {
+  flex: 1;
+  min-width: 0;
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+@include mobile {
+  .post-with-date {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .post-date-stamp {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+    text-align: left;
+
+    .post-date-month, .post-date-day, .post-date-year {
+      display: inline;
+      font-size: 13px;
+      font-weight: normal;
+    }
+
+    .post-date-day {
+      font-size: 13px;
+    }
+  }
+}
+
 .post {
   blockquote {
     margin: 1.8em .8em;
