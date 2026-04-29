@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 layout: post
 title: "My Favorite Cube Cards from 2025"
 author: mikey
