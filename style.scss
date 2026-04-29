@@ -18,9 +18,18 @@ html {
 }
 
 body {
-  background: $bg-page;
+  background: $bg-page url('/images/bg/2526-archive-trap.jpg') center center / cover fixed;
   font: 18px/1.6 $helvetica;
   color: $text-primary;
+}
+
+.page-wrapper {
+  max-width: 1800px;
+  margin: 0 auto;
+  background: $bg-page;
+  min-height: 100vh;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%);
 }
 
 .container {
