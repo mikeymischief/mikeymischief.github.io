@@ -65,11 +65,11 @@ I hadn't realized until I was doing the research for this article that this card
 Ah, lands, my favorite card type in Magic. This one is great because it's a 5-color land that doesn't produce all 5 colors. It's not fetchable at all, but it's versatility in getting your splash color is unparalleled without having cost you life. Also, sometimes the land becoming the basic you choose is helpful in a not-insignificant amount of games.
 
 ----
-## 5. [Cori-steel Cutter](https://mikeymischief.github.io/images/mtg/tdm-103-cori-steel-cutter.jpg)
+## 5. [Cori-Steel Cutter](https://mikeymischief.github.io/images/mtg/tdm-103-cori-steel-cutter.jpg)
 
-![Cori-steel Cutter](/images/mtg/tdm-103-cori-steel-cutter.jpg "Cori-steel Cutter"){: width="250" }
+![Cori-Steel Cutter](/images/mtg/tdm-103-cori-steel-cutter.jpg "Cori-steel Cutter"){: width="250" }
 
-[Cori-steel Cutter](https://mikeymischief.github.io/images/mtg/tdm-103-cori-steel-cutter.jpg) did a lot of bad things for standard {u/r} decks. You may not notice [Vivi Ornitier](https://mikeymischief.github.io/images/mtg/fin-321-vivi-ornitier.jpg) on this list, because I haven't really gotten a chance to play it yet, but [Cori-steel Cutter](https://mikeymischief.github.io/images/mtg/tdm-103-cori-steel-cutter.jpg), is great for aggro decks (are you getting tired of hearing that yet?), since it's reinforces these same {r} decks to cast spells and then creates even more threats for opponents to deal with. Being an immediate 2-for-1, right off the bat makes this one hard to deal with since you've got to deal with an artifact and a _prowess_ creature.
+[Cori-Steel Cutter](https://mikeymischief.github.io/images/mtg/tdm-103-cori-steel-cutter.jpg) did a lot of bad things for standard {u/r} decks. You may not notice [Vivi Ornitier](https://mikeymischief.github.io/images/mtg/fin-321-vivi-ornitier.jpg) on this list, because I haven't really gotten a chance to play it yet, but [Cori-Steel Cutter](https://mikeymischief.github.io/images/mtg/tdm-103-cori-steel-cutter.jpg), is great for aggro decks (are you getting tired of hearing that yet?), since it's reinforces these same {r} decks to cast spells and then creates even more threats for opponents to deal with. Being an immediate 2-for-1, right off the bat makes this one hard to deal with since you've got to deal with an artifact and a _prowess_ creature.
 
 ----
 ## 4. [Winternight Stories](https://mikeymischief.github.io/images/mtg/tdm-67-winternight-stories.jpg)
