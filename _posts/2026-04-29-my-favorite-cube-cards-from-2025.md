@@ -13,8 +13,6 @@ categories: mtg cube favorites editorial
 
 Welcome to the first of the retrospective articles for this blog. This time we're discussing my favorite cards from 2025.
 
-<!--more-->
-
 These cards make this list for a variety of reasons: bolstering archetypes, awesome build-around card, or a card that just supercedes an older card. Keep in mind, that I do have a prediliction for older cards and I try to preserve that feeling in this cube more than anything else. I'm allergic to cards that are just all-in-one or snowballs into a victory by itself. I also am limiting most Universes Beyond products, especially ones that don't fit the MTG aesthetic.
 
 In 2025, we have had 6 sets:
@@ -26,6 +24,8 @@ In 2025, we have had 6 sets:
 - Avatar: The Last Airbender (November/December)
 
 From this list, Marvel's Spider-Man is immediatly removed (I did add one non-IP specific card - look below). I do hope that [Superior Spider-man](https://mikeymischief.github.io/images/mtg/spm-155-superior-spider-man.jpg) gets an in-universe printing, because I think that would be an awesome design for {u/b}. The other UB properties (Final Fantasy and Avatar: The Last Airbender), I carefully selected which cards I added, trying to not pick cards that invoke any of those IPs directly by avoiding named characters when I could. Finally, I also didn't care too much for the theme of Aetherdrift (drift/racing), so there were only 3 cards added. So many of these cards will be from Tarkir: Dragonstorm and Edge of Eternities. At this moment, there are still [35 cards](https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler&f=%28set%3Adft+or+set%3Adrc+or+set%3Atdm+or+set%3Atdc+or+set%3Afin+or+set%3Afic+or+set%3Aeoe+or+set%3Aeoc+or+set%3Aspm+or+set%3Atla+or+set%3Atle%29) from the last year in this cube. Which ones make the cut?
+
+<!--more-->
 
 ----
 
