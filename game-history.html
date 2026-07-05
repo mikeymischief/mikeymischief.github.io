@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root {
     --bg: #0d0f1a;
@@ -302,6 +303,22 @@
     min-height: 1em;
   }
 
+  .mmr-chart-wrap {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .mmr-chart-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 16px;
+  }
+
   footer {
     margin-top: 48px;
     color: var(--ink-faint);
@@ -353,6 +370,11 @@
     <datalist id="all-cmdrs-list"></datalist>
   </div>
 
+  <div class="mmr-chart-wrap" id="mmr-chart-wrap" style="display:none">
+    <div class="mmr-chart-title" id="mmr-chart-title">MMR over time</div>
+    <canvas id="mmr-chart"></canvas>
+  </div>
+
   <div class="history-scroll" id="history-container"></div>
 
   <footer>Source: Games tab, published to web as CSV.</footer>
@@ -394,9 +416,12 @@ function cmdrName(v) {
 }
 
 const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
+const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#7ba7e0', Jubee: '#e0c360' };
 let statsMap = {};
 let lastSeenGameGlobal = {};
 let totalPodsGlobal = 0;
+let podsChronological = [];
+let mmrChartInstance = null;
 
 function buildStatsMap(rows) {
   const map = {};
@@ -525,6 +550,82 @@ function updatePredictor() {
   });
 }
 
+function buildMmrChart(cmdr) {
+  if (mmrChartInstance) { mmrChartInstance.destroy(); mmrChartInstance = null; }
+  const wrap = document.getElementById('mmr-chart-wrap');
+  if (!cmdr) { wrap.style.display = 'none'; return; }
+
+  const pilotPoints = {};
+  podsChronological.forEach((pod, idx) => {
+    pod.forEach(row => {
+      if (normalizeCmdr(row[G.commander]) !== cmdr) return;
+      const pilot = (row[G.pilot] || '').trim();
+      const endMmr = parseFloat(row[G.endMmr]);
+      if (!pilot || isNaN(endMmr)) return;
+      if (!pilotPoints[pilot]) pilotPoints[pilot] = [];
+      pilotPoints[pilot].push({ x: idx + 1, y: Math.round(endMmr), won: !!(row[G.winner] && row[G.winner].trim()) });
+    });
+  });
+
+  const pilots = Object.keys(pilotPoints);
+  if (!pilots.length) { wrap.style.display = 'none'; return; }
+
+  const datasets = pilots.map(pilot => {
+    const color = PILOT_COLORS[pilot] || '#aaa';
+    const pts = pilotPoints[pilot];
+    return {
+      label: pilot,
+      data: pts.map(p => ({ x: p.x, y: p.y })),
+      borderColor: color,
+      backgroundColor: color + '22',
+      pointBackgroundColor: pts.map(p => p.won ? color : '#2a2a3a'),
+      pointBorderColor: pts.map(p => color),
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      tension: 0.3,
+      fill: false,
+    };
+  });
+
+  document.getElementById('mmr-chart-title').textContent = cmdr + ' — MMR over time';
+  wrap.style.display = '';
+
+  const dimColor = '#5c5d68';
+  const lineColor = '#2c2e38';
+  mmrChartInstance = new Chart(document.getElementById('mmr-chart'), {
+    type: 'line',
+    data: { datasets },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: {
+          type: 'linear',
+          title: { display: true, text: 'Game #', color: dimColor },
+          ticks: { color: dimColor, stepSize: 1 },
+          grid: { color: lineColor },
+        },
+        y: {
+          title: { display: true, text: 'MMR', color: dimColor },
+          ticks: { color: dimColor },
+          grid: { color: lineColor },
+        },
+      },
+      plugins: {
+        legend: { labels: { color: '#e9e8e4', boxWidth: 12 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const p = pilotPoints[ctx.dataset.label][ctx.dataIndex];
+              return ` ${ctx.dataset.label}: ${ctx.parsed.y} MMR${p.won ? ' 👑' : ''}`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
 function applyFilter(value) {
   const pods = document.querySelectorAll('#history-container .pod');
   let shown = 0;
@@ -534,9 +635,20 @@ function applyFilter(value) {
     if (match) shown++;
   });
   const status = document.getElementById('filter-status');
-  status.textContent = value
-    ? shown + ' game' + (shown !== 1 ? 's' : '') + ' featuring ' + value
-    : '';
+  if (value) {
+    const allDates = new Set(podsChronological.map(pod => pod[0][G.date]));
+    const cmdrDates = new Set(
+      podsChronological
+        .filter(pod => pod.some(row => normalizeCmdr(row[G.commander]) === value))
+        .map(pod => pod[0][G.date])
+    );
+    const pct = allDates.size ? ((cmdrDates.size / allDates.size) * 100).toFixed(1) : '0.0';
+    status.textContent = shown + ' game' + (shown !== 1 ? 's' : '') + ' featuring ' + value
+      + '  ·  appeared in ' + cmdrDates.size + ' of ' + allDates.size + ' sessions (' + pct + '%)';
+  } else {
+    status.textContent = '';
+  }
+  buildMmrChart(value);
 }
 
 function showHistoryError(msg) {
@@ -621,6 +733,7 @@ function renderHistory(rows) {
   });
 
   lastSeenGameGlobal = lastSeenGame;
+  podsChronological = [...pods];
   pods.reverse(); // most recent first
 
   const totalPods = pods.length;
