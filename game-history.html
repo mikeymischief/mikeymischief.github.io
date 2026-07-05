@@ -519,19 +519,17 @@ function renderHistory(rows) {
     });
   });
 
-  // 📉 Biggest upset: winner with the single lowest predicted win probability
+  // 📉 Upset: winner had the lowest predicted win% in their pod
   const upsetRows = new Set();
-  let upsetRow = null, upsetProb = Infinity;
   pods.forEach(pod => {
+    const probs = pod.map(row => parseFloat(row[G.winProb])).filter(n => !isNaN(n));
+    if (!probs.length) return;
+    const minProb = Math.min(...probs);
     pod.forEach(row => {
       const won = row[G.winner] && row[G.winner].trim() !== '';
-      if (won) {
-        const wp = parseFloat(row[G.winProb]);
-        if (!isNaN(wp) && wp < upsetProb) { upsetProb = wp; upsetRow = row; }
-      }
+      if (won && parseFloat(row[G.winProb]) === minProb) upsetRows.add(row);
     });
   });
-  if (upsetRow) upsetRows.add(upsetRow);
 
   // 🌪️ Chaos pod: all players' win probs within 15 percentage points of each other
   const chaosPods = new Set();
@@ -595,7 +593,7 @@ function renderHistory(rows) {
       const badges = [
         isDebut    ? '<span class="badge" title="Commander debut">🔰</span>' : '',
         isReunion  ? '<span class="badge" title="Returning after a long absence">🔁</span>' : '',
-        isUpset    ? '<span class="badge" title="Biggest upset win — lowest predicted chance">📉</span>' : '',
+        isUpset    ? '<span class="badge" title="Upset win">📉</span>' : '',
         isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
       ].join('');
       const tr = document.createElement('tr');
