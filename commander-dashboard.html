@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Commander Stats — Table Standings</title>
+<title>Commander Stats by Player</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -199,7 +199,7 @@
 
   <header class="hero">
     <div class="eyebrow">Commander &middot; Pod Standings</div>
-    <h1>The Table Record</h1>
+    <h1>Commander Stats by Player</h1>
     <p class="hero-sub">Live from the group's rating sheet — TrueSkill-derived MMR, updated every time a game gets logged.</p>
     <div id="status">Loading standings…</div>
   </header>
@@ -229,9 +229,13 @@ const DATA_START_ROW = 3; // 0-indexed row where actual commander rows begin
 const OVERALL_ROW = 1;  // 0-indexed row containing the "Overall:" summary stats
 
 function pct(v) {
-  const n = parseFloat(v);
+  if (v === undefined || v === null || v === '') return "—";
+  // Google's CSV export gives percentage-formatted cells already in percentage
+  // scale (e.g. "57.14" or "57.14%"), not as a 0-1 fraction -- so no *100 here.
+  const s = String(v).replace('%', '').trim();
+  const n = parseFloat(s);
   if (isNaN(n)) return "—";
-  return (n * 100).toFixed(1) + "%";
+  return n.toFixed(2) + "%";
 }
 function num(v, digits) {
   const n = parseFloat(v);
