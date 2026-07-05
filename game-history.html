@@ -575,20 +575,19 @@ function buildMmrChart(cmdr) {
   if (!cmdr) { wrap.style.display = 'none'; return; }
 
   const pilotPoints = {};
-  const playDates = [null]; // 1-indexed; playDates[n] = formatted date of nth play
-  let playNum = 0;
-  podsChronological.forEach(pod => {
+  const podDates = {}; // podNum → formatted date
+  podsChronological.forEach((pod, idx) => {
     const hasThisCmdr = pod.some(row => normalizeCmdr(row[G.commander]) === cmdr);
     if (!hasThisCmdr) return;
-    playNum++;
-    playDates.push(formatDate(pod[0][G.date]));
+    const podNum = idx + 1;
+    podDates[podNum] = formatDate(pod[0][G.date]);
     pod.forEach(row => {
       if (normalizeCmdr(row[G.commander]) !== cmdr) return;
       const pilot = (row[G.pilot] || '').trim();
       const endMmr = parseFloat(row[G.endMmr]);
       if (!pilot || isNaN(endMmr)) return;
       if (!pilotPoints[pilot]) pilotPoints[pilot] = [];
-      pilotPoints[pilot].push({ x: playNum, y: Math.round(endMmr), won: !!(row[G.winner] && row[G.winner].trim()) });
+      pilotPoints[pilot].push({ x: podNum, y: Math.round(endMmr), won: !!(row[G.winner] && row[G.winner].trim()) });
     });
   });
 
@@ -612,9 +611,12 @@ function buildMmrChart(cmdr) {
     };
   });
 
+  const playedPods = Object.keys(podDates).map(Number).sort((a, b) => a - b);
   const sessionBoundaries = [];
-  for (let i = 1; i < playDates.length - 1; i++) {
-    if (playDates[i] !== playDates[i + 1]) sessionBoundaries.push(i + 0.5);
+  for (let i = 0; i < playedPods.length - 1; i++) {
+    if (podDates[playedPods[i]] !== podDates[playedPods[i + 1]]) {
+      sessionBoundaries.push((playedPods[i] + playedPods[i + 1]) / 2);
+    }
   }
 
   const sessionLinePlugin = {
@@ -623,9 +625,8 @@ function buildMmrChart(cmdr) {
       if (!sessionBoundaries.length) return;
       const { ctx, scales: { x, y } } = chart;
       ctx.save();
-      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
       ctx.lineWidth = 1;
-      ctx.setLineDash([4, 4]);
       sessionBoundaries.forEach(b => {
         const px = x.getPixelForValue(b);
         ctx.beginPath();
