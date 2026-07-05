@@ -528,7 +528,7 @@ function renderHistory(rows) {
     pod.forEach(row => {
       const won = row[G.winner] && row[G.winner].trim() !== '';
       const plays = parseInt(row[G.cmdrPlays]) || 0;
-      if (won && plays >= 5 && parseFloat(row[G.winProb]) === minProb) upsetRows.add(row);
+      if (won && plays >= 4 && parseFloat(row[G.winProb]) === minProb) upsetRows.add(row);
     });
   });
 
