@@ -489,7 +489,7 @@ function renderHistory(rows) {
     pod.forEach(row => {
       const cmdr = normalizeCmdr(row[G.commander]);
       if (!cmdr) return;
-      if (lastSeenGame[cmdr] !== undefined && (gameIdx - lastSeenGame[cmdr]) >= 15) {
+      if (lastSeenGame[cmdr] !== undefined && (gameIdx - lastSeenGame[cmdr]) >= 20) {
         reunionRows.add(row);
       }
       lastSeenGame[cmdr] = gameIdx;
