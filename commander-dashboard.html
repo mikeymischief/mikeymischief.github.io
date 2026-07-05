@@ -266,6 +266,10 @@ function int(v) {
   if (isNaN(n)) return "—";
   return Math.round(n).toString();
 }
+function cmdrName(v) {
+  if (!v) return '';
+  return v.replace(/\r?\n/g, '<br>');
+}
 
 function buildPlayerCard(block, rows) {
   const startRow = DATA_START_ROW;
@@ -324,7 +328,7 @@ function buildPlayerCard(block, rows) {
     const b = block.start;
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td class="cmdr-name">${row[b]}</td>
+      <td class="cmdr-name">${cmdrName(row[b])}</td>
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${int(row[b+2])}</td>
       <td class="num">${pct(row[b+3])}</td>

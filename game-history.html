@@ -203,6 +203,10 @@ function int(v) {
   if (isNaN(n)) return "—";
   return Math.round(n).toString();
 }
+function cmdrName(v) {
+  if (!v) return '';
+  return v.replace(/\r?\n/g, '<br>');
+}
 
 function showHistoryError(msg) {
   const el = document.getElementById('history-status');
@@ -278,7 +282,7 @@ function renderHistory(rows) {
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
         <td class="pilot-name">${row[G.pilot] || ''}</td>
-        <td class="cmdr-name">${row[G.commander] || ''}</td>
+        <td class="cmdr-name">${cmdrName(row[G.commander])}</td>
         <td class="num">${seat}</td>
         <td class="num">${wp}</td>
         <td class="num">${num(row[G.startMmr],1)} → ${num(row[G.endMmr],1)}</td>
