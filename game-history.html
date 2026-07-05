@@ -230,7 +230,7 @@
   }
   .predictor-row {
     display: grid;
-    grid-template-columns: 80px 1fr 64px;
+    grid-template-columns: 80px 1fr auto 64px;
     gap: 10px;
     align-items: center;
     margin-bottom: 8px;
@@ -325,7 +325,7 @@ const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_
 
 // Games columns, 0-indexed: Date, Winner, Seat, Pilot, Commander, Starting MMR,
 // Ending MMR, MMR Delta, Win Probability, First Player W, CMDR Plays
-const G = { date:0, winner:1, seat:2, pilot:3, commander:4, startMmr:5, endMmr:6, delta:7, winProb:8 };
+const G = { date:0, winner:1, seat:2, pilot:3, commander:4, startMmr:5, endMmr:6, delta:7, winProb:8, cmdrPlays:10 };
 
 function pct(v) {
   if (v === undefined || v === null || v === '') return "—";
@@ -354,7 +354,9 @@ function cmdrName(v) {
 }
 
 const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
-let statsMap = {}; // { pilot: { commander: { wins, plays } } }
+let statsMap = {};
+let lastSeenGameGlobal = {};
+let totalPodsGlobal = 0;
 
 function buildStatsMap(rows) {
   const map = {};
@@ -393,6 +395,7 @@ function buildPredictor() {
     row.innerHTML = `
       <span class="predictor-pilot">${pilot}</span>
       <input class="predictor-input" list="${dlId}" placeholder="Commander…" data-pilot="${pilot}">
+      <span class="predictor-badges" id="pbadges-${pilot}"></span>
       <span class="predictor-pct no-data" id="pct-${pilot}">—</span>
     `;
     container.appendChild(row);
@@ -425,14 +428,34 @@ function updatePredictor() {
   const total = values.reduce((a, b) => a + b, 0);
 
   PILOTS.forEach(pilot => {
+    const input = document.querySelector(`.predictor-input[data-pilot="${pilot}"]`);
+    const cmdr = input ? input.value.trim() : '';
     const el = document.getElementById(`pct-${pilot}`);
+    const badgesEl = document.getElementById(`pbadges-${pilot}`);
+
     if (rates[pilot] === null) {
       el.textContent = '—';
       el.className = 'predictor-pct no-data';
+      if (badgesEl) badgesEl.textContent = '';
     } else {
       const normalized = total > 0 ? (rates[pilot] / total) * 100 : 25;
       el.textContent = normalized.toFixed(1) + '%';
       el.className = 'predictor-pct';
+
+      if (badgesEl && cmdr) {
+        const pilotStats = statsMap[pilot] && statsMap[pilot][cmdr];
+        const isUndefeated = pilotStats && pilotStats.plays >= 2 && pilotStats.wins === pilotStats.plays;
+        const isDebut = !Object.values(statsMap).some(ps => ps[cmdr]);
+        const lastSeen = lastSeenGameGlobal[cmdr];
+        const isReunion = lastSeen !== undefined && (totalPodsGlobal - lastSeen) >= 20;
+        badgesEl.innerHTML = [
+          isDebut     ? '<span class="badge" title="Commander debut">🔰</span>' : '',
+          isReunion   ? '<span class="badge" title="Returning after a long absence">🔁</span>' : '',
+          isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
+        ].join('');
+      } else if (badgesEl) {
+        badgesEl.textContent = '';
+      }
     }
   });
 }
@@ -519,11 +542,14 @@ function renderHistory(rows) {
     }
   });
 
+  lastSeenGameGlobal = lastSeenGame;
   pods.reverse(); // most recent first
 
+  const totalPods = pods.length;
+  totalPodsGlobal = totalPods;
   let lastDate = null;
   let bandToggle = false;
-  pods.forEach(pod => {
+  pods.forEach((pod, podIdx) => {
     const podDate = pod[0][G.date];
     if (podDate !== lastDate) {
       bandToggle = !bandToggle;
@@ -533,9 +559,10 @@ function renderHistory(rows) {
     const podDiv = document.createElement('div');
     podDiv.className = 'pod ' + (bandToggle ? 'band-a' : 'band-b');
 
+    const gameNum = totalPods - podIdx;
     const dateLabel = document.createElement('div');
     dateLabel.className = 'pod-date';
-    dateLabel.textContent = formatDate(podDate);
+    dateLabel.textContent = formatDate(podDate) + `  ·  Game ${gameNum}`;
     if (chaosPods.has(pod)) dateLabel.textContent += '  🎲';
     podDiv.appendChild(dateLabel);
 
@@ -547,6 +574,7 @@ function renderHistory(rows) {
         <th>Pilot</th>
         <th>Commander</th>
         <th class="num">Seat</th>
+        <th class="num">Plays</th>
         <th class="num">Win%</th>
         <th class="num">MMR (before → after)</th>
         <th class="num">&Delta;</th>
@@ -579,6 +607,7 @@ function renderHistory(rows) {
         <td class="pilot-name">${pilot}</td>
         <td class="cmdr-name">${cmdrName(row[G.commander])}${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
+        <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>
         <td class="num">${num(row[G.startMmr],1)} → ${num(row[G.endMmr],1)}</td>
         <td class="num">${row[G.delta] ? (parseFloat(row[G.delta])>=0?'+':'') + num(row[G.delta],1) : ''}</td>
