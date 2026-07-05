@@ -116,6 +116,18 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 12.5px;
   }
+  table.pod-table th {
+    text-align: left;
+    padding: 6px 8px;
+    color: var(--ink-faint);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 10px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  table.pod-table th.num { text-align: right; }
   table.pod-table td {
     padding: 5px 8px;
     white-space: nowrap;
@@ -243,6 +255,18 @@ function renderHistory(rows) {
 
     const table = document.createElement('table');
     table.className = 'pod-table';
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr>
+        <th>Pilot</th>
+        <th>Commander</th>
+        <th class="num">Seat</th>
+        <th class="num">Win%</th>
+        <th class="num">MMR (before → after)</th>
+        <th class="num">&Delta;</th>
+      </tr>
+    `;
+    table.appendChild(thead);
     const tbody = document.createElement('tbody');
 
     pod.forEach(row => {
