@@ -568,12 +568,21 @@ function buildMmrChart(cmdr) {
   if (!cmdr) { wrap.style.display = 'none'; return; }
 
   const pilotPoints = {};
-  const podDates = {}; // podNum → formatted date
+  const podDates = {};    // podNum → formatted date
+  const podSessions = {}; // podNum → session number
+  const sessionForDate = {};
+  let sNum = 0;
+  podsChronological.forEach(pod => {
+    const d = pod[0][G.date];
+    if (!(d in sessionForDate)) sessionForDate[d] = ++sNum;
+  });
+
   podsChronological.forEach((pod, idx) => {
     const hasThisCmdr = pod.some(row => normalizeCmdr(row[G.commander]) === cmdr);
     if (!hasThisCmdr) return;
     const podNum = idx + 1;
     podDates[podNum] = formatDate(pod[0][G.date]);
+    podSessions[podNum] = sessionForDate[pod[0][G.date]];
     pod.forEach(row => {
       if (normalizeCmdr(row[G.commander]) !== cmdr) return;
       const pilot = (row[G.pilot] || '').trim();
@@ -630,7 +639,11 @@ function buildMmrChart(cmdr) {
         x: {
           type: 'linear',
           title: { display: true, text: 'Game #', color: dimColor },
-          ticks: { color: dimColor, stepSize: 1 },
+          ticks: {
+            color: dimColor,
+            stepSize: 1,
+            callback: v => Number.isInteger(v) && podDates[v] ? [String(v), `S${podSessions[v]}`] : ''
+          },
           grid: { color: lineColor },
         },
         y: {
@@ -643,7 +656,7 @@ function buildMmrChart(cmdr) {
         legend: { labels: { color: '#e9e8e4', boxWidth: 12 } },
         tooltip: {
           callbacks: {
-            title: items => playDates[items[0].parsed.x] || `Session ${items[0].parsed.x}`,
+            title: items => podDates[items[0].parsed.x] ? `${podDates[items[0].parsed.x]}  ·  S${podSessions[items[0].parsed.x]}` : `Game ${items[0].parsed.x}`,
             label: ctx => {
               const p = pilotPoints[ctx.dataset.label][ctx.dataIndex];
               return ` ${ctx.dataset.label}: ${ctx.parsed.y} MMR${p.won ? ' 👑' : ''}`;
