@@ -186,20 +186,23 @@
   .table-scroll::-webkit-scrollbar { width: 8px; }
   .table-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
 
-  .history-link {
+  .history-link-top {
+    float: right;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 40px;
-    padding: 14px 20px;
+    gap: 6px;
+    padding: 8px 16px;
     border: 1px solid var(--line);
-    border-radius: 10px;
-    color: var(--ink);
+    border-radius: 20px;
+    color: var(--ink-dim);
     text-decoration: none;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 12.5px;
   }
-  .history-link:hover { border-color: var(--ink-dim); }
+  .history-link-top:hover { border-color: var(--ink-dim); color: var(--ink); }
+  @media (max-width: 600px) {
+    .history-link-top { float: none; display: inline-block; margin-bottom: 20px; }
+  }
 
   footer {
     margin-top: 64px;
@@ -213,6 +216,7 @@
 <div class="wrap">
 
   <header class="hero">
+    <a class="history-link-top" href="game-history.html">View full game history &rarr;</a>
     <div class="eyebrow">Commander &middot; Pod Standings</div>
     <h1>Commander Stats by Player</h1>
     <p class="hero-sub">Live from the group's rating sheet — TrueSkill-derived MMR, updated every time a game gets logged.</p>
@@ -220,8 +224,6 @@
   </header>
 
   <div class="table-grid" id="grid"></div>
-
-  <a class="history-link" href="game-history.html">View full game history &rarr;</a>
 
   <footer>Source: CMDRSTATS tab, published to web as CSV. Ratings computed via a TrueSkill-style Bayesian model, not raw win/loss.</footer>
 
