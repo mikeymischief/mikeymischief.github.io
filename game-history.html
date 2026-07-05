@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Game History — Commander Stats</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <style>
   :root {
-    --bg: #14151a;
+    --bg: #0d0f1a;
+    --gold: #d4af37;
     --bg-raised: #1c1e26;
     --line: #2c2e38;
     --ink: #e9e8e4;
@@ -26,16 +27,81 @@
 
   body {
     margin: 0;
-    background: var(--bg);
+    background: var(--bg) url('/images/bg/2526-archive-trap.jpg') 40% center / cover fixed;
     color: var(--ink);
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
+  .page-wrapper {
+    max-width: 1800px;
+    margin: 0 auto;
+    background-color: var(--bg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%);
+  }
+
+  .site-masthead {
+    background: #07080f;
+    border-bottom: 1px solid #2a2a3a;
+    margin-bottom: 50px;
+  }
+  .masthead-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .masthead-avatar img {
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    border: 2px solid #8b6914;
+    display: block;
+  }
+  .masthead-info { flex: 1; }
+  .masthead-site-name a {
+    color: #d4af37;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-shadow: 0 0 20px rgba(212,175,55,0.3);
+    display: block;
+  }
+  .masthead-site-name a:hover { color: #f0d060; }
+  .masthead-site-desc {
+    color: #8b8ea8;
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .masthead-nav { display: flex; }
+  .masthead-nav a {
+    margin-left: 20px;
+    color: #8b8ea8;
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .masthead-nav a:hover { color: #d4af37; text-decoration: none; }
+  @media (max-width: 640px) {
+    .masthead-inner { flex-wrap: wrap; }
+    .masthead-nav { margin-top: 8px; width: 100%; }
+    .masthead-nav a:first-child { margin-left: 0; }
+  }
+
   .wrap {
     max-width: 900px;
     margin: 0 auto;
-    padding: 48px 24px 96px;
+    padding: 0 24px 96px;
   }
 
   header.hero {
@@ -75,12 +141,12 @@
   }
 
   h1 {
-    font-family: 'Fraunces', serif;
+    font-family: 'Cinzel', serif;
     font-weight: 700;
     font-size: clamp(2rem, 5vw, 3rem);
     line-height: 1.05;
     margin: 0 0 12px;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.02em;
   }
 
   .hero-sub {
@@ -174,6 +240,21 @@
 </style>
 </head>
 <body>
+<div class="page-wrapper">
+<div class="site-masthead">
+  <div class="masthead-inner">
+    <a href="/" class="masthead-avatar"><img src="https://mikeymischief.github.io/images/ScroogeMcDuck.png" alt="Mischief's Gaming Blog"></a>
+    <div class="masthead-info">
+      <div class="masthead-site-name"><a href="/">Mischief's Gaming Blog</a></div>
+      <div class="masthead-site-desc">A Magic The Gathering Blog</div>
+    </div>
+    <nav class="masthead-nav">
+      <a href="/commander-dashboard.html">Commander</a>
+      <a href="https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler">Cube</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</div>
 <div class="wrap">
 
   <header class="hero">
@@ -192,6 +273,7 @@
   <footer>Source: Games tab, published to web as CSV.</footer>
 
 </div>
+</div><!-- /.page-wrapper -->
 
 <script>
 const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=517398000&single=true&output=csv";
