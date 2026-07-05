@@ -213,6 +213,74 @@
   table.pod-table tr[data-p="Mikey"] td.pilot-name { color: var(--mikey); }
   table.pod-table tr[data-p="Jubee"] td.pilot-name { color: var(--jubee); }
 
+  .predictor {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .predictor-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+  .predictor-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 64px;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .predictor-row:last-child { margin-bottom: 0; }
+  .predictor-pilot {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .predictor-row[data-p="Brian"] .predictor-pilot { color: var(--brian); }
+  .predictor-row[data-p="Gerf"]  .predictor-pilot { color: var(--gerf); }
+  .predictor-row[data-p="Mikey"] .predictor-pilot { color: var(--mikey); }
+  .predictor-row[data-p="Jubee"] .predictor-pilot { color: var(--jubee); }
+  .predictor-input {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 5px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+  }
+  .predictor-input:focus { border-color: var(--ink-dim); }
+  .predictor-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+    color: var(--ink);
+  }
+  .predictor-pct.no-data { color: var(--ink-faint); font-size: 12px; }
+
+  .debut-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    background: rgba(212, 175, 55, 0.15);
+    color: #d4af37;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 3px;
+    padding: 1px 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
   footer {
     margin-top: 48px;
     color: var(--ink-faint);
@@ -248,6 +316,12 @@
     <p class="hero-sub">Every logged game, most recent first — pulled live from the group's Games sheet.</p>
     <div id="history-status">Loading game history…</div>
   </header>
+
+  <div class="predictor" id="predictor" style="display:none">
+    <div class="predictor-title">Pod Predictor — historical win % by commander</div>
+    <div id="predictor-rows"></div>
+    <datalist id="cmdr-list"></datalist>
+  </div>
 
   <div class="history-scroll" id="history-container"></div>
 
@@ -285,6 +359,87 @@ function cmdrName(v) {
   return v.replace(/\r?\n/g, '<br>');
 }
 
+const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
+let statsMap = {}; // { pilot: { commander: { wins, plays } } }
+
+function buildStatsMap(rows) {
+  const map = {};
+  for (let r = 1; r < rows.length; r++) {
+    const row = rows[r];
+    const cmdr = row[G.commander];
+    if (!cmdr || cmdr.trim() === '') continue;
+    const pilot = row[G.pilot];
+    const won = row[G.winner] && row[G.winner].trim() !== '';
+    if (!map[pilot]) map[pilot] = { _total: { wins: 0, plays: 0 } };
+    if (!map[pilot][cmdr]) map[pilot][cmdr] = { wins: 0, plays: 0 };
+    map[pilot][cmdr].plays++;
+    map[pilot]._total.plays++;
+    if (won) { map[pilot][cmdr].wins++; map[pilot]._total.wins++; }
+  }
+  return map;
+}
+
+function buildPredictor(allCommanders) {
+  // Populate datalist
+  const dl = document.getElementById('cmdr-list');
+  allCommanders.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    dl.appendChild(opt);
+  });
+
+  const container = document.getElementById('predictor-rows');
+  PILOTS.forEach(pilot => {
+    const row = document.createElement('div');
+    row.className = 'predictor-row';
+    row.dataset.p = pilot;
+    row.innerHTML = `
+      <span class="predictor-pilot">${pilot}</span>
+      <input class="predictor-input" list="cmdr-list" placeholder="Commander…" data-pilot="${pilot}">
+      <span class="predictor-pct no-data" id="pct-${pilot}">—</span>
+    `;
+    container.appendChild(row);
+  });
+
+  container.addEventListener('input', updatePredictor);
+  document.getElementById('predictor').style.display = '';
+}
+
+function updatePredictor() {
+  const rates = {};
+  PILOTS.forEach(pilot => {
+    const input = document.querySelector(`.predictor-input[data-pilot="${pilot}"]`);
+    const cmdr = input ? input.value.trim() : '';
+    const pilotStats = statsMap[pilot];
+    if (cmdr && pilotStats && pilotStats[cmdr]) {
+      const { wins, plays } = pilotStats[cmdr];
+      rates[pilot] = plays > 0 ? wins / plays : null;
+    } else if (cmdr && pilotStats) {
+      // commander not found for this pilot — use their overall rate
+      const t = pilotStats._total;
+      rates[pilot] = t.plays > 0 ? t.wins / t.plays : null;
+    } else {
+      rates[pilot] = null;
+    }
+  });
+
+  // Normalize the rates that have data
+  const values = PILOTS.map(p => rates[p]).filter(v => v !== null);
+  const total = values.reduce((a, b) => a + b, 0);
+
+  PILOTS.forEach(pilot => {
+    const el = document.getElementById(`pct-${pilot}`);
+    if (rates[pilot] === null) {
+      el.textContent = '—';
+      el.className = 'predictor-pct no-data';
+    } else {
+      const normalized = total > 0 ? (rates[pilot] / total) * 100 : 25;
+      el.textContent = normalized.toFixed(1) + '%';
+      el.className = 'predictor-pct';
+    }
+  });
+}
+
 function showHistoryError(msg) {
   const el = document.getElementById('history-status');
   el.textContent = msg;
@@ -314,6 +469,16 @@ function renderHistory(rows) {
     current.push(row);
   }
   if (current.length) pods.push(current);
+
+  // Build debut set before reversing (pods is oldest-first here)
+  const debutKeys = new Set();
+  const seenKeys = new Set();
+  pods.forEach(pod => {
+    pod.forEach(row => {
+      const key = `${row[G.pilot]}:${row[G.commander]}`;
+      if (!seenKeys.has(key)) { debutKeys.add(key); seenKeys.add(key); }
+    });
+  });
 
   pods.reverse(); // most recent first
 
@@ -352,6 +517,7 @@ function renderHistory(rows) {
 
     pod.forEach(row => {
       const won = row[G.winner] && row[G.winner].trim() !== '';
+      const isDebut = debutKeys.has(`${row[G.pilot]}:${row[G.commander]}`);
       const tr = document.createElement('tr');
       tr.className = won ? 'winner-row' : '';
       tr.dataset.p = row[G.pilot];
@@ -359,7 +525,7 @@ function renderHistory(rows) {
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
         <td class="pilot-name">${row[G.pilot] || ''}</td>
-        <td class="cmdr-name">${cmdrName(row[G.commander])}</td>
+        <td class="cmdr-name">${cmdrName(row[G.commander])}${isDebut ? ' <span class="debut-badge" title="First time piloting this commander">debut</span>' : ''}</td>
         <td class="num">${seat}</td>
         <td class="num">${wp}</td>
         <td class="num">${num(row[G.startMmr],1)} → ${num(row[G.endMmr],1)}</td>
@@ -385,6 +551,10 @@ Papa.parse(GAMES_CSV_URL, {
       return;
     }
     try {
+      statsMap = buildStatsMap(results.data);
+      const allCommanders = new Set();
+      Object.values(statsMap).forEach(ps => Object.keys(ps).forEach(c => { if (c !== '_total') allCommanders.add(c); }));
+      buildPredictor(allCommanders);
       renderHistory(results.data);
     } catch (e) {
       showHistoryError('Could not parse game history: ' + e.message);
