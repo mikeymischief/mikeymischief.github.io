@@ -149,11 +149,11 @@
 
   .table-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 28px;
   }
-  @media (max-width: 880px) {
-    .table-grid { grid-template-columns: 1fr; }
+  @media (min-width: 880px) {
+    .table-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   .player-card {
