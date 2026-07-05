@@ -636,15 +636,31 @@ function applyFilter(value) {
   });
   const status = document.getElementById('filter-status');
   if (value) {
-    const allDates = new Set(podsChronological.map(pod => pod[0][G.date]));
-    const cmdrDates = new Set(
-      podsChronological
-        .filter(pod => pod.some(row => normalizeCmdr(row[G.commander]) === value))
-        .map(pod => pod[0][G.date])
+    const cmdrPods = podsChronological.filter(pod =>
+      pod.some(row => normalizeCmdr(row[G.commander]) === value)
     );
-    const pct = allDates.size ? ((cmdrDates.size / allDates.size) * 100).toFixed(1) : '0.0';
+    const cmdrDates = new Set(cmdrPods.map(pod => pod[0][G.date]));
+    const allDatesSorted = [...new Set(podsChronological.map(pod => pod[0][G.date]))].sort();
+    const debutDate = cmdrPods.length ? cmdrPods[0][0][G.date] : null;
+    const eligibleDates = debutDate ? allDatesSorted.filter(d => d >= debutDate) : allDatesSorted;
+    const sessions = cmdrDates.size;
+    const eligible = eligibleDates.length;
+    const pct = eligible ? ((sessions / eligible) * 100).toFixed(1) : '0.0';
+
+    let streak = 0, bestStreak = 0, curStreak = 0;
+    eligibleDates.forEach(d => {
+      if (cmdrDates.has(d)) { streak++; bestStreak = Math.max(bestStreak, streak); }
+      else { streak = 0; }
+    });
+    for (let i = eligibleDates.length - 1; i >= 0; i--) {
+      if (cmdrDates.has(eligibleDates[i])) curStreak++;
+      else break;
+    }
+
+    const streakNote = curStreak >= 3 ? `  ·  🔥${curStreak} session streak`
+      : bestStreak >= 2 ? `  ·  best streak: ${bestStreak}` : '';
     status.textContent = shown + ' game' + (shown !== 1 ? 's' : '') + ' featuring ' + value
-      + '  ·  appeared in ' + cmdrDates.size + ' of ' + allDates.size + ' sessions (' + pct + '%)';
+      + '  ·  ' + sessions + ' of ' + eligible + ' sessions since debut (' + pct + '%)' + streakNote;
   } else {
     status.textContent = '';
   }

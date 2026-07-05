@@ -289,12 +289,12 @@
 
   <section class="block">
     <h2>Commander Popularity</h2>
-    <div class="sub">How often each commander appears across all play sessions — sessions played in / total sessions.</div>
+    <div class="sub">Sessions played since debut — popularity is sessions played / sessions available since first appearance.</div>
     <div class="scroll-tall">
       <table class="data-table" id="popularity-table">
         <thead>
           <tr>
-            <th>Commander</th><th>Pilot</th><th class="num">Sessions</th><th class="num">Total</th><th class="num">Popularity</th>
+            <th>Commander</th><th>Pilot</th><th class="num">Sessions</th><th class="num">Popularity</th><th class="num">Streak</th><th class="num">Best</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -427,10 +427,8 @@ function normalizeCmdr(v) {
 }
 
 function renderPopularity(rows) {
-  // Column map matches game-history.html: date=0, pilot=3, commander=4
   const G = { date: 0, pilot: 3, commander: 4 };
-  const allDates = new Set();
-  // key: "pilot:commander" → Set of dates
+  const allDatesSet = new Set();
   const cmdrDateMap = {};
 
   rows.forEach(row => {
@@ -438,28 +436,54 @@ function renderPopularity(rows) {
     const pilot = (row[G.pilot] || '').trim();
     const cmdr = normalizeCmdr(row[G.commander]);
     if (!date || !cmdr || !pilot) return;
-    allDates.add(date);
+    allDatesSet.add(date);
     const key = pilot + ':' + cmdr;
     if (!cmdrDateMap[key]) cmdrDateMap[key] = { pilot, cmdr, dates: new Set() };
     cmdrDateMap[key].dates.add(date);
   });
 
-  const total = allDates.size;
-  const entries = Object.values(cmdrDateMap)
-    .map(({ pilot, cmdr, dates }) => ({ pilot, cmdr, sessions: dates.size, pct: dates.size / total }))
-    .sort((a, b) => b.pct - a.pct || a.cmdr.localeCompare(b.cmdr));
+  const allDatesSorted = [...allDatesSet].sort();
+
+  const entries = Object.values(cmdrDateMap).map(({ pilot, cmdr, dates }) => {
+    const debutDate = [...dates].sort()[0];
+    const eligibleDates = allDatesSorted.filter(d => d >= debutDate);
+    const sessions = dates.size;
+    const eligible = eligibleDates.length;
+    const pct = eligible ? sessions / eligible : 0;
+
+    // Best streak: longest consecutive run of sessions where commander was played
+    let streak = 0, bestStreak = 0;
+    eligibleDates.forEach(d => {
+      if (dates.has(d)) { streak++; bestStreak = Math.max(bestStreak, streak); }
+      else { streak = 0; }
+    });
+
+    // Current streak: consecutive sessions ending at the most recent eligible date
+    let curStreak = 0;
+    for (let i = eligibleDates.length - 1; i >= 0; i--) {
+      if (dates.has(eligibleDates[i])) curStreak++;
+      else break;
+    }
+
+    return { pilot, cmdr, sessions, eligible, pct, curStreak, bestStreak };
+  });
+
+  entries.sort((a, b) => b.pct - a.pct || a.cmdr.localeCompare(b.cmdr));
 
   const tbody = document.querySelector('#popularity-table tbody');
   tbody.innerHTML = '';
-  entries.forEach(({ pilot, cmdr, sessions, pct }) => {
+  entries.forEach(({ pilot, cmdr, sessions, eligible, pct, curStreak, bestStreak }) => {
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
+    const streakCell = curStreak >= 3 ? `🔥${curStreak}` : curStreak > 0 ? curStreak : '—';
+    const bestCell = bestStreak >= 2 ? bestStreak : '—';
     tr.innerHTML = `
       <td class="name">${cmdrName(cmdr)}</td>
       <td>${pilot}</td>
-      <td class="num">${sessions}</td>
-      <td class="num">${total}</td>
+      <td class="num">${sessions} / ${eligible}</td>
       <td class="num">${(pct * 100).toFixed(1)}%</td>
+      <td class="num">${streakCell}</td>
+      <td class="num">${bestCell}</td>
     `;
     tbody.appendChild(tr);
   });
