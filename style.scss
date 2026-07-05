@@ -159,6 +159,10 @@ img {
   margin-bottom: 50px;
   background: $bg-header;
   border-bottom: 1px solid $border;
+
+  .container {
+    max-width: 960px;
+  }
 }
 
 .masthead {
