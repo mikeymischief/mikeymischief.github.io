@@ -344,9 +344,13 @@ function int(v) {
   if (isNaN(n)) return "—";
   return Math.round(n).toString();
 }
+function normalizeCmdr(v) {
+  if (!v) return '';
+  return v.replace(/\r?\n/g, ' / ').trim();
+}
 function cmdrName(v) {
   if (!v) return '';
-  return v.replace(/\r?\n/g, '<br>');
+  return v.replace(/\r?\n/g, '<br>').trim();
 }
 
 const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
@@ -356,9 +360,9 @@ function buildStatsMap(rows) {
   const map = {};
   for (let r = 1; r < rows.length; r++) {
     const row = rows[r];
-    const cmdr = row[G.commander];
-    if (!cmdr || cmdr.trim() === '') continue;
-    const pilot = row[G.pilot];
+    const cmdr = normalizeCmdr(row[G.commander]);
+    if (!cmdr) continue;
+    const pilot = (row[G.pilot] || '').trim();
     const won = row[G.winner] && row[G.winner].trim() !== '';
     if (!map[pilot]) map[pilot] = { _total: { wins: 0, plays: 0 } };
     if (!map[pilot][cmdr]) map[pilot][cmdr] = { wins: 0, plays: 0 };
@@ -454,8 +458,8 @@ function renderHistory(rows) {
   let current = [];
   for (let r = 1; r < rows.length; r++) {
     const row = rows[r];
-    const cmdr = row[G.commander];
-    if (!cmdr || cmdr.trim() === '') {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    if (!cmdr) {
       if (current.length) { pods.push(current); current = []; }
       continue;
     }
@@ -470,7 +474,7 @@ function renderHistory(rows) {
   const seenCommanders = new Set();
   pods.forEach(pod => {
     pod.forEach(row => {
-      const cmdr = (row[G.commander] || '').trim();
+      const cmdr = normalizeCmdr(row[G.commander]);
       if (cmdr && !seenCommanders.has(cmdr)) {
         debutRows.add(row);
         seenCommanders.add(cmdr);
