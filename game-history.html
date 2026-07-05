@@ -153,6 +153,25 @@
     border-radius: 14px;
   }
 
+  .session-break {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 20px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .session-break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .session-break:first-child { padding-top: 8px; }
+
   .pod {
     border-bottom: 1px solid var(--line);
     padding: 14px 20px;
@@ -556,14 +575,20 @@ function buildMmrChart(cmdr) {
   if (!cmdr) { wrap.style.display = 'none'; return; }
 
   const pilotPoints = {};
-  podsChronological.forEach((pod, idx) => {
+  const playDates = [null]; // 1-indexed; playDates[n] = formatted date of nth play
+  let playNum = 0;
+  podsChronological.forEach(pod => {
+    const hasThisCmdr = pod.some(row => normalizeCmdr(row[G.commander]) === cmdr);
+    if (!hasThisCmdr) return;
+    playNum++;
+    playDates.push(formatDate(pod[0][G.date]));
     pod.forEach(row => {
       if (normalizeCmdr(row[G.commander]) !== cmdr) return;
       const pilot = (row[G.pilot] || '').trim();
       const endMmr = parseFloat(row[G.endMmr]);
       if (!pilot || isNaN(endMmr)) return;
       if (!pilotPoints[pilot]) pilotPoints[pilot] = [];
-      pilotPoints[pilot].push({ x: idx + 1, y: Math.round(endMmr), won: !!(row[G.winner] && row[G.winner].trim()) });
+      pilotPoints[pilot].push({ x: playNum, y: Math.round(endMmr), won: !!(row[G.winner] && row[G.winner].trim()) });
     });
   });
 
@@ -587,6 +612,31 @@ function buildMmrChart(cmdr) {
     };
   });
 
+  const sessionBoundaries = [];
+  for (let i = 1; i < playDates.length - 1; i++) {
+    if (playDates[i] !== playDates[i + 1]) sessionBoundaries.push(i + 0.5);
+  }
+
+  const sessionLinePlugin = {
+    id: 'sessionLines',
+    afterDraw(chart) {
+      if (!sessionBoundaries.length) return;
+      const { ctx, scales: { x, y } } = chart;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      sessionBoundaries.forEach(b => {
+        const px = x.getPixelForValue(b);
+        ctx.beginPath();
+        ctx.moveTo(px, y.top);
+        ctx.lineTo(px, y.bottom);
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+  };
+
   document.getElementById('mmr-chart-title').textContent = cmdr + ' — MMR over time';
   wrap.style.display = '';
 
@@ -594,6 +644,7 @@ function buildMmrChart(cmdr) {
   const lineColor = '#2c2e38';
   mmrChartInstance = new Chart(document.getElementById('mmr-chart'), {
     type: 'line',
+    plugins: [sessionLinePlugin],
     data: { datasets },
     options: {
       responsive: true,
@@ -615,6 +666,7 @@ function buildMmrChart(cmdr) {
         legend: { labels: { color: '#e9e8e4', boxWidth: 12 } },
         tooltip: {
           callbacks: {
+            title: items => playDates[items[0].parsed.x] || `Session ${items[0].parsed.x}`,
             label: ctx => {
               const p = pilotPoints[ctx.dataset.label][ctx.dataIndex];
               return ` ${ctx.dataset.label}: ${ctx.parsed.y} MMR${p.won ? ' 👑' : ''}`;
@@ -634,15 +686,23 @@ function applyFilter(value) {
     pod.style.display = match ? '' : 'none';
     if (match) shown++;
   });
+  document.querySelectorAll('#history-container .session-break').forEach(br => {
+    const hasVisible = !!document.querySelector(
+      `#history-container .pod[data-date="${br.dataset.date}"]:not([style*="display: none"])`
+    );
+    br.style.display = hasVisible ? '' : 'none';
+  });
   const status = document.getElementById('filter-status');
   if (value) {
     const cmdrPods = podsChronological.filter(pod =>
       pod.some(row => normalizeCmdr(row[G.commander]) === value)
     );
     const cmdrDates = new Set(cmdrPods.map(pod => pod[0][G.date]));
-    const allDatesSorted = [...new Set(podsChronological.map(pod => pod[0][G.date]))].sort();
+    const parseTs = d => new Date(d).getTime();
+    const allDatesSorted = [...new Set(podsChronological.map(pod => pod[0][G.date]))].sort((a, b) => parseTs(a) - parseTs(b));
     const debutDate = cmdrPods.length ? cmdrPods[0][0][G.date] : null;
-    const eligibleDates = debutDate ? allDatesSorted.filter(d => d >= debutDate) : allDatesSorted;
+    const debutTs = debutDate ? parseTs(debutDate) : 0;
+    const eligibleDates = debutDate ? allDatesSorted.filter(d => parseTs(d) >= debutTs) : allDatesSorted;
     const sessions = cmdrDates.size;
     const eligible = eligibleDates.length;
     const pct = eligible ? ((sessions / eligible) * 100).toFixed(1) : '0.0';
@@ -761,10 +821,16 @@ function renderHistory(rows) {
     if (podDate !== lastDate) {
       bandToggle = !bandToggle;
       lastDate = podDate;
+      const br = document.createElement('div');
+      br.className = 'session-break';
+      br.dataset.date = podDate;
+      br.textContent = formatDate(podDate);
+      container.appendChild(br);
     }
 
     const podDiv = document.createElement('div');
     podDiv.className = 'pod ' + (bandToggle ? 'band-a' : 'band-b');
+    podDiv.dataset.date = podDate;
     podDiv.dataset.cmdrs = pod.map(row => normalizeCmdr(row[G.commander])).filter(Boolean).join('|');
 
     const gameNum = totalPods - podIdx;

@@ -442,11 +442,13 @@ function renderPopularity(rows) {
     cmdrDateMap[key].dates.add(date);
   });
 
-  const allDatesSorted = [...allDatesSet].sort();
+  const parseTs = d => new Date(d).getTime();
+  const allDatesSorted = [...allDatesSet].sort((a, b) => parseTs(a) - parseTs(b));
 
   const entries = Object.values(cmdrDateMap).map(({ pilot, cmdr, dates }) => {
-    const debutDate = [...dates].sort()[0];
-    const eligibleDates = allDatesSorted.filter(d => d >= debutDate);
+    const debutDate = [...dates].sort((a, b) => parseTs(a) - parseTs(b))[0];
+    const debutTs = parseTs(debutDate);
+    const eligibleDates = allDatesSorted.filter(d => parseTs(d) >= debutTs);
     const sessions = dates.size;
     const eligible = eligibleDates.length;
     const pct = eligible ? sessions / eligible : 0;
@@ -469,10 +471,11 @@ function renderPopularity(rows) {
   });
 
   entries.sort((a, b) => b.pct - a.pct || a.cmdr.localeCompare(b.cmdr));
+  const filtered = entries.filter(e => e.sessions >= 3);
 
   const tbody = document.querySelector('#popularity-table tbody');
   tbody.innerHTML = '';
-  entries.forEach(({ pilot, cmdr, sessions, eligible, pct, curStreak, bestStreak }) => {
+  filtered.forEach(({ pilot, cmdr, sessions, eligible, pct, curStreak, bestStreak }) => {
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
     const streakCell = curStreak >= 3 ? `🔥${curStreak}` : curStreak > 0 ? curStreak : '—';
