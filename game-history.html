@@ -519,7 +519,7 @@ function renderHistory(rows) {
     });
   });
 
-  // 📉 Upset: winner had the lowest predicted win% in their pod
+  // 📉 Upset: winner had the lowest predicted win% in their pod, with ≥5 plays
   const upsetRows = new Set();
   pods.forEach(pod => {
     const probs = pod.map(row => parseFloat(row[G.winProb])).filter(n => !isNaN(n));
@@ -527,7 +527,8 @@ function renderHistory(rows) {
     const minProb = Math.min(...probs);
     pod.forEach(row => {
       const won = row[G.winner] && row[G.winner].trim() !== '';
-      if (won && parseFloat(row[G.winProb]) === minProb) upsetRows.add(row);
+      const plays = parseInt(row[G.cmdrPlays]) || 0;
+      if (won && plays >= 5 && parseFloat(row[G.winProb]) === minProb) upsetRows.add(row);
     });
   });
 
