@@ -154,23 +154,16 @@
   }
 
   .session-break {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 20px 20px 6px;
+    padding: 6px 20px;
+    margin: 8px 0 0;
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    background: #4a4d5e;
+    color: #f0efe9;
   }
-  .session-break::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--line);
-  }
-  .session-break:first-child { padding-top: 8px; }
+  .session-break:first-child { margin-top: 0; }
 
   .pod {
     border-bottom: 1px solid var(--line);
@@ -619,24 +612,7 @@ function buildMmrChart(cmdr) {
     }
   }
 
-  const sessionLinePlugin = {
-    id: 'sessionLines',
-    afterDraw(chart) {
-      if (!sessionBoundaries.length) return;
-      const { ctx, scales: { x, y } } = chart;
-      ctx.save();
-      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-      ctx.lineWidth = 1;
-      sessionBoundaries.forEach(b => {
-        const px = x.getPixelForValue(b);
-        ctx.beginPath();
-        ctx.moveTo(px, y.top);
-        ctx.lineTo(px, y.bottom);
-        ctx.stroke();
-      });
-      ctx.restore();
-    }
-  };
+  const sessionLinePlugin = { id: 'sessionLines', afterDraw() {} };
 
   document.getElementById('mmr-chart-title').textContent = cmdr + ' — MMR over time';
   wrap.style.display = '';
@@ -811,6 +787,14 @@ function renderHistory(rows) {
 
   lastSeenGameGlobal = lastSeenGame;
   podsChronological = [...pods];
+  // Build session numbers (chronological: 1 = oldest session)
+  const sessionNumForDate = {};
+  let sessionCounter = 0;
+  pods.forEach(pod => {
+    const d = pod[0][G.date];
+    if (!(d in sessionNumForDate)) sessionNumForDate[d] = ++sessionCounter;
+  });
+
   pods.reverse(); // most recent first
 
   const totalPods = pods.length;
@@ -819,13 +803,14 @@ function renderHistory(rows) {
   let bandToggle = false;
   pods.forEach((pod, podIdx) => {
     const podDate = pod[0][G.date];
+    const sessionNum = sessionNumForDate[podDate];
     if (podDate !== lastDate) {
       bandToggle = !bandToggle;
       lastDate = podDate;
       const br = document.createElement('div');
       br.className = 'session-break';
       br.dataset.date = podDate;
-      br.textContent = formatDate(podDate);
+      br.textContent = `Session ${sessionNum}  ·  ${formatDate(podDate)}`;
       container.appendChild(br);
     }
 
@@ -837,7 +822,7 @@ function renderHistory(rows) {
     const gameNum = totalPods - podIdx;
     const dateLabel = document.createElement('div');
     dateLabel.className = 'pod-date';
-    dateLabel.textContent = formatDate(podDate) + `  ·  Game ${gameNum}`;
+    dateLabel.textContent = `S${sessionNum}  ·  Game ${gameNum}`;
     if (chaosPods.has(pod)) dateLabel.textContent += '  🎲';
     podDiv.appendChild(dateLabel);
 
