@@ -320,7 +320,6 @@
   <div class="predictor" id="predictor" style="display:none">
     <div class="predictor-title">Pod Predictor — historical win % by commander</div>
     <div id="predictor-rows"></div>
-    <datalist id="cmdr-list"></datalist>
   </div>
 
   <div class="history-scroll" id="history-container"></div>
@@ -379,23 +378,27 @@ function buildStatsMap(rows) {
   return map;
 }
 
-function buildPredictor(allCommanders) {
-  // Populate datalist
-  const dl = document.getElementById('cmdr-list');
-  allCommanders.forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c;
-    dl.appendChild(opt);
-  });
-
+function buildPredictor() {
   const container = document.getElementById('predictor-rows');
   PILOTS.forEach(pilot => {
+    const dlId = `cmdr-list-${pilot.toLowerCase()}`;
+    const dl = document.createElement('datalist');
+    dl.id = dlId;
+    const pilotStats = statsMap[pilot] || {};
+    Object.keys(pilotStats).forEach(c => {
+      if (c === '_total') return;
+      const opt = document.createElement('option');
+      opt.value = c.trim();
+      dl.appendChild(opt);
+    });
+    document.body.appendChild(dl);
+
     const row = document.createElement('div');
     row.className = 'predictor-row';
     row.dataset.p = pilot;
     row.innerHTML = `
       <span class="predictor-pilot">${pilot}</span>
-      <input class="predictor-input" list="cmdr-list" placeholder="Commander…" data-pilot="${pilot}">
+      <input class="predictor-input" list="${dlId}" placeholder="Commander…" data-pilot="${pilot}">
       <span class="predictor-pct no-data" id="pct-${pilot}">—</span>
     `;
     container.appendChild(row);
@@ -471,12 +474,17 @@ function renderHistory(rows) {
   if (current.length) pods.push(current);
 
   // Build debut set before reversing (pods is oldest-first here)
-  const debutKeys = new Set();
-  const seenKeys = new Set();
+  // A debut is the first time a commander ever appeared in the group (any pilot)
+  // Store row object references so only that specific row gets the badge.
+  const debutRows = new Set();
+  const seenCommanders = new Set();
   pods.forEach(pod => {
     pod.forEach(row => {
-      const key = `${row[G.pilot]}:${row[G.commander]}`;
-      if (!seenKeys.has(key)) { debutKeys.add(key); seenKeys.add(key); }
+      const cmdr = (row[G.commander] || '').trim();
+      if (cmdr && !seenCommanders.has(cmdr)) {
+        debutRows.add(row);
+        seenCommanders.add(cmdr);
+      }
     });
   });
 
@@ -517,7 +525,7 @@ function renderHistory(rows) {
 
     pod.forEach(row => {
       const won = row[G.winner] && row[G.winner].trim() !== '';
-      const isDebut = debutKeys.has(`${row[G.pilot]}:${row[G.commander]}`);
+      const isDebut = debutRows.has(row);
       const tr = document.createElement('tr');
       tr.className = won ? 'winner-row' : '';
       tr.dataset.p = row[G.pilot];
@@ -525,7 +533,7 @@ function renderHistory(rows) {
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
         <td class="pilot-name">${row[G.pilot] || ''}</td>
-        <td class="cmdr-name">${cmdrName(row[G.commander])}${isDebut ? ' <span class="debut-badge" title="First time piloting this commander">debut</span>' : ''}</td>
+        <td class="cmdr-name">${cmdrName(row[G.commander])}${isDebut ? ' <span class="debut-badge" title="Commander debut">🔰</span>' : ''}</td>
         <td class="num">${seat}</td>
         <td class="num">${wp}</td>
         <td class="num">${num(row[G.startMmr],1)} → ${num(row[G.endMmr],1)}</td>
@@ -552,9 +560,7 @@ Papa.parse(GAMES_CSV_URL, {
     }
     try {
       statsMap = buildStatsMap(results.data);
-      const allCommanders = new Set();
-      Object.values(statsMap).forEach(ps => Object.keys(ps).forEach(c => { if (c !== '_total') allCommanders.add(c); }));
-      buildPredictor(allCommanders);
+      buildPredictor();
       renderHistory(results.data);
     } catch (e) {
       showHistoryError('Could not parse game history: ' + e.message);
