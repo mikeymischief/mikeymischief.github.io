@@ -13,6 +13,8 @@ This blog is a general gaming blog for when I want to write things about games, 
 
 I have several cubes on [cube cobra](https://www.cubecobra.com/user/view/5d64bdf2855d7d4dccba2125). Many of these cubes are "set cubes", but my pride and joy is my synergy unpowered cube. Please give it a [look](https://www.cubecobra.com/cube/list/mischief_unpowered)!
 
+I also play MTG Commander with a pretty steady play group. I've started tracking metrics a few years back, you should give it a [look](https://mikeymischief.github.io/commander-dashboard.html).
+
 ### Contact me
 
 [mikey_mischief@hotmail.com](mailto:mikey_mischief@hotmail.com)
