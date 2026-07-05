@@ -376,8 +376,7 @@ function buildPredictor() {
     const dl = document.createElement('datalist');
     dl.id = dlId;
     const pilotStats = statsMap[pilot] || {};
-    Object.keys(pilotStats).forEach(c => {
-      if (c === '_total') return;
+    Object.keys(pilotStats).filter(c => c !== '_total').sort((a, b) => a.trim().localeCompare(b.trim())).forEach(c => {
       const opt = document.createElement('option');
       opt.value = c.trim();
       dl.appendChild(opt);
