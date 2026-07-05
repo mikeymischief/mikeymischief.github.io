@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game History — Commander Stats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+  :root {
+    --bg: #14151a;
+    --bg-raised: #1c1e26;
+    --line: #2c2e38;
+    --ink: #e9e8e4;
+    --ink-dim: #9a9aa4;
+    --ink-faint: #5c5d68;
+
+    --brian: #e08585;
+    --gerf: #7fc98f;
+    --mikey: #7ba7e0;
+    --jubee: #e0c360;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header.hero {
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-sub {
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+
+  #history-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-top: 20px;
+    margin-bottom: 14px;
+  }
+  #history-status.error { color: var(--brian); }
+
+  .history-scroll {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+
+  .pod {
+    border-bottom: 1px solid var(--line);
+    padding: 14px 20px;
+  }
+  .pod:last-child { border-bottom: none; }
+  .pod.band-a { background: #1a1c22; }
+  .pod.band-b { background: #17181d; }
+
+  .pod-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  table.pod-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+  }
+  table.pod-table td {
+    padding: 5px 8px;
+    white-space: nowrap;
+  }
+  table.pod-table td.pilot-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 12.5px;
+  }
+  table.pod-table td.cmdr-name {
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    white-space: normal;
+  }
+  table.pod-table td.num { text-align: right; color: var(--ink-dim); }
+  table.pod-table tr.winner-row {
+    background: rgba(127, 201, 143, 0.14);
+  }
+  table.pod-table tr.winner-row td.cmdr-name::after {
+    content: " 👑";
+  }
+  table.pod-table tr[data-p="Brian"] td.pilot-name { color: var(--brian); }
+  table.pod-table tr[data-p="Gerf"]  td.pilot-name { color: var(--gerf); }
+  table.pod-table tr[data-p="Mikey"] td.pilot-name { color: var(--mikey); }
+  table.pod-table tr[data-p="Jubee"] td.pilot-name { color: var(--jubee); }
+
+  footer {
+    margin-top: 48px;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <a class="back-link" href="commander-dashboard.html">&larr; Back to standings</a>
+    <div class="eyebrow">Commander &middot; Full Log</div>
+    <h1>Game History</h1>
+    <p class="hero-sub">Every logged game, most recent first — pulled live from the group's Games sheet.</p>
+    <div id="history-status">Loading game history…</div>
+  </header>
+
+  <div class="history-scroll" id="history-container"></div>
+
+  <footer>Source: Games tab, published to web as CSV.</footer>
+
+</div>
+
+<script>
+const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=517398000&single=true&output=csv";
+
+// Games columns, 0-indexed: Date, Winner, Seat, Pilot, Commander, Starting MMR,
+// Ending MMR, MMR Delta, Win Probability, First Player W, CMDR Plays
+const G = { date:0, winner:1, seat:2, pilot:3, commander:4, startMmr:5, endMmr:6, delta:7, winProb:8 };
+
+function pct(v) {
+  if (v === undefined || v === null || v === '') return "—";
+  const s = String(v).replace('%', '').trim();
+  const n = parseFloat(s);
+  if (isNaN(n)) return "—";
+  return n.toFixed(2) + "%";
+}
+function num(v, digits) {
+  const n = parseFloat(v);
+  if (isNaN(n)) return "—";
+  return n.toFixed(digits);
+}
+function int(v) {
+  const n = parseFloat(v);
+  if (isNaN(n)) return "—";
+  return Math.round(n).toString();
+}
+
+function showHistoryError(msg) {
+  const el = document.getElementById('history-status');
+  el.textContent = msg;
+  el.classList.add('error');
+}
+
+function formatDate(v) {
+  if (!v) return '';
+  const d = new Date(v);
+  if (isNaN(d.getTime())) return v;
+  return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+}
+
+function renderHistory(rows) {
+  const container = document.getElementById('history-container');
+  container.innerHTML = '';
+
+  const pods = [];
+  let current = [];
+  for (let r = 1; r < rows.length; r++) {
+    const row = rows[r];
+    const cmdr = row[G.commander];
+    if (!cmdr || cmdr.trim() === '') {
+      if (current.length) { pods.push(current); current = []; }
+      continue;
+    }
+    current.push(row);
+  }
+  if (current.length) pods.push(current);
+
+  pods.reverse(); // most recent first
+
+  let lastDate = null;
+  let bandToggle = false;
+  pods.forEach(pod => {
+    const podDate = pod[0][G.date];
+    if (podDate !== lastDate) {
+      bandToggle = !bandToggle;
+      lastDate = podDate;
+    }
+
+    const podDiv = document.createElement('div');
+    podDiv.className = 'pod ' + (bandToggle ? 'band-a' : 'band-b');
+
+    const dateLabel = document.createElement('div');
+    dateLabel.className = 'pod-date';
+    dateLabel.textContent = formatDate(podDate);
+    podDiv.appendChild(dateLabel);
+
+    const table = document.createElement('table');
+    table.className = 'pod-table';
+    const tbody = document.createElement('tbody');
+
+    pod.forEach(row => {
+      const won = row[G.winner] && row[G.winner].trim() !== '';
+      const tr = document.createElement('tr');
+      tr.className = won ? 'winner-row' : '';
+      tr.dataset.p = row[G.pilot];
+      const seat = row[G.seat] ? 'Seat ' + int(row[G.seat]) : '';
+      const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
+      tr.innerHTML = `
+        <td class="pilot-name">${row[G.pilot] || ''}</td>
+        <td class="cmdr-name">${row[G.commander] || ''}</td>
+        <td class="num">${seat}</td>
+        <td class="num">${wp}</td>
+        <td class="num">${num(row[G.startMmr],1)} → ${num(row[G.endMmr],1)}</td>
+        <td class="num">${row[G.delta] ? (parseFloat(row[G.delta])>=0?'+':'') + num(row[G.delta],1) : ''}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+    podDiv.appendChild(table);
+    container.appendChild(podDiv);
+  });
+
+  document.getElementById('history-status').textContent =
+    pods.length + ' games loaded, most recent first.';
+}
+
+Papa.parse(GAMES_CSV_URL, {
+  download: true,
+  complete: function(results) {
+    if (!results.data || results.data.length < 2) {
+      showHistoryError('Loaded, but the Games sheet looks empty.');
+      return;
+    }
+    try {
+      renderHistory(results.data);
+    } catch (e) {
+      showHistoryError('Could not parse game history: ' + e.message);
+    }
+  },
+  error: function(err) {
+    showHistoryError('Could not load the Games sheet (' + err + ').');
+  }
+});
+</script>
+</body>
+</html>
