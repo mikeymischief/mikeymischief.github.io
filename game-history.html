@@ -272,6 +272,36 @@
     vertical-align: middle;
   }
 
+  .cmdr-filter {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .cmdr-filter-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .cmdr-filter-clear {
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink-dim);
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .cmdr-filter-clear:hover { border-color: var(--ink-dim); color: var(--ink); }
+  .filter-status {
+    font-size: 12px;
+    color: var(--ink-dim);
+    margin-top: 8px;
+    min-height: 1em;
+  }
+
   footer {
     margin-top: 48px;
     color: var(--ink-faint);
@@ -311,6 +341,16 @@
   <div class="predictor" id="predictor" style="display:none">
     <div class="predictor-title">Pod Predictor — historical win % by commander</div>
     <div id="predictor-rows"></div>
+  </div>
+
+  <div class="cmdr-filter" id="cmdr-filter" style="display:none">
+    <div class="predictor-title">Filter by Commander</div>
+    <div class="cmdr-filter-row">
+      <input class="predictor-input" id="cmdr-filter-input" list="all-cmdrs-list" placeholder="Search commander…">
+      <button class="cmdr-filter-clear" id="cmdr-filter-clear" style="display:none">✕ Clear</button>
+    </div>
+    <div class="filter-status" id="filter-status"></div>
+    <datalist id="all-cmdrs-list"></datalist>
   </div>
 
   <div class="history-scroll" id="history-container"></div>
@@ -403,6 +443,31 @@ function buildPredictor() {
 
   container.addEventListener('input', updatePredictor);
   document.getElementById('predictor').style.display = '';
+
+  // Build all-commanders datalist for the filter box
+  const allCmdrs = new Set();
+  PILOTS.forEach(pilot => {
+    Object.keys(statsMap[pilot] || {}).forEach(c => { if (c !== '_total') allCmdrs.add(c.trim()); });
+  });
+  const allDl = document.getElementById('all-cmdrs-list');
+  Array.from(allCmdrs).sort((a, b) => a.localeCompare(b)).forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    allDl.appendChild(opt);
+  });
+  document.getElementById('cmdr-filter').style.display = '';
+
+  const filterInput = document.getElementById('cmdr-filter-input');
+  const filterClear = document.getElementById('cmdr-filter-clear');
+  filterInput.addEventListener('input', () => {
+    applyFilter(filterInput.value.trim());
+    filterClear.style.display = filterInput.value.trim() ? '' : 'none';
+  });
+  filterClear.addEventListener('click', () => {
+    filterInput.value = '';
+    filterClear.style.display = 'none';
+    applyFilter('');
+  });
 }
 
 function updatePredictor() {
@@ -458,6 +523,20 @@ function updatePredictor() {
       }
     }
   });
+}
+
+function applyFilter(value) {
+  const pods = document.querySelectorAll('#history-container .pod');
+  let shown = 0;
+  pods.forEach(pod => {
+    const match = !value || pod.dataset.cmdrs.split('|').some(c => c === value);
+    pod.style.display = match ? '' : 'none';
+    if (match) shown++;
+  });
+  const status = document.getElementById('filter-status');
+  status.textContent = value
+    ? shown + ' game' + (shown !== 1 ? 's' : '') + ' featuring ' + value
+    : '';
 }
 
 function showHistoryError(msg) {
@@ -557,6 +636,7 @@ function renderHistory(rows) {
 
     const podDiv = document.createElement('div');
     podDiv.className = 'pod ' + (bandToggle ? 'band-a' : 'band-b');
+    podDiv.dataset.cmdrs = pod.map(row => normalizeCmdr(row[G.commander])).filter(Boolean).join('|');
 
     const gameNum = totalPods - podIdx;
     const dateLabel = document.createElement('div');
@@ -634,6 +714,13 @@ Papa.parse(GAMES_CSV_URL, {
       statsMap = buildStatsMap(results.data);
       buildPredictor();
       renderHistory(results.data);
+      const urlCmdr = new URLSearchParams(location.search).get('commander');
+      if (urlCmdr) {
+        const fi = document.getElementById('cmdr-filter-input');
+        fi.value = urlCmdr;
+        document.getElementById('cmdr-filter-clear').style.display = '';
+        applyFilter(urlCmdr);
+      }
     } catch (e) {
       showHistoryError('Could not parse game history: ' + e.message);
     }

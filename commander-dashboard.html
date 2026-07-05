@@ -234,6 +234,14 @@
     font-family: 'Inter', sans-serif;
     font-size: 13px;
   }
+  table.cmdr-table td.cmdr-name a {
+    color: inherit;
+    text-decoration: none;
+  }
+  table.cmdr-table td.cmdr-name a:hover {
+    color: var(--gold);
+    text-decoration: underline;
+  }
 
   table.cmdr-table .star-row td.cmdr-name::before {
     content: "★ ";
@@ -404,7 +412,7 @@ function buildPlayerCard(block, rows) {
     const tr = document.createElement('tr');
     if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
     tr.innerHTML = `
-      <td class="cmdr-name">${cmdrName(row[b])}</td>
+      <td class="cmdr-name"><a href="game-history.html?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${int(row[b+2])}</td>
       <td class="num">${pct(row[b+3])}</td>
