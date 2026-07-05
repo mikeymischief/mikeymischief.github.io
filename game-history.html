@@ -639,10 +639,13 @@ function buildMmrChart(cmdr) {
         x: {
           type: 'linear',
           title: { display: true, text: 'Game #', color: dimColor },
+          afterBuildTicks: scale => {
+            const xVals = datasets.flatMap(d => d.data.map(p => p.x));
+            scale.ticks = [...new Set(xVals)].sort((a, b) => a - b).map(v => ({ value: v }));
+          },
           ticks: {
             color: dimColor,
-            stepSize: 1,
-            callback: v => Number.isInteger(v) && podDates[v] ? [String(v), `S${podSessions[v]}`] : ''
+            callback: v => podDates[v] ? [String(v), `S${podSessions[v]}`] : null
           },
           grid: { color: lineColor },
         },
