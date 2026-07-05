@@ -110,26 +110,8 @@
     padding-bottom: 32px;
   }
 
-  .nav-links {
-    float: right;
-    display: flex;
-    gap: 10px;
-  }
-  .nav-links a {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 16px;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    color: var(--ink-dim);
-    text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-  }
-  .nav-links a:hover { border-color: var(--ink-dim); color: var(--ink); }
-  @media (max-width: 700px) {
-    .nav-links { float: none; margin-bottom: 20px; }
-  }
+  .masthead-nav .nav-sep { margin-left: 20px; color: #2a2a3a; user-select: none; }
+  .masthead-nav a.active { color: #d4af37; }
 
   .eyebrow {
     font-family: 'JetBrains Mono', monospace;
@@ -252,7 +234,10 @@
       <div class="masthead-site-desc">A Magic The Gathering Blog</div>
     </div>
     <nav class="masthead-nav">
-      <a href="/commander-dashboard.html">Commander</a>
+      <a href="/commander-dashboard.html">Standings</a>
+      <a href="/game-history.html">Game History</a>
+      <a href="/insights.html" class="active">Insights</a>
+      <span class="nav-sep">|</span>
       <a href="https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler">Cube</a>
       <a href="/about">About</a>
     </nav>
@@ -261,10 +246,6 @@
 <div class="wrap">
 
   <header class="hero">
-    <div class="nav-links">
-      <a href="commander-dashboard.html">&larr; Standings</a>
-      <a href="game-history.html">Game History</a>
-    </div>
     <div class="eyebrow">Commander &middot; Deeper Cuts</div>
     <h1>Insights</h1>
     <p class="hero-sub">Seat position, cross-player leaderboards, and rising decks — pulled live from the group's Insights sheet.</p>

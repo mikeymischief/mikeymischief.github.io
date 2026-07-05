@@ -235,7 +235,7 @@
     font-size: 13px;
   }
 
-  table.cmdr-table tbody tr:first-child td.cmdr-name::before {
+  table.cmdr-table .star-row td.cmdr-name::before {
     content: "★ ";
   }
   .player-card[data-p="Brian"] tbody tr:first-child { background: var(--brian-dim); }
@@ -252,26 +252,8 @@
   .table-scroll::-webkit-scrollbar { width: 8px; }
   .table-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
 
-  .nav-links {
-    float: right;
-    display: flex;
-    gap: 10px;
-  }
-  .nav-links a {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 16px;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    color: var(--ink-dim);
-    text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-  }
-  .nav-links a:hover { border-color: var(--ink-dim); color: var(--ink); }
-  @media (max-width: 700px) {
-    .nav-links { float: none; margin-bottom: 20px; }
-  }
+  .masthead-nav .nav-sep { margin-left: 20px; color: #2a2a3a; user-select: none; }
+  .masthead-nav a.active { color: #d4af37; }
 
   footer {
     margin-top: 64px;
@@ -291,7 +273,10 @@
       <div class="masthead-site-desc">A Magic The Gathering Blog</div>
     </div>
     <nav class="masthead-nav">
-      <a href="/commander-dashboard.html">Commander</a>
+      <a href="/commander-dashboard.html" class="active">Standings</a>
+      <a href="/game-history.html">Game History</a>
+      <a href="/insights.html">Insights</a>
+      <span class="nav-sep">|</span>
       <a href="https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler">Cube</a>
       <a href="/about">About</a>
     </nav>
@@ -300,10 +285,6 @@
 <div class="wrap">
 
   <header class="hero">
-    <div class="nav-links">
-      <a href="game-history.html">Game History</a>
-      <a href="insights.html">Insights</a>
-    </div>
     <div class="eyebrow">Commander &middot; Pod Standings</div>
     <h1>Commander Stats by Player</h1>
     <p class="hero-sub">Live from the group's rating sheet — TrueSkill-derived MMR, updated every time a game gets logged.</p>
@@ -412,9 +393,16 @@ function buildPlayerCard(block, rows) {
   `;
   const tbody = table.querySelector('tbody');
 
+  const maxPlays = commanderRows.reduce((max, row) => {
+    const p = parseInt(row[block.start + 2]) || 0;
+    return p > max ? p : max;
+  }, 0);
+
   commanderRows.forEach(row => {
     const b = block.start;
+    const plays = parseInt(row[b+2]) || 0;
     const tr = document.createElement('tr');
+    if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
     tr.innerHTML = `
       <td class="cmdr-name">${cmdrName(row[b])}</td>
       <td class="num">${int(row[b+1])}</td>
