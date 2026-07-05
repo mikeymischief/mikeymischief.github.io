@@ -44,15 +44,26 @@
     padding-bottom: 32px;
   }
 
-  .back-link {
-    display: inline-block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
+  .nav-links {
+    float: right;
+    display: flex;
+    gap: 10px;
+  }
+  .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
     color: var(--ink-dim);
     text-decoration: none;
-    margin-bottom: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
   }
-  .back-link:hover { color: var(--ink); }
+  .nav-links a:hover { border-color: var(--ink-dim); color: var(--ink); }
+  @media (max-width: 700px) {
+    .nav-links { float: none; margin-bottom: 20px; }
+  }
 
   .eyebrow {
     font-family: 'JetBrains Mono', monospace;
@@ -166,7 +177,10 @@
 <div class="wrap">
 
   <header class="hero">
-    <a class="back-link" href="commander-dashboard.html">&larr; Back to standings</a>
+    <div class="nav-links">
+      <a href="commander-dashboard.html">Standings</a>
+      <a href="insights.html">Insights</a>
+    </div>
     <div class="eyebrow">Commander &middot; Full Log</div>
     <h1>Game History</h1>
     <p class="hero-sub">Every logged game, most recent first — pulled live from the group's Games sheet.</p>

@@ -186,11 +186,14 @@
   .table-scroll::-webkit-scrollbar { width: 8px; }
   .table-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
 
-  .history-link-top {
+  .nav-links {
     float: right;
+    display: flex;
+    gap: 10px;
+  }
+  .nav-links a {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
     padding: 8px 16px;
     border: 1px solid var(--line);
     border-radius: 20px;
@@ -199,9 +202,9 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 12.5px;
   }
-  .history-link-top:hover { border-color: var(--ink-dim); color: var(--ink); }
-  @media (max-width: 600px) {
-    .history-link-top { float: none; display: inline-block; margin-bottom: 20px; }
+  .nav-links a:hover { border-color: var(--ink-dim); color: var(--ink); }
+  @media (max-width: 700px) {
+    .nav-links { float: none; margin-bottom: 20px; }
   }
 
   footer {
@@ -216,7 +219,10 @@
 <div class="wrap">
 
   <header class="hero">
-    <a class="history-link-top" href="game-history.html">View full game history &rarr;</a>
+    <div class="nav-links">
+      <a href="game-history.html">Game History</a>
+      <a href="insights.html">Insights</a>
+    </div>
     <div class="eyebrow">Commander &middot; Pod Standings</div>
     <h1>Commander Stats by Player</h1>
     <p class="hero-sub">Live from the group's rating sheet — TrueSkill-derived MMR, updated every time a game gets logged.</p>

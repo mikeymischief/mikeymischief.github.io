@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights — Commander Stats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+  :root {
+    --bg: #14151a;
+    --bg-raised: #1c1e26;
+    --line: #2c2e38;
+    --ink: #e9e8e4;
+    --ink-dim: #9a9aa4;
+    --ink-faint: #5c5d68;
+
+    --brian: #e08585; --brian-dim: #3a2529;
+    --gerf: #7fc98f;  --gerf-dim: #223228;
+    --mikey: #7ba7e0; --mikey-dim: #202a3a;
+    --jubee: #e0c360; --jubee-dim: #362e1a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header.hero {
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
+  }
+
+  .nav-links {
+    float: right;
+    display: flex;
+    gap: 10px;
+  }
+  .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    color: var(--ink-dim);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+  }
+  .nav-links a:hover { border-color: var(--ink-dim); color: var(--ink); }
+  @media (max-width: 700px) {
+    .nav-links { float: none; margin-bottom: 20px; }
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-sub {
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+
+  #status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-top: 20px;
+  }
+  #status.error { color: var(--brian); }
+
+  section.block {
+    margin-bottom: 48px;
+  }
+  section.block h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    margin: 0 0 6px;
+  }
+  section.block .sub {
+    color: var(--ink-faint);
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    background: var(--bg-raised);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  table.data-table th {
+    text-align: left;
+    padding: 9px 12px;
+    color: var(--ink-faint);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 10.5px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  table.data-table th.num, table.data-table td.num { text-align: right; }
+  table.data-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  table.data-table td.name {
+    white-space: normal;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+  }
+  table.data-table tbody tr:last-child td { border-bottom: none; }
+
+  .scroll-tall {
+    max-height: 480px;
+    overflow-y: auto;
+    border-radius: 12px;
+  }
+  .scroll-tall::-webkit-scrollbar { width: 8px; }
+  .scroll-tall::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+
+  tr[data-p="Brian"] { background: var(--brian-dim); }
+  tr[data-p="Gerf"]  { background: var(--gerf-dim); }
+  tr[data-p="Mikey"] { background: var(--mikey-dim); }
+  tr[data-p="Jubee"] { background: var(--jubee-dim); }
+
+  footer {
+    margin-top: 48px;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="nav-links">
+      <a href="commander-dashboard.html">&larr; Standings</a>
+      <a href="game-history.html">Game History</a>
+    </div>
+    <div class="eyebrow">Commander &middot; Deeper Cuts</div>
+    <h1>Insights</h1>
+    <p class="hero-sub">Seat position, cross-player leaderboards, and rising decks — pulled live from the group's Insights sheet.</p>
+    <div id="status">Loading insights…</div>
+  </header>
+
+  <section class="block">
+    <h2>Seat Position</h2>
+    <div class="sub">How much does where you sit actually matter?</div>
+    <div class="two-col">
+      <div>
+        <table class="data-table" id="seat-overall-table">
+          <thead><tr><th>Seat</th><th class="num">Games</th><th class="num">Win%</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div>
+        <table class="data-table" id="seat-player-table">
+          <thead><tr><th>Player</th><th>Seat 1</th><th>Seat 2</th><th>Seat 3</th><th>Seat 4</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>All Commanders by MMR</h2>
+    <div class="sub">Every commander across the whole group, ranked head-to-head.</div>
+    <div class="scroll-tall">
+      <table class="data-table" id="all-cmdr-table">
+        <thead>
+          <tr>
+            <th>Commander</th><th>Pilot</th><th class="num">W</th><th class="num">P</th>
+            <th class="num">Win%</th><th class="num">MMR</th><th class="num">Cons.</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Fastest Risers</h2>
+    <div class="sub">Average MMR gained per game — rewards efficient climbing, not just games played.</div>
+    <div class="scroll-tall">
+      <table class="data-table" id="risers-table">
+        <thead><tr><th>Commander</th><th class="num">Avg MMR / Game</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>Source: Insights tab, published to web as CSV.</footer>
+
+</div>
+
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1208436953&single=true&output=csv";
+
+function pct(v) {
+  if (v === undefined || v === null || v === '') return "—";
+  const s = String(v).replace('%', '').trim();
+  const n = parseFloat(s);
+  if (isNaN(n)) return "—";
+  return n.toFixed(2) + "%";
+}
+function num(v, digits) {
+  const n = parseFloat(v);
+  if (isNaN(n)) return "—";
+  return n.toFixed(digits);
+}
+function int(v) {
+  const n = parseFloat(v);
+  if (isNaN(n)) return "—";
+  return Math.round(n).toString();
+}
+function cmdrName(v) {
+  if (!v) return '';
+  return v.replace(/\r?\n/g, '<br>');
+}
+function showError(msg) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.classList.add('error');
+}
+
+function renderSeatOverall(rows) {
+  const tbody = document.querySelector('#seat-overall-table tbody');
+  tbody.innerHTML = '';
+  // Sheet rows 3-6 (0-indexed 2-5): columns A-C (0-2)
+  for (let r = 2; r <= 5; r++) {
+    const row = rows[r];
+    if (!row) continue;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>Seat ${int(row[0])}</td><td class="num">${int(row[1])}</td><td class="num">${pct(row[2])}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+function renderSeatByPlayer(rows) {
+  const tbody = document.querySelector('#seat-player-table tbody');
+  tbody.innerHTML = '';
+  // Sheet rows 10-13 (0-indexed 9-12): columns A-E (0-4)
+  for (let r = 9; r <= 12; r++) {
+    const row = rows[r];
+    if (!row) continue;
+    const tr = document.createElement('tr');
+    tr.dataset.p = row[0];
+    tr.innerHTML = `
+      <td class="name">${row[0] || ''}</td>
+      <td>${row[1] || '—'}</td>
+      <td>${row[2] || '—'}</td>
+      <td>${row[3] || '—'}</td>
+      <td>${row[4] || '—'}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+function renderAllCommanders(rows) {
+  const tbody = document.querySelector('#all-cmdr-table tbody');
+  tbody.innerHTML = '';
+  // Sheet data starts row 3 (0-indexed 2), columns G-M (0-indexed 6-12):
+  // Commander, Wins, Plays, Win%, Pilot, MMR, Conservative Rating
+  for (let r = 2; r < rows.length; r++) {
+    const row = rows[r];
+    const cmdr = row[6];
+    if (!cmdr || cmdr.trim() === '') break;
+    const tr = document.createElement('tr');
+    tr.dataset.p = row[10];
+    tr.innerHTML = `
+      <td class="name">${cmdrName(cmdr)}</td>
+      <td>${row[10] || ''}</td>
+      <td class="num">${int(row[7])}</td>
+      <td class="num">${int(row[8])}</td>
+      <td class="num">${pct(row[9])}</td>
+      <td class="num">${num(row[11],1)}</td>
+      <td class="num">${num(row[12],1)}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+function renderRisers(rows) {
+  const tbody = document.querySelector('#risers-table tbody');
+  tbody.innerHTML = '';
+  // Sheet data starts row 3 (0-indexed 2), columns O-P (0-indexed 14-15)
+  for (let r = 2; r < rows.length; r++) {
+    const row = rows[r];
+    const cmdr = row[14];
+    if (!cmdr || cmdr.trim() === '') break;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="name">${cmdrName(cmdr)}</td><td class="num">${num(row[15],2)}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+Papa.parse(CSV_URL, {
+  download: true,
+  complete: function(results) {
+    if (!results.data || results.data.length < 3) {
+      showError('Loaded, but the Insights sheet looks empty or in an unexpected shape.');
+      return;
+    }
+    try {
+      renderSeatOverall(results.data);
+      renderSeatByPlayer(results.data);
+      renderAllCommanders(results.data);
+      renderRisers(results.data);
+      document.getElementById('status').textContent = 'Updated ' + new Date().toLocaleString();
+    } catch (e) {
+      showError('Could not parse insights: ' + e.message);
+    }
+  },
+  error: function(err) {
+    showError('Could not load the sheet (' + err + '). Is it still published to web?');
+  }
+});
+</script>
+</body>
+</html>
