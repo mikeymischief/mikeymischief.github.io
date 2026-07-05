@@ -267,7 +267,7 @@
   }
   .predictor-pct.no-data { color: var(--ink-faint); font-size: 12px; }
 
-  .debut-badge {
+  .debut-badge, .badge {
     margin-left: 4px;
     vertical-align: middle;
   }
@@ -467,9 +467,9 @@ function renderHistory(rows) {
   }
   if (current.length) pods.push(current);
 
-  // Build debut set before reversing (pods is oldest-first here)
-  // A debut is the first time a commander ever appeared in the group (any pilot)
-  // Store row object references so only that specific row gets the badge.
+  // All badge sets — computed on pods in chronological order before reversing
+
+  // 🔰 Debut: first time a commander ever appeared in the group
   const debutRows = new Set();
   const seenCommanders = new Set();
   pods.forEach(pod => {
@@ -480,6 +480,43 @@ function renderHistory(rows) {
         seenCommanders.add(cmdr);
       }
     });
+  });
+
+  // 🔁 Reunion: commander returning after ≥15 game gap
+  const reunionRows = new Set();
+  const lastSeenGame = {};
+  pods.forEach((pod, gameIdx) => {
+    pod.forEach(row => {
+      const cmdr = normalizeCmdr(row[G.commander]);
+      if (!cmdr) return;
+      if (lastSeenGame[cmdr] !== undefined && (gameIdx - lastSeenGame[cmdr]) >= 15) {
+        reunionRows.add(row);
+      }
+      lastSeenGame[cmdr] = gameIdx;
+    });
+  });
+
+  // 📉 Biggest upset: winner with the single lowest predicted win probability
+  const upsetRows = new Set();
+  let upsetRow = null, upsetProb = Infinity;
+  pods.forEach(pod => {
+    pod.forEach(row => {
+      const won = row[G.winner] && row[G.winner].trim() !== '';
+      if (won) {
+        const wp = parseFloat(row[G.winProb]);
+        if (!isNaN(wp) && wp < upsetProb) { upsetProb = wp; upsetRow = row; }
+      }
+    });
+  });
+  if (upsetRow) upsetRows.add(upsetRow);
+
+  // 🌪️ Chaos pod: all players' win probs within 15 percentage points of each other
+  const chaosPods = new Set();
+  pods.forEach(pod => {
+    const probs = pod.map(row => parseFloat(row[G.winProb])).filter(n => !isNaN(n));
+    if (probs.length >= 3 && (Math.max(...probs) - Math.min(...probs)) < 15) {
+      chaosPods.add(pod);
+    }
   });
 
   pods.reverse(); // most recent first
@@ -499,6 +536,7 @@ function renderHistory(rows) {
     const dateLabel = document.createElement('div');
     dateLabel.className = 'pod-date';
     dateLabel.textContent = formatDate(podDate);
+    if (chaosPods.has(pod)) dateLabel.textContent += '  🎲';
     podDiv.appendChild(dateLabel);
 
     const table = document.createElement('table');
@@ -519,15 +557,27 @@ function renderHistory(rows) {
 
     pod.forEach(row => {
       const won = row[G.winner] && row[G.winner].trim() !== '';
+      const pilot = (row[G.pilot] || '').trim();
+      const cmdrNorm = normalizeCmdr(row[G.commander]);
+      const pilotCmdrStats = statsMap[pilot] && statsMap[pilot][cmdrNorm];
       const isDebut = debutRows.has(row);
+      const isReunion = reunionRows.has(row);
+      const isUpset = upsetRows.has(row);
+      const isUndefeated = pilotCmdrStats && pilotCmdrStats.plays >= 2 && pilotCmdrStats.wins === pilotCmdrStats.plays;
+      const badges = [
+        isDebut    ? '<span class="badge" title="Commander debut">🔰</span>' : '',
+        isReunion  ? '<span class="badge" title="Returning after a long absence">🔁</span>' : '',
+        isUpset    ? '<span class="badge" title="Biggest upset win — lowest predicted chance">📉</span>' : '',
+        isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
+      ].join('');
       const tr = document.createElement('tr');
       tr.className = won ? 'winner-row' : '';
-      tr.dataset.p = row[G.pilot];
+      tr.dataset.p = pilot;
       const seat = row[G.seat] ? 'Seat ' + int(row[G.seat]) : '';
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
-        <td class="pilot-name">${row[G.pilot] || ''}</td>
-        <td class="cmdr-name">${cmdrName(row[G.commander])}${isDebut ? ' <span class="debut-badge" title="Commander debut">🔰</span>' : ''}</td>
+        <td class="pilot-name">${pilot}</td>
+        <td class="cmdr-name">${cmdrName(row[G.commander])}${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
         <td class="num">${wp}</td>
         <td class="num">${num(row[G.startMmr],1)} → ${num(row[G.endMmr],1)}</td>
