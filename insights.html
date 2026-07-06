@@ -164,6 +164,13 @@ permalink: /insights/
     margin-bottom: 18px;
   }
 
+  .cp-dist { white-space: nowrap; }
+  .cp-pip { display: inline-flex; align-items: center; gap: 3px; margin-right: 10px; }
+  .cp-pip-n { font-size: 0.85em; color: var(--ink-dim); }
+  .cp-fav { white-space: nowrap; }
+  .cp-fav-name { margin: 0 5px; }
+  .cp-fav-n { color: var(--ink-faint); font-size: 0.85em; }
+
   .two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -319,6 +326,12 @@ permalink: /insights/
         <tbody></tbody>
       </table>
     </div>
+  </section>
+
+  <section class="block">
+    <h2>Player Color Profiles</h2>
+    <div class="sub">Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander's identity.</div>
+    <div id="color-profiles"><span style="color:var(--ink-faint)">Loading…</span></div>
   </section>
 
   <footer>Source: Insights tab, published to web as CSV.</footer>
@@ -512,6 +525,76 @@ function renderPopularity(rows) {
   });
 }
 
+async function renderColorProfiles(gameRows) {
+  const G = { pilot: 3, commander: 4 };
+  const COLOR_KEYS = ['W','U','B','R','G'];
+
+  const cmdrNames = [...new Set(
+    gameRows.map(r => normalizeCmdr(r[G.commander])).filter(Boolean)
+  )];
+
+  const colorMap = await getColorMap(cmdrNames);
+
+  const players = {};
+  gameRows.forEach(row => {
+    const pilot = (row[G.pilot] || '').trim();
+    const cmdr = normalizeCmdr(row[G.commander]);
+    if (!pilot || !cmdr) return;
+    const identity = colorMap[cmdr] || 'C';
+    if (!players[pilot]) players[pilot] = { pipCounts: {W:0,U:0,B:0,R:0,G:0}, byIdentity: {} };
+    const p = players[pilot];
+    identity.split('').forEach(c => { if (COLOR_KEYS.includes(c)) p.pipCounts[c]++; });
+    p.byIdentity[identity] = (p.byIdentity[identity] || 0) + 1;
+  });
+
+  const pilotOrder = Object.keys(players).sort();
+
+  let html = `<table class="data-table">
+    <thead><tr>
+      <th>Player</th>
+      <th>Color distribution</th>
+      <th>Color identity</th>
+      <th>Most played</th>
+    </tr></thead><tbody>`;
+
+  pilotOrder.forEach(pilot => {
+    const { pipCounts, byIdentity } = players[pilot];
+
+    const distHtml = COLOR_KEYS
+      .filter(c => pipCounts[c] > 0)
+      .map(c => `<span class="cp-pip"><img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${c}.svg" alt="${c}"><span class="cp-pip-n">${pipCounts[c]}</span></span>`)
+      .join('');
+
+    // Top 2 colors by pip count → look up as a WUBRG-sorted identity key
+    const top2 = COLOR_KEYS
+      .map(c => ({ c, n: pipCounts[c] }))
+      .filter(x => x.n > 0)
+      .sort((a, b) => b.n - a.n)
+      .slice(0, 2)
+      .map(x => x.c)
+      .sort((a, b) => COLOR_KEYS.indexOf(a) - COLOR_KEYS.indexOf(b))
+      .join('');
+    const identityCell = top2
+      ? `${pips(top2)}<span class="cp-fav-name">${IDENTITY_NAMES[top2] || top2}</span>`
+      : '<span style="color:var(--ink-faint)">—</span>';
+
+    const mostPlayed = Object.entries(byIdentity).sort((a,b) => b[1]-a[1])[0];
+    const mostPlayedCell = mostPlayed
+      ? `${pips(mostPlayed[0])}<span class="cp-fav-name">${IDENTITY_NAMES[mostPlayed[0]] || mostPlayed[0]}</span><span class="cp-fav-n">${mostPlayed[1]}g</span>`
+      : '<span style="color:var(--ink-faint)">—</span>';
+
+    html += `<tr>
+      <td class="name">${pilot}</td>
+      <td class="cp-dist">${distHtml}</td>
+      <td class="cp-fav">${identityCell}</td>
+      <td class="cp-fav">${mostPlayedCell}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>`;
+  document.getElementById('color-profiles').innerHTML = html;
+}
+
 Papa.parse(CSV_URL, {
   download: true,
   complete: function(results) {
@@ -551,6 +634,7 @@ Papa.parse(GAMES_CSV_URL, {
       _acState.lastPlayedMap = map;
       _tryRenderAllCommanders();
       renderPopularity(gameRows);
+      renderColorProfiles(gameRows);
     } catch (e) {
       console.error('Games render failed:', e);
     }

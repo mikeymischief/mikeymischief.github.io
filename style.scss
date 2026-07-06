@@ -31,6 +31,12 @@ body {
   min-height: 100vh;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%);
+
+  @include mobile {
+    -webkit-mask-image: none;
+    mask-image: none;
+    max-width: 100%;
+  }
 }
 
 .container {
