@@ -288,7 +288,7 @@
     flex-shrink: 0;
   }
   .cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
-  .cmdr-cell { display: inline-flex; align-items: center; gap: 0; }
+  .cmdr-cell { display: inline-flex; align-items: center; gap: 6px; }
   .cmdr-link { color: var(--ink); text-decoration: none; }
   .cmdr-link:hover { color: var(--gold); }
 
@@ -573,7 +573,7 @@ function bestCmdrCell(cmdrStats) {
   if (!best) return '<span style="color:var(--ink-faint)">—</span>';
   const url = `game-history.html?commander=${encodeURIComponent(best)}`;
   const display = best.replace(/ \/ /g, ' / ');
-  return `<span class="cmdr-cell">${cmdrAvatarHtml(best)}<a href="${url}" class="cmdr-link">${display}</a> <span style="color:var(--ink-faint)">${(bestPct * 100).toFixed(1)}%</span></span>`;
+  return `<span class="cmdr-cell">${cmdrAvatarHtml(best)}<a href="${url}" class="cmdr-link">${display}</a><span style="color:var(--ink-faint)">${(bestPct * 100).toFixed(1)}%</span></span>`;
 }
 
 function renderTable(agg) {
