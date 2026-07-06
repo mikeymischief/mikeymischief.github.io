@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commander Colors — Commander Stats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+  :root {
+    --bg: #0d0f1a;
+    --gold: #d4af37;
+    --bg-raised: #1c1e26;
+    --line: #2c2e38;
+    --ink: #e9e8e4;
+    --ink-dim: #9a9aa4;
+    --ink-faint: #5c5d68;
+
+    --brian: #e08585; --brian-dim: #3a2529;
+    --gerf: #7fc98f;  --gerf-dim: #223228;
+    --mikey: #7ba7e0; --mikey-dim: #202a3a;
+    --jubee: #e0c360; --jubee-dim: #362e1a;
+
+    --mana-w: #f9f6e1;
+    --mana-u: #4a90d9;
+    --mana-b: #a89bc2;
+    --mana-r: #e05a44;
+    --mana-g: #4aab5a;
+    --mana-c: #b0b4c0;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg) url('/images/bg/2526-archive-trap.jpg') 40% center / cover fixed;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-wrapper {
+    max-width: 1800px;
+    margin: 0 auto;
+    background-color: var(--bg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%);
+  }
+
+  .site-masthead {
+    background: #07080f;
+    border-bottom: 1px solid #2a2a3a;
+    margin-bottom: 50px;
+  }
+  .masthead-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .masthead-avatar img {
+    width: 70px; height: 70px;
+    border-radius: 5px;
+    border: 2px solid #8b6914;
+    display: block;
+  }
+  .masthead-info { flex: 1; }
+  .masthead-site-name a {
+    color: #d4af37;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-shadow: 0 0 20px rgba(212,175,55,0.3);
+    display: block;
+  }
+  .masthead-site-name a:hover { color: #f0d060; }
+  .masthead-site-desc {
+    color: #8b8ea8;
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .masthead-nav { display: flex; align-items: center; }
+  .masthead-nav a {
+    margin-left: 20px;
+    color: #8b8ea8;
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .masthead-nav a:hover { color: #d4af37; }
+  .masthead-nav .nav-sep { margin-left: 20px; color: #2a2a3a; user-select: none; }
+  .masthead-nav a.active { color: #d4af37; }
+  @media (max-width: 640px) {
+    .masthead-inner { flex-wrap: wrap; }
+    .masthead-nav { margin-top: 8px; width: 100%; }
+    .masthead-nav a:first-child { margin-left: 0; }
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  header.hero {
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    letter-spacing: 0.02em;
+  }
+  .hero-sub {
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+  #status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-top: 20px;
+  }
+  #status.error { color: var(--brian); }
+
+  section.block { margin-bottom: 48px; }
+  section.block h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    margin: 0 0 6px;
+  }
+  section.block .sub {
+    color: var(--ink-faint);
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+  }
+
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    background: var(--bg-raised);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  table.data-table th {
+    text-align: left;
+    padding: 10px 14px;
+    background: #14151e;
+    color: var(--ink-faint);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 10.5px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  table.data-table th.num, table.data-table td.num { text-align: right; }
+  table.data-table td {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  table.data-table tbody tr:last-child td { border-bottom: none; }
+  table.data-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+  /* mana pips */
+  .pips { display: inline-flex; gap: 3px; align-items: center; vertical-align: middle; }
+  .pip {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    font-family: 'Inter', sans-serif;
+    flex-shrink: 0;
+  }
+  .pip-W { background: var(--mana-w); color: #5a5040; }
+  .pip-U { background: var(--mana-u); color: #fff; }
+  .pip-B { background: var(--mana-b); color: #fff; }
+  .pip-R { background: var(--mana-r); color: #fff; }
+  .pip-G { background: var(--mana-g); color: #fff; }
+  .pip-C { background: var(--mana-c); color: #3a3a4a; }
+
+  .identity-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .identity-name {
+    color: var(--ink-dim);
+    font-size: 11px;
+  }
+
+  /* color count badge */
+  .count-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 9px;
+    font-size: 10px;
+    background: var(--line);
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  /* win bar */
+  .bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bar-track {
+    flex: 1;
+    height: 5px;
+    background: var(--line);
+    border-radius: 3px;
+    min-width: 60px;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--gold);
+  }
+
+  .scroll-tall { overflow-x: auto; }
+
+  footer {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <div class="site-masthead">
+    <div class="masthead-inner">
+      <div class="masthead-avatar">
+        <a href="/"><img src="/images/profile.jpg" alt="mikeymischief" onerror="this.style.display='none'"></a>
+      </div>
+      <div class="masthead-info">
+        <div class="masthead-site-name"><a href="/">Mischief's Gaming Blog</a></div>
+        <div class="masthead-site-desc">Commander Cube &amp; Playgroup Stats</div>
+      </div>
+      <nav class="masthead-nav">
+        <a href="commander-dashboard.html">Stats</a>
+        <span class="nav-sep">|</span>
+        <a href="game-history.html">Games</a>
+        <span class="nav-sep">|</span>
+        <a href="insights.html">Insights</a>
+        <span class="nav-sep">|</span>
+        <a href="commander-colors.html" class="active">Colors</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Commander Stats</div>
+      <h1>Commander Colors</h1>
+      <p class="hero-sub">Win rates by color identity, grouped from mono through five-color. Color identities are auto-resolved from Scryfall and cached locally.</p>
+      <div id="status">Loading…</div>
+    </header>
+
+    <section class="block">
+      <div class="scroll-tall">
+        <table class="data-table" id="identity-table">
+          <thead>
+            <tr>
+              <th>Color(s)</th>
+              <th class="num">Win Rate</th>
+              <th class="num">Cmdrs</th>
+              <th class="num">Games</th>
+              <th>Highest Win%</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>Source: Games tab · Color identities via Scryfall API.</footer>
+  </div>
+</div>
+
+<script>
+const GAMES_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=517398000&single=true&output=csv";
+const SCRYFALL_COLLECTION = "https://api.scryfall.com/cards/collection";
+const CACHE_KEY = 'cmdr_colors_v1';
+const CACHE_TTL = 7 * 24 * 60 * 60 * 1000;
+
+const G = { winner: 1, commander: 4 };
+const COLOR_ORDER = ['W','U','B','R','G'];
+const IDENTITY_NAMES = {
+  W:'Mono White', U:'Mono Blue', B:'Mono Black', R:'Mono Red', G:'Mono Green', C:'Colorless',
+  WU:'Azorius', WB:'Orzhov', WR:'Boros', WG:'Selesnya',
+  UB:'Dimir', UR:'Izzet', UG:'Simic',
+  BR:'Rakdos', BG:'Golgari', RG:'Gruul',
+  WUB:'Esper', WUR:'Jeskai', WUG:'Bant', WBR:'Mardu', WBG:'Abzan', WRG:'Naya',
+  UBR:'Grixis', UBG:'Sultai', URG:'Temur', BRG:'Jund',
+  WUBR:'Sans Green', WUBG:'Sans Red', WURG:'Sans Black', WBRG:'Sans Blue', UBRG:'Sans White',
+  WUBRG:'Five Color',
+};
+// Explicit display order — identities stored in WUBRG sort order
+const IDENTITY_ORDER = [
+  // Mono
+  'W','U','B','R','G',
+  // Dual — ally pairs then enemy pairs
+  'WU','UB','BR','RG','WG',
+  'WB','UR','BG','WR','UG',
+  // Tri
+  'WUB','UBR','BRG','WRG','WUG',  // Esper, Grixis, Jund, Naya, Bant
+  'WBG','WUR','UBG','WBR','URG',  // Abzan, Jeskai, Sultai, Mardu, Temur
+  // Quad
+  'UBRG','WBRG','WURG','WUBG','WUBR',  // sans White, Blue, Black, Red, Green
+  // Five-color then colorless
+  'WUBRG','C',
+];
+const GROUP_LABEL_FOR = {
+  1:'Mono', 2:'Dual', 3:'Tri', 4:'Quad', 5:'Five Color', 0:'Colorless',
+};
+
+function normalizeCmdr(v) {
+  if (!v) return '';
+  return v.replace(/\r?\n/g, ' / ').trim();
+}
+
+function scryfallColorToString(arr) {
+  return COLOR_ORDER.filter(c => arr.includes(c)).join('') || 'C';
+}
+
+function cmdrToIndividualParts(cmdr) {
+  return cmdr.split(' / ').map(p => p.trim()).filter(Boolean);
+}
+
+function pips(identity) {
+  const colors = identity === 'C' ? ['C'] : identity.split('');
+  return '<span class="pips">' + colors.map(c =>
+    `<span class="pip pip-${c}">${c}</span>`
+  ).join('') + '</span>';
+}
+
+function winBar(pct) {
+  const p = Math.min(100, Math.max(0, pct));
+  return `<div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:${p.toFixed(1)}%"></div></div></div>`;
+}
+
+function setStatus(msg, isError) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  if (isError) el.classList.add('error');
+}
+
+async function fetchScryfallBatch(individualNames) {
+  const cardColors = {};
+  for (let i = 0; i < individualNames.length; i += 75) {
+    const batch = individualNames.slice(i, i + 75);
+    try {
+      const resp = await fetch(SCRYFALL_COLLECTION, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifiers: batch.map(name => ({ name })) }),
+      });
+      const data = await resp.json();
+      (data.data || []).forEach(card => {
+        cardColors[card.name.toLowerCase()] = scryfallColorToString(card.color_identity || []);
+      });
+    } catch(e) {
+      console.warn('Scryfall batch failed:', e);
+    }
+    if (i + 75 < individualNames.length) await new Promise(r => setTimeout(r, 100));
+  }
+  return cardColors;
+}
+
+function resolveIdentity(cmdr, cardColors) {
+  const merged = new Set();
+  cmdrToIndividualParts(cmdr).forEach(part => {
+    (cardColors[part.toLowerCase()] || '').split('').forEach(c => merged.add(c));
+  });
+  return COLOR_ORDER.filter(c => merged.has(c)).join('') || 'C';
+}
+
+async function getColorMap(cmdrNames) {
+  // Load whatever is cached (ignore TTL for existing entries — colors don't change)
+  let cached = {};
+  let cachedTs = 0;
+  try {
+    const raw = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    if (raw) { cached = raw.colors || {}; cachedTs = raw.timestamp || 0; }
+  } catch(e) {}
+
+  // Find commanders not yet in cache
+  const missing = cmdrNames.filter(c => !(c in cached));
+
+  if (missing.length > 0) {
+    setStatus(`Looking up ${missing.length} new commander${missing.length !== 1 ? 's' : ''} on Scryfall…`);
+    const individualNames = [...new Set(
+      missing.flatMap(cmdrToIndividualParts).map(p => p.toLowerCase())
+    )];
+    const cardColors = await fetchScryfallBatch(individualNames.map(n =>
+      // restore original casing for Scryfall lookup using the missing list
+      missing.flatMap(cmdrToIndividualParts).find(p => p.toLowerCase() === n) || n
+    ));
+    missing.forEach(cmdr => { cached[cmdr] = resolveIdentity(cmdr, cardColors); });
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), colors: cached }));
+    } catch(e) {}
+  }
+
+  return cached;
+}
+
+function buildMetrics(rows, colorMap) {
+  // identity → { plays, wins, cmdrs: Set, cmdrStats: { cmdr: { plays, wins } } }
+  const agg = {};
+  rows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    if (!cmdr) return;
+    const identity = colorMap[cmdr] || 'C';
+    const isWin = !!(row[G.winner] && row[G.winner].trim());
+
+    if (!agg[identity]) agg[identity] = { identity, plays: 0, wins: 0, cmdrs: new Set(), cmdrStats: {} };
+    agg[identity].plays++;
+    if (isWin) agg[identity].wins++;
+    agg[identity].cmdrs.add(cmdr);
+
+    const cs = agg[identity].cmdrStats;
+    if (!cs[cmdr]) cs[cmdr] = { plays: 0, wins: 0 };
+    cs[cmdr].plays++;
+    if (isWin) cs[cmdr].wins++;
+  });
+  return agg;
+}
+
+function bestCmdrCell(cmdrStats) {
+  let best = null, bestPct = -1;
+  Object.entries(cmdrStats).forEach(([cmdr, { plays, wins }]) => {
+    const pct = wins / plays;
+    if (pct > bestPct) { bestPct = pct; best = cmdr; }
+  });
+  if (!best) return '<span style="color:var(--ink-faint)">—</span>';
+  const url = `game-history.html?commander=${encodeURIComponent(best)}`;
+  const display = best.replace(/ \/ /g, ' / ');
+  return `<a href="${url}" style="color:var(--ink);text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ink)'">${display}</a> <span style="color:var(--ink-faint)">${(bestPct * 100).toFixed(1)}%</span>`;
+}
+
+function renderTable(agg) {
+  const tbody = document.querySelector('#identity-table tbody');
+  let lastGroupSize = null;
+
+  IDENTITY_ORDER.forEach(identity => {
+    const entry = agg[identity];
+    const groupSize = identity === 'C' ? 0 : identity === 'WUBRG' ? 5 : identity.length;
+
+    // Insert group header when transitioning to a new color-count group
+    if (groupSize !== lastGroupSize) {
+      lastGroupSize = groupSize;
+      const hdr = document.createElement('tr');
+      hdr.innerHTML = `<td colspan="5" style="
+        padding: 8px 14px 4px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        background: #14151e;
+        border-bottom: 1px solid var(--line);
+      ">${GROUP_LABEL_FOR[groupSize]}</td>`;
+      tbody.appendChild(hdr);
+    }
+
+    if (!entry) return; // identity has no data — skip row but keep header
+    const { plays, wins, cmdrs, cmdrStats } = entry;
+    const winPct = plays ? (wins / plays) * 100 : 0;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="identity-label">${pips(identity)}<span class="identity-name">${IDENTITY_NAMES[identity] || identity}</span></div></td>
+      <td class="num">${winPct.toFixed(1)}%</td>
+      <td class="num">${cmdrs.size}</td>
+      <td class="num">${plays}</td>
+      <td>${bestCmdrCell(cmdrStats)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+Papa.parse(GAMES_CSV, {
+  download: true,
+  complete: async function(results) {
+    const rows = results.data.slice(1).filter(r => normalizeCmdr(r[G.commander]));
+    if (!rows.length) { setStatus('No game data found.', true); return; }
+    try {
+      const cmdrNames = [...new Set(rows.map(r => normalizeCmdr(r[G.commander])))];
+      const colorMap = await getColorMap(cmdrNames);
+      const agg = buildMetrics(rows, colorMap);
+      renderTable(agg);
+      setStatus('Updated ' + new Date().toLocaleString());
+    } catch(e) {
+      setStatus('Error: ' + e.message, true);
+    }
+  },
+  error: err => setStatus('Could not load games sheet: ' + err, true),
+});
+</script>
+</body>
+</html>
