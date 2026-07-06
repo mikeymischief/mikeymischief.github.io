@@ -372,9 +372,10 @@
           <thead>
             <tr>
               <th>Color(s)</th>
-              <th class="num">Win Rate</th>
-              <th class="num">Cmdrs</th>
+              <th class="num">Wins</th>
               <th class="num">Games</th>
+              <th class="num">Win%</th>
+              <th class="num">Cmdrs</th>
               <th>Highest Win%</th>
             </tr>
           </thead>
@@ -587,7 +588,7 @@ function renderTable(agg) {
     if (groupSize !== lastGroupSize) {
       lastGroupSize = groupSize;
       const hdr = document.createElement('tr');
-      hdr.innerHTML = `<td colspan="5" style="
+      hdr.innerHTML = `<td colspan="6" style="
         padding: 8px 14px 4px;
         font-family: 'JetBrains Mono', monospace;
         font-size: 10px;
@@ -608,9 +609,10 @@ function renderTable(agg) {
     tr.className = 'identity-row';
     tr.innerHTML = `
       <td><div class="identity-label">${pips(identity)}<span class="identity-name">${IDENTITY_NAMES[identity] || identity}</span></div></td>
+      <td class="num">${wins}</td>
+      <td class="num">${plays}</td>
       <td class="num">${winPct.toFixed(1)}%</td>
       <td class="num">${cmdrs.size}</td>
-      <td class="num">${plays}</td>
       <td>${bestCmdrCell(cmdrStats)}</td>
     `;
 
@@ -618,7 +620,7 @@ function renderTable(agg) {
     const expandTr = document.createElement('tr');
     expandTr.className = 'identity-expand';
     const expandTd = document.createElement('td');
-    expandTd.colSpan = 5;
+    expandTd.colSpan = 6;
 
     const sorted = Object.entries(cmdrStats)
       .map(([cmdr, { plays: p, wins: w }]) => ({ cmdr, plays: p, wins: w, pct: p ? w / p : 0 }))
