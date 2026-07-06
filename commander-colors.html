@@ -259,7 +259,25 @@
     padding-top: 24px;
     border-top: 1px solid var(--line);
     letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
+  #clear-cache-btn {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  #clear-cache-btn:hover { border-color: var(--gold); color: var(--gold); }
+  #clear-cache-btn:disabled { opacity: 0.5; cursor: default; }
   .cmdr-avatars { display: inline-flex; align-items: center; vertical-align: middle; margin-right: 6px; }
   .cmdr-avatars .cmdr-avatar {
     width: 26px; height: 26px;
@@ -365,7 +383,15 @@
       </div>
     </section>
 
-    <footer>Source: Games tab · Color identities via Scryfall API.</footer>
+    <footer>
+      Source: Games tab · Color identities via Scryfall API.
+      <button id="clear-cache-btn" onclick="
+        localStorage.removeItem('cmdr_colors_v1');
+        this.textContent = 'Cache cleared — reloading…';
+        this.disabled = true;
+        setTimeout(() => location.reload(), 800);
+      ">Clear color cache</button>
+    </footer>
   </div>
 </div>
 
@@ -522,15 +548,17 @@ function buildMetrics(rows, colorMap) {
     const identity = colorMap[cmdr] || 'C';
     const isWin = !!(row[G.winner] && row[G.winner].trim());
 
+    const canonicalCmdr = cmdr.split(' / ').map(stripPilotSuffix).join(' / ');
+
     if (!agg[identity]) agg[identity] = { identity, plays: 0, wins: 0, cmdrs: new Set(), cmdrStats: {} };
     agg[identity].plays++;
     if (isWin) agg[identity].wins++;
-    agg[identity].cmdrs.add(cmdr);
+    agg[identity].cmdrs.add(canonicalCmdr);
 
     const cs = agg[identity].cmdrStats;
-    if (!cs[cmdr]) cs[cmdr] = { plays: 0, wins: 0 };
-    cs[cmdr].plays++;
-    if (isWin) cs[cmdr].wins++;
+    if (!cs[canonicalCmdr]) cs[canonicalCmdr] = { plays: 0, wins: 0 };
+    cs[canonicalCmdr].plays++;
+    if (isWin) cs[canonicalCmdr].wins++;
   });
   return agg;
 }
