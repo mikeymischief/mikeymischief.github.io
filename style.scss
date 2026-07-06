@@ -21,6 +21,10 @@ body {
   background: $bg-page url('/images/bg/2526-archive-trap.jpg') 40% center / cover fixed;
   font: 18px/1.6 $helvetica;
   color: $text-primary;
+
+  @include mobile {
+    background-image: none;
+  }
 }
 
 .page-wrapper {

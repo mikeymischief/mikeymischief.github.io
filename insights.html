@@ -284,6 +284,12 @@ permalink: /insights/
   </section>
 
   <section class="block">
+    <h2>Player Color Profiles</h2>
+    <div class="sub">Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander's identity.</div>
+    <div id="color-profiles"><span style="color:var(--ink-faint)">Loading…</span></div>
+  </section>
+
+  <section class="block">
     <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
       <h2 id="all-cmdr-heading" style="margin:0;">Active Commanders by MMR</h2>
       <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show All</button>
@@ -326,12 +332,6 @@ permalink: /insights/
         <tbody></tbody>
       </table>
     </div>
-  </section>
-
-  <section class="block">
-    <h2>Player Color Profiles</h2>
-    <div class="sub">Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander's identity.</div>
-    <div id="color-profiles"><span style="color:var(--ink-faint)">Loading…</span></div>
   </section>
 
   <footer>Source: Insights tab, published to web as CSV.</footer>
