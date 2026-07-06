@@ -1,3 +1,6 @@
+---
+permalink: /commander-colors/
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -347,10 +350,10 @@
         <div class="masthead-site-desc">Commander Cube &amp; Playgroup Stats</div>
       </div>
       <nav class="masthead-nav">
-        <a href="/commander-dashboard.html">Stats</a>
-        <a href="/game-history.html">Game History</a>
-        <a href="/insights.html">Insights</a>
-        <a href="/commander-colors.html" class="active">Colors</a>
+        <a href="/commander-dashboard/">Stats</a>
+        <a href="/game-history/">Game History</a>
+        <a href="/insights/">Insights</a>
+        <a href="/commander-colors/" class="active">Colors</a>
         <span class="nav-sep">|</span>
         <a href="https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler">Cube</a>
         <a href="/about">About</a>
@@ -578,7 +581,7 @@ function bestCmdrCell(cmdrStats) {
     });
   }
   if (!best) return '<span style="color:var(--ink-faint)">—</span>';
-  const url = `game-history.html?commander=${encodeURIComponent(best)}`;
+  const url = `/game-history/?commander=${encodeURIComponent(best)}`;
   const display = best.replace(/ \/ /g, ' / ');
   return `<span class="cmdr-cell">${cmdrAvatarHtml(best)}<a href="${url}" class="cmdr-link">${display}</a><span style="color:var(--ink-faint)">${(bestPct * 100).toFixed(1)}%</span></span>`;
 }
@@ -639,7 +642,7 @@ function renderTable(agg) {
     sorted.forEach(({ cmdr, plays: p, wins: w, pct }) => {
       const a = document.createElement('a');
       a.className = 'expand-cmdr' + (pct === bestPct && p > 0 ? ' top-cmdr' : '');
-      a.href = `game-history.html?commander=${encodeURIComponent(cmdr)}`;
+      a.href = `/game-history/?commander=${encodeURIComponent(cmdr)}`;
       a.innerHTML = `
         ${cmdrAvatarHtml(cmdr)}
         <span class="expand-name">${cmdr.replace(/ \/ /g, ' / ')}</span>

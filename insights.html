@@ -1,3 +1,6 @@
+---
+permalink: /insights/
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -246,10 +249,10 @@
       <div class="masthead-site-desc">A Magic The Gathering Blog</div>
     </div>
     <nav class="masthead-nav">
-      <a href="/commander-dashboard.html">Stats</a>
-      <a href="/game-history.html">Game History</a>
-      <a href="/insights.html" class="active">Insights</a>
-      <a href="/commander-colors.html">Colors</a>
+      <a href="/commander-dashboard/">Stats</a>
+      <a href="/game-history/">Game History</a>
+      <a href="/insights/" class="active">Insights</a>
+      <a href="/commander-colors/">Colors</a>
       <span class="nav-sep">|</span>
       <a href="https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler">Cube</a>
       <a href="/about">About</a>
@@ -285,8 +288,11 @@
   </section>
 
   <section class="block">
-    <h2>Active Commanders by MMR</h2>
-    <div class="sub">Every commander played within the last two years, ranked head-to-head.</div>
+    <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+      <h2 id="all-cmdr-heading" style="margin:0;">Active Commanders by MMR</h2>
+      <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show All</button>
+    </div>
+    <div id="all-cmdr-sub" class="sub">Every commander played within the last two years, ranked head-to-head.</div>
     <div class="scroll-tall">
       <table class="data-table" id="all-cmdr-table">
         <thead>
@@ -407,11 +413,19 @@ function renderSeatByPlayer(rows) {
   }
 }
 
-const _acState = { insightsRows: null, lastPlayedMap: null };
+const _acState = { insightsRows: null, lastPlayedMap: null, showAll: false };
 
 function _tryRenderAllCommanders() {
   if (!_acState.insightsRows || !_acState.lastPlayedMap) return;
   renderAllCommanders(_acState.insightsRows, _acState.lastPlayedMap);
+}
+
+function toggleAllCmdrs() {
+  _acState.showAll = !_acState.showAll;
+  document.getElementById('all-cmdr-heading').textContent = _acState.showAll ? 'All Commanders by MMR' : 'Active Commanders by MMR';
+  document.getElementById('all-cmdr-sub').textContent = _acState.showAll ? 'Every commander across the whole group, ranked head-to-head.' : 'Every commander played within the last two years, ranked head-to-head.';
+  document.getElementById('all-cmdr-toggle').textContent = _acState.showAll ? 'Show Active' : 'Show All';
+  _tryRenderAllCommanders();
 }
 
 function renderAllCommanders(rows, lastPlayedMap) {
@@ -427,11 +441,11 @@ function renderAllCommanders(rows, lastPlayedMap) {
     if (!cmdr || cmdr.trim() === '') break;
     const cmdrNorm = normalizeCmdr(cmdr);
     const lastPlayed = lastPlayedMap[cmdrNorm];
-    if (lastPlayed && (now - new Date(lastPlayed).getTime()) > ONE_YEAR) continue;
+    if (!_acState.showAll && lastPlayed && (now - new Date(lastPlayed).getTime()) > ONE_YEAR) continue;
     const tr = document.createElement('tr');
     tr.dataset.p = row[10];
     tr.innerHTML = `
-      <td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="game-history.html?commander=${encodeURIComponent(cmdrNorm)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="/game-history/?commander=${encodeURIComponent(cmdrNorm)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${row[10] || ''}</td>
       <td class="num">${int(row[7])}</td>
       <td class="num">${int(row[8])}</td>
@@ -452,7 +466,7 @@ function renderRisers(rows) {
     const cmdr = row[14];
     if (!cmdr || cmdr.trim() === '') break;
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="game-history.html?commander=${encodeURIComponent(normalizeCmdr(cmdr))}" class="cmdr-link">${cmdrName(cmdr)}</a></td><td class="num">${num(row[15],2)}</td>`;
+    tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="/game-history/?commander=${encodeURIComponent(normalizeCmdr(cmdr))}" class="cmdr-link">${cmdrName(cmdr)}</a></td><td class="num">${num(row[15],2)}</td>`;
     tbody.appendChild(tr);
   }
 }
@@ -519,7 +533,7 @@ function renderPopularity(rows) {
     const streakCell = curStreak >= 3 ? `🔥${curStreak}` : curStreak > 0 ? curStreak : '—';
     const bestCell = bestStreak >= 2 ? bestStreak : '—';
     tr.innerHTML = `
-      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="game-history.html?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
       <td class="num">${sessions} / ${eligible}</td>
       <td class="num">${(pct * 100).toFixed(1)}%</td>

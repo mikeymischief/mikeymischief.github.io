@@ -1,3 +1,6 @@
+---
+permalink: /commander-dashboard/
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -291,10 +294,10 @@
       <div class="masthead-site-desc">A Magic The Gathering Blog</div>
     </div>
     <nav class="masthead-nav">
-      <a href="/commander-dashboard.html" class="active">Stats</a>
-      <a href="/game-history.html">Game History</a>
-      <a href="/insights.html">Insights</a>
-      <a href="/commander-colors.html">Colors</a>
+      <a href="/commander-dashboard/" class="active">Stats</a>
+      <a href="/game-history/">Game History</a>
+      <a href="/insights/">Insights</a>
+      <a href="/commander-colors/">Colors</a>
       <span class="nav-sep">|</span>
       <a href="https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler">Cube</a>
       <a href="/about">About</a>
@@ -437,7 +440,7 @@ function buildPlayerCard(block, rows) {
     const tr = document.createElement('tr');
     if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
     tr.innerHTML = `
-      <td class="cmdr-name">${cmdrAvatarHtml(row[b])}<a href="game-history.html?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
+      <td class="cmdr-name">${cmdrAvatarHtml(row[b])}<a href="/game-history/?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${int(row[b+2])}</td>
       <td class="num">${pct(row[b+3])}</td>
