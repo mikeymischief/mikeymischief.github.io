@@ -791,8 +791,37 @@ function renderHistory(rows) {
     });
   });
 
-  // ⚡ Debut win: first ever game with a commander, and it's a win
-  const debutWinRows = new Set([...debutRows].filter(row => row[G.winner] && row[G.winner].trim() !== ''));
+  // 🔥 Streak: pilot on a winning streak (≥2 consecutive wins)
+  const streakRows = new Set();
+  const pilotConsecWins = {};
+  pods.forEach(pod => {
+    const winners = new Set(pod.map(row => row[G.winner] && row[G.winner].trim()).filter(Boolean));
+    pod.forEach(row => {
+      const pilot = (row[G.pilot] || '').trim();
+      if (!pilot) return;
+      const won = row[G.winner] && row[G.winner].trim() !== '';
+      if (won) {
+        pilotConsecWins[pilot] = (pilotConsecWins[pilot] || 0) + 1;
+        if (pilotConsecWins[pilot] >= 2) streakRows.add(row);
+      } else {
+        pilotConsecWins[pilot] = 0;
+      }
+    });
+  });
+
+  // ⚡ First win: the first time this commander has ever won in the group's history
+  const firstWinRows = new Set();
+  const cmdrsWithWin = new Set();
+  pods.forEach(pod => {
+    pod.forEach(row => {
+      const cmdr = normalizeCmdr(row[G.commander]);
+      const won = row[G.winner] && row[G.winner].trim() !== '';
+      if (cmdr && won && !cmdrsWithWin.has(cmdr)) {
+        firstWinRows.add(row);
+        cmdrsWithWin.add(cmdr);
+      }
+    });
+  });
 
   // 🔁 Reunion: commander returning after ≥15 game gap
   const reunionRows = new Set();
@@ -894,13 +923,15 @@ function renderHistory(rows) {
       const cmdrNorm = normalizeCmdr(row[G.commander]);
       const pilotCmdrStats = statsMap[pilot] && statsMap[pilot][cmdrNorm];
       const isDebut = debutRows.has(row);
-      const isDebutWin = debutWinRows.has(row);
+      const isFirstWin = firstWinRows.has(row);
+      const isStreak = streakRows.has(row);
       const isReunion = reunionRows.has(row);
       const isUpset = upsetRows.has(row);
       const isUndefeated = pilotCmdrStats && pilotCmdrStats.plays >= 2 && pilotCmdrStats.wins === pilotCmdrStats.plays;
       const badges = [
         isDebut    ? '<span class="badge" title="Commander debut">🔰</span>' : '',
-        isDebutWin ? '<span class="badge" title="Won on commander debut">⚡</span>' : '',
+        isFirstWin ? '<span class="badge" title="Commander\'s first win">⭐</span>' : '',
+        isStreak   ? '<span class="badge" title="Pilot on a winning streak">🔥</span>' : '',
         isReunion  ? '<span class="badge" title="Returning after a long absence">🔁</span>' : '',
         isUpset    ? '<span class="badge" title="Upset win">🙌</span>' : '',
         isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
