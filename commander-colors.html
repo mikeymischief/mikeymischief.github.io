@@ -260,6 +260,19 @@
     border-top: 1px solid var(--line);
     letter-spacing: 0.04em;
   }
+  .cmdr-avatars { display: inline-flex; align-items: center; vertical-align: middle; margin-right: 6px; }
+  .cmdr-avatars .cmdr-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 15%;
+    border: 1.5px solid var(--line);
+    flex-shrink: 0;
+  }
+  .cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
+  .cmdr-cell { display: inline-flex; align-items: center; gap: 0; }
+  .cmdr-link { color: var(--ink); text-decoration: none; }
+  .cmdr-link:hover { color: var(--gold); }
 </style>
 </head>
 <body>
@@ -357,12 +370,28 @@ function normalizeCmdr(v) {
   return v.replace(/\r?\n/g, ' / ').trim();
 }
 
+function stripPilotSuffix(name) {
+  return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
+}
+
 function scryfallColorToString(arr) {
   return COLOR_ORDER.filter(c => arr.includes(c)).join('') || 'C';
 }
 
 function cmdrToIndividualParts(cmdr) {
-  return cmdr.split(' / ').map(p => p.trim()).filter(Boolean);
+  return cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
+}
+
+function avatarUrl(cardName) {
+  return `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(stripPilotSuffix(cardName))}&format=image&version=art_crop`;
+}
+
+function cmdrAvatarHtml(cmdrNormalized) {
+  const parts = cmdrNormalized.split(' / ');
+  const imgs = parts.map(p =>
+    `<img class="cmdr-avatar" src="${avatarUrl(p)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+  ).join('');
+  return `<span class="cmdr-avatars">${imgs}</span>`;
 }
 
 function pips(identity) {
@@ -474,7 +503,7 @@ function bestCmdrCell(cmdrStats) {
   if (!best) return '<span style="color:var(--ink-faint)">—</span>';
   const url = `game-history.html?commander=${encodeURIComponent(best)}`;
   const display = best.replace(/ \/ /g, ' / ');
-  return `<a href="${url}" style="color:var(--ink);text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ink)'">${display}</a> <span style="color:var(--ink-faint)">${(bestPct * 100).toFixed(1)}%</span>`;
+  return `<span class="cmdr-cell">${cmdrAvatarHtml(best)}<a href="${url}" class="cmdr-link">${display}</a> <span style="color:var(--ink-faint)">${(bestPct * 100).toFixed(1)}%</span></span>`;
 }
 
 function renderTable(agg) {

@@ -222,6 +222,16 @@
     font-size: 12.5px;
     font-family: 'JetBrains Mono', monospace;
   }
+  .cmdr-avatars { display: inline-flex; align-items: center; vertical-align: middle; margin-right: 6px; }
+  .cmdr-avatars .cmdr-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 15%;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+  .cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
 </style>
 </head>
 <body>
@@ -343,6 +353,19 @@ function cmdrName(v) {
   if (!v) return '';
   return v.replace(/\r?\n/g, '<br>');
 }
+function stripPilotSuffix(name) {
+  return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
+}
+function avatarUrl(cardName) {
+  return `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(stripPilotSuffix(cardName))}&format=image&version=art_crop`;
+}
+function cmdrAvatarHtml(cmdrNormalized) {
+  const parts = cmdrNormalized.split(' / ');
+  const imgs = parts.map(p =>
+    `<img class="cmdr-avatar" src="${avatarUrl(p)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+  ).join('');
+  return `<span class="cmdr-avatars">${imgs}</span>`;
+}
 function showError(msg) {
   const el = document.getElementById('status');
   el.textContent = msg;
@@ -394,7 +417,7 @@ function renderAllCommanders(rows) {
     const tr = document.createElement('tr');
     tr.dataset.p = row[10];
     tr.innerHTML = `
-      <td class="name">${cmdrName(cmdr)}</td>
+      <td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}${cmdrName(cmdr)}</td>
       <td>${row[10] || ''}</td>
       <td class="num">${int(row[7])}</td>
       <td class="num">${int(row[8])}</td>
@@ -415,7 +438,7 @@ function renderRisers(rows) {
     const cmdr = row[14];
     if (!cmdr || cmdr.trim() === '') break;
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="name">${cmdrName(cmdr)}</td><td class="num">${num(row[15],2)}</td>`;
+    tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}${cmdrName(cmdr)}</td><td class="num">${num(row[15],2)}</td>`;
     tbody.appendChild(tr);
   }
 }
@@ -482,7 +505,7 @@ function renderPopularity(rows) {
     const streakCell = curStreak >= 3 ? `🔥${curStreak}` : curStreak > 0 ? curStreak : '—';
     const bestCell = bestStreak >= 2 ? bestStreak : '—';
     tr.innerHTML = `
-      <td class="name">${cmdrName(cmdr)}</td>
+      <td class="name">${cmdrAvatarHtml(cmdr)}${cmdrName(cmdr)}</td>
       <td>${pilot}</td>
       <td class="num">${sessions} / ${eligible}</td>
       <td class="num">${(pct * 100).toFixed(1)}%</td>

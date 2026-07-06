@@ -337,6 +337,16 @@
     font-size: 12.5px;
     font-family: 'JetBrains Mono', monospace;
   }
+  .cmdr-avatars { display: inline-flex; align-items: center; vertical-align: middle; margin-right: 6px; }
+  .cmdr-avatars .cmdr-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 15%;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+  .cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
 </style>
 </head>
 <body>
@@ -422,6 +432,19 @@ function int(v) {
 function normalizeCmdr(v) {
   if (!v) return '';
   return v.replace(/\r?\n/g, ' / ').trim();
+}
+function stripPilotSuffix(name) {
+  return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
+}
+function avatarUrl(cardName) {
+  return `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(stripPilotSuffix(cardName))}&format=image&version=art_crop`;
+}
+function cmdrAvatarHtml(cmdrNormalized) {
+  const parts = cmdrNormalized.split(' / ');
+  const imgs = parts.map(p =>
+    `<img class="cmdr-avatar" src="${avatarUrl(p)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+  ).join('');
+  return `<span class="cmdr-avatars">${imgs}</span>`;
 }
 function cmdrName(v) {
   if (!v) return '';
@@ -882,7 +905,7 @@ function renderHistory(rows) {
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
         <td class="pilot-name">${pilot}</td>
-        <td class="cmdr-name">${cmdrName(row[G.commander])}${badges ? ' ' + badges : ''}</td>
+        <td class="cmdr-name">${cmdrAvatarHtml(normalizeCmdr(row[G.commander]))}${cmdrName(row[G.commander])}${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>

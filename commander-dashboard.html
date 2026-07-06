@@ -269,6 +269,16 @@
     font-size: 12.5px;
     font-family: 'JetBrains Mono', monospace;
   }
+  .cmdr-avatars { display: inline-flex; align-items: center; vertical-align: middle; margin-right: 6px; }
+  .cmdr-avatars .cmdr-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 15%;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+  .cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
 </style>
 </head>
 <body>
@@ -348,6 +358,20 @@ function cmdrName(v) {
   if (!v) return '';
   return v.replace(/\r?\n/g, '<br>');
 }
+function stripPilotSuffix(name) {
+  return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
+}
+function avatarUrl(cardName) {
+  return `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(stripPilotSuffix(cardName))}&format=image&version=art_crop`;
+}
+function cmdrAvatarHtml(rawVal) {
+  const normalized = (rawVal || '').replace(/\r?\n/g, ' / ').trim();
+  const parts = normalized.split(' / ');
+  const imgs = parts.map(p =>
+    `<img class="cmdr-avatar" src="${avatarUrl(p)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+  ).join('');
+  return `<span class="cmdr-avatars">${imgs}</span>`;
+}
 
 function buildPlayerCard(block, rows) {
   const startRow = DATA_START_ROW;
@@ -413,7 +437,7 @@ function buildPlayerCard(block, rows) {
     const tr = document.createElement('tr');
     if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
     tr.innerHTML = `
-      <td class="cmdr-name"><a href="game-history.html?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
+      <td class="cmdr-name">${cmdrAvatarHtml(row[b])}<a href="game-history.html?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${int(row[b+2])}</td>
       <td class="num">${pct(row[b+3])}</td>
