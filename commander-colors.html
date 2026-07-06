@@ -567,6 +567,7 @@ function buildMetrics(rows, colorMap) {
 function bestCmdrCell(cmdrStats) {
   let best = null, bestPct = -1;
   Object.entries(cmdrStats).forEach(([cmdr, { plays, wins }]) => {
+    if (plays < 3) return;
     const pct = wins / plays;
     if (pct > bestPct) { bestPct = pct; best = cmdr; }
   });
