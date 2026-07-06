@@ -791,20 +791,19 @@ function renderHistory(rows) {
     });
   });
 
-  // 🔥 Streak: pilot on a winning streak (≥2 consecutive wins)
+  // 🔥 Streak: commander on a winning streak (≥2 consecutive wins)
   const streakRows = new Set();
-  const pilotConsecWins = {};
+  const cmdrConsecWins = {};
   pods.forEach(pod => {
-    const winners = new Set(pod.map(row => row[G.winner] && row[G.winner].trim()).filter(Boolean));
     pod.forEach(row => {
-      const pilot = (row[G.pilot] || '').trim();
-      if (!pilot) return;
+      const cmdr = normalizeCmdr(row[G.commander]);
+      if (!cmdr) return;
       const won = row[G.winner] && row[G.winner].trim() !== '';
       if (won) {
-        pilotConsecWins[pilot] = (pilotConsecWins[pilot] || 0) + 1;
-        if (pilotConsecWins[pilot] >= 2) streakRows.add(row);
+        cmdrConsecWins[cmdr] = (cmdrConsecWins[cmdr] || 0) + 1;
+        if (cmdrConsecWins[cmdr] >= 2) streakRows.add(row);
       } else {
-        pilotConsecWins[pilot] = 0;
+        cmdrConsecWins[cmdr] = 0;
       }
     });
   });
@@ -931,7 +930,7 @@ function renderHistory(rows) {
       const badges = [
         isDebut    ? '<span class="badge" title="Commander debut">🔰</span>' : '',
         isFirstWin ? '<span class="badge" title="Commander\'s first win">⭐</span>' : '',
-        isStreak   ? '<span class="badge" title="Pilot on a winning streak">🔥</span>' : '',
+        isStreak   ? '<span class="badge" title="Commander on a winning streak">🔥</span>' : '',
         isReunion  ? '<span class="badge" title="Returning after a long absence">🔁</span>' : '',
         isUpset    ? '<span class="badge" title="Upset win">🙌</span>' : '',
         isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
