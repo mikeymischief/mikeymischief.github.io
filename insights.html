@@ -10,6 +10,7 @@ permalink: /insights/
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<link rel="stylesheet" href="/assets/commander-stats.css">
 <style>
   :root {
     --bg: #0d0f1a;
@@ -225,18 +226,6 @@ permalink: /insights/
     font-size: 12.5px;
     font-family: 'JetBrains Mono', monospace;
   }
-  .cmdr-avatars { display: inline-flex; align-items: center; vertical-align: middle; margin-right: 6px; }
-  .cmdr-avatars .cmdr-avatar {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center 15%;
-    border: 1.5px solid rgba(255,255,255,0.15);
-    flex-shrink: 0;
-  }
-  .cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
-  .cmdr-link { color: inherit; text-decoration: none; }
-  .cmdr-link:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -337,6 +326,7 @@ permalink: /insights/
 </div>
 </div><!-- /.page-wrapper -->
 
+<script src="/assets/commander-stats.js"></script>
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1208436953&single=true&output=csv";
 
@@ -356,23 +346,6 @@ function int(v) {
   const n = parseFloat(v);
   if (isNaN(n)) return "—";
   return Math.round(n).toString();
-}
-function cmdrName(v) {
-  if (!v) return '';
-  return v.replace(/\r?\n/g, '<br>');
-}
-function stripPilotSuffix(name) {
-  return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
-}
-function avatarUrl(cardName) {
-  return `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(stripPilotSuffix(cardName))}&format=image&version=art_crop`;
-}
-function cmdrAvatarHtml(cmdrNormalized) {
-  const parts = cmdrNormalized.split(' / ');
-  const imgs = parts.map(p =>
-    `<img class="cmdr-avatar" src="${avatarUrl(p)}" alt="" loading="lazy" onerror="this.style.display='none'">`
-  ).join('');
-  return `<span class="cmdr-avatars">${imgs}</span>`;
 }
 function showError(msg) {
   const el = document.getElementById('status');
@@ -472,11 +445,6 @@ function renderRisers(rows) {
 }
 
 const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=517398000&single=true&output=csv";
-
-function normalizeCmdr(v) {
-  if (!v) return '';
-  return v.replace(/\r?\n/g, ' / ').trim();
-}
 
 function renderPopularity(rows) {
   const G = { date: 0, pilot: 3, commander: 4 };
