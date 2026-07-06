@@ -347,6 +347,8 @@
     flex-shrink: 0;
   }
   .cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
+  .cmdr-link { color: inherit; text-decoration: none; }
+  .cmdr-link:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -905,7 +907,7 @@ function renderHistory(rows) {
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
         <td class="pilot-name">${pilot}</td>
-        <td class="cmdr-name">${cmdrAvatarHtml(normalizeCmdr(row[G.commander]))}${cmdrName(row[G.commander])}${badges ? ' ' + badges : ''}</td>
+        <td class="cmdr-name">${cmdrAvatarHtml(normalizeCmdr(row[G.commander]))}<a href="game-history.html?commander=${encodeURIComponent(normalizeCmdr(row[G.commander]))}" class="cmdr-link">${cmdrName(row[G.commander])}</a>${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>

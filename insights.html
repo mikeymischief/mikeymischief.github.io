@@ -232,6 +232,8 @@
     flex-shrink: 0;
   }
   .cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
+  .cmdr-link { color: inherit; text-decoration: none; }
+  .cmdr-link:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -417,7 +419,7 @@ function renderAllCommanders(rows) {
     const tr = document.createElement('tr');
     tr.dataset.p = row[10];
     tr.innerHTML = `
-      <td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}${cmdrName(cmdr)}</td>
+      <td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="game-history.html?commander=${encodeURIComponent(normalizeCmdr(cmdr))}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${row[10] || ''}</td>
       <td class="num">${int(row[7])}</td>
       <td class="num">${int(row[8])}</td>
@@ -438,7 +440,7 @@ function renderRisers(rows) {
     const cmdr = row[14];
     if (!cmdr || cmdr.trim() === '') break;
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}${cmdrName(cmdr)}</td><td class="num">${num(row[15],2)}</td>`;
+    tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="game-history.html?commander=${encodeURIComponent(normalizeCmdr(cmdr))}" class="cmdr-link">${cmdrName(cmdr)}</a></td><td class="num">${num(row[15],2)}</td>`;
     tbody.appendChild(tr);
   }
 }
@@ -505,7 +507,7 @@ function renderPopularity(rows) {
     const streakCell = curStreak >= 3 ? `🔥${curStreak}` : curStreak > 0 ? curStreak : '—';
     const bestCell = bestStreak >= 2 ? bestStreak : '—';
     tr.innerHTML = `
-      <td class="name">${cmdrAvatarHtml(cmdr)}${cmdrName(cmdr)}</td>
+      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="game-history.html?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
       <td class="num">${sessions} / ${eligible}</td>
       <td class="num">${(pct * 100).toFixed(1)}%</td>
