@@ -571,6 +571,12 @@ function bestCmdrCell(cmdrStats) {
     const pct = wins / plays;
     if (pct > bestPct) { bestPct = pct; best = cmdr; }
   });
+  if (!best) {
+    Object.entries(cmdrStats).forEach(([cmdr, { plays, wins }]) => {
+      const pct = wins / plays;
+      if (pct > bestPct) { bestPct = pct; best = cmdr; }
+    });
+  }
   if (!best) return '<span style="color:var(--ink-faint)">—</span>';
   const url = `game-history.html?commander=${encodeURIComponent(best)}`;
   const display = best.replace(/ \/ /g, ' / ');

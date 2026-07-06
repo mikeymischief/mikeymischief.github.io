@@ -285,8 +285,8 @@
   </section>
 
   <section class="block">
-    <h2>All Commanders by MMR</h2>
-    <div class="sub">Every commander across the whole group, ranked head-to-head.</div>
+    <h2>Active Commanders by MMR</h2>
+    <div class="sub">Every commander played within the last two years, ranked head-to-head.</div>
     <div class="scroll-tall">
       <table class="data-table" id="all-cmdr-table">
         <thead>
@@ -407,19 +407,31 @@ function renderSeatByPlayer(rows) {
   }
 }
 
-function renderAllCommanders(rows) {
+const _acState = { insightsRows: null, lastPlayedMap: null };
+
+function _tryRenderAllCommanders() {
+  if (!_acState.insightsRows || !_acState.lastPlayedMap) return;
+  renderAllCommanders(_acState.insightsRows, _acState.lastPlayedMap);
+}
+
+function renderAllCommanders(rows, lastPlayedMap) {
   const tbody = document.querySelector('#all-cmdr-table tbody');
   tbody.innerHTML = '';
+  const now = Date.now();
+  const ONE_YEAR = 2 * 365 * 24 * 60 * 60 * 1000;
   // Sheet data starts row 3 (0-indexed 2), columns G-M (0-indexed 6-12):
   // Commander, Wins, Plays, Win%, Pilot, MMR, Conservative Rating
   for (let r = 2; r < rows.length; r++) {
     const row = rows[r];
     const cmdr = row[6];
     if (!cmdr || cmdr.trim() === '') break;
+    const cmdrNorm = normalizeCmdr(cmdr);
+    const lastPlayed = lastPlayedMap[cmdrNorm];
+    if (lastPlayed && (now - new Date(lastPlayed).getTime()) > ONE_YEAR) continue;
     const tr = document.createElement('tr');
     tr.dataset.p = row[10];
     tr.innerHTML = `
-      <td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="game-history.html?commander=${encodeURIComponent(normalizeCmdr(cmdr))}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="game-history.html?commander=${encodeURIComponent(cmdrNorm)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${row[10] || ''}</td>
       <td class="num">${int(row[7])}</td>
       <td class="num">${int(row[8])}</td>
@@ -528,7 +540,8 @@ Papa.parse(CSV_URL, {
     try {
       renderSeatOverall(results.data);
       renderSeatByPlayer(results.data);
-      renderAllCommanders(results.data);
+      _acState.insightsRows = results.data;
+      _tryRenderAllCommanders();
       renderRisers(results.data);
       document.getElementById('status').textContent = 'Updated ' + new Date().toLocaleString();
     } catch (e) {
@@ -545,9 +558,19 @@ Papa.parse(GAMES_CSV_URL, {
   complete: function(results) {
     if (!results.data || results.data.length < 2) return;
     try {
-      renderPopularity(results.data.slice(1)); // skip header row
+      const gameRows = results.data.slice(1); // skip header row
+      const map = {};
+      gameRows.forEach(function(row) {
+        const date = (row[0] || '').trim();
+        const cmdr = normalizeCmdr(row[4]);
+        if (!date || !cmdr) return;
+        if (!map[cmdr] || date > map[cmdr]) map[cmdr] = date;
+      });
+      _acState.lastPlayedMap = map;
+      _tryRenderAllCommanders();
+      renderPopularity(gameRows);
     } catch (e) {
-      console.error('Popularity render failed:', e);
+      console.error('Games render failed:', e);
     }
   }
 });
