@@ -194,25 +194,8 @@ permalink: /commander-colors/
   table.data-table tbody tr:hover { background: rgba(255,255,255,0.03); }
 
   /* mana pips */
-  .pips { display: inline-flex; gap: 3px; align-items: center; vertical-align: middle; }
-  .pip {
-    display: inline-block;
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    font-size: 8px;
-    font-weight: 700;
-    line-height: 14px;
-    text-align: center;
-    letter-spacing: 0;
-    font-family: 'Inter', sans-serif;
-    flex-shrink: 0;
-  }
-  .pip-W { background: var(--mana-w); color: #5a5040; }
-  .pip-U { background: var(--mana-u); color: #fff; }
-  .pip-B { background: var(--mana-b); color: #fff; }
-  .pip-R { background: var(--mana-r); color: #fff; }
-  .pip-G { background: var(--mana-g); color: #fff; }
-  .pip-C { background: var(--mana-c); color: #3a3a4a; }
+  .pips { display: inline-flex; gap: 2px; align-items: center; vertical-align: middle; }
+  .pips .mana-pip { width: 16px; height: 16px; }
 
   .identity-label {
     display: flex;
@@ -354,7 +337,7 @@ permalink: /commander-colors/
     <header class="hero">
       <div class="eyebrow">Commander Stats</div>
       <h1>Commander Colors</h1>
-      <p class="hero-sub">Win rates by color identity, grouped from mono through five-color. Color identities are auto-resolved from Scryfall and cached locally.</p>
+      <p class="hero-sub">Win rates by color identity, grouped from mono through five-color.</p>
       <div id="status">Loading…</div>
     </header>
 
@@ -422,6 +405,23 @@ const IDENTITY_ORDER = [
   // Five-color then colorless
   'WUBRG','C',
 ];
+// Canonical pip display order per identity (differs from WUBRG sort for enemy pairs/wedges/shards)
+const PIP_ORDER = {
+  // Mono & colorless — trivial
+  W:['W'], U:['U'], B:['B'], R:['R'], G:['G'], C:['C'],
+  // Ally pairs (arc order, wraps G→W)
+  WU:['W','U'], UB:['U','B'], BR:['B','R'], RG:['R','G'], WG:['G','W'],
+  // Enemy pairs (Ravnica guild convention)
+  WB:['W','B'], UR:['U','R'], BG:['B','G'], WR:['R','W'], UG:['G','U'],
+  // Shards (arc of 3 around the wheel)
+  WUB:['W','U','B'], UBR:['U','B','R'], BRG:['B','R','G'], WRG:['R','G','W'], WUG:['G','W','U'],
+  // Wedges (Khans: primary color first, then two enemies arc-wise)
+  WBG:['W','B','G'], WUR:['U','R','W'], UBG:['B','G','U'], WBR:['R','W','B'], URG:['G','U','R'],
+  // 4-color (WUBRG with missing color omitted)
+  UBRG:['U','B','R','G'], WBRG:['W','B','R','G'], WURG:['W','U','R','G'], WUBG:['W','U','B','G'], WUBR:['W','U','B','R'],
+  // 5-color
+  WUBRG:['W','U','B','R','G'],
+};
 const GROUP_LABEL_FOR = {
   1:'Mono', 2:'Dual', 3:'Tri', 4:'Quad', 5:'Five Color', 0:'Colorless',
 };
@@ -435,9 +435,9 @@ function cmdrToIndividualParts(cmdr) {
 }
 
 function pips(identity) {
-  const colors = identity === 'C' ? ['C'] : identity.split('');
+  const colors = PIP_ORDER[identity] || (identity === 'C' ? ['C'] : identity.split(''));
   return '<span class="pips">' + colors.map(c =>
-    `<span class="pip pip-${c}">${c}</span>`
+    `<img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${c}.svg" alt="${c}">`
   ).join('') + '</span>';
 }
 
