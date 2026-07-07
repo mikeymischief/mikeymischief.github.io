@@ -1,3 +1,21 @@
+.site-masthead { background: #07080f; border-bottom: 1px solid #2a2a3a; margin-bottom: 50px; }
+.masthead-inner { max-width: 1240px; margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; gap: 15px; }
+.masthead-avatar img { width: 70px; height: 70px; border-radius: 5px; border: 2px solid #8b6914; display: block; }
+.masthead-info { flex: 1; }
+.masthead-site-name a { color: #d4af37; font-family: 'Cinzel', serif; font-weight: 700; font-size: 26px; letter-spacing: 2px; text-decoration: none; text-shadow: 0 0 20px rgba(212,175,55,0.3); display: block; }
+.masthead-site-name a:hover { color: #f0d060; }
+.masthead-site-desc { color: #8b8ea8; font-size: 15px; font-style: italic; margin-top: 2px; }
+.masthead-nav { display: flex; }
+.masthead-nav a { margin-left: 20px; color: #8b8ea8; text-decoration: none; font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+.masthead-nav a:hover { color: #d4af37; text-decoration: none; }
+.masthead-nav .nav-sep { margin-left: 20px; color: #2a2a3a; user-select: none; }
+.masthead-nav a.active { color: #d4af37; }
+@media (max-width: 640px) {
+  .masthead-inner { flex-wrap: wrap; }
+  .masthead-nav { margin-top: 8px; width: 100%; }
+  .masthead-nav a:first-child { margin-left: 0; }
+}
+
 .cmdr-avatars {
   display: inline-flex;
   align-items: center;
