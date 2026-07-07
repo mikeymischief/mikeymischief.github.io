@@ -18,3 +18,12 @@
 .cmdr-link:hover { color: var(--gold); text-decoration: underline; }
 .pips { display: inline-flex; gap: 2px; align-items: center; vertical-align: middle; }
 .mana-pip { width: 16px; height: 16px; }
+
+@media screen and (max-width: 640px) {
+  body { background-image: none !important; }
+  .page-wrapper {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    max-width: 100% !important;
+  }
+}
