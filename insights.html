@@ -555,6 +555,7 @@ Papa.parse(CSV_URL, {
       _acState.insightsRows = results.data;
       _tryRenderAllCommanders();
       renderRisers(results.data);
+      loadAvatarImages(document.body);
       document.getElementById('status').textContent = 'Updated ' + new Date().toLocaleString();
     } catch (e) {
       showError('Could not parse insights: ' + e.message);
@@ -582,6 +583,7 @@ Papa.parse(GAMES_CSV_URL, {
       _tryRenderAllCommanders();
       renderPopularity(gameRows);
       renderColorProfiles(gameRows);
+      loadAvatarImages(document.body);
     } catch (e) {
       console.error('Games render failed:', e);
     }

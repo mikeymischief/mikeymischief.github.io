@@ -5,14 +5,14 @@ function normalizeCmdr(v) {
 function stripPilotSuffix(name) {
   return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
 }
-function avatarUrl(cardName) {
-  return `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(stripPilotSuffix(cardName))}&format=image&version=art_crop`;
-}
 function cmdrAvatarHtml(val) {
   const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
   const parts = normalized.split(' / ');
+  // Use data-cmdr instead of src to avoid Chrome ORB errors from the Scryfall
+  // redirect endpoint (api.scryfall.com returns Content-Type: text/html on its
+  // 302, which ORB blocks). loadAvatarImages() resolves direct CDN URLs later.
   const imgs = parts.map(p =>
-    `<img class="cmdr-avatar" src="${avatarUrl(p)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+    `<img class="cmdr-avatar" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">`
   ).join('');
   return `<span class="cmdr-avatars">${imgs}</span>`;
 }
@@ -76,6 +76,54 @@ async function getColorMap(cmdrNames) {
     } catch(e) {}
   }
   return cached;
+}
+
+const CMDR_IMAGES_CACHE_KEY = 'cmdr_images_v1';
+
+async function getImageMap(partNames) {
+  let cached = {};
+  try {
+    const raw = JSON.parse(localStorage.getItem(CMDR_IMAGES_CACHE_KEY) || 'null');
+    if (raw) cached = raw.images || {};
+  } catch(e) {}
+
+  const stripped = partNames.map(stripPilotSuffix);
+  const missing = stripped.filter(n => !(n.toLowerCase() in cached));
+  if (missing.length > 0) {
+    for (let i = 0; i < missing.length; i += 75) {
+      const batch = missing.slice(i, i + 75);
+      try {
+        const resp = await fetch(SCRYFALL_COLLECTION, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ identifiers: batch.map(name => ({ name })) }),
+        });
+        const data = await resp.json();
+        (data.data || []).forEach(card => {
+          const url = card.image_uris?.art_crop
+            || card.card_faces?.[0]?.image_uris?.art_crop
+            || null;
+          if (url) cached[card.name.toLowerCase()] = url;
+        });
+      } catch(e) { console.warn('Scryfall images batch failed:', e); }
+      if (i + 75 < missing.length) await new Promise(r => setTimeout(r, 100));
+    }
+    try {
+      localStorage.setItem(CMDR_IMAGES_CACHE_KEY, JSON.stringify({ timestamp: Date.now(), images: cached }));
+    } catch(e) {}
+  }
+  return cached;
+}
+
+async function loadAvatarImages(container) {
+  const imgs = Array.from((container || document).querySelectorAll('.cmdr-avatar[data-cmdr]'));
+  if (!imgs.length) return;
+  const partNames = [...new Set(imgs.map(img => img.dataset.cmdr).filter(Boolean))];
+  const imageMap = await getImageMap(partNames);
+  imgs.forEach(img => {
+    const url = imageMap[stripPilotSuffix(img.dataset.cmdr).toLowerCase()];
+    if (url) img.src = url;
+  });
 }
 
 const IDENTITY_NAMES = {

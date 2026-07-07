@@ -892,6 +892,7 @@ Papa.parse(GAMES_CSV_URL, {
       statsMap = buildStatsMap(results.data);
       buildPredictor();
       renderHistory(results.data);
+      loadAvatarImages(document.getElementById('history-table') || document.body);
       const urlCmdr = new URLSearchParams(location.search).get('commander');
       if (urlCmdr) {
         const fi = document.getElementById('cmdr-filter-input');

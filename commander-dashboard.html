@@ -401,6 +401,7 @@ Papa.parse(CSV_URL, {
     }
     try {
       render(results.data);
+      loadAvatarImages(document.getElementById('grid'));
     } catch (e) {
       showError('Could not parse the standings: ' + e.message);
     }

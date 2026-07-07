@@ -483,6 +483,7 @@ Papa.parse(GAMES_CSV, {
       const colorMap = await getColorMap(cmdrNames);
       const agg = buildMetrics(rows, colorMap);
       renderTable(agg);
+      loadAvatarImages(document.body);
       setStatus('Updated ' + new Date().toLocaleString());
     } catch(e) {
       setStatus('Error: ' + e.message, true);
