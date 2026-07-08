@@ -408,10 +408,32 @@ permalink: /game-history/
     font-family: 'JetBrains Mono', monospace;
   }
 
+  .matchup-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .matchup-divider::before, .matchup-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .matchup-divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
   .matchup-bar {
+    margin-bottom: 28px;
+  }
+  .matchup-bar-cards {
     display: flex;
     gap: 10px;
-    margin-bottom: 28px;
   }
   .matchup-card {
     flex: 1;
@@ -498,7 +520,7 @@ permalink: /game-history/
     .cmdr-hero-panel { min-height: 200px; }
     .cmdr-hero-name { font-size: 1rem; }
     .cmdr-hero-oracle { font-size: 11.5px; }
-    .matchup-bar { display: grid; grid-template-columns: 1fr 1fr; }
+    .matchup-bar-cards { display: grid; grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -1009,7 +1031,7 @@ function computeMatchups(cmdr) {
       return (latestMmr[b[0]] || 0) - (latestMmr[a[0]] || 0);
     })
     .slice(0, 4)
-    .map(([c, n]) => ({ cmdr: c, count: n, wins: wins[c] || 0, oppWins: oppWins[c] || 0 }));
+    .map(([c, n]) => ({ cmdr: c, count: n, wins: wins[c] || 0, oppWins: oppWins[c] || 0, mmr: latestMmr[c] || null }));
 }
 
 async function renderMatchups(cmdr) {
@@ -1022,32 +1044,33 @@ async function renderMatchups(cmdr) {
   )];
   const imageMap = await getImageMap(partNames);
 
-  bar.innerHTML = matches.map(({ cmdr: opp, count, wins: w, oppWins: l }) => {
+  const cards = matches.map(({ cmdr: opp, count, oppWins: l, mmr }) => {
     const firstPart = stripPilotSuffix(opp.split(' / ')[0].trim());
     const imgUrl = imageMap[firstPart.toLowerCase()] || '';
     const href = `/game-history/?commander=${encodeURIComponent(opp)}`;
     return `<a class="matchup-card" href="${href}"${imgUrl ? ` style="background-image:url('${imgUrl}')"` : ''}>
       <div class="matchup-card-content">
         <div class="matchup-record">
-          <div class="matchup-record-block games">
+          <div class="matchup-record-block">
+            <div class="matchup-record-num">${l}</div>
+            <div class="matchup-record-lbl">Losses</div>
+          </div>
+          <div class="matchup-record-sep">–</div>
+          <div class="matchup-record-block">
             <div class="matchup-record-num">${count}</div>
             <div class="matchup-record-lbl">Games</div>
           </div>
           <div class="matchup-record-sep">–</div>
-          <div class="matchup-record-block wins">
-            <div class="matchup-record-num">${w}</div>
-            <div class="matchup-record-lbl">Wins</div>
-          </div>
-          <div class="matchup-record-sep">–</div>
-          <div class="matchup-record-block losses">
-            <div class="matchup-record-num">${l}</div>
-            <div class="matchup-record-lbl">Losses</div>
+          <div class="matchup-record-block">
+            <div class="matchup-record-num">${mmr != null ? Math.round(mmr) : '—'}</div>
+            <div class="matchup-record-lbl">MMR</div>
           </div>
         </div>
         <div class="matchup-card-name">${opp.replace(/ \/ /g, ' / ')}</div>
       </div>
     </a>`;
   }).join('');
+  bar.innerHTML = `<div class="matchup-divider"><span class="matchup-divider-label">Nemesis</span></div><div class="matchup-bar-cards">${cards}</div>`;
   bar.style.display = '';
 }
 
