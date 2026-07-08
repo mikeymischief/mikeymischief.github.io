@@ -1024,10 +1024,10 @@ function computeMatchups(cmdr) {
   });
   return Object.entries(counts)
     .sort((a, b) => {
-      const countDiff = b[1] - a[1];
-      if (countDiff !== 0) return countDiff;
       const lossDiff = (oppWins[b[0]] || 0) - (oppWins[a[0]] || 0);
       if (lossDiff !== 0) return lossDiff;
+      const countDiff = b[1] - a[1];
+      if (countDiff !== 0) return countDiff;
       return (latestMmr[b[0]] || 0) - (latestMmr[a[0]] || 0);
     })
     .slice(0, 4)
