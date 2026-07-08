@@ -2,8 +2,28 @@
 layout: default
 ---
 
+{% if page.categories contains 'cube' %}
+  {% assign hero_pool = site.static_files | where_exp: "f", "f.path contains '/images/bg/cube/'" %}
+  {% assign hero_file = hero_pool | sample %}
+  {% assign post_hero_art = hero_file.path %}
+{% elsif page.categories contains 'commander' %}
+  {% assign hero_pool = site.static_files | where_exp: "f", "f.path contains '/images/bg/commander/'" %}
+  {% assign hero_file = hero_pool | sample %}
+  {% assign post_hero_art = hero_file.path %}
+{% endif %}
+
+{% if post_hero_art %}
+<div class="post-hero" style="background-image: url('{{ post_hero_art }}')">
+  <div class="post-hero-content">
+    <div class="post-hero-eyebrow">{{ page.categories | join: ' · ' | upcase }}</div>
+    <h1 class="post-hero-title">{{ page.title }}</h1>
+    <div class="post-hero-date">{{ page.date | date: "%B %-d, %Y" }}</div>
+  </div>
+</div>
+{% endif %}
+
 <article class="post">
-  <h1>{{ page.title }}</h1>
+  {% unless post_hero_art %}<h1>{{ page.title }}</h1>{% endunless %}
 
   <div class="entry">
     {{ content }}

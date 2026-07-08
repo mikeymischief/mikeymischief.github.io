@@ -444,6 +444,47 @@ footer {
   text-align: center;
 }
 
+.post-hero {
+  position: relative;
+  background-size: cover;
+  background-position: center 25%;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  padding: 160px 32px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0.1) 0%, rgba(13,15,26,0.65) 50%, rgba(13,15,26,0.97) 100%);
+  }
+}
+.post-hero-content { position: relative; z-index: 1; }
+.post-hero-eyebrow {
+  font-family: $helveticaNeue;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: $text-secondary;
+  margin-bottom: 10px;
+}
+.post-hero-title {
+  font-family: $helveticaNeue;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 700;
+  color: $text-heading;
+  margin: 0 0 10px;
+  line-height: 1.1;
+}
+.post-hero-date {
+  font-size: 0.9rem;
+  color: $text-secondary;
+  font-style: italic;
+}
+
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 @import "highlights";
 @import "svg-icons";
