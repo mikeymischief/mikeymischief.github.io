@@ -235,13 +235,16 @@ permalink: /insights/
   <header class="hero">
     <div class="eyebrow">Commander &middot; Deeper Cuts</div>
     <h1>Insights</h1>
-    <p class="hero-sub">Seat position, cross-player leaderboards, and rising decks — pulled live from the group's Insights sheet.</p>
+    <p class="hero-sub">Seat position, cross-player leaderboards, and rising decks.</p>
     <div id="status">Loading insights…</div>
   </header>
 
   <section class="block">
-    <h2>Seat Position</h2>
-    <div class="sub">How much does where you sit actually matter?</div>
+    <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+      <h2 id="seat-heading" style="margin:0;">Seat Position · 3-Player</h2>
+      <button id="seat-toggle" onclick="toggleSeatFilter()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show 4-Player</button>
+    </div>
+    <div id="seat-sub" class="sub">Win rates by seat position — 3-player games only.</div>
     <div class="two-col">
       <div>
         <table class="data-table" id="seat-overall-table">
@@ -320,7 +323,45 @@ const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_
 const G = { date:0, winner:1, seat:2, rounds:3, pilot:4, commander:5, startMmr:6, endMmr:7, delta:8, winProb:9, firstPlayerW:10, cmdrPlays:11 };
 
 let _gameRows = null;
+let _gameSizeMap = {};
 const _acState = { showAll: false };
+const _seatState = { filter: '3' };
+
+function buildGameSizeMap(rows) {
+  const map = {};
+  rows.forEach(row => {
+    const date = (row[G.date] || '').trim();
+    const seat = parseInt(row[G.seat]);
+    if (!date || !seat) return;
+    map[date] = (map[date] || 0) + 1;
+  });
+  return map;
+}
+
+function seatFilteredRows() {
+  if (_seatState.filter === 'all') return _gameRows;
+  const n = parseInt(_seatState.filter);
+  return _gameRows.filter(row => {
+    const date = (row[G.date] || '').trim();
+    return _gameSizeMap[date] === n;
+  });
+}
+
+function toggleSeatFilter() {
+  _seatState.filter = _seatState.filter === '3' ? '4' : '3';
+  const cfg = {
+    '3': ['Seat Position · 3-Player', 'Win rates by seat position — 3-player games only.', 'Show 4-Player'],
+    '4': ['Seat Position · 4-Player', 'Win rates by seat position — 4-player games only.', 'Show 3-Player'],
+  }[_seatState.filter];
+  document.getElementById('seat-heading').textContent = cfg[0];
+  document.getElementById('seat-sub').textContent     = cfg[1];
+  document.getElementById('seat-toggle').textContent  = cfg[2];
+  if (_gameRows) {
+    const rows = seatFilteredRows();
+    renderSeatOverall(rows);
+    renderSeatByPlayer(rows);
+  }
+}
 
 function pct(v) {
   if (v === undefined || v === null || v === '') return "—";
@@ -627,8 +668,10 @@ Papa.parse(GAMES_CSV_URL, {
     }
     try {
       _gameRows = results.data.slice(1);
-      renderSeatOverall(_gameRows);
-      renderSeatByPlayer(_gameRows);
+      _gameSizeMap = buildGameSizeMap(_gameRows);
+      const seatRows = seatFilteredRows();
+      renderSeatOverall(seatRows);
+      renderSeatByPlayer(seatRows);
       renderAllCommanders(_gameRows);
       renderRisers(_gameRows);
       renderPopularity(_gameRows);
