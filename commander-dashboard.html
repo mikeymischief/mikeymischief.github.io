@@ -187,6 +187,11 @@ permalink: /commander-dashboard/
     font-size: 10.5px;
     border-bottom: 1px solid var(--line);
     white-space: nowrap;
+    cursor: default;
+  }
+  table.cmdr-table th[title] {
+    text-decoration: underline dotted var(--ink-faint);
+    text-underline-offset: 3px;
   }
   table.cmdr-table th.num, table.cmdr-table td.num { text-align: right; }
 
@@ -352,13 +357,13 @@ function buildPlayerCard(block, rows) {
     <thead>
       <tr>
         <th>Commander</th>
-        <th class="num">W</th>
-        <th class="num">P</th>
-        <th class="num">Win%</th>
-        <th class="num">Avg Rnd</th>
-        <th class="num">Seat</th>
-        <th class="num">MMR</th>
-        <th class="num">Cons.</th>
+        <th class="num" title="Wins">W</th>
+        <th class="num" title="Games played">P</th>
+        <th class="num" title="Win percentage">Win%</th>
+        <th class="num" title="Average round number when this commander wins">Avg Rnd</th>
+        <th class="num" title="Most common seat position">Seat</th>
+        <th class="num" title="TrueSkill MMR rating">MMR</th>
+        <th class="num" title="Conservative rating (MMR − 2σ) — lower bound on true skill">Cons.</th>
       </tr>
     </thead>
     <tbody></tbody>

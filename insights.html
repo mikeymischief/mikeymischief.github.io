@@ -438,11 +438,19 @@ function renderAllCommanders(gameRows) {
   });
 }
 
+function parsePctDelta(val) {
+  const s = String(val || '').trim();
+  if (!s) return NaN;
+  // Google Sheets exports MMR Delta formatted as percentage ("52318.72%"),
+  // meaning the true value is 100x smaller — strip % and divide.
+  return s.endsWith('%') ? parseFloat(s) / 100 : parseFloat(s);
+}
+
 function renderRisers(gameRows) {
   const cmdrDeltas = {};
   gameRows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
-    const delta = parseFloat(row[G.delta]);
+    const delta = parsePctDelta(row[G.delta]);
     if (!cmdr || isNaN(delta)) return;
     if (!cmdrDeltas[cmdr]) cmdrDeltas[cmdr] = { sum: 0, count: 0 };
     cmdrDeltas[cmdr].sum += delta;

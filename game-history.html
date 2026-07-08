@@ -482,6 +482,11 @@ permalink: /game-history/
       <div class="cmdr-stat-value" id="stat-mmr">—</div>
       <div class="cmdr-stat-sub" id="stat-mmr-sub"></div>
     </div>
+    <div class="cmdr-stat-card">
+      <div class="cmdr-stat-label">Avg Round Won</div>
+      <div class="cmdr-stat-value" id="stat-avg-round">—</div>
+      <div class="cmdr-stat-sub" id="stat-avg-round-sub"></div>
+    </div>
   </div>
 
   <div class="mmr-chart-wrap" id="mmr-chart-wrap" style="display:none">
@@ -822,12 +827,16 @@ function computeCmdrRankings(cmdr) {
   const latestDate = {};
   const playCounts = {};
   const playDates = {};
+  const roundWins = {};   // sum of rounds for winning games per commander
+  const roundWinCount = {}; // count of winning games with round data
   const cutoff = new Date();
   cutoff.setFullYear(cutoff.getFullYear() - 2);
 
   podsChronological.forEach(pod => {
     const podDate = new Date(pod[0][G.date]);
     const podTs = podDate.getTime();
+    const winner = normalizeCmdr(pod[0][G.winner]);
+    const rounds = parseFloat(pod[0][G.rounds]);
     pod.forEach(row => {
       const c = normalizeCmdr(row[G.commander]);
       if (!c) return;
@@ -837,6 +846,11 @@ function computeCmdrRankings(cmdr) {
       if (!playDates[c]) playDates[c] = [];
       playDates[c].push(podTs);
     });
+    // Track avg round win: only for the winning commander when round data exists
+    if (winner && !isNaN(rounds) && rounds > 0) {
+      roundWins[winner] = (roundWins[winner] || 0) + rounds;
+      roundWinCount[winner] = (roundWinCount[winner] || 0) + 1;
+    }
   });
 
   // Sort each commander's play dates descending (most recent first)
@@ -860,6 +874,9 @@ function computeCmdrRankings(cmdr) {
 
   const activeRank = sortedByMmrActive.indexOf(cmdr);
 
+  const wins = roundWinCount[cmdr] || 0;
+  const avgRoundWin = wins > 0 ? roundWins[cmdr] / wins : null;
+
   return {
     mmrRank: activeRank >= 0 ? activeRank + 1 : null,
     activeCount: activeCmdrs.length,
@@ -867,6 +884,8 @@ function computeCmdrRankings(cmdr) {
     currentMmr: latestMmr[cmdr] ?? null,
     plays: playCounts[cmdr] || 0,
     total: allCmdrs.length,
+    avgRoundWin,
+    wins,
   };
 }
 
@@ -903,6 +922,8 @@ async function showCmdrHero(cmdr) {
   document.getElementById('stat-active-rank-sub').textContent = r.plays ? `${r.plays} game${r.plays !== 1 ? 's' : ''} played` : '';
   document.getElementById('stat-mmr').textContent = r.currentMmr != null ? Math.round(r.currentMmr) : '—';
   document.getElementById('stat-mmr-sub').textContent = r.currentMmr != null ? 'current rating' : '';
+  document.getElementById('stat-avg-round').textContent = r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—';
+  document.getElementById('stat-avg-round-sub').textContent = r.wins > 0 ? `avg across ${r.wins} win${r.wins !== 1 ? 's' : ''}` : 'no round data yet';
   statBar.style.display = '';
 }
 
