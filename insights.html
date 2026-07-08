@@ -284,13 +284,13 @@ permalink: /insights/
   </section>
 
   <section class="block">
-    <h2>Commander Popularity</h2>
-    <div class="sub">Sessions played since debut — popularity is sessions played / sessions available since first appearance.</div>
+    <h2>Trending Commanders</h2>
+    <div class="sub">Sessions played since debut — rate is sessions played / sessions available since first appearance.</div>
     <div class="scroll-tall">
       <table class="data-table" id="popularity-table">
         <thead>
           <tr>
-            <th>Commander</th><th>Pilot</th><th class="num">Sessions</th><th class="num">Popularity</th><th class="num">Streak</th><th class="num">Best</th>
+            <th>Commander</th><th>Pilot</th><th class="num">Sessions</th><th class="num">Rate</th><th class="num">Streak</th><th class="num">Best</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -394,7 +394,10 @@ function toggleAllCmdrs() {
   document.getElementById('all-cmdr-heading').textContent = _acState.showAll ? 'All Commanders by MMR' : 'Active Commanders by MMR';
   document.getElementById('all-cmdr-sub').textContent = _acState.showAll ? 'Every commander across the whole group, ranked head-to-head.' : 'Every commander played within the last two years, ranked head-to-head.';
   document.getElementById('all-cmdr-toggle').textContent = _acState.showAll ? 'Show Active' : 'Show All';
-  if (_gameRows) renderAllCommanders(_gameRows);
+  if (_gameRows) {
+    renderAllCommanders(_gameRows);
+    loadAvatarImages(document.querySelector('#all-cmdr-table'));
+  }
 }
 
 function renderAllCommanders(gameRows) {
