@@ -1024,10 +1024,10 @@ function computeMatchups(cmdr) {
   });
   return Object.entries(counts)
     .sort((a, b) => {
-      const lossDiff = (oppWins[b[0]] || 0) - (oppWins[a[0]] || 0);
-      if (lossDiff !== 0) return lossDiff;
       const countDiff = b[1] - a[1];
       if (countDiff !== 0) return countDiff;
+      const lossDiff = (oppWins[b[0]] || 0) - (oppWins[a[0]] || 0);
+      if (lossDiff !== 0) return lossDiff;
       return (latestMmr[b[0]] || 0) - (latestMmr[a[0]] || 0);
     })
     .slice(0, 4)
@@ -1057,13 +1057,13 @@ async function renderMatchups(cmdr) {
           </div>
           <div class="matchup-record-sep">–</div>
           <div class="matchup-record-block">
-            <div class="matchup-record-num">${l}</div>
-            <div class="matchup-record-lbl">Losses</div>
+            <div class="matchup-record-num">${w}</div>
+            <div class="matchup-record-lbl">Wins</div>
           </div>
           <div class="matchup-record-sep">–</div>
           <div class="matchup-record-block">
-            <div class="matchup-record-num">${mmr != null ? Math.round(mmr) : '—'}</div>
-            <div class="matchup-record-lbl">MMR</div>
+            <div class="matchup-record-num">${l}</div>
+            <div class="matchup-record-lbl">Losses</div>
           </div>
         </div>
         <div class="matchup-card-name">${opp.replace(/ \/ /g, ' / ')}</div>
