@@ -275,7 +275,7 @@ permalink: /insights/
         <thead>
           <tr>
             <th>Commander</th><th>Pilot</th><th class="num">W</th><th class="num">P</th>
-            <th class="num">Win%</th><th class="num">MMR</th><th class="num">Cons.</th>
+            <th class="num">Win%</th><th class="num">MMR</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -309,14 +309,18 @@ permalink: /insights/
     </div>
   </section>
 
-  <footer>Source: Insights tab, published to web as CSV.</footer>
+  <footer>Source: Games tab, published to web as CSV.</footer>
 
 </div>
 </div><!-- /.page-wrapper -->
 
 <script src="/assets/commander-stats.js"></script>
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1208436953&single=true&output=csv";
+const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=517398000&single=true&output=csv";
+const G = { date:0, winner:1, seat:2, pilot:3, commander:4, startMmr:5, endMmr:6, delta:7, winProb:8, cmdrPlays:10 };
+
+let _gameRows = null;
+const _acState = { showAll: false };
 
 function pct(v) {
   if (v === undefined || v === null || v === '') return "—";
@@ -330,55 +334,59 @@ function num(v, digits) {
   if (isNaN(n)) return "—";
   return n.toFixed(digits);
 }
-function int(v) {
-  const n = parseFloat(v);
-  if (isNaN(n)) return "—";
-  return Math.round(n).toString();
-}
 function showError(msg) {
   const el = document.getElementById('status');
   el.textContent = msg;
   el.classList.add('error');
 }
 
-function renderSeatOverall(rows) {
+function renderSeatOverall(gameRows) {
+  const seats = {};
+  gameRows.forEach(row => {
+    const seat = parseInt(row[G.seat]);
+    if (!seat) return;
+    const won = row[G.winner] && row[G.winner].trim() !== '';
+    if (!seats[seat]) seats[seat] = { wins: 0, plays: 0 };
+    seats[seat].plays++;
+    if (won) seats[seat].wins++;
+  });
   const tbody = document.querySelector('#seat-overall-table tbody');
   tbody.innerHTML = '';
-  // Sheet rows 3-6 (0-indexed 2-5): columns A-C (0-2)
-  for (let r = 2; r <= 5; r++) {
-    const row = rows[r];
-    if (!row) continue;
+  [1,2,3,4].forEach(s => {
+    const d = seats[s] || { wins: 0, plays: 0 };
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>Seat ${int(row[0])}</td><td class="num">${int(row[1])}</td><td class="num">${pct(row[2])}</td>`;
+    tr.innerHTML = `<td>Seat ${s}</td><td class="num">${d.plays}</td><td class="num">${d.plays ? (d.wins/d.plays*100).toFixed(2)+'%' : '—'}</td>`;
     tbody.appendChild(tr);
-  }
+  });
 }
 
-function renderSeatByPlayer(rows) {
+function renderSeatByPlayer(gameRows) {
+  const data = {};
+  const pilotSet = new Set();
+  gameRows.forEach(row => {
+    const pilot = (row[G.pilot] || '').trim();
+    const seat = parseInt(row[G.seat]);
+    if (!pilot || !seat) return;
+    pilotSet.add(pilot);
+    const won = row[G.winner] && row[G.winner].trim() !== '';
+    if (!data[pilot]) data[pilot] = {};
+    if (!data[pilot][seat]) data[pilot][seat] = { wins: 0, plays: 0 };
+    data[pilot][seat].plays++;
+    if (won) data[pilot][seat].wins++;
+  });
   const tbody = document.querySelector('#seat-player-table tbody');
   tbody.innerHTML = '';
-  // Sheet rows 10-13 (0-indexed 9-12): columns A-E (0-4)
-  for (let r = 9; r <= 12; r++) {
-    const row = rows[r];
-    if (!row) continue;
+  [...pilotSet].sort().forEach(pilot => {
     const tr = document.createElement('tr');
-    tr.dataset.p = row[0];
-    tr.innerHTML = `
-      <td class="name">${row[0] || ''}</td>
-      <td>${row[1] || '—'}</td>
-      <td>${row[2] || '—'}</td>
-      <td>${row[3] || '—'}</td>
-      <td>${row[4] || '—'}</td>
-    `;
+    tr.dataset.p = pilot;
+    const cells = [1,2,3,4].map(s => {
+      const d = data[pilot]?.[s];
+      if (!d || !d.plays) return '<td>—</td>';
+      return `<td>${(d.wins/d.plays*100).toFixed(1)}%</td>`;
+    }).join('');
+    tr.innerHTML = `<td class="name">${pilot}</td>${cells}`;
     tbody.appendChild(tr);
-  }
-}
-
-const _acState = { insightsRows: null, lastPlayedMap: null, showAll: false };
-
-function _tryRenderAllCommanders() {
-  if (!_acState.insightsRows || !_acState.lastPlayedMap) return;
-  renderAllCommanders(_acState.insightsRows, _acState.lastPlayedMap);
+  });
 }
 
 function toggleAllCmdrs() {
@@ -386,56 +394,75 @@ function toggleAllCmdrs() {
   document.getElementById('all-cmdr-heading').textContent = _acState.showAll ? 'All Commanders by MMR' : 'Active Commanders by MMR';
   document.getElementById('all-cmdr-sub').textContent = _acState.showAll ? 'Every commander across the whole group, ranked head-to-head.' : 'Every commander played within the last two years, ranked head-to-head.';
   document.getElementById('all-cmdr-toggle').textContent = _acState.showAll ? 'Show Active' : 'Show All';
-  _tryRenderAllCommanders();
+  if (_gameRows) renderAllCommanders(_gameRows);
 }
 
-function renderAllCommanders(rows, lastPlayedMap) {
+function renderAllCommanders(gameRows) {
+  const now = Date.now();
+  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
+  const stats = {};
+  const lastPlayed = {};
+  gameRows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const pilot = (row[G.pilot] || '').trim();
+    const date = (row[G.date] || '').trim();
+    if (!cmdr || !pilot) return;
+    const key = pilot + ':' + cmdr;
+    if (!stats[key]) stats[key] = { cmdr, pilot, wins: 0, plays: 0, lastMmr: null };
+    const s = stats[key];
+    s.plays++;
+    if (row[G.winner] && row[G.winner].trim()) s.wins++;
+    const endMmr = parseFloat(row[G.endMmr]);
+    if (!isNaN(endMmr)) s.lastMmr = endMmr;
+    if (!lastPlayed[cmdr] || date > lastPlayed[cmdr]) lastPlayed[cmdr] = date;
+  });
+  const entries = Object.values(stats)
+    .filter(s => s.lastMmr !== null)
+    .sort((a, b) => (b.lastMmr || 0) - (a.lastMmr || 0));
   const tbody = document.querySelector('#all-cmdr-table tbody');
   tbody.innerHTML = '';
-  const now = Date.now();
-  const ONE_YEAR = 2 * 365 * 24 * 60 * 60 * 1000;
-  // Sheet data starts row 3 (0-indexed 2), columns G-M (0-indexed 6-12):
-  // Commander, Wins, Plays, Win%, Pilot, MMR, Conservative Rating
-  for (let r = 2; r < rows.length; r++) {
-    const row = rows[r];
-    const cmdr = row[6];
-    if (!cmdr || cmdr.trim() === '') break;
-    const cmdrNorm = normalizeCmdr(cmdr);
-    const lastPlayed = lastPlayedMap[cmdrNorm];
-    if (!_acState.showAll && lastPlayed && (now - new Date(lastPlayed).getTime()) > ONE_YEAR) continue;
+  entries.forEach(({ cmdr, pilot, wins, plays, lastMmr }) => {
+    const lp = lastPlayed[cmdr];
+    if (!_acState.showAll && lp && (now - new Date(lp).getTime()) > TWO_YEARS) return;
     const tr = document.createElement('tr');
-    tr.dataset.p = row[10];
+    tr.dataset.p = pilot;
     tr.innerHTML = `
-      <td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="/game-history/?commander=${encodeURIComponent(cmdrNorm)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
-      <td>${row[10] || ''}</td>
-      <td class="num">${int(row[7])}</td>
-      <td class="num">${int(row[8])}</td>
-      <td class="num">${pct(row[9])}</td>
-      <td class="num">${num(row[11],1)}</td>
-      <td class="num">${num(row[12],1)}</td>
+      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td>${pilot}</td>
+      <td class="num">${wins}</td>
+      <td class="num">${plays}</td>
+      <td class="num">${plays ? (wins/plays*100).toFixed(2)+'%' : '—'}</td>
+      <td class="num">${lastMmr !== null ? lastMmr.toFixed(1) : '—'}</td>
     `;
     tbody.appendChild(tr);
-  }
+  });
 }
 
-function renderRisers(rows) {
+function renderRisers(gameRows) {
+  const cmdrDeltas = {};
+  gameRows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const delta = parseFloat(row[G.delta]);
+    if (!cmdr || isNaN(delta)) return;
+    if (!cmdrDeltas[cmdr]) cmdrDeltas[cmdr] = { sum: 0, count: 0 };
+    cmdrDeltas[cmdr].sum += delta;
+    cmdrDeltas[cmdr].count++;
+  });
+  const entries = Object.entries(cmdrDeltas)
+    .filter(([, d]) => d.count >= 2)
+    .map(([cmdr, d]) => ({ cmdr, avg: d.sum / d.count }))
+    .sort((a, b) => b.avg - a.avg)
+    .slice(0, 20);
   const tbody = document.querySelector('#risers-table tbody');
   tbody.innerHTML = '';
-  // Sheet data starts row 3 (0-indexed 2), columns O-P (0-indexed 14-15)
-  for (let r = 2; r < rows.length; r++) {
-    const row = rows[r];
-    const cmdr = row[14];
-    if (!cmdr || cmdr.trim() === '') break;
+  entries.forEach(({ cmdr, avg }) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr.replace(/\r?\n/g,' / ').trim())}<a href="/game-history/?commander=${encodeURIComponent(normalizeCmdr(cmdr))}" class="cmdr-link">${cmdrName(cmdr)}</a></td><td class="num">${num(row[15],2)}</td>`;
+    tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td><td class="num">${avg.toFixed(2)}</td>`;
     tbody.appendChild(tr);
-  }
+  });
 }
 
-const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=517398000&single=true&output=csv";
-
 function renderPopularity(rows) {
-  const G = { date: 0, pilot: 3, commander: 4 };
   const allDatesSet = new Set();
   const cmdrDateMap = {};
 
@@ -511,7 +538,6 @@ function renderPopularity(rows) {
 }
 
 async function renderColorProfiles(gameRows) {
-  const G = { pilot: 3, commander: 4 };
   const COLOR_KEYS = ['W','U','B','R','G'];
 
   const cmdrNames = [...new Set(
@@ -580,19 +606,21 @@ async function renderColorProfiles(gameRows) {
   document.getElementById('color-profiles').innerHTML = html;
 }
 
-Papa.parse(CSV_URL, {
+Papa.parse(GAMES_CSV_URL, {
   download: true,
   complete: function(results) {
-    if (!results.data || results.data.length < 3) {
-      showError('Loaded, but the Insights sheet looks empty or in an unexpected shape.');
+    if (!results.data || results.data.length < 2) {
+      showError('Could not load the Games sheet.');
       return;
     }
     try {
-      renderSeatOverall(results.data);
-      renderSeatByPlayer(results.data);
-      _acState.insightsRows = results.data;
-      _tryRenderAllCommanders();
-      renderRisers(results.data);
+      _gameRows = results.data.slice(1);
+      renderSeatOverall(_gameRows);
+      renderSeatByPlayer(_gameRows);
+      renderAllCommanders(_gameRows);
+      renderRisers(_gameRows);
+      renderPopularity(_gameRows);
+      renderColorProfiles(_gameRows);
       loadAvatarImages(document.body);
       document.getElementById('status').textContent = 'Updated ' + new Date().toLocaleString();
     } catch (e) {
@@ -600,31 +628,7 @@ Papa.parse(CSV_URL, {
     }
   },
   error: function(err) {
-    showError('Could not load the sheet (' + err + '). Is it still published to web?');
-  }
-});
-
-Papa.parse(GAMES_CSV_URL, {
-  download: true,
-  complete: function(results) {
-    if (!results.data || results.data.length < 2) return;
-    try {
-      const gameRows = results.data.slice(1); // skip header row
-      const map = {};
-      gameRows.forEach(function(row) {
-        const date = (row[0] || '').trim();
-        const cmdr = normalizeCmdr(row[4]);
-        if (!date || !cmdr) return;
-        if (!map[cmdr] || date > map[cmdr]) map[cmdr] = date;
-      });
-      _acState.lastPlayedMap = map;
-      _tryRenderAllCommanders();
-      renderPopularity(gameRows);
-      renderColorProfiles(gameRows);
-      loadAvatarImages(document.body);
-    } catch (e) {
-      console.error('Games render failed:', e);
-    }
+    showError('Could not load the Games sheet (' + err + ').');
   }
 });
 </script>

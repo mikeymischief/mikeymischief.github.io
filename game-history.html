@@ -907,6 +907,7 @@ async function showCmdrHero(cmdr) {
 }
 
 function applyFilter(value) {
+  document.getElementById('predictor').style.display = value ? 'none' : '';
   const pods = document.querySelectorAll('#history-container .pod');
   let shown = 0;
   pods.forEach(pod => {
