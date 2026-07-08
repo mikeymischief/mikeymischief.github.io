@@ -462,8 +462,7 @@ permalink: /game-history/
     font-weight: 700;
     line-height: 1;
   }
-  .matchup-record-block.wins .matchup-record-num { color: var(--ink); }
-  .matchup-record-block.losses .matchup-record-num { color: var(--ink-faint); }
+  .matchup-record-block .matchup-record-num { color: var(--ink); }
   .matchup-record-lbl {
     font-family: 'JetBrains Mono', monospace;
     font-size: 8.5px;
@@ -471,8 +470,7 @@ permalink: /game-history/
     text-transform: uppercase;
     margin-top: 3px;
   }
-  .matchup-record-block.wins .matchup-record-lbl { color: var(--gold); }
-  .matchup-record-block.losses .matchup-record-lbl { color: var(--ink-faint); }
+  .matchup-record-block .matchup-record-lbl { color: var(--gold); }
   .matchup-record-sep {
     font-family: 'Cinzel', serif;
     font-size: 1.1rem;
@@ -1022,13 +1020,18 @@ async function renderMatchups(cmdr) {
   )];
   const imageMap = await getImageMap(partNames);
 
-  bar.innerHTML = matches.map(({ cmdr: opp, wins: w, oppWins: l }) => {
+  bar.innerHTML = matches.map(({ cmdr: opp, count, wins: w, oppWins: l }) => {
     const firstPart = stripPilotSuffix(opp.split(' / ')[0].trim());
     const imgUrl = imageMap[firstPart.toLowerCase()] || '';
     const href = `/game-history/?commander=${encodeURIComponent(opp)}`;
     return `<a class="matchup-card" href="${href}"${imgUrl ? ` style="background-image:url('${imgUrl}')"` : ''}>
       <div class="matchup-card-content">
         <div class="matchup-record">
+          <div class="matchup-record-block games">
+            <div class="matchup-record-num">${count}</div>
+            <div class="matchup-record-lbl">Games</div>
+          </div>
+          <div class="matchup-record-sep">–</div>
           <div class="matchup-record-block wins">
             <div class="matchup-record-num">${w}</div>
             <div class="matchup-record-lbl">Wins</div>
