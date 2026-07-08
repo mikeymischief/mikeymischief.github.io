@@ -323,28 +323,31 @@ const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_
 const G = { date:0, winner:1, seat:2, rounds:3, pilot:4, commander:5, startMmr:6, endMmr:7, delta:8, winProb:9, firstPlayerW:10, cmdrPlays:11 };
 
 let _gameRows = null;
-let _gameSizeMap = {};
+let _rowPodSize = new Map();
 const _acState = { showAll: false };
 const _seatState = { filter: '3' };
 
-function buildGameSizeMap(rows) {
-  const map = {};
+function buildRowPodSizeMap(rows) {
+  const map = new Map();
+  let current = [];
   rows.forEach(row => {
-    const date = (row[G.date] || '').trim();
-    const seat = parseInt(row[G.seat]);
-    if (!date || !seat) return;
-    map[date] = (map[date] || 0) + 1;
+    const cmdr = (row[G.commander] || '').trim();
+    if (!cmdr) {
+      if (current.length) {
+        current.forEach(r => map.set(r, current.length));
+        current = [];
+      }
+    } else {
+      current.push(row);
+    }
   });
+  if (current.length) current.forEach(r => map.set(r, current.length));
   return map;
 }
 
 function seatFilteredRows() {
-  if (_seatState.filter === 'all') return _gameRows;
   const n = parseInt(_seatState.filter);
-  return _gameRows.filter(row => {
-    const date = (row[G.date] || '').trim();
-    return _gameSizeMap[date] === n;
-  });
+  return _gameRows.filter(row => _rowPodSize.get(row) === n);
 }
 
 function toggleSeatFilter() {
@@ -668,7 +671,7 @@ Papa.parse(GAMES_CSV_URL, {
     }
     try {
       _gameRows = results.data.slice(1);
-      _gameSizeMap = buildGameSizeMap(_gameRows);
+      _rowPodSize = buildRowPodSizeMap(_gameRows);
       const seatRows = seatFilteredRows();
       renderSeatOverall(seatRows);
       renderSeatByPlayer(seatRows);
