@@ -1057,13 +1057,13 @@ async function renderMatchups(cmdr) {
           </div>
           <div class="matchup-record-sep">–</div>
           <div class="matchup-record-block">
-            <div class="matchup-record-num">${w}</div>
-            <div class="matchup-record-lbl">Wins</div>
+            <div class="matchup-record-num">${l}</div>
+            <div class="matchup-record-lbl">Losses</div>
           </div>
           <div class="matchup-record-sep">–</div>
           <div class="matchup-record-block">
-            <div class="matchup-record-num">${l}</div>
-            <div class="matchup-record-lbl">Losses</div>
+            <div class="matchup-record-num">${mmr != null ? Math.round(mmr) : '—'}</div>
+            <div class="matchup-record-lbl">MMR</div>
           </div>
         </div>
         <div class="matchup-card-name">${opp.replace(/ \/ /g, ' / ')}</div>
