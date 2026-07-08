@@ -794,24 +794,43 @@ function computeCmdrRankings(cmdr) {
   const latestMmr = {};
   const latestDate = {};
   const playCounts = {};
+  const playDates = {};
   const cutoff = new Date();
   cutoff.setFullYear(cutoff.getFullYear() - 2);
 
   podsChronological.forEach(pod => {
     const podDate = new Date(pod[0][G.date]);
+    const podTs = podDate.getTime();
     pod.forEach(row => {
       const c = normalizeCmdr(row[G.commander]);
       if (!c) return;
       const endMmr = parseFloat(row[G.endMmr]);
       if (!isNaN(endMmr)) { latestMmr[c] = endMmr; latestDate[c] = podDate; }
       playCounts[c] = (playCounts[c] || 0) + 1;
+      if (!playDates[c]) playDates[c] = [];
+      playDates[c].push(podTs);
     });
   });
+
+  // Sort each commander's play dates descending (most recent first)
+  Object.keys(playDates).forEach(c => playDates[c].sort((a, b) => b - a));
 
   const allCmdrs = Object.keys(latestMmr);
   const activeCmdrs = allCmdrs.filter(c => latestDate[c] >= cutoff);
   const sortedByMmrActive = [...activeCmdrs].sort((a, b) => (latestMmr[b] || 0) - (latestMmr[a] || 0));
-  const sortedByPlays = [...allCmdrs].sort((a, b) => (playCounts[b] || 0) - (playCounts[a] || 0));
+
+  const sortedByPlays = [...allCmdrs].sort((a, b) => {
+    const countDiff = (playCounts[b] || 0) - (playCounts[a] || 0);
+    if (countDiff !== 0) return countDiff;
+    // Tiebreak: walk sorted play dates most-recent-first until one differs
+    const da = playDates[a] || [], db = playDates[b] || [];
+    for (let i = 0; i < Math.max(da.length, db.length); i++) {
+      const diff = (db[i] ?? 0) - (da[i] ?? 0);
+      if (diff !== 0) return diff;
+    }
+    return 0;
+  });
+
   const activeRank = sortedByMmrActive.indexOf(cmdr);
 
   return {

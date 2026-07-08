@@ -447,10 +447,20 @@ function renderPopularity(rows) {
       else break;
     }
 
-    return { pilot, cmdr, sessions, eligible, pct, curStreak, bestStreak };
+    const sortedDates = [...dates].sort((a, b) => parseTs(b) - parseTs(a));
+    return { pilot, cmdr, sessions, eligible, pct, curStreak, bestStreak, sortedDates };
   });
 
-  entries.sort((a, b) => b.pct - a.pct || a.cmdr.localeCompare(b.cmdr));
+  entries.sort((a, b) => {
+    const pctDiff = b.pct - a.pct;
+    if (pctDiff !== 0) return pctDiff;
+    for (let i = 0; i < Math.max(a.sortedDates.length, b.sortedDates.length); i++) {
+      const da = a.sortedDates[i] ? parseTs(a.sortedDates[i]) : 0;
+      const db = b.sortedDates[i] ? parseTs(b.sortedDates[i]) : 0;
+      if (db !== da) return db - da;
+    }
+    return 0;
+  });
   const filtered = entries.filter(e => e.sessions >= 3);
 
   const tbody = document.querySelector('#popularity-table tbody');
