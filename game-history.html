@@ -350,6 +350,41 @@ permalink: /game-history/
     margin-top: 2px;
   }
 
+  .cmdr-stat-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .cmdr-stat-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: center;
+  }
+  .cmdr-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+  .cmdr-stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .cmdr-stat-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-top: 6px;
+  }
+
   footer {
     margin-top: 48px;
     color: var(--ink-faint);
@@ -403,6 +438,24 @@ permalink: /game-history/
   </div>
 
   <div class="cmdr-hero" id="cmdr-hero" style="display:none"></div>
+
+  <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
+    <div class="cmdr-stat-card">
+      <div class="cmdr-stat-label">MMR Ranking</div>
+      <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
+      <div class="cmdr-stat-sub" id="stat-mmr-rank-sub"></div>
+    </div>
+    <div class="cmdr-stat-card">
+      <div class="cmdr-stat-label">Active Ranking</div>
+      <div class="cmdr-stat-value" id="stat-active-rank">—</div>
+      <div class="cmdr-stat-sub" id="stat-active-rank-sub"></div>
+    </div>
+    <div class="cmdr-stat-card">
+      <div class="cmdr-stat-label">MMR</div>
+      <div class="cmdr-stat-value" id="stat-mmr">—</div>
+      <div class="cmdr-stat-sub" id="stat-mmr-sub"></div>
+    </div>
+  </div>
 
   <div class="mmr-chart-wrap" id="mmr-chart-wrap" style="display:none">
     <div class="mmr-chart-title" id="mmr-chart-title">MMR over time</div>
@@ -737,9 +790,38 @@ function oracleHtml(text) {
     .replace(/\n/g, '<br>');
 }
 
+function computeCmdrRankings(cmdr) {
+  const latestMmr = {};
+  const playCounts = {};
+  podsChronological.forEach(pod => {
+    pod.forEach(row => {
+      const c = normalizeCmdr(row[G.commander]);
+      if (!c) return;
+      const endMmr = parseFloat(row[G.endMmr]);
+      if (!isNaN(endMmr)) latestMmr[c] = endMmr;
+      playCounts[c] = (playCounts[c] || 0) + 1;
+    });
+  });
+  const allCmdrs = Object.keys(latestMmr);
+  const sortedByMmr = [...allCmdrs].sort((a, b) => (latestMmr[b] || 0) - (latestMmr[a] || 0));
+  const sortedByPlays = [...allCmdrs].sort((a, b) => (playCounts[b] || 0) - (playCounts[a] || 0));
+  return {
+    mmrRank: sortedByMmr.indexOf(cmdr) + 1,
+    activeRank: sortedByPlays.indexOf(cmdr) + 1,
+    currentMmr: latestMmr[cmdr] ?? null,
+    plays: playCounts[cmdr] || 0,
+    total: allCmdrs.length,
+  };
+}
+
 async function showCmdrHero(cmdr) {
   const hero = document.getElementById('cmdr-hero');
-  if (!cmdr) { hero.style.display = 'none'; hero.innerHTML = ''; return; }
+  const statBar = document.getElementById('cmdr-stat-bar');
+  if (!cmdr) {
+    hero.style.display = 'none'; hero.innerHTML = '';
+    statBar.style.display = 'none';
+    return;
+  }
   const parts = cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
   const cardMap = await fetchCmdrCards(parts);
   const cards = parts.map(p => cardMap[p.toLowerCase()]).filter(c => c && c.art);
@@ -757,6 +839,15 @@ async function showCmdrHero(cmdr) {
     </div>
   `).join('');
   hero.style.display = '';
+
+  const r = computeCmdrRankings(cmdr);
+  document.getElementById('stat-mmr-rank').textContent = r.mmrRank ? `#${r.mmrRank}` : '—';
+  document.getElementById('stat-mmr-rank-sub').textContent = r.total ? `of ${r.total} commanders` : '';
+  document.getElementById('stat-active-rank').textContent = r.activeRank ? `#${r.activeRank}` : '—';
+  document.getElementById('stat-active-rank-sub').textContent = r.plays ? `${r.plays} game${r.plays !== 1 ? 's' : ''} played` : '';
+  document.getElementById('stat-mmr').textContent = r.currentMmr != null ? Math.round(r.currentMmr) : '—';
+  document.getElementById('stat-mmr-sub').textContent = r.currentMmr != null ? 'current rating' : '';
+  statBar.style.display = '';
 }
 
 function applyFilter(value) {
