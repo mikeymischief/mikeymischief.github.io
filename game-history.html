@@ -329,7 +329,8 @@ permalink: /game-history/
     flex-direction: column;
     gap: 5px;
   }
-  .cmdr-hero-mana { display: flex; gap: 3px; margin-bottom: 2px; }
+  .cmdr-hero-name-row { display: flex; align-items: center; gap: 0; }
+  .cmdr-hero-mana { display: flex; gap: 3px; margin-left: 20px; }
   .cmdr-hero-name {
     font-family: 'Cinzel', serif;
     font-size: 1.25rem;
@@ -367,7 +368,7 @@ permalink: /game-history/
 
   .cmdr-stat-bar {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     margin-bottom: 24px;
   }
@@ -445,7 +446,7 @@ permalink: /game-history/
   <header class="hero">
     <div class="eyebrow">Commander &middot; Full Log</div>
     <h1>Game History</h1>
-    <p class="hero-sub">Every logged game, most recent first — pulled live from the group's Games sheet.</p>
+    <p class="hero-sub">Every logged game, most recent first.</p>
     <div id="history-status">Loading game history…</div>
   </header>
 
@@ -515,6 +516,11 @@ function pct(v) {
   const n = parseFloat(s);
   if (isNaN(n)) return "—";
   return n.toFixed(2) + "%";
+}
+function parsePctDelta(val) {
+  const s = String(val || '').trim();
+  if (!s) return NaN;
+  return s.endsWith('%') ? parseFloat(s) / 100 : parseFloat(s);
 }
 function num(v, digits) {
   const n = parseFloat(v);
@@ -904,8 +910,10 @@ async function showCmdrHero(cmdr) {
   hero.innerHTML = cards.map(c => `
     <div class="cmdr-hero-panel" style="background-image:url('${c.art}')">
       <div class="cmdr-hero-content">
-        ${c.mana_cost ? `<div class="cmdr-hero-mana">${manaHtml(c.mana_cost)}</div>` : ''}
-        <div class="cmdr-hero-name">${c.name}</div>
+        <div class="cmdr-hero-name-row">
+          <div class="cmdr-hero-name">${c.name}</div>
+          ${c.mana_cost ? `<div class="cmdr-hero-mana">${manaHtml(c.mana_cost)}</div>` : ''}
+        </div>
         <div class="cmdr-hero-type">${c.type_line}</div>
         ${c.oracle_text ? `<div class="cmdr-hero-sep"></div><div class="cmdr-hero-oracle">${oracleHtml(c.oracle_text)}</div>` : ''}
         ${c.power != null ? `<div class="cmdr-hero-pt">${c.power} / ${c.toughness}</div>` : ''}
@@ -1179,7 +1187,7 @@ function renderHistory(rows) {
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>
         <td class="num">${num(row[G.startMmr],1)} → ${num(row[G.endMmr],1)}</td>
-        <td class="num">${row[G.delta] ? (parseFloat(row[G.delta])>=0?'+':'') + num(row[G.delta],1) : ''}</td>
+        <td class="num">${row[G.delta] ? (d => d >= 0 ? '+' + d.toFixed(1) : d.toFixed(1))(parsePctDelta(row[G.delta])) : ''}</td>
       `;
       tbody.appendChild(tr);
     });

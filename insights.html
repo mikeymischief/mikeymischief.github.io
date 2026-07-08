@@ -414,7 +414,8 @@ function renderAllCommanders(gameRows) {
     if (row[G.winner] && row[G.winner].trim()) s.wins++;
     const endMmr = parseFloat(row[G.endMmr]);
     if (!isNaN(endMmr)) s.lastMmr = endMmr;
-    if (!lastPlayed[cmdr] || date > lastPlayed[cmdr]) lastPlayed[cmdr] = date;
+    const dateTs = new Date(date).getTime();
+    if (!lastPlayed[cmdr] || dateTs > lastPlayed[cmdr]) lastPlayed[cmdr] = dateTs;
   });
   const entries = Object.values(stats)
     .filter(s => s.lastMmr !== null)
