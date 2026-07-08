@@ -276,11 +276,11 @@ permalink: /commander-dashboard/
 <script src="/assets/commander-stats.js"></script>
 <script>
 // ---- Configuration ----
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1204315694&single=true&output=csv";
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1642307496&single=true&output=csv";
 
-// Each player's block: [startColIndex, name]. Blocks are 8 data columns wide,
+// Each player's block: [startColIndex, name]. Blocks are 9 data columns wide (+1 blank separator = 10 total),
 // starting at these 0-indexed column offsets in the published CMDRSTATS sheet.
-// Columns within a block: Commander, Wins, Plays, Win%, Most Cmn Seat, Best Seat (Win%), MMR, Conservative Rating
+// Columns within a block: Commander, Wins, Plays, Win%, Avg Round Win, Most Cmn Seat, Best Seat (Win%), MMR, Conservative Rating
 const BLOCKS = [
   { name: "Brian", start: 0 },
   { name: "Gerf",  start: 10 },
@@ -355,6 +355,7 @@ function buildPlayerCard(block, rows) {
         <th class="num">W</th>
         <th class="num">P</th>
         <th class="num">Win%</th>
+        <th class="num">Avg Rnd</th>
         <th class="num">Seat</th>
         <th class="num">MMR</th>
         <th class="num">Cons.</th>
@@ -379,9 +380,10 @@ function buildPlayerCard(block, rows) {
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${int(row[b+2])}</td>
       <td class="num">${pct(row[b+3])}</td>
-      <td class="num">${int(row[b+4])}</td>
-      <td class="num">${num(row[b+6], 1)}</td>
+      <td class="num">${row[b+4] || '—'}</td>
+      <td class="num">${int(row[b+5])}</td>
       <td class="num">${num(row[b+7], 1)}</td>
+      <td class="num">${num(row[b+8], 1)}</td>
     `;
     tbody.appendChild(tr);
   });

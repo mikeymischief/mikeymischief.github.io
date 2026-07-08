@@ -498,11 +498,11 @@ permalink: /game-history/
 
 <script src="/assets/commander-stats.js"></script>
 <script>
-const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=517398000&single=true&output=csv";
+const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=635214136&single=true&output=csv";
 
 // Games columns, 0-indexed: Date, Winner, Seat, Pilot, Commander, Starting MMR,
 // Ending MMR, MMR Delta, Win Probability, First Player W, CMDR Plays
-const G = { date:0, winner:1, seat:2, pilot:3, commander:4, startMmr:5, endMmr:6, delta:7, winProb:8, cmdrPlays:10 };
+const G = { date:0, winner:1, seat:2, rounds:3, pilot:4, commander:5, startMmr:6, endMmr:7, delta:8, winProb:9, firstPlayerW:10, cmdrPlays:11 };
 
 function pct(v) {
   if (v === undefined || v === null || v === '') return "—";
