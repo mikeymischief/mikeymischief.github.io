@@ -1044,7 +1044,7 @@ async function renderMatchups(cmdr) {
   )];
   const imageMap = await getImageMap(partNames);
 
-  const cards = matches.map(({ cmdr: opp, count, oppWins: l, mmr }) => {
+  const cards = matches.map(({ cmdr: opp, count, wins: w, oppWins: l, mmr }) => {
     const firstPart = stripPilotSuffix(opp.split(' / ')[0].trim());
     const imgUrl = imageMap[firstPart.toLowerCase()] || '';
     const href = `/game-history/?commander=${encodeURIComponent(opp)}`;
