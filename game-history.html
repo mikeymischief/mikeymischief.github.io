@@ -440,20 +440,54 @@ permalink: /game-history/
   .matchup-card-content {
     position: relative;
     z-index: 1;
-    padding: 10px 12px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .matchup-record {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .matchup-record-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .matchup-record-num {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .matchup-record-block.wins .matchup-record-num { color: var(--ink); }
+  .matchup-record-block.losses .matchup-record-num { color: var(--ink-faint); }
+  .matchup-record-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .matchup-record-block.wins .matchup-record-lbl { color: var(--gold); }
+  .matchup-record-block.losses .matchup-record-lbl { color: var(--ink-faint); }
+  .matchup-record-sep {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--line);
+    padding-bottom: 12px;
   }
   .matchup-card-name {
-    font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    color: var(--ink);
-    line-height: 1.3;
-    margin-bottom: 3px;
-  }
-  .matchup-card-count {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--gold);
-    letter-spacing: 0.04em;
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   @media (max-width: 640px) {
@@ -948,6 +982,8 @@ function computeCmdrRankings(cmdr) {
 
 function computeMatchups(cmdr) {
   const counts = {};
+  const wins = {};
+  const oppWins = {};
   const latestMmr = {};
   podsChronological.forEach(pod => {
     pod.forEach(row => {
@@ -957,9 +993,13 @@ function computeMatchups(cmdr) {
     });
     const cmdrs = pod.map(row => normalizeCmdr(row[G.commander])).filter(Boolean);
     if (!cmdrs.includes(cmdr)) return;
+    const winRow = pod.find(r => (r[G.winner] || '').trim());
+    const winnerCmdr = winRow ? normalizeCmdr(winRow[G.commander]) : null;
     cmdrs.forEach(c => {
       if (c === cmdr) return;
       counts[c] = (counts[c] || 0) + 1;
+      if (winnerCmdr === cmdr) wins[c] = (wins[c] || 0) + 1;
+      if (winnerCmdr === c) oppWins[c] = (oppWins[c] || 0) + 1;
     });
   });
   return Object.entries(counts)
@@ -969,7 +1009,7 @@ function computeMatchups(cmdr) {
       return (latestMmr[b[0]] || 0) - (latestMmr[a[0]] || 0);
     })
     .slice(0, 4)
-    .map(([c, n]) => ({ cmdr: c, count: n }));
+    .map(([c, n]) => ({ cmdr: c, count: n, wins: wins[c] || 0, oppWins: oppWins[c] || 0 }));
 }
 
 async function renderMatchups(cmdr) {
@@ -982,14 +1022,24 @@ async function renderMatchups(cmdr) {
   )];
   const imageMap = await getImageMap(partNames);
 
-  bar.innerHTML = matches.map(({ cmdr: opp, count }) => {
+  bar.innerHTML = matches.map(({ cmdr: opp, wins: w, oppWins: l }) => {
     const firstPart = stripPilotSuffix(opp.split(' / ')[0].trim());
     const imgUrl = imageMap[firstPart.toLowerCase()] || '';
     const href = `/game-history/?commander=${encodeURIComponent(opp)}`;
     return `<a class="matchup-card" href="${href}"${imgUrl ? ` style="background-image:url('${imgUrl}')"` : ''}>
       <div class="matchup-card-content">
-        <div class="matchup-card-name">${opp.replace(/ \/ /g, '<br>')}</div>
-        <div class="matchup-card-count">${count} game${count !== 1 ? 's' : ''} together</div>
+        <div class="matchup-record">
+          <div class="matchup-record-block wins">
+            <div class="matchup-record-num">${w}</div>
+            <div class="matchup-record-lbl">Wins</div>
+          </div>
+          <div class="matchup-record-sep">–</div>
+          <div class="matchup-record-block losses">
+            <div class="matchup-record-num">${l}</div>
+            <div class="matchup-record-lbl">Losses</div>
+          </div>
+        </div>
+        <div class="matchup-card-name">${opp.replace(/ \/ /g, ' / ')}</div>
       </div>
     </a>`;
   }).join('');
