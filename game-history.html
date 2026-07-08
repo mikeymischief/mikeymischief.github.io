@@ -282,6 +282,74 @@ permalink: /game-history/
     margin-bottom: 16px;
   }
 
+  .cmdr-hero {
+    display: flex;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    border: 1px solid var(--line);
+  }
+  .cmdr-hero-panel {
+    flex: 1;
+    min-height: 280px;
+    display: flex;
+    align-items: flex-end;
+    background-size: cover;
+    background-position: center 20%;
+    position: relative;
+  }
+  .cmdr-hero-panel + .cmdr-hero-panel { border-left: 1px solid var(--line); }
+  .cmdr-hero-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0) 20%, rgba(13,15,26,0.82) 60%, rgba(13,15,26,0.97) 100%);
+  }
+  .cmdr-hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 20px 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .cmdr-hero-mana { display: flex; gap: 3px; margin-bottom: 2px; }
+  .cmdr-hero-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+  }
+  .cmdr-hero-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+  }
+  .cmdr-hero-sep { width: 32px; height: 1px; background: var(--line); margin: 3px 0; }
+  .cmdr-hero-oracle {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .cmdr-hero-oracle .mana-inline {
+    width: 14px; height: 14px;
+    vertical-align: middle;
+    margin: 0 1px;
+  }
+  .cmdr-hero-pt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+    align-self: flex-end;
+    margin-top: 2px;
+  }
+
   footer {
     margin-top: 48px;
     color: var(--ink-faint);
@@ -333,6 +401,8 @@ permalink: /game-history/
     <div class="filter-status" id="filter-status"></div>
     <datalist id="all-cmdrs-list"></datalist>
   </div>
+
+  <div class="cmdr-hero" id="cmdr-hero" style="display:none"></div>
 
   <div class="mmr-chart-wrap" id="mmr-chart-wrap" style="display:none">
     <div class="mmr-chart-title" id="mmr-chart-title">MMR over time</div>
@@ -617,6 +687,78 @@ function buildMmrChart(cmdr) {
   });
 }
 
+const CMDR_CARDS_CACHE_KEY = 'cmdr_cards_v1';
+
+async function fetchCmdrCards(names) {
+  let cached = {};
+  try {
+    const raw = JSON.parse(localStorage.getItem(CMDR_CARDS_CACHE_KEY) || 'null');
+    if (raw) cached = raw.cards || {};
+  } catch(e) {}
+  const missing = names.filter(n => !(n.toLowerCase() in cached));
+  if (missing.length) {
+    try {
+      const resp = await fetch('https://api.scryfall.com/cards/collection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifiers: missing.map(name => ({ name })) }),
+      });
+      const data = await resp.json();
+      (data.data || []).forEach(card => {
+        const face = card.card_faces?.[0] || card;
+        cached[card.name.toLowerCase()] = {
+          name: card.name,
+          art: face.image_uris?.art_crop || null,
+          type_line: card.type_line || '',
+          oracle_text: face.oracle_text || '',
+          mana_cost: face.mana_cost || '',
+          power: card.power ?? null,
+          toughness: card.toughness ?? null,
+          loyalty: card.loyalty ?? null,
+        };
+      });
+      localStorage.setItem(CMDR_CARDS_CACHE_KEY, JSON.stringify({ timestamp: Date.now(), cards: cached }));
+    } catch(e) { console.warn('Scryfall card fetch failed:', e); }
+  }
+  return cached;
+}
+
+function manaHtml(costStr) {
+  return (costStr.match(/\{[^}]+\}/g) || []).map(s => {
+    const sym = s.slice(1, -1).toUpperCase();
+    return `<img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${encodeURIComponent(sym)}.svg" alt="${sym}">`;
+  }).join('');
+}
+
+function oracleHtml(text) {
+  return text
+    .replace(/\{([^}]+)\}/g, (_, sym) =>
+      `<img class="mana-pip mana-inline" src="https://svgs.scryfall.io/card-symbols/${encodeURIComponent(sym.toUpperCase())}.svg" alt="{${sym}}">`)
+    .replace(/\n/g, '<br>');
+}
+
+async function showCmdrHero(cmdr) {
+  const hero = document.getElementById('cmdr-hero');
+  if (!cmdr) { hero.style.display = 'none'; hero.innerHTML = ''; return; }
+  const parts = cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
+  const cardMap = await fetchCmdrCards(parts);
+  const cards = parts.map(p => cardMap[p.toLowerCase()]).filter(c => c && c.art);
+  if (!cards.length) { hero.style.display = 'none'; return; }
+  hero.innerHTML = cards.map(c => `
+    <div class="cmdr-hero-panel" style="background-image:url('${c.art}')">
+      <div class="cmdr-hero-content">
+        ${c.mana_cost ? `<div class="cmdr-hero-mana">${manaHtml(c.mana_cost)}</div>` : ''}
+        <div class="cmdr-hero-name">${c.name}</div>
+        <div class="cmdr-hero-type">${c.type_line}</div>
+        ${c.oracle_text ? `<div class="cmdr-hero-sep"></div><div class="cmdr-hero-oracle">${oracleHtml(c.oracle_text)}</div>` : ''}
+        ${c.power != null ? `<div class="cmdr-hero-pt">${c.power} / ${c.toughness}</div>` : ''}
+        ${c.loyalty != null ? `<div class="cmdr-hero-pt">Loyalty ${c.loyalty}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+  hero.style.display = '';
+}
+
 function applyFilter(value) {
   const pods = document.querySelectorAll('#history-container .pod');
   let shown = 0;
@@ -663,6 +805,7 @@ function applyFilter(value) {
   } else {
     status.textContent = '';
   }
+  showCmdrHero(value);
   buildMmrChart(value);
 }
 
