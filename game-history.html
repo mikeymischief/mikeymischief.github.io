@@ -441,12 +441,12 @@ permalink: /game-history/
 
   <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
     <div class="cmdr-stat-card">
-      <div class="cmdr-stat-label">MMR Ranking</div>
+      <div class="cmdr-stat-label">Active MMR Ranking</div>
       <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
       <div class="cmdr-stat-sub" id="stat-mmr-rank-sub"></div>
     </div>
     <div class="cmdr-stat-card">
-      <div class="cmdr-stat-label">Active Ranking</div>
+      <div class="cmdr-stat-label">Popularity</div>
       <div class="cmdr-stat-value" id="stat-active-rank">—</div>
       <div class="cmdr-stat-sub" id="stat-active-rank-sub"></div>
     </div>
@@ -792,22 +792,32 @@ function oracleHtml(text) {
 
 function computeCmdrRankings(cmdr) {
   const latestMmr = {};
+  const latestDate = {};
   const playCounts = {};
+  const cutoff = new Date();
+  cutoff.setFullYear(cutoff.getFullYear() - 2);
+
   podsChronological.forEach(pod => {
+    const podDate = new Date(pod[0][G.date]);
     pod.forEach(row => {
       const c = normalizeCmdr(row[G.commander]);
       if (!c) return;
       const endMmr = parseFloat(row[G.endMmr]);
-      if (!isNaN(endMmr)) latestMmr[c] = endMmr;
+      if (!isNaN(endMmr)) { latestMmr[c] = endMmr; latestDate[c] = podDate; }
       playCounts[c] = (playCounts[c] || 0) + 1;
     });
   });
+
   const allCmdrs = Object.keys(latestMmr);
-  const sortedByMmr = [...allCmdrs].sort((a, b) => (latestMmr[b] || 0) - (latestMmr[a] || 0));
+  const activeCmdrs = allCmdrs.filter(c => latestDate[c] >= cutoff);
+  const sortedByMmrActive = [...activeCmdrs].sort((a, b) => (latestMmr[b] || 0) - (latestMmr[a] || 0));
   const sortedByPlays = [...allCmdrs].sort((a, b) => (playCounts[b] || 0) - (playCounts[a] || 0));
+  const activeRank = sortedByMmrActive.indexOf(cmdr);
+
   return {
-    mmrRank: sortedByMmr.indexOf(cmdr) + 1,
-    activeRank: sortedByPlays.indexOf(cmdr) + 1,
+    mmrRank: activeRank >= 0 ? activeRank + 1 : null,
+    activeCount: activeCmdrs.length,
+    popularityRank: sortedByPlays.indexOf(cmdr) + 1,
     currentMmr: latestMmr[cmdr] ?? null,
     plays: playCounts[cmdr] || 0,
     total: allCmdrs.length,
@@ -842,8 +852,8 @@ async function showCmdrHero(cmdr) {
 
   const r = computeCmdrRankings(cmdr);
   document.getElementById('stat-mmr-rank').textContent = r.mmrRank ? `#${r.mmrRank}` : '—';
-  document.getElementById('stat-mmr-rank-sub').textContent = r.total ? `of ${r.total} commanders` : '';
-  document.getElementById('stat-active-rank').textContent = r.activeRank ? `#${r.activeRank}` : '—';
+  document.getElementById('stat-mmr-rank-sub').textContent = r.activeCount ? `of ${r.activeCount} active commanders` : 'inactive (2+ yrs)';
+  document.getElementById('stat-active-rank').textContent = r.popularityRank ? `#${r.popularityRank}` : '—';
   document.getElementById('stat-active-rank-sub').textContent = r.plays ? `${r.plays} game${r.plays !== 1 ? 's' : ''} played` : '';
   document.getElementById('stat-mmr').textContent = r.currentMmr != null ? Math.round(r.currentMmr) : '—';
   document.getElementById('stat-mmr-sub').textContent = r.currentMmr != null ? 'current rating' : '';
