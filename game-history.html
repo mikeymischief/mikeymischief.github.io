@@ -369,7 +369,7 @@ permalink: /game-history/
 
   .cmdr-stat-bar {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 12px;
     margin-bottom: 24px;
   }
@@ -577,6 +577,11 @@ permalink: /game-history/
   <div class="cmdr-hero" id="cmdr-hero" style="display:none"></div>
 
   <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
+    <a class="cmdr-stat-card" href="/insights/#section-all-cmdr" id="stat-tier-card">
+      <div class="cmdr-stat-label">Tier</div>
+      <div class="cmdr-stat-value" id="stat-tier" style="line-height:1">—</div>
+      <div class="cmdr-stat-sub" id="stat-tier-sub"></div>
+    </a>
     <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
       <div class="cmdr-stat-label">Active MMR Ranking</div>
       <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
@@ -587,7 +592,7 @@ permalink: /game-history/
       <div class="cmdr-stat-value" id="stat-active-rank">—</div>
       <div class="cmdr-stat-sub" id="stat-active-rank-sub"></div>
     </a>
-    <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
+    <a class="cmdr-stat-card" href="/insights/?showall=1#section-all-cmdr">
       <div class="cmdr-stat-label">MMR</div>
       <div class="cmdr-stat-value" id="stat-mmr">—</div>
       <div class="cmdr-stat-sub" id="stat-mmr-sub"></div>
@@ -647,6 +652,46 @@ function int(v) {
 
 const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
 const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#7ba7e0', Jubee: '#e0c360' };
+
+const TIER_COLORS = {
+  S: { fill: '#854F0B', stroke: '#EF9F27', text: '#FAC775' },
+  A: { fill: '#185FA5', stroke: '#85B7EB', text: '#B5D4F4' },
+  B: { fill: '#993C1D', stroke: '#F0997B', text: '#F5C4B3' },
+  C: { fill: '#5F5E5A', stroke: '#B4B2A9', text: '#D3D1C7' },
+  D: { fill: 'none',   stroke: '#6B6A65', text: '#888780' },
+};
+function tierBadgeSvg(tier, size = 24) {
+  if (!tier || !TIER_COLORS[tier]) return '';
+  const { fill, stroke, text } = TIER_COLORS[tier];
+  return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" role="img" style="vertical-align:middle"><title>${tier} tier</title><polygon points="32,3 61,23.2 50.5,56 13.5,56 3,23.2" fill="${fill}" stroke="${stroke}" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="27" fill="${text}">${tier}</text></svg>`;
+}
+let _tierMap = {};
+function buildTierMap(rows) {
+  const latestMmr = {};
+  const latestTs = {};
+  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
+  rows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const endMmr = parseFloat(row[G.endMmr]);
+    if (!cmdr || isNaN(endMmr)) return;
+    const ts = new Date((row[G.date] || '').trim()).getTime();
+    if (!latestTs[cmdr] || ts > latestTs[cmdr]) { latestTs[cmdr] = ts; latestMmr[cmdr] = endMmr; }
+  });
+  const cutoff = Date.now() - TWO_YEARS;
+  const active = Object.keys(latestMmr).filter(c => latestTs[c] >= cutoff);
+  const vals = active.map(c => latestMmr[c]);
+  const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+  const sigma = vals.length > 1 ? Math.sqrt(vals.reduce((s, v) => s + (v - mu) ** 2, 0) / vals.length) : 0;
+  const map = {};
+  if (sigma > 0) {
+    Object.keys(latestMmr).forEach(c => {
+      const z = (latestMmr[c] - mu) / sigma;
+      map[c] = z >= 1.5 ? 'S' : z >= 0.5 ? 'A' : z >= -0.5 ? 'B' : z >= -1.5 ? 'C' : 'D';
+    });
+  }
+  return map;
+}
+
 let statsMap = {};
 let lastSeenGameGlobal = {};
 let totalPodsGlobal = 0;
@@ -997,15 +1042,19 @@ function computeCmdrRankings(cmdr) {
   const wins = roundWinCount[cmdr] || 0;
   const avgRoundWin = wins > 0 ? roundWins[cmdr] / wins : null;
 
+  const cmdrMmr = latestMmr[cmdr] ?? null;
+  const tier = _tierMap[cmdr] ?? null;
+
   return {
     mmrRank: activeRank >= 0 ? activeRank + 1 : null,
     activeCount: activeCmdrs.length,
     popularityRank: sortedByPlays.indexOf(cmdr) + 1,
-    currentMmr: latestMmr[cmdr] ?? null,
+    currentMmr: cmdrMmr,
     plays: playCounts[cmdr] || 0,
     total: allCmdrs.length,
     avgRoundWin,
     wins,
+    tier,
   };
 }
 
@@ -1114,6 +1163,13 @@ async function showCmdrHero(cmdr) {
   hero.style.display = '';
 
   const r = computeCmdrRankings(cmdr);
+  const tierEl = document.getElementById('stat-tier');
+  if (r.tier) {
+    tierEl.innerHTML = tierBadgeSvg(r.tier, 48);
+  } else {
+    tierEl.textContent = '—';
+  }
+  document.getElementById('stat-tier-sub').textContent = r.tier ? `${r.tier} tier` : '';
   document.getElementById('stat-mmr-rank').textContent = r.mmrRank ? `#${r.mmrRank}` : '—';
   document.getElementById('stat-mmr-rank-sub').textContent = r.activeCount ? `of ${r.activeCount} active commanders` : 'inactive (2+ yrs)';
   document.getElementById('stat-active-rank').textContent = r.popularityRank ? `#${r.popularityRank}` : '—';
@@ -1336,6 +1392,7 @@ function renderHistory(rows) {
     thead.innerHTML = `
       <tr>
         <th>Pilot</th>
+        <th>Tier</th>
         <th>Commander</th>
         <th class="num">Seat</th>
         <th class="num">Plays</th>
@@ -1373,6 +1430,7 @@ function renderHistory(rows) {
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
         <td class="pilot-name">${pilot}</td>
+        <td style="text-align:center">${tierBadgeSvg(_tierMap[normalizeCmdr(row[G.commander])])}</td>
         <td class="cmdr-name">${cmdrAvatarHtml(normalizeCmdr(row[G.commander]))}<a href="/game-history/?commander=${encodeURIComponent(normalizeCmdr(row[G.commander]))}" class="cmdr-link">${cmdrName(row[G.commander])}</a>${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
@@ -1401,6 +1459,7 @@ Papa.parse(GAMES_CSV_URL, {
     }
     try {
       statsMap = buildStatsMap(results.data);
+      _tierMap = buildTierMap(results.data.slice(1));
       buildPredictor();
       renderHistory(results.data);
       loadAvatarImages(document.getElementById('history-table') || document.body);

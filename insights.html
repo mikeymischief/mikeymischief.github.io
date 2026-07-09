@@ -128,7 +128,7 @@ permalink: /insights/
   }
 
   .cp-dist { white-space: nowrap; }
-  .cp-pip { display: inline-flex; align-items: center; gap: 3px; margin-right: 10px; }
+  .cp-pip { display: inline-flex; align-items: center; gap: 3px; min-width: 46px; }
   .cp-pip-n { font-size: 0.85em; color: var(--ink-dim); }
   .cp-fav { white-space: nowrap; }
   .cp-fav-name { margin: 0 5px; }
@@ -278,7 +278,7 @@ permalink: /insights/
       <table class="data-table" id="all-cmdr-table">
         <thead>
           <tr>
-            <th>Commander</th><th>Pilot</th><th class="num">W</th><th class="num">P</th>
+            <th>Commander</th><th>Pilot</th><th>Tier</th><th class="num">W</th><th class="num">P</th>
             <th class="num">Win%</th><th class="num">MMR</th>
           </tr>
         </thead>
@@ -294,7 +294,7 @@ permalink: /insights/
       <table class="data-table" id="most-played-table">
         <thead>
           <tr>
-            <th>Commander</th><th>Pilot</th><th class="num">Games</th><th class="num">W</th><th class="num">Win%</th>
+            <th>Commander</th><th>Pilot</th><th>Tier</th><th class="num">Games</th><th class="num">W</th><th class="num">Win%</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -303,13 +303,13 @@ permalink: /insights/
   </section>
 
   <section class="block" id="section-blitz">
-    <h2>Blitz</h2>
+    <h2>Fastest Commanders</h2>
     <div class="sub">Commanders ranked by average round number when they win — lower is faster.</div>
     <div class="scroll-tall">
       <table class="data-table" id="blitz-table">
         <thead>
           <tr>
-            <th>Commander</th><th>Pilot</th><th class="num">Wins</th><th class="num">Avg Round</th>
+            <th>Commander</th><th>Pilot</th><th>Tier</th><th class="num">Wins</th><th class="num">Avg Round</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -324,7 +324,7 @@ permalink: /insights/
       <table class="data-table" id="popularity-table">
         <thead>
           <tr>
-            <th>Commander</th><th>Pilot</th><th class="num">Sessions</th><th class="num">Rate</th><th class="num">Streak</th><th class="num">Best</th>
+            <th>Commander</th><th>Pilot</th><th>Tier</th><th class="num">Sessions</th><th class="num">Rate</th><th class="num">Streak</th><th class="num">Best</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -333,7 +333,7 @@ permalink: /insights/
   </section>
 
   <section class="block">
-    <h2>Fastest Risers</h2>
+    <h2>Climbers</h2>
     <div class="sub">Average MMR gained per game — rewards efficient climbing, not just games played.</div>
     <div class="scroll-tall">
       <table class="data-table" id="risers-table">
@@ -355,7 +355,46 @@ const G = { date:0, winner:1, seat:2, rounds:3, pilot:4, commander:5, startMmr:6
 
 let _gameRows = null;
 let _rowPodSize = new Map();
+let _tierMap = {};
 const _acState = { showAll: false };
+
+const TIER_COLORS = {
+  S: { fill: '#854F0B', stroke: '#EF9F27', text: '#FAC775' },
+  A: { fill: '#185FA5', stroke: '#85B7EB', text: '#B5D4F4' },
+  B: { fill: '#993C1D', stroke: '#F0997B', text: '#F5C4B3' },
+  C: { fill: '#5F5E5A', stroke: '#B4B2A9', text: '#D3D1C7' },
+  D: { fill: 'none',   stroke: '#6B6A65', text: '#888780' },
+};
+function tierBadgeSvg(tier, size = 24) {
+  if (!tier || !TIER_COLORS[tier]) return '';
+  const { fill, stroke, text } = TIER_COLORS[tier];
+  return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" role="img" style="vertical-align:middle"><title>${tier} tier</title><polygon points="32,3 61,23.2 50.5,56 13.5,56 3,23.2" fill="${fill}" stroke="${stroke}" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="27" fill="${text}">${tier}</text></svg>`;
+}
+function buildTierMap(rows) {
+  const latestMmr = {};
+  const latestTs = {};
+  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
+  rows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const endMmr = parseFloat(row[G.endMmr]);
+    if (!cmdr || isNaN(endMmr)) return;
+    const ts = new Date((row[G.date] || '').trim()).getTime();
+    if (!latestTs[cmdr] || ts > latestTs[cmdr]) { latestTs[cmdr] = ts; latestMmr[cmdr] = endMmr; }
+  });
+  const cutoff = Date.now() - TWO_YEARS;
+  const active = Object.keys(latestMmr).filter(c => latestTs[c] >= cutoff);
+  const vals = active.map(c => latestMmr[c]);
+  const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+  const sigma = vals.length > 1 ? Math.sqrt(vals.reduce((s, v) => s + (v - mu) ** 2, 0) / vals.length) : 0;
+  const map = {};
+  if (sigma > 0) {
+    Object.keys(latestMmr).forEach(c => {
+      const z = (latestMmr[c] - mu) / sigma;
+      map[c] = z >= 1.5 ? 'S' : z >= 0.5 ? 'A' : z >= -0.5 ? 'B' : z >= -1.5 ? 'C' : 'D';
+    });
+  }
+  return map;
+}
 const _seatState = { filter: '3' };
 
 function buildRowPodSizeMap(rows) {
@@ -516,6 +555,7 @@ function renderAllCommanders(gameRows) {
     tr.innerHTML = `
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
+      <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
       <td class="num">${wins}</td>
       <td class="num">${plays}</td>
       <td class="num">${plays ? (wins/plays*100).toFixed(2)+'%' : '—'}</td>
@@ -623,6 +663,7 @@ function renderPopularity(rows) {
     tr.innerHTML = `
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
+      <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
       <td class="num">${sessions} / ${eligible}</td>
       <td class="num">${(pct * 100).toFixed(1)}%</td>
       <td class="num">${streakCell}</td>
@@ -660,6 +701,7 @@ function renderMostPlayed(gameRows) {
     tr.innerHTML = `
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
+      <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
       <td class="num">${p}</td>
       <td class="num">${w}</td>
       <td class="num">${p ? (w/p*100).toFixed(1)+'%' : '—'}</td>
@@ -691,7 +733,7 @@ function renderBlitz(gameRows) {
   tbody.innerHTML = '';
   if (!entries.length) {
     const tr = document.createElement('tr');
-    tr.innerHTML = '<td colspan="4" style="color:var(--ink-faint);text-align:center;padding:16px">No round data yet.</td>';
+    tr.innerHTML = '<td colspan="5" style="color:var(--ink-faint);text-align:center;padding:16px">No round data yet.</td>';
     tbody.appendChild(tr);
     return;
   }
@@ -701,6 +743,7 @@ function renderBlitz(gameRows) {
     tr.innerHTML = `
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
+      <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
       <td class="num">${wins}</td>
       <td class="num">${avgRound.toFixed(1)}</td>
     `;
@@ -744,8 +787,11 @@ async function renderColorProfiles(gameRows) {
     const { pipCounts, byIdentity } = players[pilot];
 
     const distHtml = COLOR_KEYS
-      .filter(c => pipCounts[c] > 0)
-      .map(c => `<span class="cp-pip"><img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${c}.svg" alt="${c}"><span class="cp-pip-n">${pipCounts[c]}</span></span>`)
+      .map(c => {
+        const n = pipCounts[c];
+        const dim = n === 0 ? ' style="opacity:0.15"' : '';
+        return `<span class="cp-pip"${dim}><img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${c}.svg" alt="${c}"><span class="cp-pip-n">${n}</span></span>`;
+      })
       .join('');
 
     // Top 2 colors by pip count → look up as a WUBRG-sorted identity key
@@ -788,9 +834,18 @@ Papa.parse(GAMES_CSV_URL, {
     try {
       _gameRows = results.data.slice(1);
       _rowPodSize = buildRowPodSizeMap(_gameRows);
+      _tierMap = buildTierMap(_gameRows);
       const seatRows = seatFilteredRows();
       renderSeatOverall(seatRows);
       renderSeatByPlayer(seatRows);
+      // Check for ?showall=1 before first render of commander table
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('showall') === '1' && !_acState.showAll) {
+        _acState.showAll = true;
+        document.getElementById('all-cmdr-heading').textContent = 'All Commanders by MMR';
+        document.getElementById('all-cmdr-sub').textContent = 'Every commander across the whole group, ranked head-to-head.';
+        document.getElementById('all-cmdr-toggle').textContent = 'Show Active';
+      }
       renderAllCommanders(_gameRows);
       renderMostPlayed(_gameRows);
       renderBlitz(_gameRows);
@@ -799,6 +854,13 @@ Papa.parse(GAMES_CSV_URL, {
       renderColorProfiles(_gameRows);
       loadAvatarImages(document.body);
       document.getElementById('status').textContent = 'Updated ' + new Date().toLocaleString();
+      // Re-scroll to hash after async content renders
+      if (window.location.hash) {
+        setTimeout(() => {
+          const el = document.querySelector(window.location.hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
     } catch (e) {
       showError('Could not parse insights: ' + e.message);
     }
