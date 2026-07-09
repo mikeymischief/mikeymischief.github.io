@@ -654,16 +654,16 @@ const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
 const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#7ba7e0', Jubee: '#e0c360' };
 
 const TIER_COLORS = {
-  S: { fill: '#854F0B', stroke: '#EF9F27', text: '#FAC775' },
-  A: { fill: '#185FA5', stroke: '#85B7EB', text: '#B5D4F4' },
-  B: { fill: '#993C1D', stroke: '#F0997B', text: '#F5C4B3' },
-  C: { fill: '#5F5E5A', stroke: '#B4B2A9', text: '#D3D1C7' },
-  D: { fill: '#2C2C2A', stroke: '#5F5E5A', text: '#888780' },
+  S: { stroke: '#EF9F27' },
+  A: { stroke: '#85B7EB' },
+  B: { stroke: '#F0997B' },
+  C: { stroke: '#B4B2A9' },
+  D: { stroke: '#5F5E5A' },
 };
 function tierBadgeSvg(tier, size = 24) {
   if (!tier || !TIER_COLORS[tier]) return '';
-  const { fill, stroke, text } = TIER_COLORS[tier];
-  return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" role="img" style="vertical-align:middle"><title>${tier} tier</title><polygon points="32,3 61,23.2 50.5,56 13.5,56 3,23.2" fill="${fill}" stroke="${stroke}" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="27" fill="${text}">${tier}</text></svg>`;
+  const { stroke } = TIER_COLORS[tier];
+  return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>${tier} tier</title><rect x="2" y="2" width="24" height="24" fill="none" stroke="${stroke}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="18" fill="${stroke}">${tier}</text></svg>`;
 }
 let _tierMap = {};
 function buildTierMap(rows) {

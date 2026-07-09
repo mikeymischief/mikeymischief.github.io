@@ -328,16 +328,16 @@ const DATA_START_ROW = 3; // 0-indexed row where actual commander rows begin
 const OVERALL_ROW = 1;  // 0-indexed row containing the "Overall:" summary stats
 
 const TIER_COLORS = {
-  S: { fill: '#854F0B', stroke: '#EF9F27', text: '#FAC775' },
-  A: { fill: '#185FA5', stroke: '#85B7EB', text: '#B5D4F4' },
-  B: { fill: '#993C1D', stroke: '#F0997B', text: '#F5C4B3' },
-  C: { fill: '#5F5E5A', stroke: '#B4B2A9', text: '#D3D1C7' },
-  D: { fill: '#2C2C2A', stroke: '#5F5E5A', text: '#888780' },
+  S: { stroke: '#EF9F27' },
+  A: { stroke: '#85B7EB' },
+  B: { stroke: '#F0997B' },
+  C: { stroke: '#B4B2A9' },
+  D: { stroke: '#5F5E5A' },
 };
 function tierBadgeSvg(tier, size = 24) {
   if (!tier || !TIER_COLORS[tier]) return '';
-  const { fill, stroke, text } = TIER_COLORS[tier];
-  return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" role="img" style="vertical-align:middle"><title>${tier} tier</title><polygon points="32,3 61,23.2 50.5,56 13.5,56 3,23.2" fill="${fill}" stroke="${stroke}" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="27" fill="${text}">${tier}</text></svg>`;
+  const { stroke } = TIER_COLORS[tier];
+  return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>${tier} tier</title><rect x="2" y="2" width="24" height="24" fill="none" stroke="${stroke}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="18" fill="${stroke}">${tier}</text></svg>`;
 }
 let _tierMap = {};
 function buildTierMap(rows) {
@@ -420,14 +420,12 @@ function buildPlayerCard(block, rows) {
   const head = document.createElement('div');
   head.className = 'card-head';
   if (favCmdrRaw) head.dataset.favCmdr = favCmdrRaw;
-  const favTier = favCmdrRaw ? (_tierMap[favCmdrRaw] || null) : null;
   head.innerHTML = `
     <div class="card-head-left">
       <h2>${block.name}</h2>
       ${favCmdrRaw ? `<span class="fav-cmdr-name">${favCmdrDisplay}</span>` : ''}
     </div>
     <div class="record">
-      ${favTier ? `<div style="margin-bottom:6px">${tierBadgeSvg(favTier, 36)}</div>` : ''}
       <span class="winpct">${pct(overallWinPct)}</span>
       overall win rate
     </div>
@@ -443,6 +441,7 @@ function buildPlayerCard(block, rows) {
     <thead>
       <tr>
         <th>Commander</th>
+        <th title="Tier">Tier</th>
         <th class="num" title="Wins">W</th>
         <th class="num" title="Games played">P</th>
         <th class="num" title="Win percentage">Win%</th>
@@ -468,6 +467,7 @@ function buildPlayerCard(block, rows) {
     if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
     tr.innerHTML = `
       <td class="cmdr-name">${cmdrAvatarHtml(row[b])}<a href="/game-history/?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
+      <td style="text-align:center">${tierBadgeSvg(_tierMap[(row[b]||'').replace(/\r?\n/g,' / ').trim()])}</td>
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${int(row[b+2])}</td>
       <td class="num">${pct(row[b+3])}</td>
