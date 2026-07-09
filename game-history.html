@@ -923,7 +923,7 @@ async function fetchCmdrCards(names) {
 function manaHtml(costStr) {
   return (costStr.match(/\{[^}]+\}/g) || []).map(s => {
     const sym = s.slice(1, -1).toUpperCase();
-    const filename = sym.replace(/\//g, '-');
+    const filename = sym.replace(/\//g, '');
     return `<img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${filename}.svg" alt="${sym}">`;
   }).join('');
 }
@@ -931,7 +931,7 @@ function manaHtml(costStr) {
 function oracleHtml(text) {
   return text
     .replace(/\{([^}]+)\}/g, (_, sym) => {
-      const filename = sym.toUpperCase().replace(/\//g, '-');
+      const filename = sym.toUpperCase().replace(/\//g, '');
       return `<img class="mana-pip mana-inline" src="https://svgs.scryfall.io/card-symbols/${filename}.svg" alt="{${sym}}">`;
     })
     .replace(/\n/g, '<br>');
