@@ -938,7 +938,7 @@ function buildMmrChart(cmdr) {
         },
       },
       plugins: {
-        legend: { labels: { color: '#e9e8e4', boxWidth: 12 } },
+        legend: { labels: { color: '#e9e8e4', boxWidth: 12 }, onClick: () => {} },
         tooltip: {
           callbacks: {
             title: items => podDates[items[0].parsed.x] ? `${podDates[items[0].parsed.x]}  ·  S${podSessions[items[0].parsed.x]}` : `Game ${items[0].parsed.x}`,

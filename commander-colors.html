@@ -311,7 +311,7 @@ permalink: /commander-colors/
               <th class="num">Games</th>
               <th class="num">Win%</th>
               <th class="num">Cmdrs</th>
-              <th>Highest Win%</th>
+              <th>Highest Win% (Active)</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -335,7 +335,8 @@ permalink: /commander-colors/
 <script>
 const GAMES_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=635214136&single=true&output=csv";
 
-const G = { winner: 1, commander: 5 };
+const G = { date: 0, winner: 1, commander: 5 };
+const ACTIVE_CUTOFF = Date.now() - 2 * 365.25 * 24 * 60 * 60 * 1000;
 const COLOR_ORDER = ['W','U','B','R','G'];
 // Explicit display order — identities stored in WUBRG sort order
 const IDENTITY_ORDER = [
@@ -386,30 +387,49 @@ function buildMetrics(rows, colorMap) {
     agg[identity].cmdrs.add(canonicalCmdr);
 
     const cs = agg[identity].cmdrStats;
-    if (!cs[canonicalCmdr]) cs[canonicalCmdr] = { plays: 0, wins: 0 };
+    const ts = new Date((row[G.date] || '').trim()).getTime() || 0;
+    if (!cs[canonicalCmdr]) cs[canonicalCmdr] = { plays: 0, wins: 0, lastPlayed: 0 };
     cs[canonicalCmdr].plays++;
     if (isWin) cs[canonicalCmdr].wins++;
+    if (ts > cs[canonicalCmdr].lastPlayed) cs[canonicalCmdr].lastPlayed = ts;
   });
   return agg;
 }
 
-function bestCmdrCell(cmdrStats) {
-  let best = null, bestPct = -1;
-  Object.entries(cmdrStats).forEach(([cmdr, { plays, wins }]) => {
-    if (plays < 3) return;
+function findBestCmdr(cmdrStats) {
+  let best = null, bestPct = -1, isActive = false;
+  // Active + ≥3 plays
+  Object.entries(cmdrStats).forEach(([cmdr, { plays, wins, lastPlayed }]) => {
+    if (lastPlayed < ACTIVE_CUTOFF || plays < 3) return;
     const pct = wins / plays;
-    if (pct > bestPct) { bestPct = pct; best = cmdr; }
+    if (pct > bestPct) { bestPct = pct; best = cmdr; isActive = true; }
   });
+  // Any active
+  if (!best) {
+    Object.entries(cmdrStats).forEach(([cmdr, { plays, wins, lastPlayed }]) => {
+      if (lastPlayed < ACTIVE_CUTOFF) return;
+      const pct = wins / plays;
+      if (pct > bestPct) { bestPct = pct; best = cmdr; isActive = true; }
+    });
+  }
+  // Inactive fallback
   if (!best) {
     Object.entries(cmdrStats).forEach(([cmdr, { plays, wins }]) => {
       const pct = wins / plays;
-      if (pct > bestPct) { bestPct = pct; best = cmdr; }
+      if (pct > bestPct) { bestPct = pct; best = cmdr; isActive = false; }
     });
   }
-  if (!best) return '<span style="color:var(--ink-faint)">—</span>';
-  const url = `/game-history/?commander=${encodeURIComponent(best)}`;
-  const display = best.replace(/ \/ /g, ' / ');
-  return `<span class="cmdr-cell">${cmdrAvatarHtml(best)}<a href="${url}" class="cmdr-link">${display}</a><span style="color:var(--ink-faint)">${(bestPct * 100).toFixed(1)}%</span></span>`;
+  return best ? { cmdr: best, pct: bestPct, isActive } : null;
+}
+
+function bestCmdrCell(cmdrStats) {
+  const result = findBestCmdr(cmdrStats);
+  if (!result) return '<span style="color:var(--ink-faint)">—</span>';
+  const { cmdr, pct, isActive } = result;
+  const url = `/game-history/?commander=${encodeURIComponent(cmdr)}`;
+  const display = cmdr.replace(/ \/ /g, ' / ');
+  const dim = isActive ? '' : 'opacity:0.4;';
+  return `<span class="cmdr-cell" style="${dim}">${cmdrAvatarHtml(cmdr)}<a href="${url}" class="cmdr-link">${display}</a><span style="color:var(--ink-faint)">${(pct * 100).toFixed(1)}%</span></span>`;
 }
 
 function renderTable(agg) {
@@ -459,15 +479,18 @@ function renderTable(agg) {
     expandTd.colSpan = 6;
 
     const sorted = Object.entries(cmdrStats)
-      .map(([cmdr, { plays: p, wins: w }]) => ({ cmdr, plays: p, wins: w, pct: p ? w / p : 0 }))
+      .map(([cmdr, { plays: p, wins: w, lastPlayed }]) => ({ cmdr, plays: p, wins: w, pct: p ? w / p : 0, lastPlayed }))
       .sort((a, b) => b.pct - a.pct || b.plays - a.plays);
 
-    const bestPct = sorted[0]?.pct ?? -1;
+    const bestResult = findBestCmdr(cmdrStats);
+    const topCmdr = bestResult?.cmdr ?? null;
     const grid = document.createElement('div');
     grid.className = 'expand-grid';
-    sorted.forEach(({ cmdr, plays: p, wins: w, pct }) => {
+    sorted.forEach(({ cmdr, plays: p, wins: w, pct, lastPlayed }) => {
+      const active = lastPlayed >= ACTIVE_CUTOFF;
       const a = document.createElement('a');
-      a.className = 'expand-cmdr' + (pct === bestPct && p > 0 ? ' top-cmdr' : '');
+      a.className = 'expand-cmdr' + (cmdr === topCmdr ? ' top-cmdr' : '');
+      if (!active) a.style.opacity = '0.4';
       a.href = `/game-history/?commander=${encodeURIComponent(cmdr)}`;
       a.innerHTML = `
         ${cmdrAvatarHtml(cmdr)}
