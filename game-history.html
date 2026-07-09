@@ -548,6 +548,7 @@ permalink: /game-history/
       <span class="nav-sep">|</span>
       <a href="https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler">Cube</a>
       <a href="/about">About</a>
+      <a href="/faq/">FAQ</a>
     </nav>
   </div>
 </div>
@@ -834,7 +835,7 @@ function updatePredictor() {
         const isReunion = lastSeen !== undefined && (totalPodsGlobal - lastSeen) >= 20;
         badgesEl.innerHTML = [
           isDebut     ? '<span class="badge" title="Commander debut">🔰</span>' : '',
-          isReunion   ? '<span class="badge" title="Returning after a long absence">🔁</span>' : '',
+          isReunion   ? '<span class="badge" title="Returning after 20+ game absence">🪃</span>' : '',
           isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
         ].join('');
       } else if (badgesEl) {
@@ -1316,7 +1317,7 @@ function renderHistory(rows) {
     });
   });
 
-  // 🔁 Reunion: commander returning after ≥15 game gap
+  // 🔁 Reunion: commander returning after ≥20 game gap
   const reunionRows = new Set();
   const lastSeenGame = {};
   pods.forEach((pod, gameIdx) => {
@@ -1426,7 +1427,7 @@ function renderHistory(rows) {
         isDebut    ? '<span class="badge" title="Commander debut">🔰</span>' : '',
         isFirstWin ? '<span class="badge" title="Commander\'s first win">⭐</span>' : '',
         isStreak   ? '<span class="badge" title="Commander on a winning streak">🔥</span>' : '',
-        isReunion  ? '<span class="badge" title="Returning after a long absence">🔁</span>' : '',
+        isReunion  ? '<span class="badge" title="Returning after 20+ game absence">🪃</span>' : '',
         isUpset    ? '<span class="badge" title="Upset win">🙌</span>' : '',
         isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
       ].join('');

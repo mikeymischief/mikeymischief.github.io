@@ -229,6 +229,7 @@ permalink: /insights/
       <span class="nav-sep">|</span>
       <a href="https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler">Cube</a>
       <a href="/about">About</a>
+      <a href="/faq/">FAQ</a>
     </nav>
   </div>
 </div>
@@ -339,6 +340,17 @@ permalink: /insights/
     <div class="scroll-tall">
       <table class="data-table" id="risers-table">
         <thead><tr><th>Commander</th><th class="num">Avg MMR / Game</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>On the Shelf</h2>
+    <div class="sub">Active commanders not played in the last 6 months — approaching the 2-year inactive threshold.</div>
+    <div class="scroll-tall">
+      <table class="data-table" id="shelved-table">
+        <thead><tr><th>Commander</th><th>Last Pilot</th><th class="num">Last Played</th><th class="num">Since</th><th class="num">Win%</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -594,6 +606,50 @@ function renderRisers(gameRows) {
   entries.forEach(({ cmdr, avg }) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td><td class="num">${avg.toFixed(2)}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderShelved(gameRows) {
+  const now = Date.now();
+  const SIX_MONTHS = 6 * 30.5 * 24 * 60 * 60 * 1000;
+  const TWO_YEARS  = 2 * 365 * 24 * 60 * 60 * 1000;
+
+  const cmdrData = {};
+  gameRows.forEach(row => {
+    const cmdr  = normalizeCmdr(row[G.commander]);
+    const pilot = (row[G.pilot] || '').trim();
+    if (!cmdr || !pilot) return;
+    const ts = new Date((row[G.date] || '').trim()).getTime() || 0;
+    if (!cmdrData[cmdr]) cmdrData[cmdr] = { plays: 0, wins: 0, lastTs: 0, lastPilot: '' };
+    const d = cmdrData[cmdr];
+    d.plays++;
+    if (row[G.winner] && row[G.winner].trim()) d.wins++;
+    if (ts > d.lastTs) { d.lastTs = ts; d.lastPilot = pilot; }
+  });
+
+  const entries = Object.entries(cmdrData)
+    .filter(([, d]) => { const age = now - d.lastTs; return age >= SIX_MONTHS && age < TWO_YEARS; })
+    .sort(([, a], [, b]) => a.lastTs - b.lastTs);
+
+  const tbody = document.querySelector('#shelved-table tbody');
+  tbody.innerHTML = '';
+  if (!entries.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="color:var(--ink-faint);text-align:center;padding:24px">No commanders in the warning zone.</td></tr>';
+    return;
+  }
+  entries.forEach(([cmdr, { plays, wins, lastTs, lastPilot }]) => {
+    const months  = Math.floor((now - lastTs) / (30.5 * 24 * 60 * 60 * 1000));
+    const winPct  = plays ? (wins / plays * 100).toFixed(1) + '%' : '—';
+    const lastDate = new Date(lastTs).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td>${lastPilot}</td>
+      <td class="num">${lastDate}</td>
+      <td class="num">${months}mo ago</td>
+      <td class="num">${winPct}</td>
+    `;
     tbody.appendChild(tr);
   });
 }
@@ -859,6 +915,7 @@ Papa.parse(GAMES_CSV_URL, {
       renderMostPlayed(_gameRows);
       renderBlitz(_gameRows);
       renderRisers(_gameRows);
+      renderShelved(_gameRows);
       renderPopularity(_gameRows);
       renderColorProfiles(_gameRows);
       loadAvatarImages(document.body);
