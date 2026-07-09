@@ -95,6 +95,7 @@ permalink: /insights/
     line-height: 1.05;
     margin: 0 0 12px;
     letter-spacing: 0.02em;
+    color: #e8d5a3;
   }
 
   .hero-sub {
@@ -394,9 +395,10 @@ function renderSeatOverall(gameRows) {
     seats[seat].plays++;
     if (won) seats[seat].wins++;
   });
+  const seatCount = parseInt(_seatState.filter) || 4;
   const tbody = document.querySelector('#seat-overall-table tbody');
   tbody.innerHTML = '';
-  [1,2,3,4].forEach(s => {
+  Array.from({ length: seatCount }, (_, i) => i + 1).forEach(s => {
     const d = seats[s] || { wins: 0, plays: 0 };
     const tr = document.createElement('tr');
     tr.innerHTML = `<td>Seat ${s}</td><td class="num">${d.plays}</td><td class="num">${d.plays ? (d.wins/d.plays*100).toFixed(2)+'%' : '—'}</td>`;
@@ -405,6 +407,13 @@ function renderSeatOverall(gameRows) {
 }
 
 function renderSeatByPlayer(gameRows) {
+  const seatCount = parseInt(_seatState.filter) || 4;
+  const seatNums = Array.from({ length: seatCount }, (_, i) => i + 1);
+
+  const table = document.getElementById('seat-player-table');
+  table.querySelector('thead tr').innerHTML =
+    '<th>Player</th>' + seatNums.map(s => `<th>Seat ${s}</th>`).join('');
+
   const data = {};
   const pilotSet = new Set();
   gameRows.forEach(row => {
@@ -418,12 +427,12 @@ function renderSeatByPlayer(gameRows) {
     data[pilot][seat].plays++;
     if (won) data[pilot][seat].wins++;
   });
-  const tbody = document.querySelector('#seat-player-table tbody');
+  const tbody = table.querySelector('tbody');
   tbody.innerHTML = '';
   [...pilotSet].sort().forEach(pilot => {
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
-    const cells = [1,2,3,4].map(s => {
+    const cells = seatNums.map(s => {
       const d = data[pilot]?.[s];
       if (!d || !d.plays) return '<td>—</td>';
       return `<td>${(d.wins/d.plays*100).toFixed(1)}%</td>`;

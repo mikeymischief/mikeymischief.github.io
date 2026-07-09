@@ -98,6 +98,7 @@ permalink: /commander-dashboard/
     line-height: 1.05;
     margin: 0 0 12px;
     letter-spacing: 0.02em;
+    color: #e8d5a3;
   }
 
   .hero-sub {
@@ -142,15 +143,39 @@ permalink: /commander-dashboard/
 
   .card-head {
     display: flex;
-    align-items: baseline;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 22px 24px 18px;
+    gap: 12px;
+  }
+
+  .card-head-left {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .card-head h2 {
     font-family: 'Fraunces', serif;
     font-size: 1.7rem;
     margin: 0;
+  }
+
+  .fav-cmdr {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+  .fav-cmdr .cmdr-avatars { margin-right: 0; }
+  .fav-cmdr-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
   }
   .player-card[data-p="Brian"] h2 { color: var(--brian); }
   .player-card[data-p="Gerf"]  h2 { color: var(--gerf); }
@@ -340,7 +365,10 @@ function buildPlayerCard(block, rows) {
   const head = document.createElement('div');
   head.className = 'card-head';
   head.innerHTML = `
-    <h2>${block.name}</h2>
+    <div class="card-head-left">
+      <h2>${block.name}</h2>
+      ${favCmdrRaw ? `<div class="fav-cmdr">${cmdrAvatarHtml(favCmdrRaw)}<span class="fav-cmdr-name">${favCmdrDisplay}</span></div>` : ''}
+    </div>
     <div class="record">
       <span class="winpct">${pct(overallWinPct)}</span>
       overall win rate
@@ -369,6 +397,21 @@ function buildPlayerCard(block, rows) {
     <tbody></tbody>
   `;
   const tbody = table.querySelector('tbody');
+
+  const favRow = commanderRows.reduce((best, row) => {
+    if (!best) return row;
+    const bPlays = parseInt(best[block.start + 2]) || 0;
+    const rPlays = parseInt(row[block.start + 2]) || 0;
+    if (rPlays > bPlays) return row;
+    if (rPlays === bPlays) {
+      const bMmr = parseFloat(best[block.start + 7]) || 0;
+      const rMmr = parseFloat(row[block.start + 7]) || 0;
+      return rMmr > bMmr ? row : best;
+    }
+    return best;
+  }, null);
+  const favCmdrRaw = favRow ? (favRow[block.start] || '').replace(/\r?\n/g, ' / ').trim() : '';
+  const favCmdrDisplay = favCmdrRaw.replace(/ \/ /g, '<br>');
 
   const maxPlays = commanderRows.reduce((max, row) => {
     const p = parseInt(row[block.start + 2]) || 0;
