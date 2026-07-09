@@ -56,7 +56,7 @@ permalink: /commander-dashboard/
   }
 
   .wrap {
-    max-width: 960px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 24px 96px;
   }
@@ -142,17 +142,29 @@ permalink: /commander-dashboard/
   .player-card[data-p="Jubee"] .bar { background: var(--jubee); }
 
   .card-head {
+    position: relative;
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: space-between;
-    padding: 22px 24px 18px;
+    padding: 80px 24px 18px;
     gap: 12px;
+    background: var(--bg-raised);
+    background-size: cover;
+    background-position: center 20%;
+    overflow: hidden;
   }
+  .card-head::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(13,15,26,0.82) 60%, rgba(13,15,26,0.97) 100%);
+  }
+  .card-head > * { position: relative; z-index: 1; }
 
   .card-head-left {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
 
   .card-head h2 {
@@ -161,22 +173,17 @@ permalink: /commander-dashboard/
     margin: 0;
   }
 
-  .fav-cmdr {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.78rem;
+  .fav-cmdr-name {
+    font-size: 0.75rem;
     color: var(--ink-dim);
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.02em;
-  }
-  .fav-cmdr .cmdr-avatars { margin-right: 0; }
-  .fav-cmdr-name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
   }
+
   .player-card[data-p="Brian"] h2 { color: var(--brian); }
   .player-card[data-p="Gerf"]  h2 { color: var(--gerf); }
   .player-card[data-p="Mikey"] h2 { color: var(--mikey); }
@@ -187,6 +194,7 @@ permalink: /commander-dashboard/
     font-size: 0.95rem;
     color: var(--ink-dim);
     text-align: right;
+    flex-shrink: 0;
   }
   .record .winpct {
     display: block;
@@ -379,10 +387,11 @@ function buildPlayerCard(block, rows) {
 
   const head = document.createElement('div');
   head.className = 'card-head';
+  if (favCmdrRaw) head.dataset.favCmdr = favCmdrRaw;
   head.innerHTML = `
     <div class="card-head-left">
       <h2>${block.name}</h2>
-      ${favCmdrRaw ? `<div class="fav-cmdr">${cmdrAvatarHtml(favCmdrRaw)}<span class="fav-cmdr-name">${favCmdrDisplay}</span></div>` : ''}
+      ${favCmdrRaw ? `<span class="fav-cmdr-name">${favCmdrDisplay}</span>` : ''}
     </div>
     <div class="record">
       <span class="winpct">${pct(overallWinPct)}</span>
@@ -441,6 +450,17 @@ function buildPlayerCard(block, rows) {
   return card;
 }
 
+async function loadCardHeadImages() {
+  const heads = Array.from(document.querySelectorAll('.card-head[data-fav-cmdr]'));
+  if (!heads.length) return;
+  const names = [...new Set(heads.map(h => h.dataset.favCmdr))];
+  const imageMap = await getImageMap(names);
+  heads.forEach(head => {
+    const url = imageMap[stripPilotSuffix(head.dataset.favCmdr).toLowerCase()];
+    if (url) head.style.backgroundImage = `url('${url}')`;
+  });
+}
+
 function render(rows) {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
@@ -467,6 +487,7 @@ Papa.parse(CSV_URL, {
     try {
       render(results.data);
       loadAvatarImages(document.getElementById('grid'));
+      loadCardHeadImages();
     } catch (e) {
       showError('Could not parse the standings: ' + e.message);
     }
