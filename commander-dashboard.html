@@ -354,6 +354,21 @@ function buildPlayerCard(block, rows) {
   const overall = rows[OVERALL_ROW] || [];
   const overallWinPct = overall[block.start + 3];
 
+  const favRow = commanderRows.reduce((best, row) => {
+    if (!best) return row;
+    const bPlays = parseInt(best[block.start + 2]) || 0;
+    const rPlays = parseInt(row[block.start + 2]) || 0;
+    if (rPlays > bPlays) return row;
+    if (rPlays === bPlays) {
+      const bMmr = parseFloat(best[block.start + 7]) || 0;
+      const rMmr = parseFloat(row[block.start + 7]) || 0;
+      return rMmr > bMmr ? row : best;
+    }
+    return best;
+  }, null);
+  const favCmdrRaw = favRow ? (favRow[block.start] || '').replace(/\r?\n/g, ' / ').trim() : '';
+  const favCmdrDisplay = favCmdrRaw.replace(/ \/ /g, '<br>');
+
   const card = document.createElement('div');
   card.className = 'player-card';
   card.dataset.p = block.name;
@@ -397,21 +412,6 @@ function buildPlayerCard(block, rows) {
     <tbody></tbody>
   `;
   const tbody = table.querySelector('tbody');
-
-  const favRow = commanderRows.reduce((best, row) => {
-    if (!best) return row;
-    const bPlays = parseInt(best[block.start + 2]) || 0;
-    const rPlays = parseInt(row[block.start + 2]) || 0;
-    if (rPlays > bPlays) return row;
-    if (rPlays === bPlays) {
-      const bMmr = parseFloat(best[block.start + 7]) || 0;
-      const rMmr = parseFloat(row[block.start + 7]) || 0;
-      return rMmr > bMmr ? row : best;
-    }
-    return best;
-  }, null);
-  const favCmdrRaw = favRow ? (favRow[block.start] || '').replace(/\r?\n/g, ' / ').trim() : '';
-  const favCmdrDisplay = favCmdrRaw.replace(/ \/ /g, '<br>');
 
   const maxPlays = commanderRows.reduce((max, row) => {
     const p = parseInt(row[block.start + 2]) || 0;
