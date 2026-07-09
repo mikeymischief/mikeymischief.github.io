@@ -270,6 +270,49 @@ permalink: /commander-dashboard/
     font-size: 12.5px;
     font-family: 'JetBrains Mono', monospace;
   }
+
+  #next-session-banner {
+    display: none;
+    position: relative;
+    background-image: url('/images/bg/Scrawling-Crawler-Foundations-Mtg-Art.jpg');
+    background-size: cover;
+    background-position: center 40%;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 18px 24px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  #next-session-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(13,15,26,0.92) 0%, rgba(13,15,26,0.7) 60%, rgba(13,15,26,0.4) 100%);
+  }
+  #next-session-banner > * { position: relative; z-index: 1; }
+  #next-session-banner.hidden { display: none !important; }
+  .session-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .session-date {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: #e8d5a3;
+    letter-spacing: 0.02em;
+  }
+  .session-countdown {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-left: auto;
+  }
 </style>
 </head>
 <body>
@@ -300,6 +343,12 @@ permalink: /commander-dashboard/
     <p class="hero-sub">TrueSkill-derived MMR, updated every time a game gets logged.</p>
     <div id="status">Loading standings…</div>
   </header>
+
+  <div id="next-session-banner" class="hidden">
+    <span class="session-label">Next Session</span>
+    <span class="session-date" id="session-date"></span>
+    <span class="session-countdown" id="session-countdown"></span>
+  </div>
 
   <div class="table-grid" id="grid"></div>
 
@@ -512,6 +561,22 @@ function showError(msg) {
   el.textContent = msg;
   el.classList.add('error');
 }
+
+function renderNextSession() {
+  const stored = localStorage.getItem('nextSession');
+  const banner = document.getElementById('next-session-banner');
+  if (!stored) { banner.classList.add('hidden'); return; }
+  const date = new Date(stored + 'T00:00:00');
+  if (isNaN(date)) { banner.classList.add('hidden'); return; }
+  const now = new Date();
+  const days = Math.round((date - now) / (1000 * 60 * 60 * 24));
+  const label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  const countdown = days > 0 ? `in ${days} day${days === 1 ? '' : 's'}` : days === 0 ? 'today' : `${Math.abs(days)} day${Math.abs(days) === 1 ? '' : 's'} ago`;
+  document.getElementById('session-date').textContent = label;
+  document.getElementById('session-countdown').textContent = countdown;
+  banner.classList.remove('hidden');
+}
+renderNextSession();
 
 Papa.parse(CSV_URL, {
   download: true,

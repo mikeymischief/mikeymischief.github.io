@@ -1,0 +1,222 @@
+---
+layout: null
+permalink: /admin/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Set Next Session — Mischief's Gaming Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f1a;
+    --gold: #d4af37;
+    --bg-raised: #1c1e26;
+    --line: #2c2e38;
+    --ink: #e9e8e4;
+    --ink-dim: #9a9aa4;
+    --ink-faint: #5c5d68;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; min-height: 100vh; }
+  body { display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+
+  .card {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 420px;
+  }
+  .card-hero {
+    position: relative;
+    background-image: url('/images/bg/Pondering-Mage-MtG-Art.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    height: 160px;
+  }
+  .card-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0.1) 0%, rgba(13,15,26,0.7) 60%, rgba(13,15,26,0.97) 100%);
+  }
+  .card-body { padding: 24px 40px 36px; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    color: #e8d5a3;
+    margin-bottom: 28px;
+    letter-spacing: 0.02em;
+  }
+  label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  input[type="date"] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    outline: none;
+    color-scheme: dark;
+  }
+  input[type="date"]:focus { border-color: var(--gold); }
+
+  .btn-row { display: flex; gap: 10px; }
+  button {
+    flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  button:hover { opacity: 0.85; }
+  .btn-save {
+    background: var(--gold);
+    color: #0d0f1a;
+    border: none;
+    font-weight: 700;
+  }
+  .btn-clear {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-faint);
+  }
+
+  .preview {
+    margin-top: 24px;
+    padding: 14px 18px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    border-radius: 8px;
+    display: none;
+  }
+  .preview.visible { display: block; }
+  .preview-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .preview-date {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: #e8d5a3;
+  }
+  .preview-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-top: 2px;
+  }
+
+  .toast {
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    min-height: 18px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-hero"></div>
+  <div class="card-body">
+  <div class="eyebrow">Commander Stats</div>
+  <h1>Next Session</h1>
+
+  <label for="date-input">Date</label>
+  <input type="date" id="date-input">
+
+  <div class="btn-row">
+    <button class="btn-save" onclick="save()">Save</button>
+    <button class="btn-clear" onclick="clear()">Clear</button>
+  </div>
+
+  <div class="preview" id="preview">
+    <div class="preview-label">Next Session</div>
+    <div class="preview-date" id="preview-date"></div>
+    <div class="preview-count" id="preview-count"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  </div>
+</div>
+
+<script>
+const input = document.getElementById('date-input');
+const preview = document.getElementById('preview');
+const previewDate = document.getElementById('preview-date');
+const previewCount = document.getElementById('preview-count');
+const toast = document.getElementById('toast');
+
+function formatPreview(val) {
+  const date = new Date(val + 'T00:00:00');
+  const label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  const days = Math.round((date - new Date()) / (1000 * 60 * 60 * 24));
+  const countdown = days > 0 ? `in ${days} day${days === 1 ? '' : 's'}` : days === 0 ? 'today' : `${Math.abs(days)} day${Math.abs(days) === 1 ? '' : 's'} ago`;
+  previewDate.textContent = label;
+  previewCount.textContent = countdown;
+  preview.classList.add('visible');
+}
+
+input.addEventListener('change', () => {
+  if (input.value) formatPreview(input.value);
+  else preview.classList.remove('visible');
+});
+
+function save() {
+  if (!input.value) { flash('Pick a date first.'); return; }
+  localStorage.setItem('nextSession', input.value);
+  flash('Saved — dashboard updated.');
+}
+
+function clear() {
+  localStorage.removeItem('nextSession');
+  input.value = '';
+  preview.classList.remove('visible');
+  flash('Cleared.');
+}
+
+function flash(msg) {
+  toast.textContent = msg;
+  setTimeout(() => toast.textContent = '', 2500);
+}
+
+// Load existing value on open
+const stored = localStorage.getItem('nextSession');
+if (stored) { input.value = stored; formatPreview(stored); }
+</script>
+</body>
+</html>
