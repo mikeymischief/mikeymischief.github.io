@@ -35,9 +35,10 @@ permalink: /commander-dashboard/
 
   * { box-sizing: border-box; }
 
+  html { background: var(--bg); }
   body {
     margin: 0;
-    background: var(--bg);
+    background: transparent;
     color: var(--ink);
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -51,7 +52,7 @@ permalink: /commander-dashboard/
     min-height: 100vh;
   }
   @media screen and (min-width: 641px) {
-    body { background-image: url('/images/bg/2526-archive-trap.jpg'); background-position: center top; background-size: contain; background-repeat: no-repeat; background-attachment: fixed; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url('/images/bg/2526-archive-trap.jpg'); background-position: center top; background-size: contain; background-repeat: no-repeat; z-index: -1; pointer-events: none; }
     .page-wrapper { -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); }
   }
 
