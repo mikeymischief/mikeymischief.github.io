@@ -675,32 +675,38 @@ function renderPopularity(rows) {
 }
 
 function renderMostPlayed(gameRows) {
-  const plays = {};
-  const wins = {};
-  const pilotMap = {};
+  const cmdrPlays = {};
+  const cmdrLastTs = {};
+  const pilotStats = {};
   gameRows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
     const pilot = (row[G.pilot] || '').trim();
     if (!cmdr || !pilot) return;
+    cmdrPlays[cmdr] = (cmdrPlays[cmdr] || 0) + 1;
+    const ts = new Date((row[G.date] || '').trim()).getTime();
+    if (!cmdrLastTs[cmdr] || ts > cmdrLastTs[cmdr]) cmdrLastTs[cmdr] = ts;
     const key = `${cmdr}|||${pilot}`;
-    plays[key] = (plays[key] || 0) + 1;
-    pilotMap[key] = pilot;
-    if (row[G.winner] && row[G.winner].trim()) wins[key] = (wins[key] || 0) + 1;
+    if (!pilotStats[key]) pilotStats[key] = { cmdr, pilot, plays: 0, wins: 0 };
+    pilotStats[key].plays++;
+    if (row[G.winner] && row[G.winner].trim()) pilotStats[key].wins++;
   });
-  const entries = Object.entries(plays)
-    .map(([key, p]) => {
-      const [cmdr] = key.split('|||');
-      const w = wins[key] || 0;
-      return { cmdr, pilot: pilotMap[key], plays: p, wins: w };
-    })
-    .sort((a, b) => b.plays - a.plays || b.wins - a.wins);
+
+  // Commander-level rank (matches computeCmdrRankings)
+  const cmdrRank = {};
+  Object.keys(cmdrPlays)
+    .sort((a, b) => cmdrPlays[b] - cmdrPlays[a] || cmdrLastTs[b] - cmdrLastTs[a])
+    .forEach((c, i) => { cmdrRank[c] = i + 1; });
+
+  const entries = Object.values(pilotStats)
+    .sort((a, b) => cmdrPlays[b.cmdr] - cmdrPlays[a.cmdr] || cmdrLastTs[b.cmdr] - cmdrLastTs[a.cmdr] || b.plays - a.plays);
+
   const tbody = document.querySelector('#most-played-table tbody');
   tbody.innerHTML = '';
-  entries.forEach(({ cmdr, pilot, plays: p, wins: w }, i) => {
+  entries.forEach(({ cmdr, pilot, plays: p, wins: w }) => {
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
     tr.innerHTML = `
-      <td class="num" style="color:var(--ink-dim)">${i + 1}</td>
+      <td class="num" style="color:var(--ink-dim)">${cmdrRank[cmdr]}</td>
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
