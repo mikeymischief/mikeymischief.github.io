@@ -268,7 +268,7 @@ permalink: /insights/
     <div id="color-profiles"><span style="color:var(--ink-faint)">Loading…</span></div>
   </section>
 
-  <section class="block">
+  <section class="block" id="section-all-cmdr">
     <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
       <h2 id="all-cmdr-heading" style="margin:0;">Active Commanders by MMR</h2>
       <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show All</button>
@@ -287,7 +287,37 @@ permalink: /insights/
     </div>
   </section>
 
-  <section class="block">
+  <section class="block" id="section-popularity">
+    <h2>Popularity</h2>
+    <div class="sub">All commanders ranked by total games played.</div>
+    <div class="scroll-tall">
+      <table class="data-table" id="most-played-table">
+        <thead>
+          <tr>
+            <th>Commander</th><th>Pilot</th><th class="num">Games</th><th class="num">W</th><th class="num">Win%</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block" id="section-blitz">
+    <h2>Blitz</h2>
+    <div class="sub">Commanders ranked by average round number when they win — lower is faster.</div>
+    <div class="scroll-tall">
+      <table class="data-table" id="blitz-table">
+        <thead>
+          <tr>
+            <th>Commander</th><th>Pilot</th><th class="num">Wins</th><th class="num">Avg Round</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block" id="section-trending">
     <h2>Trending Commanders</h2>
     <div class="sub">Sessions played since debut — rate is sessions played / sessions available since first appearance.</div>
     <div class="scroll-tall">
@@ -602,6 +632,83 @@ function renderPopularity(rows) {
   });
 }
 
+function renderMostPlayed(gameRows) {
+  const plays = {};
+  const wins = {};
+  const pilotMap = {};
+  gameRows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const pilot = (row[G.pilot] || '').trim();
+    if (!cmdr || !pilot) return;
+    const key = `${cmdr}|||${pilot}`;
+    plays[key] = (plays[key] || 0) + 1;
+    pilotMap[key] = pilot;
+    if (row[G.winner] && row[G.winner].trim()) wins[key] = (wins[key] || 0) + 1;
+  });
+  const entries = Object.entries(plays)
+    .map(([key, p]) => {
+      const [cmdr] = key.split('|||');
+      const w = wins[key] || 0;
+      return { cmdr, pilot: pilotMap[key], plays: p, wins: w };
+    })
+    .sort((a, b) => b.plays - a.plays || b.wins - a.wins);
+  const tbody = document.querySelector('#most-played-table tbody');
+  tbody.innerHTML = '';
+  entries.forEach(({ cmdr, pilot, plays: p, wins: w }) => {
+    const tr = document.createElement('tr');
+    tr.dataset.p = pilot;
+    tr.innerHTML = `
+      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td>${pilot}</td>
+      <td class="num">${p}</td>
+      <td class="num">${w}</td>
+      <td class="num">${p ? (w/p*100).toFixed(1)+'%' : '—'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  loadAvatarImages(document.querySelector('#most-played-table'));
+}
+
+function renderBlitz(gameRows) {
+  const roundSum = {};
+  const winCount = {};
+  const pilotMap = {};
+  gameRows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const pilot = (row[G.pilot] || '').trim();
+    const won = row[G.winner] && row[G.winner].trim() !== '';
+    const rounds = parseFloat(row[G.rounds]);
+    if (!cmdr || !pilot) return;
+    pilotMap[cmdr] = pilot;
+    if (!won || isNaN(rounds) || rounds <= 0) return;
+    roundSum[cmdr] = (roundSum[cmdr] || 0) + rounds;
+    winCount[cmdr] = (winCount[cmdr] || 0) + 1;
+  });
+  const entries = Object.entries(winCount)
+    .map(([cmdr, w]) => ({ cmdr, pilot: pilotMap[cmdr] || '', wins: w, avgRound: roundSum[cmdr] / w }))
+    .sort((a, b) => a.avgRound - b.avgRound);
+  const tbody = document.querySelector('#blitz-table tbody');
+  tbody.innerHTML = '';
+  if (!entries.length) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td colspan="4" style="color:var(--ink-faint);text-align:center;padding:16px">No round data yet.</td>';
+    tbody.appendChild(tr);
+    return;
+  }
+  entries.forEach(({ cmdr, pilot, wins, avgRound }) => {
+    const tr = document.createElement('tr');
+    tr.dataset.p = pilot;
+    tr.innerHTML = `
+      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td>${pilot}</td>
+      <td class="num">${wins}</td>
+      <td class="num">${avgRound.toFixed(1)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  loadAvatarImages(document.querySelector('#blitz-table'));
+}
+
 async function renderColorProfiles(gameRows) {
   const COLOR_KEYS = ['W','U','B','R','G'];
 
@@ -685,6 +792,8 @@ Papa.parse(GAMES_CSV_URL, {
       renderSeatOverall(seatRows);
       renderSeatByPlayer(seatRows);
       renderAllCommanders(_gameRows);
+      renderMostPlayed(_gameRows);
+      renderBlitz(_gameRows);
       renderRisers(_gameRows);
       renderPopularity(_gameRows);
       renderColorProfiles(_gameRows);

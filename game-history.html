@@ -379,7 +379,12 @@ permalink: /game-history/
     border-radius: 10px;
     padding: 18px 20px;
     text-align: center;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 0.15s;
   }
+  a.cmdr-stat-card:hover { border-color: var(--gold); }
   .cmdr-stat-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -572,26 +577,26 @@ permalink: /game-history/
   <div class="cmdr-hero" id="cmdr-hero" style="display:none"></div>
 
   <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
-    <div class="cmdr-stat-card">
+    <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
       <div class="cmdr-stat-label">Active MMR Ranking</div>
       <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
       <div class="cmdr-stat-sub" id="stat-mmr-rank-sub"></div>
-    </div>
-    <div class="cmdr-stat-card">
+    </a>
+    <a class="cmdr-stat-card" href="/insights/#section-popularity">
       <div class="cmdr-stat-label">Popularity</div>
       <div class="cmdr-stat-value" id="stat-active-rank">—</div>
       <div class="cmdr-stat-sub" id="stat-active-rank-sub"></div>
-    </div>
-    <div class="cmdr-stat-card">
+    </a>
+    <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
       <div class="cmdr-stat-label">MMR</div>
       <div class="cmdr-stat-value" id="stat-mmr">—</div>
       <div class="cmdr-stat-sub" id="stat-mmr-sub"></div>
-    </div>
-    <div class="cmdr-stat-card">
+    </a>
+    <a class="cmdr-stat-card" href="/insights/#section-blitz">
       <div class="cmdr-stat-label">Avg Round Won</div>
       <div class="cmdr-stat-value" id="stat-avg-round">—</div>
       <div class="cmdr-stat-sub" id="stat-avg-round-sub"></div>
-    </div>
+    </a>
   </div>
 
   <div class="mmr-chart-wrap" id="mmr-chart-wrap" style="display:none">
