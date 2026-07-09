@@ -1028,10 +1028,10 @@ function computeMatchups(cmdr) {
   });
   return Object.entries(counts)
     .sort((a, b) => {
-      const lossDiff = (oppWins[b[0]] || 0) - (oppWins[a[0]] || 0);
-      if (lossDiff !== 0) return lossDiff;
       const countDiff = b[1] - a[1];
       if (countDiff !== 0) return countDiff;
+      const winDiff = (wins[b[0]] || 0) - (wins[a[0]] || 0);
+      if (winDiff !== 0) return winDiff;
       return (latestMmr[b[0]] || 0) - (latestMmr[a[0]] || 0);
     })
     .slice(0, 4)
@@ -1074,7 +1074,7 @@ async function renderMatchups(cmdr) {
       </div>
     </a>`;
   }).join('');
-  bar.innerHTML = `<div class="matchup-divider"><span class="matchup-divider-label">Nemesis</span></div><div class="matchup-bar-cards">${cards}</div>`;
+  bar.innerHTML = `<div class="matchup-divider"><span class="matchup-divider-label">Rivals</span></div><div class="matchup-bar-cards">${cards}</div>`;
   bar.style.display = '';
 }
 
