@@ -324,7 +324,7 @@ permalink: /insights/
       <table class="data-table" id="popularity-table">
         <thead>
           <tr>
-            <th>Commander</th><th>Pilot</th><th>Tier</th><th class="num">Sessions</th><th class="num">Rate</th><th class="num">Streak</th><th class="num">Best</th>
+            <th class="num">#</th><th>Commander</th><th>Pilot</th><th>Tier</th><th class="num">Sessions</th><th class="num">Rate</th><th class="num">Streak</th><th class="num">Best</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -655,12 +655,13 @@ function renderPopularity(rows) {
 
   const tbody = document.querySelector('#popularity-table tbody');
   tbody.innerHTML = '';
-  filtered.forEach(({ pilot, cmdr, sessions, eligible, pct, curStreak, bestStreak }) => {
+  filtered.forEach(({ pilot, cmdr, sessions, eligible, pct, curStreak, bestStreak }, i) => {
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
     const streakCell = curStreak >= 3 ? `🔥${curStreak}` : curStreak > 0 ? curStreak : '—';
     const bestCell = bestStreak >= 2 ? bestStreak : '—';
     tr.innerHTML = `
+      <td class="num" style="color:var(--ink-dim)">${i + 1}</td>
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
