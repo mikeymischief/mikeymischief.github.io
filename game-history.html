@@ -666,6 +666,24 @@ function tierBadgeSvg(tier, size = 24) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>${tier} tier</title><rect x="2" y="2" width="24" height="24" fill="none" stroke="${stroke}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="18" fill="${stroke}">${tier}</text></svg>`;
 }
 let _tierMap = {};
+let _popularityRankMap = {};
+function buildPopularityRankMap(rows) {
+  const plays = {};
+  const lastTs = {};
+  rows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const pilot = (row[G.pilot] || '').trim();
+    if (!cmdr || !pilot) return;
+    plays[cmdr] = (plays[cmdr] || 0) + 1;
+    const ts = new Date((row[G.date] || '').trim()).getTime();
+    if (!lastTs[cmdr] || ts > lastTs[cmdr]) lastTs[cmdr] = ts;
+  });
+  const map = {};
+  Object.keys(plays)
+    .sort((a, b) => plays[b] - plays[a] || lastTs[b] - lastTs[a])
+    .forEach((c, i) => { map[c] = i + 1; });
+  return map;
+}
 function buildTierMap(rows) {
   const latestMmr = {};
   const latestTs = {};
@@ -1025,18 +1043,6 @@ function computeCmdrRankings(cmdr) {
   const activeCmdrs = allCmdrs.filter(c => latestDate[c] >= cutoff);
   const sortedByMmrActive = [...activeCmdrs].sort((a, b) => (latestMmr[b] || 0) - (latestMmr[a] || 0));
 
-  const sortedByPlays = [...allCmdrs].sort((a, b) => {
-    const countDiff = (playCounts[b] || 0) - (playCounts[a] || 0);
-    if (countDiff !== 0) return countDiff;
-    // Tiebreak: walk sorted play dates most-recent-first until one differs
-    const da = playDates[a] || [], db = playDates[b] || [];
-    for (let i = 0; i < Math.max(da.length, db.length); i++) {
-      const diff = (db[i] ?? 0) - (da[i] ?? 0);
-      if (diff !== 0) return diff;
-    }
-    return 0;
-  });
-
   const activeRank = sortedByMmrActive.indexOf(cmdr);
 
   const wins = roundWinCount[cmdr] || 0;
@@ -1048,7 +1054,7 @@ function computeCmdrRankings(cmdr) {
   return {
     mmrRank: activeRank >= 0 ? activeRank + 1 : null,
     activeCount: activeCmdrs.length,
-    popularityRank: sortedByPlays.indexOf(cmdr) + 1,
+    popularityRank: _popularityRankMap[cmdr] || null,
     currentMmr: cmdrMmr,
     plays: playCounts[cmdr] || 0,
     total: allCmdrs.length,
@@ -1460,6 +1466,7 @@ Papa.parse(GAMES_CSV_URL, {
     try {
       statsMap = buildStatsMap(results.data);
       _tierMap = buildTierMap(results.data.slice(1));
+      _popularityRankMap = buildPopularityRankMap(results.data.slice(1));
       buildPredictor();
       renderHistory(results.data);
       loadAvatarImages(document.getElementById('history-table') || document.body);
