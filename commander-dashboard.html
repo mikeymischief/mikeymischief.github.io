@@ -56,7 +56,7 @@ permalink: /commander-dashboard/
   }
 
   .wrap {
-    max-width: 1280px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 0 24px 96px;
   }
@@ -120,9 +120,6 @@ permalink: /commander-dashboard/
     display: grid;
     grid-template-columns: 1fr;
     gap: 28px;
-  }
-  @media (min-width: 1100px) {
-    .table-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   .player-card {
@@ -330,6 +327,41 @@ const HEADER_ROW = 2;   // 0-indexed row containing column headers (Commander, W
 const DATA_START_ROW = 3; // 0-indexed row where actual commander rows begin
 const OVERALL_ROW = 1;  // 0-indexed row containing the "Overall:" summary stats
 
+const TIER_COLORS = {
+  S: { fill: '#854F0B', stroke: '#EF9F27', text: '#FAC775' },
+  A: { fill: '#185FA5', stroke: '#85B7EB', text: '#B5D4F4' },
+  B: { fill: '#993C1D', stroke: '#F0997B', text: '#F5C4B3' },
+  C: { fill: '#5F5E5A', stroke: '#B4B2A9', text: '#D3D1C7' },
+  D: { fill: '#2C2C2A', stroke: '#5F5E5A', text: '#888780' },
+};
+function tierBadgeSvg(tier, size = 24) {
+  if (!tier || !TIER_COLORS[tier]) return '';
+  const { fill, stroke, text } = TIER_COLORS[tier];
+  return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" role="img" style="vertical-align:middle"><title>${tier} tier</title><polygon points="32,3 61,23.2 50.5,56 13.5,56 3,23.2" fill="${fill}" stroke="${stroke}" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="27" fill="${text}">${tier}</text></svg>`;
+}
+let _tierMap = {};
+function buildTierMap(rows) {
+  const mmrMap = {};
+  for (let r = DATA_START_ROW; r < rows.length; r++) {
+    BLOCKS.forEach(block => {
+      const cmdr = (rows[r][block.start] || '').replace(/\r?\n/g, ' / ').trim();
+      const mmr = parseFloat(rows[r][block.start + 7]);
+      if (cmdr && !isNaN(mmr)) mmrMap[cmdr] = mmr;
+    });
+  }
+  const vals = Object.values(mmrMap);
+  const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+  const sigma = vals.length > 1 ? Math.sqrt(vals.reduce((s, v) => s + (v - mu) ** 2, 0) / vals.length) : 0;
+  const map = {};
+  if (sigma > 0) {
+    Object.keys(mmrMap).forEach(cmdr => {
+      const z = (mmrMap[cmdr] - mu) / sigma;
+      map[cmdr] = z >= 1.5 ? 'S' : z >= 0.5 ? 'A' : z >= -0.5 ? 'B' : z >= -1.5 ? 'C' : 'D';
+    });
+  }
+  return map;
+}
+
 function pct(v) {
   if (v === undefined || v === null || v === '') return "—";
   // Google's CSV export gives percentage-formatted cells already in percentage
@@ -388,12 +420,14 @@ function buildPlayerCard(block, rows) {
   const head = document.createElement('div');
   head.className = 'card-head';
   if (favCmdrRaw) head.dataset.favCmdr = favCmdrRaw;
+  const favTier = favCmdrRaw ? (_tierMap[favCmdrRaw] || null) : null;
   head.innerHTML = `
     <div class="card-head-left">
       <h2>${block.name}</h2>
       ${favCmdrRaw ? `<span class="fav-cmdr-name">${favCmdrDisplay}</span>` : ''}
     </div>
     <div class="record">
+      ${favTier ? `<div style="margin-bottom:6px">${tierBadgeSvg(favTier, 36)}</div>` : ''}
       <span class="winpct">${pct(overallWinPct)}</span>
       overall win rate
     </div>
@@ -462,6 +496,7 @@ async function loadCardHeadImages() {
 }
 
 function render(rows) {
+  _tierMap = buildTierMap(rows);
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
   BLOCKS.forEach(block => {
