@@ -844,7 +844,7 @@ function updatePredictor() {
   });
 }
 
-function buildMmrChart(cmdr) {
+function buildMmrChart(cmdr, tier) {
   if (mmrChartInstance) { mmrChartInstance.destroy(); mmrChartInstance = null; }
   const wrap = document.getElementById('mmr-chart-wrap');
   if (!cmdr) { wrap.style.display = 'none'; return; }
@@ -906,7 +906,7 @@ function buildMmrChart(cmdr) {
   const sessionLinePlugin = { id: 'sessionLines', afterDraw() {} };
 
   const titleEl = document.getElementById('mmr-chart-title');
-  titleEl.innerHTML = (r.tier ? tierBadgeSvg(r.tier, 18) + ' ' : '') + cmdr + ' — MMR over time';
+  titleEl.innerHTML = (tier ? tierBadgeSvg(tier, 18) + ' ' : '') + cmdr + ' — MMR over time';
   wrap.style.display = '';
 
   const dimColor = '#5c5d68';
@@ -1170,7 +1170,6 @@ async function showCmdrHero(cmdr) {
   hero.innerHTML = cards.map(c => `
     <div class="cmdr-hero-panel" style="background-image:url('${c.art}')">
       <div class="cmdr-hero-content">
-        ${r.tier ? `<div style="margin-bottom:5px">${tierBadgeSvg(r.tier, 22)}</div>` : ''}
         <div class="cmdr-hero-name-row">
           <div class="cmdr-hero-name">${c.name}</div>
           ${c.mana_cost ? `<div class="cmdr-hero-mana">${manaHtml(c.mana_cost)}</div>` : ''}
@@ -1196,6 +1195,7 @@ async function showCmdrHero(cmdr) {
   document.getElementById('stat-avg-mulligan-sub').textContent = r.mulliganGames > 0 ? `across ${r.mulliganGames} game${r.mulliganGames !== 1 ? 's' : ''}` : 'no mulligan data yet';
   statBar.style.display = '';
   renderMatchups(cmdr);
+  buildMmrChart(cmdr, r.tier);
 }
 
 function applyFilter(value) {
@@ -1246,7 +1246,6 @@ function applyFilter(value) {
     status.textContent = '';
   }
   showCmdrHero(value);
-  buildMmrChart(value);
 }
 
 function showHistoryError(msg) {
