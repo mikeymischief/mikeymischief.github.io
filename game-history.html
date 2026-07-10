@@ -50,7 +50,7 @@ permalink: /game-history/
     min-height: 100vh;
   }
   @media screen and (min-width: 641px) {
-    body::before { content: ''; position: fixed; inset: 0; background-image: url('/images/bg/2526-archive-trap.jpg'); background-position: center top; background-size: contain; background-repeat: no-repeat; z-index: -1; pointer-events: none; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url('/images/bg/2526-archive-trap.jpg'); background-position: center top; background-size: cover; z-index: -1; pointer-events: none; }
     .page-wrapper { -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); }
   }
 
@@ -905,7 +905,8 @@ function buildMmrChart(cmdr) {
 
   const sessionLinePlugin = { id: 'sessionLines', afterDraw() {} };
 
-  document.getElementById('mmr-chart-title').textContent = cmdr + ' — MMR over time';
+  const titleEl = document.getElementById('mmr-chart-title');
+  titleEl.innerHTML = (r.tier ? tierBadgeSvg(r.tier, 18) + ' ' : '') + cmdr + ' — MMR over time';
   wrap.style.display = '';
 
   const dimColor = '#5c5d68';
