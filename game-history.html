@@ -603,6 +603,11 @@ permalink: /game-history/
       <div class="cmdr-stat-value" id="stat-avg-round">—</div>
       <div class="cmdr-stat-sub" id="stat-avg-round-sub"></div>
     </a>
+    <a class="cmdr-stat-card" href="/insights/#section-mulligans">
+      <div class="cmdr-stat-label">Avg Mulligans</div>
+      <div class="cmdr-stat-value" id="stat-avg-mulligan">—</div>
+      <div class="cmdr-stat-sub" id="stat-avg-mulligan-sub"></div>
+    </a>
   </div>
 
   <div class="mmr-chart-wrap" id="mmr-chart-wrap" style="display:none">
@@ -621,11 +626,11 @@ permalink: /game-history/
 
 <script src="/assets/commander-stats.js"></script>
 <script>
-const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=635214136&single=true&output=csv";
+const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=897225993&single=true&output=csv";
 
 // Games columns, 0-indexed: Date, Winner, Seat, Pilot, Commander, Starting MMR,
 // Ending MMR, MMR Delta, Win Probability, First Player W, CMDR Plays
-const G = { date:0, winner:1, seat:2, rounds:3, pilot:4, commander:5, startMmr:6, endMmr:7, delta:8, winProb:9, firstPlayerW:10, cmdrPlays:11 };
+const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, firstPlayerW:11, cmdrPlays:12 };
 
 function pct(v) {
   if (v === undefined || v === null || v === '') return "—";
@@ -1013,6 +1018,8 @@ function computeCmdrRankings(cmdr) {
   const playDates = {};
   const roundWins = {};   // sum of rounds for winning games per commander
   const roundWinCount = {}; // count of winning games with round data
+  const mulliganSum = {};   // sum of mulligans per commander
+  const mulliganCount = {}; // games with mulligan data per commander
   const cutoff = new Date();
   cutoff.setFullYear(cutoff.getFullYear() - 2);
 
@@ -1029,6 +1036,11 @@ function computeCmdrRankings(cmdr) {
       playCounts[c] = (playCounts[c] || 0) + 1;
       if (!playDates[c]) playDates[c] = [];
       playDates[c].push(podTs);
+      const mulligans = parseFloat(row[G.mulligan]);
+      if (!isNaN(mulligans) && mulligans >= 0) {
+        mulliganSum[c] = (mulliganSum[c] || 0) + mulligans;
+        mulliganCount[c] = (mulliganCount[c] || 0) + 1;
+      }
     });
     // Track avg round win: only for the winning commander when round data exists
     if (winner && !isNaN(rounds) && rounds > 0) {
@@ -1049,6 +1061,9 @@ function computeCmdrRankings(cmdr) {
   const wins = roundWinCount[cmdr] || 0;
   const avgRoundWin = wins > 0 ? roundWins[cmdr] / wins : null;
 
+  const mulliganGames = mulliganCount[cmdr] || 0;
+  const avgMulligan = mulliganGames > 0 ? mulliganSum[cmdr] / mulliganGames : null;
+
   const cmdrMmr = latestMmr[cmdr] ?? null;
   const tier = _tierMap[cmdr] ?? null;
 
@@ -1061,6 +1076,8 @@ function computeCmdrRankings(cmdr) {
     total: allCmdrs.length,
     avgRoundWin,
     wins,
+    avgMulligan,
+    mulliganGames,
     tier,
   };
 }
@@ -1185,6 +1202,8 @@ async function showCmdrHero(cmdr) {
   document.getElementById('stat-mmr-sub').textContent = r.currentMmr != null ? 'current rating' : '';
   document.getElementById('stat-avg-round').textContent = r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—';
   document.getElementById('stat-avg-round-sub').textContent = r.wins > 0 ? `avg across ${r.wins} win${r.wins !== 1 ? 's' : ''}` : 'no round data yet';
+  document.getElementById('stat-avg-mulligan').textContent = r.avgMulligan != null ? r.avgMulligan.toFixed(2) : '—';
+  document.getElementById('stat-avg-mulligan-sub').textContent = r.mulliganGames > 0 ? `across ${r.mulliganGames} game${r.mulliganGames !== 1 ? 's' : ''}` : 'no mulligan data yet';
   statBar.style.display = '';
   renderMatchups(cmdr);
 }

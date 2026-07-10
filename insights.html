@@ -344,6 +344,17 @@ permalink: /insights/
     </div>
   </section>
 
+  <section class="block" id="section-mulligans">
+    <h2>Most Mulligans</h2>
+    <div class="sub">Commanders ranked by highest average mulligans taken per game.</div>
+    <div class="scroll-tall">
+      <table class="data-table" id="mulligans-table">
+        <thead><tr><th>Commander</th><th>Pilot</th><th class="num">Avg Mulligans</th><th class="num">Games</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
   <section class="block">
     <h2>On the Shelf</h2>
     <div class="sub">Active commanders not played in the last 6 months — approaching the 2-year inactive threshold.</div>
@@ -362,8 +373,8 @@ permalink: /insights/
 
 <script src="/assets/commander-stats.js"></script>
 <script>
-const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=635214136&single=true&output=csv";
-const G = { date:0, winner:1, seat:2, rounds:3, pilot:4, commander:5, startMmr:6, endMmr:7, delta:8, winProb:9, firstPlayerW:10, cmdrPlays:11 };
+const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=897225993&single=true&output=csv";
+const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, firstPlayerW:11, cmdrPlays:12 };
 
 let _gameRows = null;
 let _rowPodSize = new Map();
@@ -607,6 +618,42 @@ function renderRisers(gameRows) {
     tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td><td class="num">${avg.toFixed(2)}</td>`;
     tbody.appendChild(tr);
   });
+}
+
+function renderMulligans(gameRows) {
+  const cmdrData = {};
+  gameRows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const pilot = (row[G.pilot] || '').trim();
+    if (!cmdr || !pilot) return;
+    const mulligans = parseFloat(row[G.mulligan]);
+    if (isNaN(mulligans) || mulligans < 0) return;
+    if (!cmdrData[cmdr]) cmdrData[cmdr] = { sum: 0, count: 0, pilot };
+    cmdrData[cmdr].sum += mulligans;
+    cmdrData[cmdr].count++;
+  });
+
+  const entries = Object.entries(cmdrData)
+    .filter(([, d]) => d.count >= 3)
+    .map(([cmdr, d]) => ({ cmdr, pilot: d.pilot, avg: d.sum / d.count, count: d.count }))
+    .sort((a, b) => b.avg - a.avg);
+
+  const tbody = document.querySelector('#mulligans-table tbody');
+  tbody.innerHTML = '';
+  if (!entries.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="color:var(--ink-faint);text-align:center;padding:24px">No mulligan data yet.</td></tr>';
+    return;
+  }
+  entries.forEach(({ cmdr, pilot, avg, count }) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td>${pilot}</td>
+      <td class="num">${avg.toFixed(2)}</td>
+      <td class="num">${count}</td>`;
+    tbody.appendChild(tr);
+  });
+  loadAvatarImages(tbody);
 }
 
 function renderShelved(gameRows) {
@@ -914,6 +961,7 @@ Papa.parse(GAMES_CSV_URL, {
       renderMostPlayed(_gameRows);
       renderBlitz(_gameRows);
       renderRisers(_gameRows);
+      renderMulligans(_gameRows);
       renderShelved(_gameRows);
       renderPopularity(_gameRows);
       renderColorProfiles(_gameRows);
