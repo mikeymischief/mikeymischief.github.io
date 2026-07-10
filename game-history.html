@@ -1169,10 +1169,10 @@ async function showCmdrHero(cmdr) {
   hero.innerHTML = cards.map(c => `
     <div class="cmdr-hero-panel" style="background-image:url('${c.art}')">
       <div class="cmdr-hero-content">
+        ${r.tier ? `<div style="margin-bottom:5px">${tierBadgeSvg(r.tier, 22)}</div>` : ''}
         <div class="cmdr-hero-name-row">
           <div class="cmdr-hero-name">${c.name}</div>
           ${c.mana_cost ? `<div class="cmdr-hero-mana">${manaHtml(c.mana_cost)}</div>` : ''}
-          ${r.tier ? `<div style="margin-left:auto;padding-left:12px">${tierBadgeSvg(r.tier, 28)}</div>` : ''}
         </div>
         <div class="cmdr-hero-type">${c.type_line}</div>
         ${c.oracle_text ? `<div class="cmdr-hero-sep"></div><div class="cmdr-hero-oracle">${oracleHtml(c.oracle_text)}</div>` : ''}
