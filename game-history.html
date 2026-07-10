@@ -578,11 +578,6 @@ permalink: /game-history/
   <div class="cmdr-hero" id="cmdr-hero" style="display:none"></div>
 
   <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
-    <a class="cmdr-stat-card" href="/insights/#section-all-cmdr" id="stat-tier-card">
-      <div class="cmdr-stat-label">Tier</div>
-      <div class="cmdr-stat-value" id="stat-tier" style="line-height:1">—</div>
-      <div class="cmdr-stat-sub" id="stat-tier-sub"></div>
-    </a>
     <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
       <div class="cmdr-stat-label">Active MMR Ranking</div>
       <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
@@ -696,7 +691,7 @@ function buildTierMap(rows) {
   const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
   rows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
-    const endMmr = parseFloat(row[G.endMmr]);
+    const endMmr = parsePctDelta(row[G.endMmr]);
     if (!cmdr || isNaN(endMmr)) return;
     const ts = new Date((row[G.date] || '').trim()).getTime();
     if (!latestTs[cmdr] || ts > latestTs[cmdr]) { latestTs[cmdr] = ts; latestMmr[cmdr] = endMmr; }
@@ -873,7 +868,7 @@ function buildMmrChart(cmdr) {
     pod.forEach(row => {
       if (normalizeCmdr(row[G.commander]) !== cmdr) return;
       const pilot = (row[G.pilot] || '').trim();
-      const endMmr = parseFloat(row[G.endMmr]);
+      const endMmr = parsePctDelta(row[G.endMmr]);
       if (!pilot || isNaN(endMmr)) return;
       if (!pilotPoints[pilot]) pilotPoints[pilot] = [];
       pilotPoints[pilot].push({ x: podNum, y: Math.round(endMmr), won: !!(row[G.winner] && row[G.winner].trim()) });
@@ -1031,7 +1026,7 @@ function computeCmdrRankings(cmdr) {
     pod.forEach(row => {
       const c = normalizeCmdr(row[G.commander]);
       if (!c) return;
-      const endMmr = parseFloat(row[G.endMmr]);
+      const endMmr = parsePctDelta(row[G.endMmr]);
       if (!isNaN(endMmr)) { latestMmr[c] = endMmr; latestDate[c] = podDate; }
       playCounts[c] = (playCounts[c] || 0) + 1;
       if (!playDates[c]) playDates[c] = [];
@@ -1090,7 +1085,7 @@ function computeMatchups(cmdr) {
   podsChronological.forEach(pod => {
     pod.forEach(row => {
       const c = normalizeCmdr(row[G.commander]);
-      const endMmr = parseFloat(row[G.endMmr]);
+      const endMmr = parsePctDelta(row[G.endMmr]);
       if (c && !isNaN(endMmr)) latestMmr[c] = endMmr;
     });
     const cmdrs = pod.map(row => normalizeCmdr(row[G.commander])).filter(Boolean);
@@ -1170,12 +1165,14 @@ async function showCmdrHero(cmdr) {
   const cardMap = await fetchCmdrCards(parts);
   const cards = parts.map(p => cardMap[p.toLowerCase()]).filter(c => c && c.art);
   if (!cards.length) { hero.style.display = 'none'; return; }
+  const r = computeCmdrRankings(cmdr);
   hero.innerHTML = cards.map(c => `
     <div class="cmdr-hero-panel" style="background-image:url('${c.art}')">
       <div class="cmdr-hero-content">
         <div class="cmdr-hero-name-row">
           <div class="cmdr-hero-name">${c.name}</div>
           ${c.mana_cost ? `<div class="cmdr-hero-mana">${manaHtml(c.mana_cost)}</div>` : ''}
+          ${r.tier ? `<div style="margin-left:auto;padding-left:12px">${tierBadgeSvg(r.tier, 28)}</div>` : ''}
         </div>
         <div class="cmdr-hero-type">${c.type_line}</div>
         ${c.oracle_text ? `<div class="cmdr-hero-sep"></div><div class="cmdr-hero-oracle">${oracleHtml(c.oracle_text)}</div>` : ''}
@@ -1186,14 +1183,6 @@ async function showCmdrHero(cmdr) {
   `).join('');
   hero.style.display = '';
 
-  const r = computeCmdrRankings(cmdr);
-  const tierEl = document.getElementById('stat-tier');
-  if (r.tier) {
-    tierEl.innerHTML = tierBadgeSvg(r.tier, 48);
-  } else {
-    tierEl.textContent = '—';
-  }
-  document.getElementById('stat-tier-sub').textContent = r.tier ? `${r.tier} tier` : '';
   document.getElementById('stat-mmr-rank').textContent = r.mmrRank ? `#${r.mmrRank}` : '—';
   document.getElementById('stat-mmr-rank-sub').textContent = r.activeCount ? `of ${r.activeCount} active commanders` : 'inactive (2+ yrs)';
   document.getElementById('stat-active-rank').textContent = r.popularityRank ? `#${r.popularityRank}` : '—';
@@ -1461,7 +1450,7 @@ function renderHistory(rows) {
         <td class="num">${seat}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>
-        <td class="num">${num(row[G.startMmr],1)} → ${num(row[G.endMmr],1)}</td>
+        <td class="num">${num(row[G.startMmr],1)} → ${(v => isNaN(v) ? '—' : v.toFixed(1))(parsePctDelta(row[G.endMmr]))}</td>
         <td class="num">${row[G.delta] ? (d => d >= 0 ? '+' + d.toFixed(1) : d.toFixed(1))(parsePctDelta(row[G.delta])) : ''}</td>
       `;
       tbody.appendChild(tr);

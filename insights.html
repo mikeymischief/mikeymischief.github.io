@@ -318,6 +318,17 @@ permalink: /insights/
     </div>
   </section>
 
+  <section class="block" id="section-mulligans">
+    <h2>Most Mulligans</h2>
+    <div class="sub">Commanders ranked by highest average mulligans taken per game.</div>
+    <div class="scroll-tall">
+      <table class="data-table" id="mulligans-table">
+        <thead><tr><th>Commander</th><th>Pilot</th><th class="num">Avg Mulligans</th><th class="num">Games</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
   <section class="block" id="section-trending">
     <h2>Trending Commanders</h2>
     <div class="sub">Sessions played since debut — rate is sessions played / sessions available since first appearance.</div>
@@ -339,17 +350,6 @@ permalink: /insights/
     <div class="scroll-tall">
       <table class="data-table" id="risers-table">
         <thead><tr><th>Commander</th><th class="num">Avg MMR / Game</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="block" id="section-mulligans">
-    <h2>Most Mulligans</h2>
-    <div class="sub">Commanders ranked by highest average mulligans taken per game.</div>
-    <div class="scroll-tall">
-      <table class="data-table" id="mulligans-table">
-        <thead><tr><th>Commander</th><th>Pilot</th><th class="num">Avg Mulligans</th><th class="num">Games</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -399,7 +399,7 @@ function buildTierMap(rows) {
   const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
   rows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
-    const endMmr = parseFloat(row[G.endMmr]);
+    const endMmr = parsePctDelta(row[G.endMmr]);
     if (!cmdr || isNaN(endMmr)) return;
     const ts = new Date((row[G.date] || '').trim()).getTime();
     if (!latestTs[cmdr] || ts > latestTs[cmdr]) { latestTs[cmdr] = ts; latestMmr[cmdr] = endMmr; }
@@ -560,7 +560,7 @@ function renderAllCommanders(gameRows) {
     const s = stats[key];
     s.plays++;
     if (row[G.winner] && row[G.winner].trim()) s.wins++;
-    const endMmr = parseFloat(row[G.endMmr]);
+    const endMmr = parsePctDelta(row[G.endMmr]);
     if (!isNaN(endMmr)) s.lastMmr = endMmr;
     const dateTs = new Date(date).getTime();
     if (!lastPlayed[cmdr] || dateTs > lastPlayed[cmdr]) lastPlayed[cmdr] = dateTs;
