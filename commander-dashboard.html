@@ -363,15 +363,15 @@ permalink: /commander-dashboard/
 // ---- Configuration ----
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1312679420&single=true&output=csv";
 
-// Each player's block: 10 data columns (+2 blank separators = 12 total),
+// Each player's block: 10 data columns (+1 blank separator = 11 total),
 // starting at these 0-indexed column offsets in the published CMDRSTATS sheet.
 // Columns within a block: Commander(+0), Wins(+1), Plays(+2), Win%(+3), Avg Round Win(+4),
 //   Avg Mulligans(+5), Most Cmn Seat(+6), Best Seat Win%(+7), MMR(+8), Conservative(+9)
 const BLOCKS = [
   { name: "Brian", start: 0 },
-  { name: "Gerf",  start: 12 },
-  { name: "Mikey", start: 24 },
-  { name: "Jubee", start: 36 },
+  { name: "Gerf",  start: 11 },
+  { name: "Mikey", start: 22 },
+  { name: "Jubee", start: 33 },
 ];
 
 const HEADER_ROW = 2;   // 0-indexed row containing column headers (Commander, Wins, ...)
