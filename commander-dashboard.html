@@ -413,6 +413,7 @@ function buildTierMap(rows) {
   return map;
 }
 
+function cell(v) { const s = String(v ?? '').trim(); return s && s !== 'N/A' ? s : '—'; }
 function pct(v) {
   if (v === undefined || v === null || v === '') return "—";
   // Google's CSV export gives percentage-formatted cells already in percentage
@@ -523,7 +524,7 @@ function buildPlayerCard(block, rows) {
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${int(row[b+2])}</td>
       <td class="num">${pct(row[b+3])}</td>
-      <td class="num">${row[b+4] || '—'}</td>
+      <td class="num">${cell(row[b+4])}</td>
       <td class="num">${num(row[b+5], 2)}</td>
       <td class="num">${int(row[b+6])}</td>
       <td class="num">${num(row[b+8], 1)}</td>
