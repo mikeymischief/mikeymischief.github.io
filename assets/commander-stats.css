@@ -1,8 +1,8 @@
 :root {
   --brian: #e08585; --brian-dim: #3a2529;
   --gerf:  #7fc98f; --gerf-dim:  #223228;
-  --mikey: #7ba7e0; --mikey-dim: #202a3a;
-  --jubee: #22D3EE; --jubee-dim: #0d2f38;
+  --mikey: #A78BFA; --mikey-dim: #221a40;
+  --jubee: #F472B6; --jubee-dim: #3d1229;
 }
 
 [data-pilot="Brian"], .cmdr-stat-value[data-pilot="Brian"] { color: var(--brian); }
