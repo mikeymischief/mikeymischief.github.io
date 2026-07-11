@@ -279,7 +279,7 @@ permalink: /insights/
       <table class="data-table" id="all-cmdr-table">
         <thead>
           <tr>
-            <th>Commander</th><th>Pilot</th><th>Tier</th><th class="num">W</th><th class="num">P</th>
+            <th class="num">#</th><th>Commander</th><th>Pilot</th><th>Tier</th><th class="num">W</th><th class="num">P</th>
             <th class="num">Win%</th><th class="num">MMR</th>
           </tr>
         </thead>
@@ -379,6 +379,7 @@ const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6
 let _gameRows = null;
 let _rowPodSize = new Map();
 let _tierMap = {};
+let _activeSet = new Set();
 const _acState = { showAll: false };
 
 const _seatState = { filter: '3' };
@@ -533,12 +534,15 @@ function renderAllCommanders(gameRows) {
     .sort((a, b) => (b.lastMmr || 0) - (a.lastMmr || 0));
   const tbody = document.querySelector('#all-cmdr-table tbody');
   tbody.innerHTML = '';
+  let rank = 0;
   entries.forEach(({ cmdr, pilot, wins, plays, lastMmr }) => {
     const lp = lastPlayed[cmdr];
     if (!_acState.showAll && lp && (now - new Date(lp).getTime()) > TWO_YEARS) return;
+    rank++;
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
     tr.innerHTML = `
+      <td class="num" style="color:var(--ink-dim)">${rank}</td>
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${lp && (now - new Date(lp).getTime()) <= TWO_YEARS ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
@@ -724,7 +728,7 @@ function renderPopularity(rows) {
       <td class="num" style="color:var(--ink-dim)">${i + 1}</td>
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
-      <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
+      <td style="text-align:center">${_activeSet.has(cmdr) ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
       <td class="num">${sessions} / ${eligible}</td>
       <td class="num">${(pct * 100).toFixed(1)}%</td>
       <td class="num">${streakCell}</td>
@@ -769,7 +773,7 @@ function renderMostPlayed(gameRows) {
       <td class="num" style="color:var(--ink-dim)">${cmdrRank[cmdr]}</td>
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
-      <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
+      <td style="text-align:center">${_activeSet.has(cmdr) ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
       <td class="num">${p}</td>
       <td class="num">${w}</td>
       <td class="num">${p ? (w/p*100).toFixed(1)+'%' : '—'}</td>
@@ -811,7 +815,7 @@ function renderBlitz(gameRows) {
     tr.innerHTML = `
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
-      <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
+      <td style="text-align:center">${_activeSet.has(cmdr) ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
       <td class="num">${wins}</td>
       <td class="num">${avgRound.toFixed(1)}</td>
     `;
@@ -903,6 +907,7 @@ Papa.parse(GAMES_CSV_URL, {
       _gameRows = results.data.slice(1);
       _rowPodSize = buildRowPodSizeMap(_gameRows);
       _tierMap = buildTierMapFromGames(_gameRows);
+      _activeSet = buildActiveSet(_gameRows);
       const seatRows = seatFilteredRows();
       renderSeatOverall(seatRows);
       renderSeatByPlayer(seatRows);
