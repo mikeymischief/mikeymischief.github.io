@@ -673,6 +673,7 @@ const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
 const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#7ba7e0', Jubee: '#e0c360' };
 
 let _tierMap = {};
+let _activeSet = new Set();
 let _popularityRankMap = {};
 function buildPopularityRankMap(rows) {
   const plays = {};
@@ -1471,7 +1472,7 @@ function renderHistory(rows) {
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
         <td class="pilot-name">${pilot}</td>
-        <td style="text-align:center">${tierBadgeSvg(_tierMap[normalizeCmdr(row[G.commander])])}</td>
+        <td style="text-align:center">${_activeSet.has(normalizeCmdr(row[G.commander])) ? tierBadgeSvg(_tierMap[normalizeCmdr(row[G.commander])]) : ''}</td>
         <td class="cmdr-name">${cmdrAvatarHtml(normalizeCmdr(row[G.commander]))}<a href="/game-history/?commander=${encodeURIComponent(normalizeCmdr(row[G.commander]))}" class="cmdr-link">${cmdrName(row[G.commander])}</a>${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
@@ -1502,6 +1503,7 @@ Papa.parse(GAMES_CSV_URL, {
       tiePodRows = buildTiePodRows(results.data);
       statsMap = buildStatsMap(results.data);
       _tierMap = buildTierMapFromGames(results.data.slice(1));
+      _activeSet = buildActiveSet(results.data.slice(1));
       _popularityRankMap = buildPopularityRankMap(results.data.slice(1));
       buildPredictor();
       renderHistory(results.data);

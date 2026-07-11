@@ -205,3 +205,17 @@ function buildTierMapFromGames(rows) {
   }
   return map;
 }
+
+// Returns a Set of commander names played within the last two years.
+function buildActiveSet(rows) {
+  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
+  const latestTs = {};
+  rows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    if (!cmdr) return;
+    const ts = new Date((row[G.date] || '').trim()).getTime();
+    if (!latestTs[cmdr] || ts > latestTs[cmdr]) latestTs[cmdr] = ts;
+  });
+  const cutoff = Date.now() - TWO_YEARS;
+  return new Set(Object.keys(latestTs).filter(c => latestTs[c] >= cutoff));
+}
