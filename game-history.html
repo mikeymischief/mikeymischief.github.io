@@ -586,6 +586,11 @@ permalink: /game-history/
   <div class="cmdr-hero" id="cmdr-hero" style="display:none"></div>
 
   <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
+    <div class="cmdr-stat-card">
+      <div class="cmdr-stat-label">Pilot</div>
+      <div class="cmdr-stat-value" id="stat-pilot">—</div>
+      <div class="cmdr-stat-sub" id="stat-pilot-sub"></div>
+    </div>
     <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
       <div class="cmdr-stat-label">Active MMR Ranking</div>
       <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
@@ -602,19 +607,14 @@ permalink: /game-history/
       <div class="cmdr-stat-sub" id="stat-mmr-sub"></div>
     </a>
     <div class="cmdr-stat-card">
-      <div class="cmdr-stat-label">Conservative</div>
-      <div class="cmdr-stat-value" id="stat-conservative">—</div>
-      <div class="cmdr-stat-sub" id="stat-conservative-sub"></div>
-    </div>
-    <div class="cmdr-stat-card">
-      <div class="cmdr-stat-label">Pilot</div>
-      <div class="cmdr-stat-value" id="stat-pilot">—</div>
-      <div class="cmdr-stat-sub" id="stat-pilot-sub"></div>
-    </div>
-    <div class="cmdr-stat-card">
       <div class="cmdr-stat-label">Win — Loss</div>
       <div class="cmdr-stat-value" id="stat-win-loss">—</div>
       <div class="cmdr-stat-sub" id="stat-win-loss-sub"></div>
+    </div>
+    <div class="cmdr-stat-card">
+      <div class="cmdr-stat-label">Avg Seat</div>
+      <div class="cmdr-stat-value" id="stat-avg-seat">—</div>
+      <div class="cmdr-stat-sub" id="stat-avg-seat-sub"></div>
     </div>
     <a class="cmdr-stat-card" href="/insights/#section-blitz">
       <div class="cmdr-stat-label">Avg Round Won</div>
@@ -645,9 +645,7 @@ permalink: /game-history/
 <script src="/assets/commander-stats.js"></script>
 <script>
 const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=754341745&single=true&output=csv";
-const CMDRSTATS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1839162822&single=true&output=csv";
-const CMDR_BLOCKS = [{name:'Brian',start:0},{name:'Gerf',start:12},{name:'Mikey',start:24},{name:'Jubee',start:36}];
-const CMDR_DATA_START_ROW = 2;
+
 
 // Games columns, 0-indexed: Date, Winner, Seat, Pilot, Commander, Starting MMR,
 // Ending MMR, MMR Delta, Win Probability, First Player W, CMDR Plays
@@ -687,7 +685,7 @@ const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#7ba7e0', Jube
 
 let _tierMap = {};
 let _activeSet = new Set();
-let _conservativeMap = {};
+
 let _popularityRankMap = {};
 function buildPopularityRankMap(rows) {
   const plays = {};
@@ -1037,6 +1035,8 @@ function computeCmdrRankings(cmdr) {
   const roundWinCount = {}; // count of winning games with round data
   const mulliganSum = {};   // sum of mulligans per commander
   const mulliganCount = {}; // games with mulligan data per commander
+  const seatSum = {};
+  const seatCount = {};
   const cutoff = new Date();
   cutoff.setFullYear(cutoff.getFullYear() - 2);
 
@@ -1062,6 +1062,11 @@ function computeCmdrRankings(cmdr) {
       if (!isNaN(mulligans) && mulligans >= 0) {
         mulliganSum[c] = (mulliganSum[c] || 0) + mulligans;
         mulliganCount[c] = (mulliganCount[c] || 0) + 1;
+      }
+      const seat = parseFloat(row[G.seat]);
+      if (!isNaN(seat) && seat > 0) {
+        seatSum[c] = (seatSum[c] || 0) + seat;
+        seatCount[c] = (seatCount[c] || 0) + 1;
       }
       if (tiePodRows.has(row)) {
         tieCounts[c] = (tieCounts[c] || 0) + 1;
@@ -1093,6 +1098,8 @@ function computeCmdrRankings(cmdr) {
   const mulliganGames = mulliganCount[cmdr] || 0;
   const avgMulligan = mulliganGames > 0 ? mulliganSum[cmdr] / mulliganGames : null;
 
+  const avgSeat = seatCount[cmdr] > 0 ? seatSum[cmdr] / seatCount[cmdr] : null;
+
   const cmdrMmr = latestMmr[cmdr] ?? null;
   const tier = _tierMap[cmdr] ?? null;
   const isActive = latestDate[cmdr] ? latestDate[cmdr] >= cutoff : false;
@@ -1103,14 +1110,11 @@ function computeCmdrRankings(cmdr) {
     ((statsMap[b]?.[cmdr]?.plays || 0) - (statsMap[a]?.[cmdr]?.plays || 0))
   ).find(p => (statsMap[p]?.[cmdr]?.plays || 0) > 0) || null;
 
-  const conservativeRating = primaryPilot ? (_conservativeMap[primaryPilot + ':' + cmdr] ?? null) : null;
-
   return {
     mmrRank: activeRank >= 0 ? activeRank + 1 : null,
     activeCount: activeCmdrs.length,
     popularityRank: _popularityRankMap[cmdr] || null,
     currentMmr: cmdrMmr,
-    conservativeRating,
     primaryPilot,
     plays: playCounts[cmdr] || 0,
     total: allCmdrs.length,
@@ -1119,6 +1123,7 @@ function computeCmdrRankings(cmdr) {
     wlt,
     avgMulligan,
     mulliganGames,
+    avgSeat,
     tier,
     isActive,
   };
@@ -1236,12 +1241,12 @@ async function showCmdrHero(cmdr) {
   document.getElementById('stat-active-rank-sub').textContent = r.plays ? `${r.plays} game${r.plays !== 1 ? 's' : ''} played` : '';
   document.getElementById('stat-mmr').textContent = r.currentMmr != null ? Math.round(r.currentMmr) : '—';
   document.getElementById('stat-mmr-sub').textContent = r.currentMmr != null ? 'current rating' : '';
-  document.getElementById('stat-conservative').textContent = r.conservativeRating != null ? Math.round(r.conservativeRating) : '—';
-  document.getElementById('stat-conservative-sub').textContent = r.conservativeRating != null ? 'lower bound' : '';
   document.getElementById('stat-pilot').textContent = r.primaryPilot || '—';
   document.getElementById('stat-pilot-sub').textContent = r.primaryPilot && statsMap[r.primaryPilot]?.[cmdr] ? `${statsMap[r.primaryPilot][cmdr].plays} game${statsMap[r.primaryPilot][cmdr].plays !== 1 ? 's' : ''}` : '';
   document.getElementById('stat-win-loss').textContent = r.plays > 0 ? `${r.wlt.w} — ${r.wlt.l}` : '—';
   document.getElementById('stat-win-loss-sub').textContent = r.wlt.t > 0 ? `${r.wlt.t} tie${r.wlt.t !== 1 ? 's' : ''}` : '';
+  document.getElementById('stat-avg-seat').textContent = r.avgSeat != null ? r.avgSeat.toFixed(1) : '—';
+  document.getElementById('stat-avg-seat-sub').textContent = r.avgSeat != null ? 'out of 4' : '';
   document.getElementById('stat-avg-round').textContent = r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—';
   document.getElementById('stat-avg-round-sub').textContent = r.wins > 0 ? `avg across ${r.wins} win${r.wins !== 1 ? 's' : ''}` : 'no round data yet';
   document.getElementById('stat-avg-mulligan').textContent = r.avgMulligan != null ? r.avgMulligan.toFixed(2) : '—';
@@ -1517,22 +1522,6 @@ function renderHistory(rows) {
   document.getElementById('history-status').textContent =
     pods.length + ' games loaded, most recent first.';
 }
-
-Papa.parse(CMDRSTATS_CSV_URL, {
-  download: true,
-  complete: function(results) {
-    if (!results.data || results.data.length < 3) return;
-    const rows = results.data;
-    for (let r = CMDR_DATA_START_ROW; r < rows.length; r++) {
-      CMDR_BLOCKS.forEach(block => {
-        const cmdr = normalizeCmdr(rows[r][block.start] || '');
-        const cons = parseFloat(rows[r][block.start + 10]);
-        if (cmdr && !isNaN(cons)) _conservativeMap[block.name + ':' + cmdr] = cons;
-      });
-    }
-  },
-  error: () => {},
-});
 
 Papa.parse(GAMES_CSV_URL, {
   download: true,
