@@ -587,7 +587,7 @@ permalink: /game-history/
 
   <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
     <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
-      <div class="cmdr-stat-label">MMR Ranking</div>
+      <div class="cmdr-stat-label">Active MMR Ranking</div>
       <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
       <div class="cmdr-stat-sub" id="stat-mmr-rank-sub"></div>
     </a>
@@ -657,11 +657,6 @@ function pct(v) {
   if (isNaN(n)) return "—";
   return n.toFixed(2) + "%";
 }
-function parsePctDelta(val) {
-  const s = String(val || '').trim();
-  if (!s) return NaN;
-  return s.endsWith('%') ? parseFloat(s) / 100 : parseFloat(s);
-}
 function num(v, digits) {
   const n = parseFloat(v);
   if (isNaN(n)) return "—";
@@ -677,18 +672,6 @@ function int(v) {
 const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
 const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#7ba7e0', Jubee: '#e0c360' };
 
-const TIER_COLORS = {
-  S: { stroke: '#EF9F27' },
-  A: { stroke: '#85B7EB' },
-  B: { stroke: '#F0997B' },
-  C: { stroke: '#B4B2A9' },
-  D: { stroke: '#7A5C4A' },
-};
-function tierBadgeSvg(tier, size = 24) {
-  if (!tier || !TIER_COLORS[tier]) return '';
-  const { stroke } = TIER_COLORS[tier];
-  return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>${tier} tier</title><rect x="2" y="2" width="24" height="24" fill="none" stroke="${stroke}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="18" fill="${stroke}">${tier}</text></svg>`;
-}
 let _tierMap = {};
 let _popularityRankMap = {};
 function buildPopularityRankMap(rows) {
@@ -708,29 +691,6 @@ function buildPopularityRankMap(rows) {
     .forEach((c, i) => { map[c] = i + 1; });
   return map;
 }
-function buildTierMap(rows) {
-  const latestMmr = {};
-  const latestTs = {};
-  rows.forEach(row => {
-    const cmdr = normalizeCmdr(row[G.commander]);
-    const endMmr = parsePctDelta(row[G.endMmr]);
-    if (!cmdr || isNaN(endMmr)) return;
-    const ts = new Date((row[G.date] || '').trim()).getTime();
-    if (!latestTs[cmdr] || ts > latestTs[cmdr]) { latestTs[cmdr] = ts; latestMmr[cmdr] = endMmr; }
-  });
-  const vals = Object.values(latestMmr);
-  const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
-  const sigma = vals.length > 1 ? Math.sqrt(vals.reduce((s, v) => s + (v - mu) ** 2, 0) / vals.length) : 0;
-  const map = {};
-  if (sigma > 0) {
-    Object.keys(latestMmr).forEach(c => {
-      const z = (latestMmr[c] - mu) / sigma;
-      map[c] = z >= 1.5 ? 'S' : z >= 0.5 ? 'A' : z >= -0.5 ? 'B' : z >= -1.5 ? 'C' : 'D';
-    });
-  }
-  return map;
-}
-
 let statsMap = {};
 let lastSeenGameGlobal = {};
 let totalPodsGlobal = 0;
@@ -1107,9 +1067,10 @@ function computeCmdrRankings(cmdr) {
   Object.keys(playDates).forEach(c => playDates[c].sort((a, b) => b - a));
 
   const allCmdrs = Object.keys(latestMmr);
-  const sortedByMmr = [...allCmdrs].sort((a, b) => (latestMmr[b] || 0) - (latestMmr[a] || 0));
+  const activeCmdrs = allCmdrs.filter(c => latestDate[c] >= cutoff);
+  const sortedByMmrActive = [...activeCmdrs].sort((a, b) => (latestMmr[b] || 0) - (latestMmr[a] || 0));
 
-  const activeRank = sortedByMmr.indexOf(cmdr);
+  const activeRank = sortedByMmrActive.indexOf(cmdr);
 
   const wins = roundWinCount[cmdr] || 0;
   const avgRoundWin = wins > 0 ? roundWins[cmdr] / wins : null;
@@ -1124,7 +1085,7 @@ function computeCmdrRankings(cmdr) {
 
   return {
     mmrRank: activeRank >= 0 ? activeRank + 1 : null,
-    activeCount: allCmdrs.length,
+    activeCount: activeCmdrs.length,
     popularityRank: _popularityRankMap[cmdr] || null,
     currentMmr: cmdrMmr,
     plays: playCounts[cmdr] || 0,
@@ -1245,7 +1206,7 @@ async function showCmdrHero(cmdr) {
   hero.style.display = '';
 
   document.getElementById('stat-mmr-rank').textContent = r.mmrRank ? `#${r.mmrRank}` : '—';
-  document.getElementById('stat-mmr-rank-sub').textContent = r.activeCount ? `of ${r.activeCount} commanders` : '';
+  document.getElementById('stat-mmr-rank-sub').textContent = r.activeCount ? `of ${r.activeCount} active commanders` : '';
   document.getElementById('stat-active-rank').textContent = r.popularityRank ? `#${r.popularityRank}` : '—';
   document.getElementById('stat-active-rank-sub').textContent = r.plays ? `${r.plays} game${r.plays !== 1 ? 's' : ''} played` : '';
   document.getElementById('stat-mmr').textContent = r.currentMmr != null ? Math.round(r.currentMmr) : '—';
@@ -1538,7 +1499,7 @@ Papa.parse(GAMES_CSV_URL, {
     try {
       tiePodRows = buildTiePodRows(results.data);
       statsMap = buildStatsMap(results.data);
-      _tierMap = buildTierMap(results.data.slice(1));
+      _tierMap = buildTierMapFromGames(results.data.slice(1));
       _popularityRankMap = buildPopularityRankMap(results.data.slice(1));
       buildPredictor();
       renderHistory(results.data);

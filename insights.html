@@ -271,10 +271,10 @@ permalink: /insights/
 
   <section class="block" id="section-all-cmdr">
     <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
-      <h2 id="all-cmdr-heading" style="margin:0;">All Commanders by MMR</h2>
-      <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show Active</button>
+      <h2 id="all-cmdr-heading" style="margin:0;">Active Commanders by MMR</h2>
+      <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show All</button>
     </div>
-    <div id="all-cmdr-sub" class="sub">Every commander across the whole group, ranked head-to-head.</div>
+    <div id="all-cmdr-sub" class="sub">Every commander played within the last two years, ranked head-to-head.</div>
     <div class="scroll-tall">
       <table class="data-table" id="all-cmdr-table">
         <thead>
@@ -379,45 +379,8 @@ const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6
 let _gameRows = null;
 let _rowPodSize = new Map();
 let _tierMap = {};
-const _acState = { showAll: true };
+const _acState = { showAll: false };
 
-const TIER_COLORS = {
-  S: { stroke: '#EF9F27' },
-  A: { stroke: '#85B7EB' },
-  B: { stroke: '#F0997B' },
-  C: { stroke: '#B4B2A9' },
-  D: { stroke: '#7A5C4A' },
-};
-function tierBadgeSvg(tier, size = 24) {
-  if (!tier || !TIER_COLORS[tier]) return '';
-  const { stroke } = TIER_COLORS[tier];
-  return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>${tier} tier</title><rect x="2" y="2" width="24" height="24" fill="none" stroke="${stroke}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="18" fill="${stroke}">${tier}</text></svg>`;
-}
-function buildTierMap(rows) {
-  const latestMmr = {};
-  const latestTs = {};
-  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
-  rows.forEach(row => {
-    const cmdr = normalizeCmdr(row[G.commander]);
-    const endMmr = parsePctDelta(row[G.endMmr]);
-    if (!cmdr || isNaN(endMmr)) return;
-    const ts = new Date((row[G.date] || '').trim()).getTime();
-    if (!latestTs[cmdr] || ts > latestTs[cmdr]) { latestTs[cmdr] = ts; latestMmr[cmdr] = endMmr; }
-  });
-  const cutoff = Date.now() - TWO_YEARS;
-  const active = Object.keys(latestMmr).filter(c => latestTs[c] >= cutoff);
-  const vals = active.map(c => latestMmr[c]);
-  const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
-  const sigma = vals.length > 1 ? Math.sqrt(vals.reduce((s, v) => s + (v - mu) ** 2, 0) / vals.length) : 0;
-  const map = {};
-  if (sigma > 0) {
-    Object.keys(latestMmr).forEach(c => {
-      const z = (latestMmr[c] - mu) / sigma;
-      map[c] = z >= 1.5 ? 'S' : z >= 0.5 ? 'A' : z >= -0.5 ? 'B' : z >= -1.5 ? 'C' : 'D';
-    });
-  }
-  return map;
-}
 const _seatState = { filter: '3' };
 
 function buildRowPodSizeMap(rows) {
@@ -588,13 +551,7 @@ function renderAllCommanders(gameRows) {
   });
 }
 
-function parsePctDelta(val) {
-  const s = String(val || '').trim();
-  if (!s) return NaN;
-  // Google Sheets exports MMR Delta formatted as percentage ("52318.72%"),
-  // meaning the true value is 100x smaller — strip % and divide.
-  return s.endsWith('%') ? parseFloat(s) / 100 : parseFloat(s);
-}
+
 
 function renderRisers(gameRows) {
   const cmdrDeltas = {};
@@ -945,7 +902,7 @@ Papa.parse(GAMES_CSV_URL, {
     try {
       _gameRows = results.data.slice(1);
       _rowPodSize = buildRowPodSizeMap(_gameRows);
-      _tierMap = buildTierMap(_gameRows);
+      _tierMap = buildTierMapFromGames(_gameRows);
       const seatRows = seatFilteredRows();
       renderSeatOverall(seatRows);
       renderSeatByPlayer(seatRows);

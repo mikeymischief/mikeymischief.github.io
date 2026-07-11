@@ -213,8 +213,8 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">How do I see a commander's profile? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>Click any commander's name in the pod tables on the <a href="/game-history/">History</a> page. This opens the commander's profile: an art card pulled from Scryfall, a stat bar with MMR rank, popularity rank, current MMR, avg round won, and avg mulligans, a line chart of their MMR over time, rivals, and a filtered game log showing only pods they appeared in.</p>
-        <p>On the MMR chart, filled points are wins and hollow points are losses. Hover any point for the exact date and session number.</p>
+        <p>Click any commander's name in the pod tables on the <a href="/game-history/">History</a> page. This opens the commander's profile: an art card pulled from Scryfall, a stat bar with MMR ranking, popularity rank, win–loss record, current MMR, avg round won, and avg mulligans, a line chart of their MMR over time, rivals, and a filtered game log showing only pods they appeared in.</p>
+        <p>On the MMR chart, filled points are wins, hollow points are losses, and white points are ties (🤝). Hover any point for the exact date and session number.</p>
       </div>
     </div>
 
@@ -254,22 +254,23 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">What does "active" mean? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>A commander is considered active if they've been played at least once in the past two years. Inactive commanders are still preserved in the historical data but are excluded from competitive tables like the MMR rankings.</p>
-        <p>The <a href="/insights/#section-blitz">On the Shelf</a> table flags active commanders that haven't been played in 6 or more months — a heads-up before they age out entirely.</p>
+        <p>A commander is considered active if they've been played at least once in the past two years. The active pool is used as the benchmark for tier and MMR rankings in <a href="/game-history/">History</a> and <a href="/insights/">Insights</a> — so your rank reflects how you compare to commanders that are actually getting played, not just the all-time historical field.</p>
+        <p>Inactive commanders still appear in the data and retain an approximate tier based on where they'd land against the current active pool. On the <a href="/commander-colors/">Colors page</a>, inactive commander names are dimmed. The <a href="/insights/#section-blitz">On the Shelf</a> table flags active commanders that haven't been played in 6 or more months — a heads-up that they're at risk of going inactive.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">How are S / A / B / C / D tiers assigned? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>Tiers compare a commander's MMR against the rest of the active pool. Only commanders played in the last two years are included. A competitive, evenly-matched meta could result in most commanders sitting in B with a handful in A and C and nothing at the extremes.</p>
-        <p>A commander's tier badge appears on their profile card in <a href="/game-history/">History</a> and in the commander table on the <a href="/commander-dashboard/">Stats</a> page.</p>
+        <p>Tiers are assigned by comparing a commander's MMR to the group using a z-score. A competitive, evenly-matched meta could result in most commanders sitting in B with a handful in A and C and nothing at the extremes.</p>
+        <p>In <a href="/game-history/">History</a> and <a href="/insights/">Insights</a>, tiers are benchmarked against the active pool — commanders played in the last two years. In the <a href="/commander-dashboard/">Stats</a> dashboard, tiers are benchmarked against all commanders ever played (hover the Tier column header for a reminder).</p>
+        <p>Inactive commanders still show a tier badge — it reflects where they'd rank against the current active field, frozen at their last known MMR.</p>
         <div class="tier-rows">
-          <div class="tier-row"><span class="pill">S</span><span>Dominating — well above the rest of the active pool</span></div>
+          <div class="tier-row"><span class="pill">S</span><span>Dominating — well above the rest of the field</span></div>
           <div class="tier-row"><span class="pill">A</span><span>Strong — clearly above average</span></div>
           <div class="tier-row"><span class="pill">B</span><span>Average — right in the middle of the pack</span></div>
           <div class="tier-row"><span class="pill">C</span><span>Below average — underperforming relative to the group</span></div>
-          <div class="tier-row"><span class="pill">D</span><span>Struggling — consistently at the bottom of the active pool</span></div>
+          <div class="tier-row"><span class="pill">D</span><span>Struggling — consistently at the bottom of the field</span></div>
         </div>
       </div>
     </div>

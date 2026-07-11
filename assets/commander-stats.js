@@ -153,3 +153,55 @@ function pips(identity) {
     `<img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${c}.svg" alt="${c}">`
   ).join('') + '</span>';
 }
+
+function parsePctDelta(val) {
+  const s = String(val || '').trim();
+  if (!s) return NaN;
+  // Google Sheets exports MMR columns as percentage-formatted ("52318.72%"),
+  // meaning the true value is 100x smaller — strip % and divide.
+  return s.endsWith('%') ? parseFloat(s) / 100 : parseFloat(s);
+}
+
+const TIER_COLORS = {
+  S: { stroke: '#EF9F27' },
+  A: { stroke: '#85B7EB' },
+  B: { stroke: '#F0997B' },
+  C: { stroke: '#B4B2A9' },
+  D: { stroke: '#7A5C4A' },
+};
+
+function tierBadgeSvg(tier, size = 24) {
+  if (!tier || !TIER_COLORS[tier]) return '';
+  const { stroke } = TIER_COLORS[tier];
+  return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>${tier} tier</title><rect x="2" y="2" width="24" height="24" fill="none" stroke="${stroke}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="18" fill="${stroke}">${tier}</text></svg>`;
+}
+
+// Builds a tier map from Games CSV rows. mu/sigma are computed from active
+// commanders only (played within the last 2 years) so tiers reflect the current
+// meta. All commanders — including inactive ones — are scored against those stats,
+// giving inactive commanders a frozen approximation of their last-known tier.
+function buildTierMapFromGames(rows) {
+  const latestMmr = {};
+  const latestTs = {};
+  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
+  rows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const endMmr = parsePctDelta(row[G.endMmr]);
+    if (!cmdr || isNaN(endMmr)) return;
+    const ts = new Date((row[G.date] || '').trim()).getTime();
+    if (!latestTs[cmdr] || ts > latestTs[cmdr]) { latestTs[cmdr] = ts; latestMmr[cmdr] = endMmr; }
+  });
+  const cutoff = Date.now() - TWO_YEARS;
+  const active = Object.keys(latestMmr).filter(c => latestTs[c] >= cutoff);
+  const vals = active.map(c => latestMmr[c]);
+  const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+  const sigma = vals.length > 1 ? Math.sqrt(vals.reduce((s, v) => s + (v - mu) ** 2, 0) / vals.length) : 0;
+  const map = {};
+  if (sigma > 0) {
+    Object.keys(latestMmr).forEach(c => {
+      const z = (latestMmr[c] - mu) / sigma;
+      map[c] = z >= 1.5 ? 'S' : z >= 0.5 ? 'A' : z >= -0.5 ? 'B' : z >= -1.5 ? 'C' : 'D';
+    });
+  }
+  return map;
+}

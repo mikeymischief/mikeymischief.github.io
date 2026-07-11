@@ -378,18 +378,6 @@ const HEADER_ROW = 2;   // 0-indexed row containing column headers (Commander, W
 const DATA_START_ROW = 3; // 0-indexed row where actual commander rows begin
 const OVERALL_ROW = 1;  // 0-indexed row containing the "Overall:" summary stats
 
-const TIER_COLORS = {
-  S: { stroke: '#EF9F27' },
-  A: { stroke: '#85B7EB' },
-  B: { stroke: '#F0997B' },
-  C: { stroke: '#B4B2A9' },
-  D: { stroke: '#7A5C4A' },
-};
-function tierBadgeSvg(tier, size = 24) {
-  if (!tier || !TIER_COLORS[tier]) return '';
-  const { stroke } = TIER_COLORS[tier];
-  return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>${tier} tier</title><rect x="2" y="2" width="24" height="24" fill="none" stroke="${stroke}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="18" fill="${stroke}">${tier}</text></svg>`;
-}
 let _tierMap = {};
 function buildTierMap(rows) {
   const mmrMap = {};
@@ -493,7 +481,7 @@ function buildPlayerCard(block, rows) {
     <thead>
       <tr>
         <th>Commander</th>
-        <th title="Tier">Tier</th>
+        <th title="Tier ranked among all commanders ever played, not just active ones">Tier</th>
         <th class="num" title="Wins">W</th>
         <th class="num" title="Losses">L</th>
         <th class="num" title="Games played">P</th>
