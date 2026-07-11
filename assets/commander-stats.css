@@ -5,10 +5,10 @@
   --jubee: #e0c360;
 }
 
-[data-pilot="Brian"] { color: var(--brian); }
-[data-pilot="Gerf"]  { color: var(--gerf); }
-[data-pilot="Mikey"] { color: var(--mikey); }
-[data-pilot="Jubee"] { color: var(--jubee); }
+[data-pilot="Brian"], .cmdr-stat-value[data-pilot="Brian"] { color: var(--brian); }
+[data-pilot="Gerf"],  .cmdr-stat-value[data-pilot="Gerf"]  { color: var(--gerf); }
+[data-pilot="Mikey"], .cmdr-stat-value[data-pilot="Mikey"] { color: var(--mikey); }
+[data-pilot="Jubee"], .cmdr-stat-value[data-pilot="Jubee"] { color: var(--jubee); }
 
 .site-masthead { background: #07080f; border-bottom: 1px solid #2a2a3a; margin-bottom: 50px; }
 .masthead-inner { max-width: 1240px; margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; gap: 15px; }
