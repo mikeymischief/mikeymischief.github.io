@@ -1080,6 +1080,7 @@ function computeCmdrRankings(cmdr) {
 
   const cmdrMmr = latestMmr[cmdr] ?? null;
   const tier = _tierMap[cmdr] ?? null;
+  const isActive = latestDate[cmdr] ? latestDate[cmdr] >= cutoff : false;
 
   const wlt = { w: winCounts[cmdr] || 0, l: lossCounts[cmdr] || 0, t: tieCounts[cmdr] || 0 };
 
@@ -1096,6 +1097,7 @@ function computeCmdrRankings(cmdr) {
     avgMulligan,
     mulliganGames,
     tier,
+    isActive,
   };
 }
 
@@ -1191,7 +1193,7 @@ async function showCmdrHero(cmdr) {
   hero.innerHTML = cards.map(c => `
     <div class="cmdr-hero-panel" style="background-image:url('${c.art}')">
       <div class="cmdr-hero-content">
-        ${r.tier ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">tier:</span>${tierBadgeSvg(r.tier, 28)}</div>` : ''}
+        ${r.tier && r.isActive ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">tier:</span>${tierBadgeSvg(r.tier, 28)}</div>` : ''}
         <div class="cmdr-hero-name-row">
           <div class="cmdr-hero-name">${c.name}</div>
           ${c.mana_cost ? `<div class="cmdr-hero-mana">${manaHtml(c.mana_cost)}</div>` : ''}
