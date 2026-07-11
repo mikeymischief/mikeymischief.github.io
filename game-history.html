@@ -1070,7 +1070,6 @@ function computeCmdrRankings(cmdr) {
     const podTs = podDate.getTime();
     const podWinnerRow = pod.find(r => r[G.winner] && r[G.winner].trim());
     const winner = podWinnerRow ? normalizeCmdr(podWinnerRow[G.winner]) : null;
-    const isTiePod = !podWinnerRow;
     const rounds = parseFloat(podWinnerRow ? podWinnerRow[G.rounds] : pod[0][G.rounds]);
     pod.forEach(row => {
       const c = normalizeCmdr(row[G.commander]);
@@ -1085,7 +1084,7 @@ function computeCmdrRankings(cmdr) {
         mulliganSum[c] = (mulliganSum[c] || 0) + mulligans;
         mulliganCount[c] = (mulliganCount[c] || 0) + 1;
       }
-      if (isTiePod) {
+      if (tiePodRows.has(row)) {
         tieCounts[c] = (tieCounts[c] || 0) + 1;
       } else if (c === winner) {
         winCounts[c] = (winCounts[c] || 0) + 1;
