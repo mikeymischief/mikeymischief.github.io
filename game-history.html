@@ -25,10 +25,6 @@ permalink: /game-history/
     --ink-dim: #9a9aa4;
     --ink-faint: #5c5d68;
 
-    --brian: #e08585;
-    --gerf: #7fc98f;
-    --mikey: #7ba7e0;
-    --jubee: #e0c360;
   }
 
   * { box-sizing: border-box; }
@@ -586,11 +582,11 @@ permalink: /game-history/
   <div class="cmdr-hero" id="cmdr-hero" style="display:none"></div>
 
   <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
-    <div class="cmdr-stat-card">
+    <a class="cmdr-stat-card" id="stat-pilot-card" href="/commander-dashboard/">
       <div class="cmdr-stat-label">Pilot</div>
-      <div class="cmdr-stat-value" id="stat-pilot">—</div>
+      <div class="cmdr-stat-value" id="stat-pilot" data-pilot="">—</div>
       <div class="cmdr-stat-sub" id="stat-pilot-sub"></div>
-    </div>
+    </a>
     <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
       <div class="cmdr-stat-label">Active MMR Ranking</div>
       <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
@@ -611,11 +607,11 @@ permalink: /game-history/
       <div class="cmdr-stat-value" id="stat-win-loss">—</div>
       <div class="cmdr-stat-sub" id="stat-win-loss-sub"></div>
     </div>
-    <div class="cmdr-stat-card">
-      <div class="cmdr-stat-label">Common Seat</div>
+    <a class="cmdr-stat-card" href="/insights/#seat-heading">
+      <div class="cmdr-stat-label">Seating</div>
       <div class="cmdr-stat-value" id="stat-avg-seat">—</div>
       <div class="cmdr-stat-sub" id="stat-avg-seat-sub"></div>
-    </div>
+    </a>
     <a class="cmdr-stat-card" href="/insights/#section-blitz">
       <div class="cmdr-stat-label">Avg Round Won</div>
       <div class="cmdr-stat-value" id="stat-avg-round">—</div>
@@ -1248,7 +1244,12 @@ async function showCmdrHero(cmdr) {
   document.getElementById('stat-active-rank-sub').textContent = r.plays ? `${r.plays} game${r.plays !== 1 ? 's' : ''} played` : '';
   document.getElementById('stat-mmr').textContent = r.currentMmr != null ? Math.round(r.currentMmr) : '—';
   document.getElementById('stat-mmr-sub').textContent = r.currentMmr != null ? 'current rating' : '';
-  document.getElementById('stat-pilot').textContent = r.primaryPilot || '—';
+  const statPilotEl = document.getElementById('stat-pilot');
+  statPilotEl.textContent = r.primaryPilot || '—';
+  statPilotEl.dataset.pilot = r.primaryPilot || '';
+  document.getElementById('stat-pilot-card').href = r.primaryPilot
+    ? `/commander-dashboard/#player-${r.primaryPilot.toLowerCase()}`
+    : '/commander-dashboard/';
   document.getElementById('stat-pilot-sub').textContent = r.primaryPilot && statsMap[r.primaryPilot]?.[cmdr] ? `${statsMap[r.primaryPilot][cmdr].plays} game${statsMap[r.primaryPilot][cmdr].plays !== 1 ? 's' : ''}` : '';
   document.getElementById('stat-win-loss').textContent = r.plays > 0 ? `${r.wlt.w} — ${r.wlt.l}` : '—';
   document.getElementById('stat-win-loss-sub').textContent = r.wlt.t > 0 ? `${r.wlt.t} tie${r.wlt.t !== 1 ? 's' : ''}` : '';

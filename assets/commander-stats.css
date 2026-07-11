@@ -1,3 +1,15 @@
+:root {
+  --brian: #e08585;
+  --gerf:  #7fc98f;
+  --mikey: #7ba7e0;
+  --jubee: #e0c360;
+}
+
+[data-pilot="Brian"] { color: var(--brian); }
+[data-pilot="Gerf"]  { color: var(--gerf); }
+[data-pilot="Mikey"] { color: var(--mikey); }
+[data-pilot="Jubee"] { color: var(--jubee); }
+
 .site-masthead { background: #07080f; border-bottom: 1px solid #2a2a3a; margin-bottom: 50px; }
 .masthead-inner { max-width: 1240px; margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; gap: 15px; }
 .masthead-avatar img { width: 70px; height: 70px; border-radius: 5px; border: 2px solid #8b6914; display: block; }
