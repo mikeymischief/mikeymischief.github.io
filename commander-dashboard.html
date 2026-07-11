@@ -361,17 +361,17 @@ permalink: /commander-dashboard/
 <script src="/assets/commander-stats.js"></script>
 <script>
 // ---- Configuration ----
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=2048212435&single=true&output=csv";
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1839162822&single=true&output=csv";
 
-// Each player's block: 10 data columns (+1 blank separator = 11 total),
+// Each player's block: 11 data columns (+1 blank separator = 12 total),
 // starting at these 0-indexed column offsets in the published CMDRSTATS sheet.
-// Columns within a block: Commander(+0), Wins(+1), Plays(+2), Win%(+3), Avg Round Win(+4),
-//   Avg Mulligans(+5), Most Cmn Seat(+6), Best Seat Win%(+7), MMR(+8), Conservative(+9)
+// Columns within a block: Commander(+0), Wins(+1), Losses(+2), Plays(+3), Win%(+4),
+//   Avg Round Win(+5), Avg Mulligans(+6), Most Cmn Seat(+7), Best Seat Win%(+8), MMR(+9), Conservative(+10)
 const BLOCKS = [
   { name: "Brian", start: 0 },
-  { name: "Gerf",  start: 11 },
-  { name: "Mikey", start: 22 },
-  { name: "Jubee", start: 33 },
+  { name: "Gerf",  start: 12 },
+  { name: "Mikey", start: 24 },
+  { name: "Jubee", start: 36 },
 ];
 
 const HEADER_ROW = 2;   // 0-indexed row containing column headers (Commander, Wins, ...)
@@ -396,7 +396,7 @@ function buildTierMap(rows) {
   for (let r = DATA_START_ROW; r < rows.length; r++) {
     BLOCKS.forEach(block => {
       const cmdr = (rows[r][block.start] || '').replace(/\r?\n/g, ' / ').trim();
-      const mmr = parseFloat(rows[r][block.start + 8]);
+      const mmr = parseFloat(rows[r][block.start + 9]);
       if (cmdr && !isNaN(mmr)) mmrMap[cmdr] = mmr;
     });
   }
@@ -444,16 +444,16 @@ function buildPlayerCard(block, rows) {
   }
 
   const overall = rows[OVERALL_ROW] || [];
-  const overallWinPct = overall[block.start + 3];
+  const overallWinPct = overall[block.start + 4];
 
   const favRow = commanderRows.reduce((best, row) => {
     if (!best) return row;
-    const bPlays = parseInt(best[block.start + 2]) || 0;
-    const rPlays = parseInt(row[block.start + 2]) || 0;
+    const bPlays = parseInt(best[block.start + 3]) || 0;
+    const rPlays = parseInt(row[block.start + 3]) || 0;
     if (rPlays > bPlays) return row;
     if (rPlays === bPlays) {
-      const bMmr = parseFloat(best[block.start + 8]) || 0;
-      const rMmr = parseFloat(row[block.start + 8]) || 0;
+      const bMmr = parseFloat(best[block.start + 9]) || 0;
+      const rMmr = parseFloat(row[block.start + 9]) || 0;
       return rMmr > bMmr ? row : best;
     }
     return best;
@@ -495,10 +495,11 @@ function buildPlayerCard(block, rows) {
         <th>Commander</th>
         <th title="Tier">Tier</th>
         <th class="num" title="Wins">W</th>
+        <th class="num" title="Losses">L</th>
         <th class="num" title="Games played">P</th>
         <th class="num" title="Win percentage">Win%</th>
-        <th class="num" title="Average round number when this commander wins">Avg Rnd</th>
-        <th class="num" title="Average mulligans taken per game">Avg Mlg</th>
+        <th class="num" title="Average round number when this commander wins">Rnd</th>
+        <th class="num" title="Average mulligans taken per game">Mlg</th>
         <th class="num" title="Most common seat position">Seat</th>
         <th class="num" title="TrueSkill MMR rating">MMR</th>
         <th class="num" title="Conservative rating (MMR − 2σ) — lower bound on true skill">Cons.</th>
@@ -509,26 +510,27 @@ function buildPlayerCard(block, rows) {
   const tbody = table.querySelector('tbody');
 
   const maxPlays = commanderRows.reduce((max, row) => {
-    const p = parseInt(row[block.start + 2]) || 0;
+    const p = parseInt(row[block.start + 3]) || 0;
     return p > max ? p : max;
   }, 0);
 
   commanderRows.forEach(row => {
     const b = block.start;
-    const plays = parseInt(row[b+2]) || 0;
+    const plays = parseInt(row[b+3]) || 0;
     const tr = document.createElement('tr');
     if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
     tr.innerHTML = `
       <td class="cmdr-name">${cmdrAvatarHtml(row[b])}<a href="/game-history/?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
       <td style="text-align:center">${tierBadgeSvg(_tierMap[(row[b]||'').replace(/\r?\n/g,' / ').trim()])}</td>
       <td class="num">${int(row[b+1])}</td>
-      <td class="num">${int(row[b+2])}</td>
-      <td class="num">${pct(row[b+3])}</td>
-      <td class="num">${cell(row[b+4])}</td>
-      <td class="num">${num(row[b+5], 2)}</td>
-      <td class="num">${int(row[b+6])}</td>
-      <td class="num">${num(row[b+8], 1)}</td>
+      <td class="num">${row[b+2] === '0' || !row[b+2] ? '—' : int(row[b+2])}</td>
+      <td class="num">${int(row[b+3])}</td>
+      <td class="num">${pct(row[b+4])}</td>
+      <td class="num">${cell(row[b+5])}</td>
+      <td class="num">${num(row[b+6], 2)}</td>
+      <td class="num">${int(row[b+7])}</td>
       <td class="num">${num(row[b+9], 1)}</td>
+      <td class="num">${num(row[b+10], 1)}</td>
     `;
     tbody.appendChild(tr);
   });
