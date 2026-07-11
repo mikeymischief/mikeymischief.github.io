@@ -640,6 +640,16 @@ const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_
 // Ending MMR, MMR Delta, Win Probability, First Player W, CMDR Plays
 const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, cmdrPlays:11 };
 
+// "TIE" in the winner column signals a tie game — treat as no winner
+function isTiePod(pod) {
+  return pod.some(r => (r[G.winner] || '').trim().toUpperCase() === 'TIE') ||
+         !pod.some(r => r[G.winner] && r[G.winner].trim());
+}
+function rowWon(row) {
+  const w = (row[G.winner] || '').trim();
+  return w !== '' && w.toUpperCase() !== 'TIE';
+}
+
 function pct(v) {
   if (v === undefined || v === null || v === '') return "—";
   const s = String(v).replace('%', '').trim();
@@ -739,8 +749,7 @@ function buildTiePodRows(rows) {
     const cmdr = normalizeCmdr(row[G.commander]);
     if (!cmdr) {
       if (current.length) {
-        const hasWinner = current.some(r => r[G.winner] && r[G.winner].trim());
-        if (!hasWinner) current.forEach(r => tieRows.add(r));
+        if (isTiePod(current)) current.forEach(r => tieRows.add(r));
         current = [];
       }
     } else {
@@ -748,8 +757,7 @@ function buildTiePodRows(rows) {
     }
   }
   if (current.length) {
-    const hasWinner = current.some(r => r[G.winner] && r[G.winner].trim());
-    if (!hasWinner) current.forEach(r => tieRows.add(r));
+    if (isTiePod(current)) current.forEach(r => tieRows.add(r));
   }
   return tieRows;
 }
@@ -761,7 +769,7 @@ function buildStatsMap(rows) {
     const cmdr = normalizeCmdr(row[G.commander]);
     if (!cmdr) continue;
     const pilot = (row[G.pilot] || '').trim();
-    const won = row[G.winner] && row[G.winner].trim() !== '';
+    const won = rowWon(row);
     const isTie = tiePodRows.has(row);
     if (!map[pilot]) map[pilot] = { _total: { wins: 0, plays: 0, decisive: 0 } };
     if (!map[pilot][cmdr]) map[pilot][cmdr] = { wins: 0, plays: 0, decisive: 0 };
@@ -904,15 +912,14 @@ function buildMmrChart(cmdr) {
     const podNum = idx + 1;
     podDates[podNum] = formatDate(pod[0][G.date]);
     podSessions[podNum] = sessionForDate[pod[0][G.date]];
-    const podHasWinner = pod.some(r => r[G.winner] && r[G.winner].trim());
+    const tie = isTiePod(pod);
     pod.forEach(row => {
       if (normalizeCmdr(row[G.commander]) !== cmdr) return;
       const pilot = (row[G.pilot] || '').trim();
       const endMmr = parsePctDelta(row[G.endMmr]);
       if (!pilot || isNaN(endMmr)) return;
       if (!pilotPoints[pilot]) pilotPoints[pilot] = [];
-      const won = !!(row[G.winner] && row[G.winner].trim());
-      const tie = !podHasWinner;
+      const won = rowWon(row);
       pilotPoints[pilot].push({ x: podNum, y: Math.round(endMmr), won, tie });
     });
   });
@@ -1068,7 +1075,7 @@ function computeCmdrRankings(cmdr) {
   podsChronological.forEach(pod => {
     const podDate = new Date(pod[0][G.date]);
     const podTs = podDate.getTime();
-    const podWinnerRow = pod.find(r => r[G.winner] && r[G.winner].trim());
+    const podWinnerRow = pod.find(r => rowWon(r));
     const winner = podWinnerRow ? normalizeCmdr(podWinnerRow[G.winner]) : null;
     const rounds = parseFloat(podWinnerRow ? podWinnerRow[G.rounds] : pod[0][G.rounds]);
     pod.forEach(row => {
@@ -1148,7 +1155,7 @@ function computeMatchups(cmdr) {
     });
     const cmdrs = pod.map(row => normalizeCmdr(row[G.commander])).filter(Boolean);
     if (!cmdrs.includes(cmdr)) return;
-    const winRow = pod.find(r => (r[G.winner] || '').trim());
+    const winRow = pod.find(r => rowWon(r));
     const winnerCmdr = winRow ? normalizeCmdr(winRow[G.commander]) : null;
     cmdrs.forEach(c => {
       if (c === cmdr) return;
@@ -1360,7 +1367,7 @@ function renderHistory(rows) {
     pod.forEach(row => {
       const cmdr = normalizeCmdr(row[G.commander]);
       if (!cmdr) return;
-      const won = row[G.winner] && row[G.winner].trim() !== '';
+      const won = rowWon(row);
       if (won) {
         cmdrConsecWins[cmdr] = (cmdrConsecWins[cmdr] || 0) + 1;
         if (cmdrConsecWins[cmdr] >= 2) streakRows.add(row);
@@ -1376,7 +1383,7 @@ function renderHistory(rows) {
   pods.forEach(pod => {
     pod.forEach(row => {
       const cmdr = normalizeCmdr(row[G.commander]);
-      const won = row[G.winner] && row[G.winner].trim() !== '';
+      const won = rowWon(row);
       if (cmdr && won && !cmdrsWithWin.has(cmdr)) {
         firstWinRows.add(row);
         cmdrsWithWin.add(cmdr);
@@ -1405,7 +1412,7 @@ function renderHistory(rows) {
     if (!probs.length) return;
     const minProb = Math.min(...probs);
     pod.forEach(row => {
-      const won = row[G.winner] && row[G.winner].trim() !== '';
+      const won = rowWon(row);
       const plays = parseInt(row[G.cmdrPlays]) || 0;
       if (won && plays >= 4 && parseFloat(row[G.winProb]) === minProb) upsetRows.add(row);
     });
@@ -1480,7 +1487,7 @@ function renderHistory(rows) {
     const tbody = document.createElement('tbody');
 
     pod.forEach(row => {
-      const won = row[G.winner] && row[G.winner].trim() !== '';
+      const won = rowWon(row);
       const pilot = (row[G.pilot] || '').trim();
       const cmdrNorm = normalizeCmdr(row[G.commander]);
       const pilotCmdrStats = statsMap[pilot] && statsMap[pilot][cmdrNorm];
