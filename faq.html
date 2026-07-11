@@ -213,7 +213,7 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">How do I see a commander's profile? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>Click any commander's name in the pod tables on the <a href="/game-history/">History</a> page. This opens the commander's profile: an art card pulled from Scryfall, a stat bar with MMR ranking, popularity rank, win–loss record, current MMR, avg round won, and avg mulligans, a line chart of their MMR over time, rivals, and a filtered game log showing only pods they appeared in.</p>
+        <p>Click any commander's name in the pod tables on the <a href="/game-history/">History</a> page. This opens the commander's profile: an art card pulled from Scryfall, a stat bar with active MMR ranking, popularity rank, win–loss record, current MMR, avg round won, and avg mulligans, a line chart of their MMR over time, rivals, and a filtered game log showing only pods they appeared in. A tier badge appears above the commander name for active commanders only.</p>
         <p>On the MMR chart, filled points are wins, hollow points are losses, and white points are ties (🤝). Hover any point for the exact date and session number.</p>
       </div>
     </div>
@@ -262,9 +262,8 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">How are S / A / B / C / D tiers assigned? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>Tiers are assigned by comparing a commander's MMR to the group using a z-score. A competitive, evenly-matched meta could result in most commanders sitting in B with a handful in A and C and nothing at the extremes.</p>
-        <p>In <a href="/game-history/">History</a> and <a href="/insights/">Insights</a>, tiers are benchmarked against the active pool — commanders played in the last two years. In the <a href="/commander-dashboard/">Stats</a> dashboard, tiers are benchmarked against all commanders ever played (hover the Tier column header for a reminder).</p>
-        <p>Inactive commanders still show a tier badge — it reflects where they'd rank against the current active field, frozen at their last known MMR.</p>
+        <p>Tiers are assigned by comparing a commander's MMR to the active pool using a z-score. A competitive, evenly-matched meta could result in most commanders sitting in B with a handful in A and C and nothing at the extremes.</p>
+        <p>Tier badges appear on active commanders in the <a href="/game-history/">History</a> profile card and game log, and in the MMR table on <a href="/insights/">Insights</a>. Inactive commanders have no tier badge.</p>
         <div class="tier-rows">
           <div class="tier-row"><span class="pill">S</span><span>Dominating — well above the rest of the field</span></div>
           <div class="tier-row"><span class="pill">A</span><span>Strong — clearly above average</span></div>
