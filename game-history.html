@@ -899,13 +899,16 @@ function buildMmrChart(cmdr) {
     const podNum = idx + 1;
     podDates[podNum] = formatDate(pod[0][G.date]);
     podSessions[podNum] = sessionForDate[pod[0][G.date]];
+    const podHasWinner = pod.some(r => r[G.winner] && r[G.winner].trim());
     pod.forEach(row => {
       if (normalizeCmdr(row[G.commander]) !== cmdr) return;
       const pilot = (row[G.pilot] || '').trim();
       const endMmr = parsePctDelta(row[G.endMmr]);
       if (!pilot || isNaN(endMmr)) return;
       if (!pilotPoints[pilot]) pilotPoints[pilot] = [];
-      pilotPoints[pilot].push({ x: podNum, y: Math.round(endMmr), won: !!(row[G.winner] && row[G.winner].trim()) });
+      const won = !!(row[G.winner] && row[G.winner].trim());
+      const tie = !podHasWinner;
+      pilotPoints[pilot].push({ x: podNum, y: Math.round(endMmr), won, tie });
     });
   });
 
@@ -920,8 +923,8 @@ function buildMmrChart(cmdr) {
       data: pts.map(p => ({ x: p.x, y: p.y })),
       borderColor: color,
       backgroundColor: color + '22',
-      pointBackgroundColor: pts.map(p => p.won ? color : '#2a2a3a'),
-      pointBorderColor: pts.map(p => color),
+      pointBackgroundColor: pts.map(p => p.won ? color : p.tie ? '#ffffff' : '#2a2a3a'),
+      pointBorderColor: pts.map(p => p.tie ? '#ffffff' : color),
       pointRadius: 5,
       pointHoverRadius: 7,
       tension: 0.3,
@@ -979,7 +982,7 @@ function buildMmrChart(cmdr) {
             title: items => podDates[items[0].parsed.x] ? `${podDates[items[0].parsed.x]}  ·  S${podSessions[items[0].parsed.x]}` : `Game ${items[0].parsed.x}`,
             label: ctx => {
               const p = pilotPoints[ctx.dataset.label][ctx.dataIndex];
-              return ` ${ctx.dataset.label}: ${ctx.parsed.y} MMR${p.won ? ' 👑' : ''}`;
+              return ` ${ctx.dataset.label}: ${ctx.parsed.y} MMR${p.won ? ' 👑' : p.tie ? ' 🤝' : ''}`;
             }
           }
         }
