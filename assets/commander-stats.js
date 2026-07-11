@@ -164,8 +164,8 @@ function parsePctDelta(val) {
 
 const TIER_COLORS = {
   S: { stroke: '#EF9F27' },
-  A: { stroke: '#85B7EB' },
-  B: { stroke: '#F0997B' },
+  A: { stroke: '#F97316' },
+  B: { stroke: '#A78BFA' },
   C: { stroke: '#B4B2A9' },
   D: { stroke: '#7A5C4A' },
 };
