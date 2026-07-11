@@ -541,7 +541,7 @@ function renderAllCommanders(gameRows) {
     tr.innerHTML = `
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
-      <td style="text-align:center">${tierBadgeSvg(_tierMap[cmdr])}</td>
+      <td style="text-align:center">${lp && (now - new Date(lp).getTime()) <= TWO_YEARS ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
       <td class="num">${wins}</td>
       <td class="num">${plays}</td>
       <td class="num">${plays ? (wins/plays*100).toFixed(2)+'%' : '—'}</td>

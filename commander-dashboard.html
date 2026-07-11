@@ -378,28 +378,6 @@ const HEADER_ROW = 2;   // 0-indexed row containing column headers (Commander, W
 const DATA_START_ROW = 3; // 0-indexed row where actual commander rows begin
 const OVERALL_ROW = 1;  // 0-indexed row containing the "Overall:" summary stats
 
-let _tierMap = {};
-function buildTierMap(rows) {
-  const mmrMap = {};
-  for (let r = DATA_START_ROW; r < rows.length; r++) {
-    BLOCKS.forEach(block => {
-      const cmdr = (rows[r][block.start] || '').replace(/\r?\n/g, ' / ').trim();
-      const mmr = parseFloat(rows[r][block.start + 9]);
-      if (cmdr && !isNaN(mmr)) mmrMap[cmdr] = mmr;
-    });
-  }
-  const vals = Object.values(mmrMap);
-  const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
-  const sigma = vals.length > 1 ? Math.sqrt(vals.reduce((s, v) => s + (v - mu) ** 2, 0) / vals.length) : 0;
-  const map = {};
-  if (sigma > 0) {
-    Object.keys(mmrMap).forEach(cmdr => {
-      const z = (mmrMap[cmdr] - mu) / sigma;
-      map[cmdr] = z >= 1.5 ? 'S' : z >= 0.5 ? 'A' : z >= -0.5 ? 'B' : z >= -1.5 ? 'C' : 'D';
-    });
-  }
-  return map;
-}
 
 function cell(v) { const s = String(v ?? '').trim(); return s && s !== 'N/A' ? s : '—'; }
 function pct(v) {
@@ -481,7 +459,6 @@ function buildPlayerCard(block, rows) {
     <thead>
       <tr>
         <th>Commander</th>
-        <th title="Tier ranked among all commanders ever played, not just active ones">Tier</th>
         <th class="num" title="Wins">W</th>
         <th class="num" title="Losses">L</th>
         <th class="num" title="Games played">P</th>
@@ -509,7 +486,6 @@ function buildPlayerCard(block, rows) {
     if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
     tr.innerHTML = `
       <td class="cmdr-name">${cmdrAvatarHtml(row[b])}<a href="/game-history/?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
-      <td style="text-align:center">${tierBadgeSvg(_tierMap[(row[b]||'').replace(/\r?\n/g,' / ').trim()])}</td>
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${row[b+2] === '0' || !row[b+2] ? '—' : int(row[b+2])}</td>
       <td class="num">${int(row[b+3])}</td>
@@ -540,7 +516,6 @@ async function loadCardHeadImages() {
 }
 
 function render(rows) {
-  _tierMap = buildTierMap(rows);
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
   BLOCKS.forEach(block => {
