@@ -724,6 +724,30 @@ let lastSeenGameGlobal = {};
 let totalPodsGlobal = 0;
 let podsChronological = [];
 let mmrChartInstance = null;
+let tiePodRows = new Set();
+
+function buildTiePodRows(rows) {
+  const tieRows = new Set();
+  let current = [];
+  for (let r = 1; r < rows.length; r++) {
+    const row = rows[r];
+    const cmdr = normalizeCmdr(row[G.commander]);
+    if (!cmdr) {
+      if (current.length) {
+        const hasWinner = current.some(r => r[G.winner] && r[G.winner].trim());
+        if (!hasWinner) current.forEach(r => tieRows.add(r));
+        current = [];
+      }
+    } else {
+      current.push(row);
+    }
+  }
+  if (current.length) {
+    const hasWinner = current.some(r => r[G.winner] && r[G.winner].trim());
+    if (!hasWinner) current.forEach(r => tieRows.add(r));
+  }
+  return tieRows;
+}
 
 function buildStatsMap(rows) {
   const map = {};
@@ -733,10 +757,12 @@ function buildStatsMap(rows) {
     if (!cmdr) continue;
     const pilot = (row[G.pilot] || '').trim();
     const won = row[G.winner] && row[G.winner].trim() !== '';
-    if (!map[pilot]) map[pilot] = { _total: { wins: 0, plays: 0 } };
-    if (!map[pilot][cmdr]) map[pilot][cmdr] = { wins: 0, plays: 0 };
+    const isTie = tiePodRows.has(row);
+    if (!map[pilot]) map[pilot] = { _total: { wins: 0, plays: 0, decisive: 0 } };
+    if (!map[pilot][cmdr]) map[pilot][cmdr] = { wins: 0, plays: 0, decisive: 0 };
     map[pilot][cmdr].plays++;
     map[pilot]._total.plays++;
+    if (!isTie) { map[pilot][cmdr].decisive++; map[pilot]._total.decisive++; }
     if (won) { map[pilot][cmdr].wins++; map[pilot]._total.wins++; }
   }
   return map;
@@ -804,12 +830,12 @@ function updatePredictor() {
     const cmdr = input ? input.value.trim() : '';
     const pilotStats = statsMap[pilot];
     if (cmdr && pilotStats && pilotStats[cmdr]) {
-      const { wins, plays } = pilotStats[cmdr];
-      rates[pilot] = plays > 0 ? wins / plays : null;
+      const { wins, decisive } = pilotStats[cmdr];
+      rates[pilot] = decisive > 0 ? wins / decisive : null;
     } else if (cmdr && pilotStats) {
       // commander not found for this pilot — use their overall rate
       const t = pilotStats._total;
-      rates[pilot] = t.plays > 0 ? t.wins / t.plays : null;
+      rates[pilot] = t.decisive > 0 ? t.wins / t.decisive : null;
     } else {
       rates[pilot] = null;
     }
@@ -836,7 +862,7 @@ function updatePredictor() {
 
       if (badgesEl && cmdr) {
         const pilotStats = statsMap[pilot] && statsMap[pilot][cmdr];
-        const isUndefeated = pilotStats && pilotStats.plays >= 2 && pilotStats.wins === pilotStats.plays;
+        const isUndefeated = pilotStats && pilotStats.decisive >= 2 && pilotStats.wins === pilotStats.decisive;
         const isDebut = !Object.values(statsMap).some(ps => ps[cmdr]);
         const lastSeen = lastSeenGameGlobal[cmdr];
         const isReunion = lastSeen !== undefined && (totalPodsGlobal - lastSeen) >= 20;
@@ -1438,7 +1464,7 @@ function renderHistory(rows) {
       const isStreak = streakRows.has(row);
       const isReunion = reunionRows.has(row);
       const isUpset = upsetRows.has(row);
-      const isUndefeated = pilotCmdrStats && pilotCmdrStats.plays >= 2 && pilotCmdrStats.wins === pilotCmdrStats.plays;
+      const isUndefeated = pilotCmdrStats && pilotCmdrStats.decisive >= 2 && pilotCmdrStats.wins === pilotCmdrStats.decisive;
       const badges = [
         isDebut    ? '<span class="badge" title="Commander debut">🔰</span>' : '',
         isFirstWin ? '<span class="badge" title="Commander\'s first win">⭐</span>' : '',
@@ -1482,6 +1508,7 @@ Papa.parse(GAMES_CSV_URL, {
       return;
     }
     try {
+      tiePodRows = buildTiePodRows(results.data);
       statsMap = buildStatsMap(results.data);
       _tierMap = buildTierMap(results.data.slice(1));
       _popularityRankMap = buildPopularityRankMap(results.data.slice(1));
