@@ -587,7 +587,7 @@ permalink: /game-history/
 
   <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
     <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
-      <div class="cmdr-stat-label">Active MMR Ranking</div>
+      <div class="cmdr-stat-label">MMR Ranking</div>
       <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
       <div class="cmdr-stat-sub" id="stat-mmr-rank-sub"></div>
     </a>
@@ -711,7 +711,6 @@ function buildPopularityRankMap(rows) {
 function buildTierMap(rows) {
   const latestMmr = {};
   const latestTs = {};
-  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
   rows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
     const endMmr = parsePctDelta(row[G.endMmr]);
@@ -719,9 +718,7 @@ function buildTierMap(rows) {
     const ts = new Date((row[G.date] || '').trim()).getTime();
     if (!latestTs[cmdr] || ts > latestTs[cmdr]) { latestTs[cmdr] = ts; latestMmr[cmdr] = endMmr; }
   });
-  const cutoff = Date.now() - TWO_YEARS;
-  const active = Object.keys(latestMmr).filter(c => latestTs[c] >= cutoff);
-  const vals = active.map(c => latestMmr[c]);
+  const vals = Object.values(latestMmr);
   const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
   const sigma = vals.length > 1 ? Math.sqrt(vals.reduce((s, v) => s + (v - mu) ** 2, 0) / vals.length) : 0;
   const map = {};
@@ -1110,10 +1107,9 @@ function computeCmdrRankings(cmdr) {
   Object.keys(playDates).forEach(c => playDates[c].sort((a, b) => b - a));
 
   const allCmdrs = Object.keys(latestMmr);
-  const activeCmdrs = allCmdrs.filter(c => latestDate[c] >= cutoff);
-  const sortedByMmrActive = [...activeCmdrs].sort((a, b) => (latestMmr[b] || 0) - (latestMmr[a] || 0));
+  const sortedByMmr = [...allCmdrs].sort((a, b) => (latestMmr[b] || 0) - (latestMmr[a] || 0));
 
-  const activeRank = sortedByMmrActive.indexOf(cmdr);
+  const activeRank = sortedByMmr.indexOf(cmdr);
 
   const wins = roundWinCount[cmdr] || 0;
   const avgRoundWin = wins > 0 ? roundWins[cmdr] / wins : null;
@@ -1128,7 +1124,7 @@ function computeCmdrRankings(cmdr) {
 
   return {
     mmrRank: activeRank >= 0 ? activeRank + 1 : null,
-    activeCount: activeCmdrs.length,
+    activeCount: allCmdrs.length,
     popularityRank: _popularityRankMap[cmdr] || null,
     currentMmr: cmdrMmr,
     plays: playCounts[cmdr] || 0,
@@ -1249,7 +1245,7 @@ async function showCmdrHero(cmdr) {
   hero.style.display = '';
 
   document.getElementById('stat-mmr-rank').textContent = r.mmrRank ? `#${r.mmrRank}` : '—';
-  document.getElementById('stat-mmr-rank-sub').textContent = r.activeCount ? `of ${r.activeCount} active commanders` : 'inactive (2+ yrs)';
+  document.getElementById('stat-mmr-rank-sub').textContent = r.activeCount ? `of ${r.activeCount} commanders` : '';
   document.getElementById('stat-active-rank').textContent = r.popularityRank ? `#${r.popularityRank}` : '—';
   document.getElementById('stat-active-rank-sub').textContent = r.plays ? `${r.plays} game${r.plays !== 1 ? 's' : ''} played` : '';
   document.getElementById('stat-mmr').textContent = r.currentMmr != null ? Math.round(r.currentMmr) : '—';

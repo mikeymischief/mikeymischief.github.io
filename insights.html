@@ -271,10 +271,10 @@ permalink: /insights/
 
   <section class="block" id="section-all-cmdr">
     <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
-      <h2 id="all-cmdr-heading" style="margin:0;">Active Commanders by MMR</h2>
-      <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show All</button>
+      <h2 id="all-cmdr-heading" style="margin:0;">All Commanders by MMR</h2>
+      <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show Active</button>
     </div>
-    <div id="all-cmdr-sub" class="sub">Every commander played within the last two years, ranked head-to-head.</div>
+    <div id="all-cmdr-sub" class="sub">Every commander across the whole group, ranked head-to-head.</div>
     <div class="scroll-tall">
       <table class="data-table" id="all-cmdr-table">
         <thead>
@@ -379,7 +379,7 @@ const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6
 let _gameRows = null;
 let _rowPodSize = new Map();
 let _tierMap = {};
-const _acState = { showAll: false };
+const _acState = { showAll: true };
 
 const TIER_COLORS = {
   S: { stroke: '#EF9F27' },
@@ -949,14 +949,6 @@ Papa.parse(GAMES_CSV_URL, {
       const seatRows = seatFilteredRows();
       renderSeatOverall(seatRows);
       renderSeatByPlayer(seatRows);
-      // Check for ?showall=1 before first render of commander table
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('showall') === '1' && !_acState.showAll) {
-        _acState.showAll = true;
-        document.getElementById('all-cmdr-heading').textContent = 'All Commanders by MMR';
-        document.getElementById('all-cmdr-sub').textContent = 'Every commander across the whole group, ranked head-to-head.';
-        document.getElementById('all-cmdr-toggle').textContent = 'Show Active';
-      }
       renderAllCommanders(_gameRows);
       renderMostPlayed(_gameRows);
       renderBlitz(_gameRows);
