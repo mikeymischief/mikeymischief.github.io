@@ -18,15 +18,14 @@ permalink: /commander-dashboard/
     --bg: #0d0f1a;
     --gold: #d4af37;
     --bg-raised: #1c1e26;
+    --bg-hover: #22253080;
     --line: #2c2e38;
     --ink: #e9e8e4;
     --ink-dim: #9a9aa4;
     --ink-faint: #5c5d68;
-
   }
 
   * { box-sizing: border-box; }
-
   html { background: var(--bg); }
   body {
     margin: 0;
@@ -54,6 +53,7 @@ permalink: /commander-dashboard/
     padding: 0 24px 96px;
   }
 
+  /* ── Hero ── */
   header.hero {
     position: relative;
     background-image: url('/images/bg/Thieves-Guild-Enforcer-Core-Set-2021-MtG-Art.jpg');
@@ -61,7 +61,7 @@ permalink: /commander-dashboard/
     background-position: center 25%;
     border-radius: 14px;
     overflow: hidden;
-    margin-bottom: 56px;
+    margin-bottom: 28px;
     padding: 140px 40px 36px;
     display: flex;
     flex-direction: column;
@@ -83,7 +83,6 @@ permalink: /commander-dashboard/
     color: var(--ink-faint);
     margin-bottom: 14px;
   }
-
   h1 {
     font-family: 'Cinzel', serif;
     font-weight: 700;
@@ -93,176 +92,14 @@ permalink: /commander-dashboard/
     letter-spacing: 0.02em;
     color: #e8d5a3;
   }
-
   .hero-sub {
     color: var(--ink-dim);
     font-size: 1.05rem;
     max-width: 560px;
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
-  #status {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: var(--ink-faint);
-    margin-top: 20px;
-  }
-  #status.error { color: var(--brian); }
-
-  .table-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .player-card {
-    background: var(--bg-raised);
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid var(--line);
-  }
-
-  .player-card .bar {
-    height: 6px;
-    width: 100%;
-  }
-  .player-card[data-p="Brian"] .bar { background: var(--brian); }
-  .player-card[data-p="Gerf"]  .bar { background: var(--gerf); }
-  .player-card[data-p="Mikey"] .bar { background: var(--mikey); }
-  .player-card[data-p="Jubee"] .bar { background: var(--jubee); }
-
-  .card-head {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding: 80px 24px 18px;
-    gap: 12px;
-    background: var(--bg-raised);
-    background-size: cover;
-    background-position: center 20%;
-    overflow: hidden;
-  }
-  .card-head::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 0%, rgba(13,15,26,0.82) 60%, rgba(13,15,26,0.97) 100%);
-  }
-  .card-head > * { position: relative; z-index: 1; }
-
-  .card-head-left {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .card-head h2 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.7rem;
-    margin: 0;
-  }
-
-  .fav-cmdr-name {
-    font-size: 0.75rem;
-    color: var(--ink-dim);
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
-  }
-
-  .player-card[data-p="Brian"] h2 { color: var(--brian); }
-  .player-card[data-p="Gerf"]  h2 { color: var(--gerf); }
-  .player-card[data-p="Mikey"] h2 { color: var(--mikey); }
-  .player-card[data-p="Jubee"] h2 { color: var(--jubee); }
-
-  .record {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.95rem;
-    color: var(--ink-dim);
-    text-align: right;
-    flex-shrink: 0;
-  }
-  .record .winpct {
-    display: block;
-    font-size: 1.3rem;
-    color: var(--ink);
-    font-weight: 500;
-  }
-
-  table.cmdr-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-  }
-
-  table.cmdr-table th {
-    text-align: left;
-    padding: 8px 10px;
-    color: var(--ink-faint);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    font-size: 10.5px;
-    border-bottom: 1px solid var(--line);
-    white-space: nowrap;
-    cursor: default;
-  }
-  table.cmdr-table th[title] {
-    text-decoration: underline dotted var(--ink-faint);
-    text-underline-offset: 3px;
-  }
-  table.cmdr-table th.num, table.cmdr-table td.num { text-align: right; }
-
-  table.cmdr-table td {
-    padding: 9px 10px;
-    border-bottom: 1px solid var(--line);
-    white-space: nowrap;
-  }
-  table.cmdr-table td.cmdr-name {
-    white-space: normal;
-    max-width: 220px;
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-  }
-  table.cmdr-table td.cmdr-name a {
-    color: inherit;
-    text-decoration: none;
-  }
-  table.cmdr-table td.cmdr-name a:hover {
-    color: var(--gold);
-    text-decoration: underline;
-  }
-
-  table.cmdr-table .star-row td.cmdr-name::before {
-    content: "★ ";
-  }
-  .player-card[data-p="Brian"] tbody tr:first-child { background: var(--brian-dim); }
-  .player-card[data-p="Gerf"]  tbody tr:first-child { background: var(--gerf-dim); }
-  .player-card[data-p="Mikey"] tbody tr:first-child { background: var(--mikey-dim); }
-  .player-card[data-p="Jubee"] tbody tr:first-child { background: var(--jubee-dim); }
-
-  table.cmdr-table tbody tr:last-child td { border-bottom: none; }
-
-  .table-scroll {
-    max-height: 420px;
-    overflow-y: auto;
-  }
-  .table-scroll::-webkit-scrollbar { width: 8px; }
-  .table-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
-
-  footer {
-    margin-top: 64px;
-    color: var(--ink-faint);
-    font-size: 12.5px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
+  /* ── Next Session Banner ── */
   #next-session-banner {
     display: none;
     position: relative;
@@ -272,7 +109,7 @@ permalink: /commander-dashboard/
     border-radius: 10px;
     overflow: hidden;
     padding: 18px 24px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     display: flex;
     align-items: baseline;
     gap: 16px;
@@ -285,6 +122,26 @@ permalink: /commander-dashboard/
   }
   #next-session-banner > * { position: relative; z-index: 1; }
   #next-session-banner.hidden { display: none !important; }
+  .session-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .session-date {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: #e8d5a3;
+    letter-spacing: 0.02em;
+  }
+  .session-countdown {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-left: auto;
+  }
 
   /* ── Commander Spotlight ── */
   .spotlight {
@@ -293,7 +150,7 @@ permalink: /commander-dashboard/
     border-radius: 14px;
     overflow: hidden;
     height: 240px;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
     background-color: var(--bg-raised);
     background-size: cover;
     background-position: center 20%;
@@ -379,10 +236,6 @@ permalink: /commander-dashboard/
     background: var(--gold);
     opacity: 0.7;
   }
-  .spotlight-progress.running {
-    width: 100%;
-    transition: width 8s linear;
-  }
   @media (max-width: 600px) {
     .spotlight { height: auto; }
     .spotlight-inner { flex-direction: column; align-items: flex-start; padding: 24px 24px 32px; gap: 18px; }
@@ -390,25 +243,186 @@ permalink: /commander-dashboard/
     .sp-stat { text-align: left; }
     .sp-stat-value { font-size: 1.3rem; }
   }
-  .session-label {
+
+  /* ── Nav Cards ── */
+  .nav-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 56px;
+  }
+  @media (max-width: 640px) {
+    .nav-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  .nav-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px 20px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.18s, background 0.18s;
+  }
+  .nav-card:hover {
+    border-color: var(--gold);
+    background: var(--bg-hover);
+    color: var(--ink);
+  }
+  .nav-card-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .nav-card-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: #e8d5a3;
+  }
+  .nav-card-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    line-height: 1.4;
+  }
+
+  /* ── Section headings ── */
+  .section-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--gold);
-    flex-shrink: 0;
+    margin-bottom: 14px;
   }
-  .session-date {
+  .section-title {
     font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: 700;
     color: #e8d5a3;
+    margin: 0 0 14px;
     letter-spacing: 0.02em;
   }
-  .session-countdown {
+  .section-body {
+    color: var(--ink-dim);
+    font-size: 0.97rem;
+    line-height: 1.7;
+    max-width: 600px;
+  }
+  .section-body + .section-body { margin-top: 12px; }
+
+  /* ── About Commander ── */
+  .about-commander {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 56px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 700px) {
+    .about-commander { grid-template-columns: 1fr; }
+  }
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .rule-chip {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .rule-chip-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .rule-chip-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--ink-faint);
-    margin-left: auto;
+  }
+
+  /* ── Resources ── */
+  .resources {
+    margin-bottom: 56px;
+  }
+  .resource-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 24px;
+  }
+  @media (max-width: 640px) {
+    .resource-cards { grid-template-columns: 1fr; }
+  }
+  .resource-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 22px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.18s;
+  }
+  .resource-card:hover { border-color: rgba(212,175,55,0.5); color: var(--ink); }
+  .resource-card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #e8d5a3;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .resource-card-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .resource-card-domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-faint);
+    margin-top: 12px;
+    opacity: 0.6;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── About the Pod ── */
+  .about-pod {
+    padding: 28px 32px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin-bottom: 56px;
+  }
+  .about-pod .section-body { max-width: none; }
+
+  footer {
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media screen and (max-width: 640px) {
+    body { background-image: none !important; }
+    .page-wrapper { -webkit-mask-image: none !important; mask-image: none !important; max-width: 100% !important; }
   }
 </style>
 </head>
@@ -423,6 +437,7 @@ permalink: /commander-dashboard/
     </div>
     <nav class="masthead-nav">
       <a href="/commander-dashboard/" class="active">Stats</a>
+      <a href="/players/">Players</a>
       <a href="/game-history/">History</a>
       <a href="/insights/">Insights</a>
       <a href="/commander-colors/">Colors</a>
@@ -435,10 +450,9 @@ permalink: /commander-dashboard/
 <div class="wrap">
 
   <header class="hero">
-    <div class="eyebrow">Commander &middot; Pod Standings</div>
+    <div class="eyebrow">Commander &middot; Mischief Gaming</div>
     <h1>Commander Stats</h1>
-    <p class="hero-sub">TrueSkill-derived MMR, updated every time a game gets logged.</p>
-    <div id="status">Loading standings…</div>
+    <p class="hero-sub">A living record of our Commander pod — match history, player standings, and TrueSkill ratings updated every session.</p>
   </header>
 
   <div id="next-session-banner" class="hidden">
@@ -476,9 +490,120 @@ permalink: /commander-dashboard/
     <div id="sp-progress" class="spotlight-progress"></div>
   </a>
 
-  <div class="table-grid" id="grid"></div>
+  <!-- Nav Cards -->
+  <nav class="nav-cards" aria-label="Site sections">
+    <a href="/players/" class="nav-card">
+      <div class="nav-card-icon">🏆</div>
+      <div class="nav-card-label">Players</div>
+      <div class="nav-card-desc">Per-commander records and TrueSkill ratings for each pilot</div>
+    </a>
+    <a href="/game-history/" class="nav-card">
+      <div class="nav-card-icon">📜</div>
+      <div class="nav-card-label">History</div>
+      <div class="nav-card-desc">Full game log with match results and commander profiles</div>
+    </a>
+    <a href="/insights/" class="nav-card">
+      <div class="nav-card-icon">📊</div>
+      <div class="nav-card-label">Insights</div>
+      <div class="nav-card-desc">Meta trends, seating patterns, and active commander rankings</div>
+    </a>
+    <a href="/commander-colors/" class="nav-card">
+      <div class="nav-card-icon">🎨</div>
+      <div class="nav-card-label">Colors</div>
+      <div class="nav-card-desc">Color identity breakdown across every commander played</div>
+    </a>
+  </nav>
 
-  <footer>★ Most played commander &nbsp;·&nbsp; Source: CMDRSTATS tab, published to web as CSV. Ratings computed via a TrueSkill-style Bayesian model, not raw win/loss.</footer>
+  <!-- About Commander -->
+  <div class="about-commander">
+    <div>
+      <div class="section-label">The Format</div>
+      <h2 class="section-title">What is Commander?</h2>
+      <p class="section-body">
+        Commander (also called EDH — Elder Dragon Highlander) is Magic: The Gathering's most popular casual multiplayer format. Each player builds a 100-card singleton deck led by a legendary creature called their <em>commander</em>, which determines the color identity of every card in the deck.
+      </p>
+      <p class="section-body">
+        Games are typically four-player free-for-all. Your commander starts in a special command zone and can be cast from there at any time — though it costs an extra 2 mana each time it's been sent back. Players are eliminated when they reach 0 life, take 21 commander damage from a single source, or accumulate 10 poison counters.
+      </p>
+      <p class="section-body" style="margin-top:12px;">
+        The format rewards political play, long games, and surprising synergies. No two commander decks are ever quite the same.
+      </p>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-chip">
+        <div class="rule-chip-value">100</div>
+        <div class="rule-chip-label">Cards per deck</div>
+      </div>
+      <div class="rule-chip">
+        <div class="rule-chip-value">1</div>
+        <div class="rule-chip-label">Copy per card</div>
+      </div>
+      <div class="rule-chip">
+        <div class="rule-chip-value">40</div>
+        <div class="rule-chip-label">Starting life</div>
+      </div>
+      <div class="rule-chip">
+        <div class="rule-chip-value">21</div>
+        <div class="rule-chip-label">Commander damage</div>
+      </div>
+      <div class="rule-chip" style="grid-column: span 2;">
+        <div class="rule-chip-value">4</div>
+        <div class="rule-chip-label">Players per pod</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resources -->
+  <div class="resources">
+    <div class="section-label">External Links</div>
+    <h2 class="section-title">Resources</h2>
+    <div class="resource-cards">
+      <a href="https://magic.wizards.com/en/formats/commander" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-card-title">Rules &amp; Ban List</div>
+        <div class="resource-card-desc">Official Commander format rules, philosophy, and the current banned &amp; restricted list maintained by Wizards of the Coast.</div>
+        <div class="resource-card-domain">magic.wizards.com</div>
+      </a>
+      <a href="https://edhrec.com" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-card-title">EDHREC</div>
+        <div class="resource-card-desc">Card recommendations and deck-building data aggregated from thousands of Commander decks across the internet.</div>
+        <div class="resource-card-domain">edhrec.com</div>
+      </a>
+      <a href="https://scryfall.com" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-card-title">Scryfall</div>
+        <div class="resource-card-desc">The definitive Magic card search engine — find cards by color identity, type, text, set, and more.</div>
+        <div class="resource-card-domain">scryfall.com</div>
+      </a>
+      <a href="https://mtgcommander.net" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-card-title">Commander Rules Committee</div>
+        <div class="resource-card-desc">The independent body that originally created EDH and maintains the official rules and philosophy documents.</div>
+        <div class="resource-card-domain">mtgcommander.net</div>
+      </a>
+      <a href="https://www.moxfield.com" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-card-title">Moxfield</div>
+        <div class="resource-card-desc">Build, share, and manage Commander decklists. Tracks price, card availability, and lets you browse public decks for inspiration.</div>
+        <div class="resource-card-domain">moxfield.com</div>
+      </a>
+      <a href="https://commanderspellbook.com" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-card-title">Commander Spellbook</div>
+        <div class="resource-card-desc">An indexed database of Commander-legal infinite combos and synergy packages, searchable by card or color identity.</div>
+        <div class="resource-card-domain">commanderspellbook.com</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- About the Pod -->
+  <div class="about-pod">
+    <div class="section-label">About This Site</div>
+    <h2 class="section-title" style="margin-bottom:10px;">The Pod</h2>
+    <p class="section-body">
+      This site tracks the ongoing Commander games between Brian, Gerf, Mikey, and Jubee — a four-player pod that's been battling it out across hundreds of games. Match results are logged after every session, and ratings are computed using a TrueSkill-style Bayesian model that accounts for the free-for-all format better than a simple win/loss record ever could.
+    </p>
+    <p class="section-body" style="margin-top:10px;">
+      Head to <a href="/players/" style="color:var(--gold)">Players</a> for the full standings, <a href="/game-history/" style="color:var(--gold)">History</a> to dig into individual games, or <a href="/insights/" style="color:var(--gold)">Insights</a> for meta analysis.
+    </p>
+  </div>
+
+  <footer>Source: CMDRSTATS tab, published to web as CSV. Ratings computed via a TrueSkill-style Bayesian model, not raw win/loss.</footer>
 
 </div>
 </div><!-- /.page-wrapper -->
@@ -486,161 +611,15 @@ permalink: /commander-dashboard/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="/assets/commander-stats.js"></script>
 <script>
-// ---- Configuration ----
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1839162822&single=true&output=csv";
 
-// Each player's block: 11 data columns (+1 blank separator = 12 total),
-// starting at these 0-indexed column offsets in the published CMDRSTATS sheet.
-// Columns within a block: Commander(+0), Wins(+1), Losses(+2), Plays(+3), Win%(+4),
-//   Avg Round Win(+5), Avg Mulligans(+6), Most Cmn Seat(+7), Best Seat Win%(+8), MMR(+9), Conservative(+10)
 const BLOCKS = [
   { name: "Brian", start: 0 },
   { name: "Gerf",  start: 12 },
   { name: "Mikey", start: 24 },
   { name: "Jubee", start: 36 },
 ];
-
-const HEADER_ROW = 2;   // 0-indexed row containing column headers (Commander, Wins, ...)
-const DATA_START_ROW = 3; // 0-indexed row where actual commander rows begin
-const OVERALL_ROW = 1;  // 0-indexed row containing the "Overall:" summary stats
-
-
-function cell(v) { const s = String(v ?? '').trim(); return s && s !== 'N/A' ? s : '—'; }
-function pct(v) {
-  if (v === undefined || v === null || v === '') return "—";
-  // Google's CSV export gives percentage-formatted cells already in percentage
-  // scale (e.g. "57.14" or "57.14%"), not as a 0-1 fraction -- so no *100 here.
-  const s = String(v).replace('%', '').trim();
-  const n = parseFloat(s);
-  if (isNaN(n)) return "—";
-  return n.toFixed(2) + "%";
-}
-function num(v, digits) {
-  const n = parseFloat(v);
-  if (isNaN(n)) return "—";
-  return n.toFixed(digits);
-}
-function int(v) {
-  const n = parseFloat(v);
-  if (isNaN(n)) return "—";
-  return Math.round(n).toString();
-}
-function buildPlayerCard(block, rows) {
-  const startRow = DATA_START_ROW;
-  const commanderRows = [];
-  for (let r = startRow; r < rows.length; r++) {
-    const row = rows[r];
-    const cmdr = row[block.start];
-    if (!cmdr || cmdr.trim() === "") break;
-    commanderRows.push(row);
-  }
-
-  const overall = rows[OVERALL_ROW] || [];
-  const overallWinPct = overall[block.start + 4];
-
-  const favRow = commanderRows.reduce((best, row) => {
-    if (!best) return row;
-    const bPlays = parseInt(best[block.start + 3]) || 0;
-    const rPlays = parseInt(row[block.start + 3]) || 0;
-    if (rPlays > bPlays) return row;
-    if (rPlays === bPlays) {
-      const bMmr = parseFloat(best[block.start + 9]) || 0;
-      const rMmr = parseFloat(row[block.start + 9]) || 0;
-      return rMmr > bMmr ? row : best;
-    }
-    return best;
-  }, null);
-  const favCmdrRaw = favRow ? (favRow[block.start] || '').replace(/\r?\n/g, ' / ').trim() : '';
-  const favCmdrDisplay = favCmdrRaw.replace(/ \/ /g, '<br>');
-
-  const card = document.createElement('div');
-  card.className = 'player-card';
-  card.dataset.p = block.name;
-  card.id = 'player-' + block.name.toLowerCase();
-
-  const bar = document.createElement('div');
-  bar.className = 'bar';
-  card.appendChild(bar);
-
-  const head = document.createElement('div');
-  head.className = 'card-head';
-  if (favCmdrRaw) head.dataset.favCmdr = favCmdrRaw;
-  head.innerHTML = `
-    <div class="card-head-left">
-      <h2>${block.name}</h2>
-      ${favCmdrRaw ? `<span class="fav-cmdr-name">${favCmdrDisplay}</span>` : ''}
-    </div>
-    <div class="record">
-      <span class="winpct">${pct(overallWinPct)}</span>
-      overall win rate
-    </div>
-  `;
-  card.appendChild(head);
-
-  const scrollWrap = document.createElement('div');
-  scrollWrap.className = 'table-scroll';
-
-  const table = document.createElement('table');
-  table.className = 'cmdr-table';
-  table.innerHTML = `
-    <thead>
-      <tr>
-        <th>Commander</th>
-        <th class="num" title="Wins">W</th>
-        <th class="num" title="Losses">L</th>
-        <th class="num" title="Games played">P</th>
-        <th class="num" title="Win percentage">Win%</th>
-        <th class="num" title="Average round number when this commander wins">Rnd</th>
-        <th class="num" title="Average mulligans taken per game">Mlg</th>
-        <th class="num" title="Most common seat position">Seat</th>
-        <th class="num" title="TrueSkill MMR rating">MMR</th>
-        <th class="num" title="Conservative rating (MMR − 2σ) — lower bound on true skill">Cons.</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  `;
-  const tbody = table.querySelector('tbody');
-
-  const maxPlays = commanderRows.reduce((max, row) => {
-    const p = parseInt(row[block.start + 3]) || 0;
-    return p > max ? p : max;
-  }, 0);
-
-  commanderRows.forEach(row => {
-    const b = block.start;
-    const plays = parseInt(row[b+3]) || 0;
-    const tr = document.createElement('tr');
-    if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
-    tr.innerHTML = `
-      <td class="cmdr-name">${cmdrAvatarHtml(row[b])}<a href="/game-history/?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
-      <td class="num">${int(row[b+1])}</td>
-      <td class="num">${row[b+2] === '0' || !row[b+2] ? '—' : int(row[b+2])}</td>
-      <td class="num">${int(row[b+3])}</td>
-      <td class="num">${pct(row[b+4])}</td>
-      <td class="num">${cell(row[b+5])}</td>
-      <td class="num">${num(row[b+6], 2)}</td>
-      <td class="num">${int(row[b+7])}</td>
-      <td class="num">${num(row[b+9], 1)}</td>
-      <td class="num">${num(row[b+10], 1)}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  scrollWrap.appendChild(table);
-  card.appendChild(scrollWrap);
-  return card;
-}
-
-async function loadCardHeadImages() {
-  const heads = Array.from(document.querySelectorAll('.card-head[data-fav-cmdr]'));
-  if (!heads.length) return;
-  const names = [...new Set(heads.map(h => h.dataset.favCmdr))];
-  const imageMap = await getImageMap(names);
-  heads.forEach(head => {
-    const url = imageMap[stripPilotSuffix(head.dataset.favCmdr).toLowerCase()];
-    if (url) head.style.backgroundImage = `url('${url}')`;
-  });
-}
+const DATA_START_ROW = 3;
 
 // ---- Spotlight card ----
 const SP_INTERVAL = 15000;
@@ -697,7 +676,7 @@ async function showSpotlightEntry(entry) {
   const pilotEl = document.getElementById('sp-pilot');
   pilotEl.textContent = entry.pilot;
   pilotEl.dataset.pilot = entry.pilot;
-  document.getElementById('sp-record').textContent = `${entry.wins} — ${entry.losses}`;
+  document.getElementById('sp-record').textContent = `${entry.wins} — ${entry.losses}`;
   document.getElementById('sp-winpct').textContent = entry.winPct != null ? entry.winPct.toFixed(1) + '%' : '—';
   document.getElementById('sp-mmr').textContent = entry.mmr != null ? Math.round(entry.mmr) : '—';
   document.getElementById('sp-plays').textContent = entry.plays;
@@ -723,22 +702,6 @@ async function initSpotlight(rows) {
   _spTimer = setTimeout(advanceSpotlight, SP_INTERVAL);
 }
 
-function render(rows) {
-  const grid = document.getElementById('grid');
-  grid.innerHTML = '';
-  BLOCKS.forEach(block => {
-    grid.appendChild(buildPlayerCard(block, rows));
-  });
-  document.getElementById('status').textContent =
-    'Updated ' + new Date().toLocaleString();
-}
-
-function showError(msg) {
-  const el = document.getElementById('status');
-  el.textContent = msg;
-  el.classList.add('error');
-}
-
 function renderNextSession() {
   const stored = localStorage.getItem('nextSession');
   const banner = document.getElementById('next-session-banner');
@@ -758,22 +721,12 @@ renderNextSession();
 Papa.parse(CSV_URL, {
   download: true,
   complete: function(results) {
-    if (!results.data || results.data.length < DATA_START_ROW) {
-      showError('Loaded, but the sheet looks empty or in an unexpected shape.');
-      return;
-    }
+    if (!results.data || results.data.length < DATA_START_ROW) return;
     try {
-      render(results.data);
       initSpotlight(results.data);
-      loadAvatarImages(document.getElementById('grid'));
-      loadCardHeadImages();
-    } catch (e) {
-      showError('Could not parse the standings: ' + e.message);
-    }
+    } catch(e) { console.error(e); }
   },
-  error: function(err) {
-    showError('Could not load the sheet (' + err + '). Is it still published to web?');
-  }
+  error: function(err) { console.error('CSV load failed:', err); }
 });
 </script>
 </body>

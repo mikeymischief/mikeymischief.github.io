@@ -1,0 +1,462 @@
+---
+layout: null
+permalink: /players/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Player Stats · Commander</title>
+<link rel="preload" as="style" href="/assets/commander-stats.css">
+<link rel="preload" as="image" href="/images/bg/2526-archive-trap.jpg" media="(min-width: 1200px)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/commander-stats.css">
+<style>
+  :root {
+    --bg: #0d0f1a;
+    --gold: #d4af37;
+    --bg-raised: #1c1e26;
+    --line: #2c2e38;
+    --ink: #e9e8e4;
+    --ink-dim: #9a9aa4;
+    --ink-faint: #5c5d68;
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-wrapper {
+    max-width: 1800px;
+    margin: 0 auto;
+    background-color: var(--bg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    min-height: 100vh;
+  }
+  @media screen and (min-width: 1200px) {
+    body::before { content: ''; position: fixed; inset: 0; background-image: url('/images/bg/2526-archive-trap.jpg'); background-position: center top; background-size: cover; z-index: -1; pointer-events: none; }
+    .page-wrapper { -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); }
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  header.hero {
+    position: relative;
+    background-image: url('/images/bg/Thieves-Guild-Enforcer-Core-Set-2021-MtG-Art.jpg');
+    background-size: cover;
+    background-position: center 25%;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    padding: 120px 40px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  header.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0.1) 0%, rgba(13,15,26,0.65) 50%, rgba(13,15,26,0.97) 100%);
+  }
+  header.hero > * { position: relative; z-index: 1; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.05;
+    margin: 0 0 10px;
+    letter-spacing: 0.02em;
+    color: #e8d5a3;
+  }
+  .hero-sub {
+    color: var(--ink-dim);
+    font-size: 1rem;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+  #status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-top: 16px;
+  }
+  #status.error { color: var(--brian); }
+
+  .table-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .player-card {
+    background: var(--bg-raised);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .player-card .bar { height: 6px; width: 100%; }
+  .player-card[data-p="Brian"] .bar { background: var(--brian); }
+  .player-card[data-p="Gerf"]  .bar { background: var(--gerf); }
+  .player-card[data-p="Mikey"] .bar { background: var(--mikey); }
+  .player-card[data-p="Jubee"] .bar { background: var(--jubee); }
+
+  .card-head {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 80px 24px 18px;
+    gap: 12px;
+    background: var(--bg-raised);
+    background-size: cover;
+    background-position: center 20%;
+    overflow: hidden;
+  }
+  .card-head::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(13,15,26,0.82) 60%, rgba(13,15,26,0.97) 100%);
+  }
+  .card-head > * { position: relative; z-index: 1; }
+  .card-head-left { display: flex; flex-direction: column; gap: 4px; }
+  .card-head h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.7rem;
+    margin: 0;
+  }
+  .fav-cmdr-name {
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+  .player-card[data-p="Brian"] h2 { color: var(--brian); }
+  .player-card[data-p="Gerf"]  h2 { color: var(--gerf); }
+  .player-card[data-p="Mikey"] h2 { color: var(--mikey); }
+  .player-card[data-p="Jubee"] h2 { color: var(--jubee); }
+
+  .record {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--ink-dim);
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .record .winpct {
+    display: block;
+    font-size: 1.3rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  table.cmdr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+  }
+  table.cmdr-table th {
+    text-align: left;
+    padding: 8px 10px;
+    color: var(--ink-faint);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 10.5px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+    cursor: default;
+  }
+  table.cmdr-table th[title] {
+    text-decoration: underline dotted var(--ink-faint);
+    text-underline-offset: 3px;
+  }
+  table.cmdr-table th.num, table.cmdr-table td.num { text-align: right; }
+  table.cmdr-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  table.cmdr-table td.cmdr-name {
+    white-space: normal;
+    max-width: 220px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+  }
+  table.cmdr-table td.cmdr-name a { color: inherit; text-decoration: none; }
+  table.cmdr-table td.cmdr-name a:hover { color: var(--gold); text-decoration: underline; }
+  table.cmdr-table .star-row td.cmdr-name::before { content: "★ "; }
+  .player-card[data-p="Brian"] tbody tr:first-child { background: var(--brian-dim); }
+  .player-card[data-p="Gerf"]  tbody tr:first-child { background: var(--gerf-dim); }
+  .player-card[data-p="Mikey"] tbody tr:first-child { background: var(--mikey-dim); }
+  .player-card[data-p="Jubee"] tbody tr:first-child { background: var(--jubee-dim); }
+  table.cmdr-table tbody tr:last-child td { border-bottom: none; }
+
+  .table-scroll { max-height: 420px; overflow-y: auto; }
+  .table-scroll::-webkit-scrollbar { width: 8px; }
+  .table-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+
+  footer {
+    margin-top: 64px;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media screen and (max-width: 640px) {
+    body { background-image: none !important; }
+    .page-wrapper { -webkit-mask-image: none !important; mask-image: none !important; max-width: 100% !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<div class="site-masthead">
+  <div class="masthead-inner">
+    <a href="/" class="masthead-avatar"><img src="https://mikeymischief.github.io/images/ScroogeMcDuck.png" alt="Mischief's Gaming Blog"></a>
+    <div class="masthead-info">
+      <div class="masthead-site-name"><a href="/">Mischief's Gaming Blog</a></div>
+      <div class="masthead-site-desc">A Magic The Gathering Blog</div>
+    </div>
+    <nav class="masthead-nav">
+      <a href="/commander-dashboard/">Stats</a>
+      <a href="/players/" class="active">Players</a>
+      <a href="/game-history/">History</a>
+      <a href="/insights/">Insights</a>
+      <a href="/commander-colors/">Colors</a>
+      <a href="/faq/">FAQ</a>
+      <span class="nav-sep">|</span>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</div>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Commander &middot; Pod Standings</div>
+    <h1>Player Stats</h1>
+    <p class="hero-sub">Per-commander records, win rates, and TrueSkill ratings for every pilot in the pod.</p>
+    <div id="status">Loading standings…</div>
+  </header>
+
+  <div class="table-grid" id="grid"></div>
+
+  <footer>★ Most played commander &nbsp;·&nbsp; Source: CMDRSTATS tab, published to web as CSV. Ratings computed via a TrueSkill-style Bayesian model, not raw win/loss.</footer>
+
+</div>
+</div><!-- /.page-wrapper -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="/assets/commander-stats.js"></script>
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1839162822&single=true&output=csv";
+
+const BLOCKS = [
+  { name: "Brian", start: 0 },
+  { name: "Gerf",  start: 12 },
+  { name: "Mikey", start: 24 },
+  { name: "Jubee", start: 36 },
+];
+const HEADER_ROW = 2;
+const DATA_START_ROW = 3;
+const OVERALL_ROW = 1;
+
+function cell(v) { const s = String(v ?? '').trim(); return s && s !== 'N/A' ? s : '—'; }
+function pct(v) {
+  if (v === undefined || v === null || v === '') return "—";
+  const s = String(v).replace('%', '').trim();
+  const n = parseFloat(s);
+  if (isNaN(n)) return "—";
+  return n.toFixed(2) + "%";
+}
+function num(v, digits) {
+  const n = parseFloat(v);
+  if (isNaN(n)) return "—";
+  return n.toFixed(digits);
+}
+function int(v) {
+  const n = parseFloat(v);
+  if (isNaN(n)) return "—";
+  return Math.round(n).toString();
+}
+
+function buildPlayerCard(block, rows) {
+  const commanderRows = [];
+  for (let r = DATA_START_ROW; r < rows.length; r++) {
+    const row = rows[r];
+    const cmdr = row[block.start];
+    if (!cmdr || cmdr.trim() === "") break;
+    commanderRows.push(row);
+  }
+  const overall = rows[OVERALL_ROW] || [];
+  const overallWinPct = overall[block.start + 4];
+
+  const favRow = commanderRows.reduce((best, row) => {
+    if (!best) return row;
+    const bPlays = parseInt(best[block.start + 3]) || 0;
+    const rPlays = parseInt(row[block.start + 3]) || 0;
+    if (rPlays > bPlays) return row;
+    if (rPlays === bPlays) {
+      const bMmr = parseFloat(best[block.start + 9]) || 0;
+      const rMmr = parseFloat(row[block.start + 9]) || 0;
+      return rMmr > bMmr ? row : best;
+    }
+    return best;
+  }, null);
+  const favCmdrRaw = favRow ? (favRow[block.start] || '').replace(/\r?\n/g, ' / ').trim() : '';
+  const favCmdrDisplay = favCmdrRaw.replace(/ \/ /g, '<br>');
+
+  const card = document.createElement('div');
+  card.className = 'player-card';
+  card.dataset.p = block.name;
+  card.id = 'player-' + block.name.toLowerCase();
+
+  const bar = document.createElement('div');
+  bar.className = 'bar';
+  card.appendChild(bar);
+
+  const head = document.createElement('div');
+  head.className = 'card-head';
+  if (favCmdrRaw) head.dataset.favCmdr = favCmdrRaw;
+  head.innerHTML = `
+    <div class="card-head-left">
+      <h2>${block.name}</h2>
+      ${favCmdrRaw ? `<span class="fav-cmdr-name">${favCmdrDisplay}</span>` : ''}
+    </div>
+    <div class="record">
+      <span class="winpct">${pct(overallWinPct)}</span>
+      overall win rate
+    </div>
+  `;
+  card.appendChild(head);
+
+  const scrollWrap = document.createElement('div');
+  scrollWrap.className = 'table-scroll';
+
+  const table = document.createElement('table');
+  table.className = 'cmdr-table';
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Commander</th>
+        <th class="num" title="Wins">W</th>
+        <th class="num" title="Losses">L</th>
+        <th class="num" title="Games played">P</th>
+        <th class="num" title="Win percentage">Win%</th>
+        <th class="num" title="Average round number when this commander wins">Rnd</th>
+        <th class="num" title="Average mulligans taken per game">Mlg</th>
+        <th class="num" title="Most common seat position">Seat</th>
+        <th class="num" title="TrueSkill MMR rating">MMR</th>
+        <th class="num" title="Conservative rating (MMR − 2σ) — lower bound on true skill">Cons.</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+  const tbody = table.querySelector('tbody');
+
+  const maxPlays = commanderRows.reduce((max, row) => {
+    const p = parseInt(row[block.start + 3]) || 0;
+    return p > max ? p : max;
+  }, 0);
+
+  commanderRows.forEach(row => {
+    const b = block.start;
+    const plays = parseInt(row[b+3]) || 0;
+    const tr = document.createElement('tr');
+    if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
+    tr.innerHTML = `
+      <td class="cmdr-name">${cmdrAvatarHtml(row[b])}<a href="/game-history/?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
+      <td class="num">${int(row[b+1])}</td>
+      <td class="num">${row[b+2] === '0' || !row[b+2] ? '—' : int(row[b+2])}</td>
+      <td class="num">${int(row[b+3])}</td>
+      <td class="num">${pct(row[b+4])}</td>
+      <td class="num">${cell(row[b+5])}</td>
+      <td class="num">${num(row[b+6], 2)}</td>
+      <td class="num">${int(row[b+7])}</td>
+      <td class="num">${num(row[b+9], 1)}</td>
+      <td class="num">${num(row[b+10], 1)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  scrollWrap.appendChild(table);
+  card.appendChild(scrollWrap);
+  return card;
+}
+
+async function loadCardHeadImages() {
+  const heads = Array.from(document.querySelectorAll('.card-head[data-fav-cmdr]'));
+  if (!heads.length) return;
+  const names = [...new Set(heads.map(h => h.dataset.favCmdr))];
+  const imageMap = await getImageMap(names);
+  heads.forEach(head => {
+    const url = imageMap[stripPilotSuffix(head.dataset.favCmdr).toLowerCase()];
+    if (url) head.style.backgroundImage = `url('${url}')`;
+  });
+}
+
+function render(rows) {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  BLOCKS.forEach(block => {
+    grid.appendChild(buildPlayerCard(block, rows));
+  });
+  document.getElementById('status').textContent = 'Updated ' + new Date().toLocaleString();
+}
+
+function showError(msg) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.classList.add('error');
+}
+
+Papa.parse(CSV_URL, {
+  download: true,
+  complete: function(results) {
+    if (!results.data || results.data.length < DATA_START_ROW) {
+      showError('Loaded, but the sheet looks empty or in an unexpected shape.');
+      return;
+    }
+    try {
+      render(results.data);
+      loadAvatarImages(document.getElementById('grid'));
+      loadCardHeadImages();
+    } catch (e) {
+      showError('Could not parse the standings: ' + e.message);
+    }
+  },
+  error: function(err) {
+    showError('Could not load the sheet (' + err + '). Is it still published to web?');
+  }
+});
+</script>
+</body>
+</html>
