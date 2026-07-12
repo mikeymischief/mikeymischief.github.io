@@ -182,14 +182,17 @@ function tierBadgeSvg(tier, size = 24) {
 // giving inactive commanders a frozen approximation of their last-known tier.
 function buildTierMapFromGames(rows) {
   const latestMmr = {};
-  const latestTs = {};
+  const maxPlays = {};  // cmdrPlays is cumulative; highest value = most recent game
+  const latestTs = {};  // still needed for active-pool detection
   const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
   rows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
     const endMmr = parsePctDelta(row[G.endMmr]);
     if (!cmdr || isNaN(endMmr)) return;
+    const plays = parseInt(row[G.cmdrPlays]) || 0;
+    if (!(cmdr in maxPlays) || plays > maxPlays[cmdr]) { maxPlays[cmdr] = plays; latestMmr[cmdr] = endMmr; }
     const ts = new Date((row[G.date] || '').trim()).getTime();
-    if (!latestTs[cmdr] || ts > latestTs[cmdr]) { latestTs[cmdr] = ts; latestMmr[cmdr] = endMmr; }
+    if (!isNaN(ts) && (!latestTs[cmdr] || ts > latestTs[cmdr])) latestTs[cmdr] = ts;
   });
   const cutoff = Date.now() - TWO_YEARS;
   const active = Object.keys(latestMmr).filter(c => latestTs[c] >= cutoff);

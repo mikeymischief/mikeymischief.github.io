@@ -510,8 +510,21 @@ function renderAllCommanders(gameRows) {
   const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
   const stats = {};
   const lastPlayed = {};
-  const cmdrLatestMmr = {};  // global per-commander latest MMR (across all pilots)
-  const cmdrLatestTs = {};
+
+  // Build per-commander latest MMR: highest cmdrPlays = most recent game
+  const cmdrLatestMmr = {};
+  const cmdrMaxPlays = {};
+  gameRows.forEach(row => {
+    const cmdr = normalizeCmdr(row[G.commander]);
+    const endMmr = parsePctDelta(row[G.endMmr]);
+    if (!cmdr || isNaN(endMmr)) return;
+    const plays = parseInt(row[G.cmdrPlays]) || 0;
+    if (!(cmdr in cmdrMaxPlays) || plays > cmdrMaxPlays[cmdr]) {
+      cmdrMaxPlays[cmdr] = plays;
+      cmdrLatestMmr[cmdr] = endMmr;
+    }
+  });
+
   gameRows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
     const pilot = (row[G.pilot] || '').trim();
@@ -522,12 +535,7 @@ function renderAllCommanders(gameRows) {
     const s = stats[key];
     s.plays++;
     if (row[G.winner] && row[G.winner].trim()) s.wins++;
-    const endMmr = parsePctDelta(row[G.endMmr]);
     const dateTs = new Date(date).getTime();
-    if (!isNaN(endMmr) && (!cmdrLatestTs[cmdr] || dateTs > cmdrLatestTs[cmdr])) {
-      cmdrLatestMmr[cmdr] = endMmr;
-      cmdrLatestTs[cmdr] = dateTs;
-    }
     if (!lastPlayed[cmdr] || dateTs > lastPlayed[cmdr]) lastPlayed[cmdr] = dateTs;
   });
   const entries = Object.values(stats)
