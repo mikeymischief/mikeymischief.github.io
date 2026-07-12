@@ -285,6 +285,111 @@ permalink: /commander-dashboard/
   }
   #next-session-banner > * { position: relative; z-index: 1; }
   #next-session-banner.hidden { display: none !important; }
+
+  /* ── Commander Spotlight ── */
+  .spotlight {
+    position: relative;
+    display: block;
+    border-radius: 14px;
+    overflow: hidden;
+    height: 240px;
+    margin-bottom: 32px;
+    background-color: var(--bg-raised);
+    background-size: cover;
+    background-position: center 20%;
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.45s ease;
+  }
+  .spotlight.fading { opacity: 0; }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(13,15,26,0.97) 0%, rgba(13,15,26,0.82) 40%, rgba(13,15,26,0.3) 75%, rgba(13,15,26,0.1) 100%),
+      linear-gradient(to top, rgba(13,15,26,0.6) 0%, transparent 45%);
+  }
+  .spotlight-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 32px 40px 40px;
+    gap: 32px;
+  }
+  .spotlight-left { flex: 1; min-width: 0; }
+  .spotlight-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .spotlight-cmdr-name {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    color: #e8d5a3;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    text-wrap: balance;
+  }
+  .spotlight-pilot-badge {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+    border: 1px solid currentColor;
+  }
+  .spotlight-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 36px;
+    flex-shrink: 0;
+  }
+  .sp-stat { text-align: right; }
+  .sp-stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .sp-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 5px;
+  }
+  .spotlight-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--gold);
+    opacity: 0.7;
+  }
+  .spotlight-progress.running {
+    width: 100%;
+    transition: width 8s linear;
+  }
+  @media (max-width: 600px) {
+    .spotlight { height: auto; }
+    .spotlight-inner { flex-direction: column; align-items: flex-start; padding: 24px 24px 32px; gap: 18px; }
+    .spotlight-stats { width: 100%; gap: 12px 24px; }
+    .sp-stat { text-align: left; }
+    .sp-stat-value { font-size: 1.3rem; }
+  }
   .session-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -341,6 +446,35 @@ permalink: /commander-dashboard/
     <span class="session-date" id="session-date"></span>
     <span class="session-countdown" id="session-countdown"></span>
   </div>
+
+  <a id="commander-spotlight" class="spotlight" href="/game-history/">
+    <div class="spotlight-inner">
+      <div class="spotlight-left">
+        <div class="spotlight-eyebrow">Featured Commander</div>
+        <div id="sp-name" class="spotlight-cmdr-name">—</div>
+        <div id="sp-pilot" class="spotlight-pilot-badge" data-pilot=""></div>
+      </div>
+      <div class="spotlight-stats">
+        <div class="sp-stat">
+          <div id="sp-record" class="sp-stat-value">—</div>
+          <div class="sp-stat-label">Record</div>
+        </div>
+        <div class="sp-stat">
+          <div id="sp-winpct" class="sp-stat-value">—</div>
+          <div class="sp-stat-label">Win Rate</div>
+        </div>
+        <div class="sp-stat">
+          <div id="sp-mmr" class="sp-stat-value">—</div>
+          <div class="sp-stat-label">Rating</div>
+        </div>
+        <div class="sp-stat">
+          <div id="sp-plays" class="sp-stat-value">—</div>
+          <div class="sp-stat-label">Games</div>
+        </div>
+      </div>
+    </div>
+    <div id="sp-progress" class="spotlight-progress"></div>
+  </a>
 
   <div class="table-grid" id="grid"></div>
 
@@ -508,6 +642,87 @@ async function loadCardHeadImages() {
   });
 }
 
+// ---- Spotlight card ----
+const SP_INTERVAL = 15000;
+let _spCmdrs = [];
+let _spIdx = 0;
+let _spTimer = null;
+
+function buildSpotlightPool(rows) {
+  const pool = [];
+  BLOCKS.forEach(block => {
+    for (let r = DATA_START_ROW; r < rows.length; r++) {
+      const row = rows[r];
+      const cmdrRaw = (row[block.start] || '').trim();
+      if (!cmdrRaw) break;
+      const cmdr = cmdrRaw.replace(/\r?\n/g, ' / ');
+      const wins    = parseInt(row[block.start + 1]) || 0;
+      const losses  = parseInt(row[block.start + 2]) || 0;
+      const plays   = parseInt(row[block.start + 3]) || 0;
+      const wpStr   = String(row[block.start + 4] || '').replace('%', '').trim();
+      const winPct  = parseFloat(wpStr);
+      const mmrVal  = parseFloat(row[block.start + 9]);
+      if (plays > 0) pool.push({
+        cmdr, pilot: block.name, wins, losses, plays,
+        winPct: isNaN(winPct) ? null : winPct,
+        mmr:    isNaN(mmrVal)  ? null : mmrVal,
+      });
+    }
+  });
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool;
+}
+
+function spStartProgress() {
+  const bar = document.getElementById('sp-progress');
+  if (!bar) return;
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  bar.offsetWidth;
+  bar.style.transition = `width ${SP_INTERVAL}ms linear`;
+  bar.style.width = '100%';
+}
+
+async function showSpotlightEntry(entry) {
+  const card = document.getElementById('commander-spotlight');
+  if (!card) return;
+  card.classList.add('fading');
+  const parts = entry.cmdr.split(' / ').map(p => stripPilotSuffix(p.trim()));
+  const imagePromise = getImageMap(parts);
+  await new Promise(r => setTimeout(r, 450));
+  document.getElementById('sp-name').innerHTML = entry.cmdr.replace(/ \/ /g, '<br>');
+  const pilotEl = document.getElementById('sp-pilot');
+  pilotEl.textContent = entry.pilot;
+  pilotEl.dataset.pilot = entry.pilot;
+  document.getElementById('sp-record').textContent = `${entry.wins} — ${entry.losses}`;
+  document.getElementById('sp-winpct').textContent = entry.winPct != null ? entry.winPct.toFixed(1) + '%' : '—';
+  document.getElementById('sp-mmr').textContent = entry.mmr != null ? Math.round(entry.mmr) : '—';
+  document.getElementById('sp-plays').textContent = entry.plays;
+  card.href = `/game-history/?commander=${encodeURIComponent(entry.cmdr)}`;
+  const imageMap = await imagePromise;
+  const artUrl = imageMap[parts[0].toLowerCase()];
+  card.style.backgroundImage = artUrl ? `url('${artUrl}')` : '';
+  card.classList.remove('fading');
+  spStartProgress();
+}
+
+async function advanceSpotlight() {
+  _spIdx = (_spIdx + 1) % _spCmdrs.length;
+  await showSpotlightEntry(_spCmdrs[_spIdx]);
+  _spTimer = setTimeout(advanceSpotlight, SP_INTERVAL);
+}
+
+async function initSpotlight(rows) {
+  _spCmdrs = buildSpotlightPool(rows);
+  if (!_spCmdrs.length) return;
+  _spIdx = 0;
+  await showSpotlightEntry(_spCmdrs[0]);
+  _spTimer = setTimeout(advanceSpotlight, SP_INTERVAL);
+}
+
 function render(rows) {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
@@ -549,6 +764,7 @@ Papa.parse(CSV_URL, {
     }
     try {
       render(results.data);
+      initSpotlight(results.data);
       loadAvatarImages(document.getElementById('grid'));
       loadCardHeadImages();
     } catch (e) {
