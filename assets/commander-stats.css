@@ -21,7 +21,7 @@
 .masthead-nav a { margin-left: 20px; color: #8b8ea8; text-decoration: none; font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
 .masthead-nav a:hover { color: #d4af37; text-decoration: none; }
 .masthead-nav .nav-sep { margin-left: 20px; color: #2a2a3a; user-select: none; }
-.masthead-nav a.active { color: #d4af37; }
+.masthead-nav a.active { display: none; }
 @media (max-width: 640px) {
   .masthead-inner { flex-wrap: wrap; }
   .masthead-nav { margin-top: 8px; width: 100%; }
