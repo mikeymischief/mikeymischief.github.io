@@ -510,31 +510,38 @@ function renderAllCommanders(gameRows) {
   const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
   const stats = {};
   const lastPlayed = {};
+  const cmdrLatestMmr = {};  // global per-commander latest MMR (across all pilots)
+  const cmdrLatestTs = {};
   gameRows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
     const pilot = (row[G.pilot] || '').trim();
     const date = (row[G.date] || '').trim();
     if (!cmdr || !pilot) return;
     const key = pilot + ':' + cmdr;
-    if (!stats[key]) stats[key] = { cmdr, pilot, wins: 0, plays: 0, lastMmr: null, lastTs: 0 };
+    if (!stats[key]) stats[key] = { cmdr, pilot, wins: 0, plays: 0 };
     const s = stats[key];
     s.plays++;
     if (row[G.winner] && row[G.winner].trim()) s.wins++;
     const endMmr = parsePctDelta(row[G.endMmr]);
     const dateTs = new Date(date).getTime();
-    if (!isNaN(endMmr) && dateTs > s.lastTs) { s.lastMmr = endMmr; s.lastTs = dateTs; }
+    if (!isNaN(endMmr) && (!cmdrLatestTs[cmdr] || dateTs > cmdrLatestTs[cmdr])) {
+      cmdrLatestMmr[cmdr] = endMmr;
+      cmdrLatestTs[cmdr] = dateTs;
+    }
     if (!lastPlayed[cmdr] || dateTs > lastPlayed[cmdr]) lastPlayed[cmdr] = dateTs;
   });
   const entries = Object.values(stats)
-    .filter(s => s.lastMmr !== null)
-    .sort((a, b) => (b.lastMmr || 0) - (a.lastMmr || 0));
+    .filter(s => cmdrLatestMmr[s.cmdr] != null)
+    .sort((a, b) => (cmdrLatestMmr[b.cmdr] || 0) - (cmdrLatestMmr[a.cmdr] || 0));
   const tbody = document.querySelector('#all-cmdr-table tbody');
   tbody.innerHTML = '';
   let rank = 0;
-  entries.forEach(({ cmdr, pilot, wins, plays, lastMmr }) => {
+  let lastRankCmdr = null;
+  entries.forEach(({ cmdr, pilot, wins, plays }) => {
     const lp = lastPlayed[cmdr];
     if (!_acState.showAll && lp && (now - new Date(lp).getTime()) > TWO_YEARS) return;
-    rank++;
+    if (cmdr !== lastRankCmdr) { rank++; lastRankCmdr = cmdr; }
+    const mmr = cmdrLatestMmr[cmdr];
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
     tr.innerHTML = `
@@ -545,7 +552,7 @@ function renderAllCommanders(gameRows) {
       <td class="num">${wins}</td>
       <td class="num">${plays}</td>
       <td class="num">${plays ? (wins/plays*100).toFixed(2)+'%' : '—'}</td>
-      <td class="num">${lastMmr !== null ? lastMmr.toFixed(1) : '—'}</td>
+      <td class="num">${mmr != null ? mmr.toFixed(1) : '—'}</td>
     `;
     tbody.appendChild(tr);
   });
