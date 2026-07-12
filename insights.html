@@ -516,13 +516,13 @@ function renderAllCommanders(gameRows) {
     const date = (row[G.date] || '').trim();
     if (!cmdr || !pilot) return;
     const key = pilot + ':' + cmdr;
-    if (!stats[key]) stats[key] = { cmdr, pilot, wins: 0, plays: 0, lastMmr: null };
+    if (!stats[key]) stats[key] = { cmdr, pilot, wins: 0, plays: 0, lastMmr: null, lastTs: 0 };
     const s = stats[key];
     s.plays++;
     if (row[G.winner] && row[G.winner].trim()) s.wins++;
     const endMmr = parsePctDelta(row[G.endMmr]);
-    if (!isNaN(endMmr)) s.lastMmr = endMmr;
     const dateTs = new Date(date).getTime();
+    if (!isNaN(endMmr) && dateTs > s.lastTs) { s.lastMmr = endMmr; s.lastTs = dateTs; }
     if (!lastPlayed[cmdr] || dateTs > lastPlayed[cmdr]) lastPlayed[cmdr] = dateTs;
   });
   const entries = Object.values(stats)
