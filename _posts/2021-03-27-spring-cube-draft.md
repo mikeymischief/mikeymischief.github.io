@@ -9,6 +9,7 @@ description: The Kaldheim cube draft featuring unique archetypes, fortell cards,
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube draft event
+image: /images/bg/cube/Titania-Protector-of-Argoth-MtG-Art1.jpg
 ---
 
 Another Cube Draft! In the future, I think I'll be naming the drafts after the latest retail limited set ala WotC. For instance, this one would be named Kaldheim Cube Draft, which would be appropos as Kaldheim is the last set the cube has been updated in (do you see all the _fortell_ cards?).

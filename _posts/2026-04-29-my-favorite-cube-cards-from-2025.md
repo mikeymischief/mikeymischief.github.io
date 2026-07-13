@@ -9,6 +9,7 @@ description: "My favorite cube cards of 2025"
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube favorites editorial
+image: /images/bg/cube/Stoneforge-Mystic-Promo-MtG-Art.jpg
 ---
 
 Welcome to the first of the retrospective articles for this blog. This time we're discussing my favorite cards from 2025.

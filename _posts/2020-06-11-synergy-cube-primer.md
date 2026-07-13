@@ -9,6 +9,7 @@ description: An introduction to the Synergy Cube — a cube built on archetypes 
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube primer
+image: /images/bg/cube/Monastery-Mentor-MtG-Art.jpg
 ---
 
 Welcome to the Synergy Cube!

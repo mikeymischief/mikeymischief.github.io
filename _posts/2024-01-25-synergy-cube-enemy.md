@@ -9,6 +9,7 @@ description: A showcase of the enemy color archetypes in the Synergy Cube
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube primer
+image: /images/bg/cube/Sedgemoor-Witch-Strixhaven-MtG-Art.jpg
 ---
 
 Last time we went over a sample of the allied color decks. This time, will be a showcase of the enemy colors!

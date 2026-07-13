@@ -8,6 +8,7 @@ pubDate: 2020-11-22
 description: Two cube drafts on a Sunday with the crew, fueled by Domino's and a full day of Magic.
 comments: true
 categories: mtg cube draft event
+image: /images/bg/cube/Tranquil-Thicket-Modern-Horizons-MtG-Art.jpg
 ---
 
 This fine sunday we started at 10am and got to play 2 drafts again (I'm so glad this is becoming the norm!). We had lunch from Domino's so that we could play more games and there was nigh a break in between. Onto the drafts!

@@ -9,6 +9,7 @@ description: A look at the allied color archetypes in the Synergy Cube after thr
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg cube primer
+image: /images/bg/cube/Torrential-Gearhulk-Kaladesh-MtG-Art.jpg
 ---
 
 It's been over 3 years since I've spoken about my high-powered synergy cube.

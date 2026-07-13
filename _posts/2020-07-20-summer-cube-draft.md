@@ -8,6 +8,7 @@ pubDate: 2020-07-20
 description: A summer cube draft cut short by work, featuring Gerf's winning run through the pod.
 comments: true
 categories: mtg cube draft event
+image: /images/bg/cube/Chandra-Torch-of-Defiance-Kaladesh-MtG-Art.jpg
 ---
 
 This day was cut short because of the EMM launch (I had to work). Despite that, the other players still hunkered on. Gerf beat both Jubee and Jeddy's deck, then beat my Simic Deck (in a best of 1) the day after (to be concluded).
