@@ -7,7 +7,7 @@ permalink: /commander-dashboard/
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Commander Stats</title>
+<title>Commander</title>
 <link rel="icon" href="/images/skull.png" type="image/png">
 <link rel="preload" as="style" href="/assets/commander-stats.css">
 <link rel="preload" as="image" href="/images/bg/2526-archive-trap.jpg" media="(min-width: 1200px)">
@@ -256,38 +256,51 @@ permalink: /commander-dashboard/
     .nav-cards { grid-template-columns: repeat(2, 1fr); }
   }
   .nav-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 18px 20px;
-    background: var(--bg-raised);
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 16px 18px;
+    min-height: 140px;
+    background-color: var(--bg-raised);
+    background-size: cover;
+    background-position: center;
     border: 1px solid var(--line);
     border-radius: 12px;
     text-decoration: none;
     color: var(--ink);
-    transition: border-color 0.18s, background 0.18s;
+    overflow: hidden;
+    transition: border-color 0.18s, transform 0.18s;
+  }
+  .nav-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0.1) 0%, rgba(13,15,26,0.72) 55%, rgba(13,15,26,0.96) 100%);
+    transition: opacity 0.18s;
   }
   .nav-card:hover {
     border-color: var(--gold);
-    background: var(--bg-hover);
     color: var(--ink);
+    transform: translateY(-2px);
   }
-  .nav-card-icon {
-    font-size: 1.3rem;
-    line-height: 1;
-    margin-bottom: 2px;
-  }
+  .nav-card:hover::before { opacity: 0.85; }
   .nav-card-label {
+    position: relative;
+    z-index: 1;
     font-family: 'Cinzel', serif;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-weight: 700;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     color: #e8d5a3;
   }
   .nav-card-desc {
+    position: relative;
+    z-index: 1;
     font-family: 'Inter', sans-serif;
-    font-size: 11.5px;
-    color: var(--ink-faint);
+    font-size: 11px;
+    color: rgba(233,232,228,0.7);
     line-height: 1.4;
   }
 
@@ -527,23 +540,19 @@ permalink: /commander-dashboard/
 
   <!-- Nav Cards -->
   <nav class="nav-cards" aria-label="Site sections">
-    <a href="/players/" class="nav-card">
-      <div class="nav-card-icon">🏆</div>
-      <div class="nav-card-label">Players</div>
+    <a href="/players/" class="nav-card" style="background-image:url('/images/bg/Jayemdae-Tome-MtG-Art-2048x1616.jpg')">
+      <div class="nav-card-label">Stats</div>
       <div class="nav-card-desc">Per-commander records and TrueSkill ratings for each pilot</div>
     </a>
-    <a href="/game-history/" class="nav-card">
-      <div class="nav-card-icon">📜</div>
+    <a href="/game-history/" class="nav-card" style="background-image:url('/images/bg/Lucid-Dreams-Modern-Horizons-2-MtG-Art.jpg')">
       <div class="nav-card-label">History</div>
       <div class="nav-card-desc">Full game log with match results and commander profiles</div>
     </a>
-    <a href="/insights/" class="nav-card">
-      <div class="nav-card-icon">📊</div>
+    <a href="/insights/" class="nav-card" style="background-image:url('/images/bg/Lunar-Insight-Foundations-MtG-Art.jpg')">
       <div class="nav-card-label">Insights</div>
       <div class="nav-card-desc">Meta trends, seating patterns, and active commander rankings</div>
     </a>
-    <a href="/commander-colors/" class="nav-card">
-      <div class="nav-card-icon">🎨</div>
+    <a href="/commander-colors/" class="nav-card" style="background-image:url('/images/bg/Conspiracy-Theorist-Strixhaven-MtG-Art.jpg')">
       <div class="nav-card-label">Colors</div>
       <div class="nav-card-desc">Color identity breakdown across every commander played</div>
     </a>
@@ -587,6 +596,23 @@ permalink: /commander-dashboard/
       </div>
     </div>
   </div>
+
+  <!-- Blog Posts -->
+  {% assign cmdr_posts = site.posts | where_exp: "post", "post.categories contains 'commander'" | limit: 4 %}
+  {% if cmdr_posts.size > 0 %}
+  <div class="blog-section">
+    <div class="section-label">From the Blog</div>
+    <h2 class="section-title">Commander Reports</h2>
+    <div class="post-list">
+      {% for post in cmdr_posts %}
+      <a href="{{ post.url }}" class="post-card">
+        <span class="post-card-title">{{ post.title }}</span>
+        <span class="post-card-date">{{ post.date | date: "%B %-d, %Y" }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 
   <!-- Resources -->
   <div class="resources">
@@ -637,23 +663,6 @@ permalink: /commander-dashboard/
       Head to <a href="/players/" style="color:var(--gold)">Players</a> for the full standings, <a href="/game-history/" style="color:var(--gold)">History</a> to dig into individual games, or <a href="/insights/" style="color:var(--gold)">Insights</a> for meta analysis.
     </p>
   </div>
-
-  <!-- Blog Posts -->
-  {% assign cmdr_posts = site.posts | where_exp: "post", "post.categories contains 'commander'" | limit: 3 %}
-  {% if cmdr_posts.size > 0 %}
-  <div class="blog-section">
-    <div class="section-label">From the Blog</div>
-    <h2 class="section-title">Commander Reports</h2>
-    <div class="post-list">
-      {% for post in cmdr_posts %}
-      <a href="{{ post.url }}" class="post-card">
-        <span class="post-card-title">{{ post.title }}</span>
-        <span class="post-card-date">{{ post.date | date: "%B %-d, %Y" }}</span>
-      </a>
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
 
   <footer>Source: CMDRSTATS tab, published to web as CSV. Ratings computed via a TrueSkill-style Bayesian model, not raw win/loss.</footer>
 
