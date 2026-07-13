@@ -562,7 +562,7 @@ function renderAllCommanders(gameRows) {
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${lp && (now - new Date(lp).getTime()) <= TWO_YEARS ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
-      <td style="text-align:center">${bracketBadgeSvg(_bracketMap[`${pilot}|||${cmdr}`])}</td>
+      <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${wins}</td>
       <td class="num">${plays}</td>
       <td class="num">${plays ? (wins/plays*100).toFixed(2)+'%' : '—'}</td>
@@ -746,7 +746,7 @@ function renderPopularity(rows) {
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${_activeSet.has(cmdr) ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
-      <td style="text-align:center">${bracketBadgeSvg(_bracketMap[`${pilot}|||${cmdr}`])}</td>
+      <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${sessions} / ${eligible}</td>
       <td class="num">${(pct * 100).toFixed(1)}%</td>
       <td class="num">${streakCell}</td>
@@ -792,7 +792,7 @@ function renderMostPlayed(gameRows) {
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${_activeSet.has(cmdr) ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
-      <td style="text-align:center">${bracketBadgeSvg(_bracketMap[`${pilot}|||${cmdr}`])}</td>
+      <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${p}</td>
       <td class="num">${w}</td>
       <td class="num">${p ? (w/p*100).toFixed(1)+'%' : '—'}</td>
@@ -835,7 +835,7 @@ function renderBlitz(gameRows) {
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${_activeSet.has(cmdr) ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
-      <td style="text-align:center">${bracketBadgeSvg(_bracketMap[`${pilot}|||${cmdr}`])}</td>
+      <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${wins}</td>
       <td class="num">${avgRound.toFixed(1)}</td>
     `;
@@ -953,10 +953,9 @@ Papa.parse(GAMES_CSV_URL, {
         download: true,
         complete: function(deckResults) {
           (deckResults.data || []).slice(1).forEach(row => {
-            const pilot = (row[0] || '').trim();
             const cmdr = normalizeCmdr(row[1] || '');
             const bracket = (row[2] || '').trim();
-            if (pilot && cmdr && bracket) _bracketMap[`${pilot}|||${cmdr}`] = bracket;
+            if (cmdr && bracket) _bracketMap[cmdr] = bracket;
           });
           renderAll();
         },

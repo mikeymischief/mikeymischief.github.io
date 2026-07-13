@@ -589,6 +589,7 @@ permalink: /commander-dashboard/
         <div class="spotlight-eyebrow">Featured Commander</div>
         <div id="sp-name" class="spotlight-cmdr-name">—</div>
         <div id="sp-pilot" class="spotlight-pilot-badge" data-pilot=""></div>
+        <div id="sp-badges" style="display:flex;gap:6px;align-items:center;margin-top:10px;"></div>
       </div>
       <div class="spotlight-stats">
         <div class="sp-stat">
@@ -780,7 +781,12 @@ permalink: /commander-dashboard/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="/assets/commander-stats.js"></script>
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=197031444&single=true&output=csv";
+const CSV_URL      = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=197031444&single=true&output=csv";
+const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=278389112&single=true&output=csv";
+const DECK_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=906574110&single=true&output=csv";
+const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, cmdrPlays:11 };
+let _tierMap = {};
+let _bracketMap = {};
 
 const BLOCKS = [
   { name: "Brian", start: 0 },
@@ -849,6 +855,8 @@ async function showSpotlightEntry(entry) {
   document.getElementById('sp-winpct').textContent = entry.winPct != null ? entry.winPct.toFixed(1) + '%' : '—';
   document.getElementById('sp-mmr').textContent = entry.mmr != null ? Math.round(entry.mmr) : '—';
   document.getElementById('sp-plays').textContent = entry.plays;
+  const cmdrKey = normalizeCmdr(entry.cmdr);
+  document.getElementById('sp-badges').innerHTML = tierBadgeSvg(_tierMap[cmdrKey]) + bracketBadgeSvg(_bracketMap[cmdrKey]);
   card.href = `/game-history/?commander=${encodeURIComponent(entry.cmdr)}`;
   const imageMap = await imagePromise;
   const artUrl = imageMap[parts[0].toLowerCase()];
@@ -887,15 +895,42 @@ function renderNextSession() {
 }
 renderNextSession();
 
+let _statRows = null;
+let _pendingFetches = 3;
+function tryInitSpotlight() {
+  if (--_pendingFetches > 0 || !_statRows) return;
+  try { initSpotlight(_statRows); } catch(e) { console.error(e); }
+}
+
 Papa.parse(CSV_URL, {
   download: true,
   complete: function(results) {
-    if (!results.data || results.data.length < DATA_START_ROW) return;
-    try {
-      initSpotlight(results.data);
-    } catch(e) { console.error(e); }
+    if (results.data && results.data.length >= DATA_START_ROW) _statRows = results.data;
+    tryInitSpotlight();
   },
-  error: function(err) { console.error('CSV load failed:', err); }
+  error: function() { tryInitSpotlight(); }
+});
+
+Papa.parse(GAMES_CSV_URL, {
+  download: true,
+  complete: function(results) {
+    if (results.data && results.data.length > 1) _tierMap = buildTierMapFromGames(results.data.slice(1));
+    tryInitSpotlight();
+  },
+  error: function() { tryInitSpotlight(); }
+});
+
+Papa.parse(DECK_CSV_URL, {
+  download: true,
+  complete: function(results) {
+    (results.data || []).slice(1).forEach(row => {
+      const cmdr = normalizeCmdr(row[1] || '');
+      const bracket = (row[2] || '').trim();
+      if (cmdr && bracket) _bracketMap[cmdr] = bracket;
+    });
+    tryInitSpotlight();
+  },
+  error: function() { tryInitSpotlight(); }
 });
 </script>
 </body>
