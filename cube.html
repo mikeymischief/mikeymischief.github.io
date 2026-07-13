@@ -1,0 +1,283 @@
+---
+layout: default
+permalink: /cube/
+title: The Synergy Cube
+---
+<style>
+  .cube-hero {
+    position: relative;
+    background-image: url('/images/bg/cube/Jace-Vryns-Prodigy-Magic-Origins-Mtg-Art.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    padding: 120px 40px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .cube-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0.1) 0%, rgba(13,15,26,0.65) 50%, rgba(13,15,26,0.97) 100%);
+  }
+  .cube-hero > * { position: relative; z-index: 1; }
+  .cube-hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(233,232,228,0.5);
+    margin-bottom: 10px;
+  }
+  .cube-hero h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: #e8d5a3;
+    margin: 0 0 10px;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+    border: none;
+  }
+  .cube-hero-sub {
+    color: rgba(233,232,228,0.7);
+    font-size: 1rem;
+    max-width: 520px;
+    line-height: 1.55;
+  }
+
+  .cube-section { margin-bottom: 48px; }
+  .cube-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #d4af37;
+    margin-bottom: 6px;
+  }
+  .cube-section h2 {
+    font-size: 1.5rem;
+    margin: 0 0 14px;
+    border: none;
+  }
+  .cube-section p {
+    color: rgba(233,232,228,0.8);
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+
+  .cube-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .cube-link-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 18px;
+    background: #1c1e26;
+    border: 1px solid #2c2e38;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #e9e8e4;
+    transition: border-color 0.18s, transform 0.18s;
+  }
+  .cube-link-card:hover {
+    border-color: #d4af37;
+    transform: translateY(-2px);
+    color: #e9e8e4;
+    text-decoration: none;
+  }
+  .cube-link-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #e8d5a3;
+  }
+  .cube-link-desc {
+    font-size: 12px;
+    color: rgba(233,232,228,0.55);
+    line-height: 1.4;
+  }
+  .cube-link-domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #5c5d68;
+    margin-top: 4px;
+  }
+
+  .cube-featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .cube-featured-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 18px 20px;
+    min-height: 140px;
+    background-color: #1c1e26;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #2c2e38;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #e9e8e4;
+    overflow: hidden;
+    transition: border-color 0.18s, transform 0.18s;
+  }
+  .cube-featured-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0.1) 0%, rgba(13,15,26,0.7) 50%, rgba(13,15,26,0.96) 100%);
+  }
+  .cube-featured-card:hover { border-color: #d4af37; transform: translateY(-2px); text-decoration: none; color: #e9e8e4; }
+  .cube-featured-label {
+    position: relative; z-index: 1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #d4af37;
+  }
+  .cube-featured-title {
+    position: relative; z-index: 1;
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #e8d5a3;
+    line-height: 1.3;
+  }
+  .cube-featured-desc {
+    position: relative; z-index: 1;
+    font-size: 11px;
+    color: rgba(233,232,228,0.6);
+    line-height: 1.4;
+  }
+  @media (max-width: 640px) {
+    .cube-featured { grid-template-columns: 1fr; }
+  }
+
+  .cube-post-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .cube-post-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 14px 16px;
+    min-height: 110px;
+    background-color: #1c1e26;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #2c2e38;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #e9e8e4;
+    overflow: hidden;
+    transition: border-color 0.18s, transform 0.18s;
+  }
+  .cube-post-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0.15) 0%, rgba(13,15,26,0.75) 50%, rgba(13,15,26,0.97) 100%);
+  }
+  .cube-post-card:hover { border-color: rgba(212,175,55,0.5); transform: translateY(-2px); text-decoration: none; color: #e9e8e4; }
+  .cube-post-title { position: relative; z-index: 1; font-size: 0.88rem; font-weight: 500; line-height: 1.4; }
+  .cube-post-date { position: relative; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5c5d68; }
+
+  @media (max-width: 640px) {
+    .cube-post-list { grid-template-columns: 1fr; }
+    .cube-hero { padding: 80px 24px 28px; }
+  }
+</style>
+
+<div class="cube-hero">
+  <div class="cube-hero-eyebrow">Mischief's Gaming Blog &middot; Magic: The Gathering</div>
+  <h1>The Synergy Cube</h1>
+  <p class="cube-hero-sub">A 540-card unpowered cube built on archetypes and synergies — where every card is chosen to support a theme, not just raw power.</p>
+</div>
+
+<div class="cube-section">
+  <div class="cube-section-label">About</div>
+  <h2>What is the Synergy Cube?</h2>
+  <p>The Synergy Cube started as a max-power Legacy cube and evolved into something more interesting: an environment where the power level is deliberately flatter so synergistic, archetype-driven decks can actually compete. Skullclamps and Oppositions were swapped out for cards that reward drafters who find the thread running through their seat.</p>
+  <p>The mono-colored sections each contain multiple distinct themes that overlap and play well together — so you're rarely forced on rails, but always rewarded for reading the signals. It drafts best at six players, though we make it work whenever we can scrounge up the headcount.</p>
+</div>
+
+<div class="cube-section">
+  <div class="cube-section-label">External Links</div>
+  <h2>Resources</h2>
+  <div class="cube-links">
+    <a href="https://cubecobra.com/cube/list/mischief_unpowered?view=spoiler&s3=Mana+Value&display=spoiler" target="_blank" rel="noopener" class="cube-link-card">
+      <div class="cube-link-title">Full Card List</div>
+      <div class="cube-link-desc">Browse every card in the cube, sorted by mana value, on CubeCobra.</div>
+      <div class="cube-link-domain">cubecobra.com</div>
+    </a>
+    <a href="https://cubecobra.com/cube/overview/mischief_unpowered" target="_blank" rel="noopener" class="cube-link-card">
+      <div class="cube-link-title">Cube Overview</div>
+      <div class="cube-link-desc">Stats, recent changes, and draft history for the Synergy Cube.</div>
+      <div class="cube-link-domain">cubecobra.com</div>
+    </a>
+  </div>
+</div>
+
+<div class="cube-section">
+  <div class="cube-section-label">Featured</div>
+  <h2>Cube Primer</h2>
+  {% assign primer_post = site.posts | where_exp: "post", "post.url contains 'synergy-cube-primer'" | first %}
+  {% assign allied_post = site.posts | where_exp: "post", "post.url contains 'synergy-cube-allied'" | first %}
+  {% assign enemy_post = site.posts | where_exp: "post", "post.url contains 'synergy-cube-enemy'" | first %}
+  <div class="cube-featured">
+    {% if primer_post %}
+    <a href="{{ primer_post.url }}" class="cube-featured-card" style="background-image:url('/images/bg/cube/Monastery-Mentor-MtG-Art.jpg')">
+      <div class="cube-featured-label">Primer</div>
+      <div class="cube-featured-title">{{ primer_post.title }}</div>
+      <div class="cube-featured-desc">{{ primer_post.description }}</div>
+    </a>
+    {% endif %}
+    {% if allied_post %}
+    <a href="{{ allied_post.url }}" class="cube-featured-card" style="background-image:url('/images/bg/cube/Torrential-Gearhulk-Kaladesh-MtG-Art.jpg')">
+      <div class="cube-featured-label">Allied Color Pairs</div>
+      <div class="cube-featured-title">{{ allied_post.title }}</div>
+      <div class="cube-featured-desc">{{ allied_post.description }}</div>
+    </a>
+    {% endif %}
+    {% if enemy_post %}
+    <a href="{{ enemy_post.url }}" class="cube-featured-card" style="background-image:url('/images/bg/cube/Sedgemoor-Witch-Strixhaven-MtG-Art.jpg')">
+      <div class="cube-featured-label">Enemy Color Pairs</div>
+      <div class="cube-featured-title">{{ enemy_post.title }}</div>
+      <div class="cube-featured-desc">{{ enemy_post.description }}</div>
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="cube-section">
+  <div class="cube-section-label">From the Blog</div>
+  <h2>Cube Posts</h2>
+  {% assign cube_posts = site.posts | where_exp: "post", "post.categories contains 'cube'" %}
+  <div class="cube-post-list">
+    {% for post in cube_posts limit:6 %}
+    <a href="{{ post.url }}" class="cube-post-card"{% if post.image %} style="background-image:url('{{ post.image }}')"{% endif %}>
+      <span class="cube-post-title">{{ post.title }}</span>
+      <span class="cube-post-date">{{ post.date | date: "%B %-d, %Y" }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
