@@ -225,7 +225,7 @@ permalink: /commander-dashboard/
     font-size: 9px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    color: rgba(255,255,255,0.65);
     margin-top: 5px;
   }
   .spotlight-progress {
@@ -863,8 +863,8 @@ async function showSpotlightEntry(entry) {
   document.getElementById('sp-mmr').textContent = entry.mmr != null ? Math.round(entry.mmr) : '—';
   document.getElementById('sp-plays').textContent = entry.plays;
   const cmdrKey = normalizeCmdr(entry.cmdr);
-  document.getElementById('sp-tier').innerHTML = tierBadgeSvg(_tierMap[cmdrKey], 28);
-  document.getElementById('sp-bracket').innerHTML = bracketBadgeSvg(_bracketMap[cmdrKey], 28);
+  document.getElementById('sp-tier').innerHTML = tierBadgeSvg(_tierMap[cmdrKey], 28) || '—';
+  document.getElementById('sp-bracket').innerHTML = bracketBadgeSvg(_bracketMap[cmdrKey], 28) || '—';
   card.href = `/game-history/?commander=${encodeURIComponent(entry.cmdr)}`;
   const imageMap = await imagePromise;
   const artUrl = imageMap[parts[0].toLowerCase()];
