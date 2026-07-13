@@ -176,6 +176,14 @@ function tierBadgeSvg(tier, size = 24) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>${tier} tier</title><rect x="2" y="2" width="24" height="24" fill="none" stroke="${stroke}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="18" fill="${stroke}">${tier}</text></svg>`;
 }
 
+const BRACKET_COLORS = { '1': '#7ab87a', '2': '#c8c848', '3': '#d4983a', '4': '#d4583a', '5': '#c83030' };
+
+function bracketBadgeSvg(n, size = 24) {
+  const color = BRACKET_COLORS[String(n)];
+  if (!color) return '';
+  return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>Bracket ${n}</title><circle cx="14" cy="14" r="12" fill="none" stroke="${color}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="16" fill="${color}">${n}</text></svg>`;
+}
+
 // Builds a tier map from Games CSV rows. mu/sigma are computed from active
 // commanders only (played within the last 2 years) so tiers reflect the current
 // meta. All commanders — including inactive ones — are scored against those stats,
