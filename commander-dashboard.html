@@ -794,6 +794,24 @@ const DECK_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_
 const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, cmdrPlays:11 };
 let _tierMap = {};
 let _bracketMap = {};
+let _artOverrides = {};
+const _artOverrideCache = {};
+
+function scryfallPageToApiUrl(pageUrl) {
+  const m = (pageUrl || '').match(/scryfall\.com\/card\/([^/]+)\/([^/]+)/);
+  return m ? `https://api.scryfall.com/cards/${m[1]}/${m[2]}` : null;
+}
+
+async function fetchOverrideArt(apiUrl) {
+  if (_artOverrideCache[apiUrl]) return _artOverrideCache[apiUrl];
+  try {
+    const resp = await fetch(apiUrl);
+    const data = await resp.json();
+    const url = data.image_uris?.art_crop || data.card_faces?.[0]?.image_uris?.art_crop || null;
+    if (url) _artOverrideCache[apiUrl] = url;
+    return url;
+  } catch(e) { return null; }
+}
 
 const BLOCKS = [
   { name: "Brian", start: 0 },
@@ -852,7 +870,11 @@ async function showSpotlightEntry(entry) {
   if (!card) return;
   card.classList.add('fading');
   const parts = entry.cmdr.split(' / ').map(p => stripPilotSuffix(p.trim()));
-  const imagePromise = getImageMap(parts);
+  const cmdrKey = normalizeCmdr(entry.cmdr);
+  const overrideApiUrl = _artOverrides[cmdrKey];
+  const artPromise = overrideApiUrl
+    ? fetchOverrideArt(overrideApiUrl)
+    : getImageMap(parts).then(m => m[parts[0].toLowerCase()] || null);
   await new Promise(r => setTimeout(r, 450));
   document.getElementById('sp-name').innerHTML = entry.cmdr.replace(/ \/ /g, '<br>');
   const pilotEl = document.getElementById('sp-pilot');
@@ -862,12 +884,10 @@ async function showSpotlightEntry(entry) {
   document.getElementById('sp-winpct').textContent = entry.winPct != null ? entry.winPct.toFixed(1) + '%' : '—';
   document.getElementById('sp-mmr').textContent = entry.mmr != null ? Math.round(entry.mmr) : '—';
   document.getElementById('sp-plays').textContent = entry.plays;
-  const cmdrKey = normalizeCmdr(entry.cmdr);
   document.getElementById('sp-tier').innerHTML = tierBadgeSvg(_tierMap[cmdrKey], 28) || '—';
   document.getElementById('sp-bracket').innerHTML = bracketBadgeSvg(_bracketMap[cmdrKey], 28) || '—';
   card.href = `/game-history/?commander=${encodeURIComponent(entry.cmdr)}`;
-  const imageMap = await imagePromise;
-  const artUrl = imageMap[parts[0].toLowerCase()];
+  const artUrl = await artPromise;
   card.style.backgroundImage = artUrl ? `url('${artUrl}')` : '';
   card.classList.remove('fading');
   spStartProgress();
@@ -935,6 +955,8 @@ Papa.parse(DECK_CSV_URL, {
       const cmdr = normalizeCmdr(row[1] || '');
       const bracket = (row[2] || '').trim();
       if (cmdr && bracket) _bracketMap[cmdr] = bracket;
+      const apiUrl = scryfallPageToApiUrl(row[3] || '');
+      if (cmdr && apiUrl) _artOverrides[cmdr] = apiUrl;
     });
     tryInitSpotlight();
   },
