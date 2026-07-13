@@ -39,7 +39,7 @@
 
           <nav>
             <a href="{{ site.baseurl }}/commander-dashboard/">Commander</a>
-            <a href="/cube/">Cube</a>
+            <a href="/cube/"{% if page.url == '/cube/' %} class="active"{% endif %}>Cube</a>
             <a href="{{ site.baseurl }}/about">About</a>
           </nav>
         </header>
