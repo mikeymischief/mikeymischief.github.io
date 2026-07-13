@@ -614,13 +614,13 @@ permalink: /commander-dashboard/
   </div>
 
   <!-- Blog Posts -->
-  {% assign cmdr_posts = site.posts | where_exp: "post", "post.categories contains 'commander'" | limit: 3 %}
+  {% assign cmdr_posts = site.posts | where_exp: "post", "post.categories contains 'commander'" %}
   {% if cmdr_posts.size > 0 %}
   <div class="blog-section">
     <div class="section-label">From the Blog</div>
     <h2 class="section-title">Commander Posts</h2>
     <div class="post-list">
-      {% for post in cmdr_posts %}
+      {% for post in cmdr_posts limit:3 %}
       <a href="{{ post.url }}" class="post-card"{% if post.image %} style="background-image:url('{{ post.image }}')"{% endif %}>
         <span class="post-card-title">{{ post.title }}</span>
         <span class="post-card-date">{{ post.date | date: "%B %-d, %Y" }}</span>
