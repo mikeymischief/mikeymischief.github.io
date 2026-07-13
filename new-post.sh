@@ -17,6 +17,20 @@ read -p "Description (short summary): " DESCRIPTION
 read -p "Categories (default: mtg cube): " CATEGORIES
 CATEGORIES=${CATEGORIES:-"mtg cube"}
 
+# Pick a random hero image based on category
+if echo "$CATEGORIES" | grep -q "commander"; then
+  IMAGE_DIR="images/bg/commander"
+elif echo "$CATEGORIES" | grep -q "cube"; then
+  IMAGE_DIR="images/bg/cube"
+fi
+
+if [ -n "$IMAGE_DIR" ]; then
+  IMAGE_FILE=$(ls "$IMAGE_DIR" 2>/dev/null | shuf -n 1)
+  IMAGE_FIELD="image: /${IMAGE_DIR}/${IMAGE_FILE}"
+else
+  IMAGE_FIELD=""
+fi
+
 FILENAME="_posts/${DATE}-${SLUG}.md"
 
 cat > "$FILENAME" <<EOF
@@ -31,6 +45,7 @@ description: "${DESCRIPTION}"
 comments: true
 excerpt_separator: <!--more-->
 categories: ${CATEGORIES}
+${IMAGE_FIELD}
 ---
 
 Write your intro here.

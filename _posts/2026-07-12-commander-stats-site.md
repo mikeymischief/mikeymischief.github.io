@@ -7,6 +7,7 @@ date: 2026-07-12 12:00:00 -0800
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg commander
+image: /images/bg/commander/Kenrith-the-Returned-King-Throne-of-Eldraine-MtG-Art.jpg
 ---
 
 For the past few years, Gerf, Brian, and I have been playing Commander pretty regularly — and for most of that time I've been logging our games in a spreadsheet. Match results, commanders played, win rates, that kind of thing. At some point the spreadsheet got detailed enough that it felt wrong to leave it buried in Google Sheets, so I turned it into a proper site. Cube is my heart and soul, but getting six people together for a draft is a logistical nightmare — Commander only needs four (three in our case), so it ends up winning the scheduling battle more often than not.

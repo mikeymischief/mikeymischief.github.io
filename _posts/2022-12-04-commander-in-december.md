@@ -9,6 +9,7 @@ description: A December Commander session with the usual crew — decks, games, 
 comments: true
 excerpt_separator: <!--more-->
 categories: mtg commander event
+image: /images/bg/commander/The-Mimeoplasm-Art.jpg
 ---
 
 <style>

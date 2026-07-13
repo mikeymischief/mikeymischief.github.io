@@ -438,25 +438,41 @@ permalink: /commander-dashboard/
   }
   @media (max-width: 640px) { .post-list { grid-template-columns: 1fr; } }
   .post-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    justify-content: flex-end;
+    gap: 4px;
     padding: 14px 16px;
-    background: var(--bg-raised);
+    min-height: 110px;
+    background-color: var(--bg-raised);
+    background-size: cover;
+    background-position: center;
     border: 1px solid var(--line);
     border-radius: 10px;
     text-decoration: none;
     color: var(--ink);
-    transition: border-color 0.18s;
+    overflow: hidden;
+    transition: border-color 0.18s, transform 0.18s;
   }
-  .post-card:hover { border-color: rgba(212,175,55,0.5); color: var(--ink); }
+  .post-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0.15) 0%, rgba(13,15,26,0.75) 50%, rgba(13,15,26,0.97) 100%);
+  }
+  .post-card:hover { border-color: rgba(212,175,55,0.5); color: var(--ink); transform: translateY(-2px); }
   .post-card-title {
+    position: relative;
+    z-index: 1;
     font-family: 'Inter', sans-serif;
     font-size: 0.88rem;
     font-weight: 500;
     line-height: 1.4;
   }
   .post-card-date {
+    position: relative;
+    z-index: 1;
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     color: var(--ink-faint);
@@ -544,7 +560,7 @@ permalink: /commander-dashboard/
       <div class="nav-card-label">Stats</div>
       <div class="nav-card-desc">Per-commander records and TrueSkill ratings for each pilot</div>
     </a>
-    <a href="/game-history/" class="nav-card" style="background-image:url('/images/bg/Lucid-Dreams-Modern-Horizons-2-MtG-Art.jpg')">
+    <a href="/game-history/" class="nav-card" style="background-image:url('/images/bg/Conspiracy-Theorist-Strixhaven-MtG-Art.jpg')">
       <div class="nav-card-label">History</div>
       <div class="nav-card-desc">Full game log with match results and commander profiles</div>
     </a>
@@ -552,7 +568,7 @@ permalink: /commander-dashboard/
       <div class="nav-card-label">Insights</div>
       <div class="nav-card-desc">Meta trends, seating patterns, and active commander rankings</div>
     </a>
-    <a href="/commander-colors/" class="nav-card" style="background-image:url('/images/bg/Conspiracy-Theorist-Strixhaven-MtG-Art.jpg')">
+    <a href="/commander-colors/" class="nav-card" style="background-image:url('/images/bg/Lucid-Dreams-Modern-Horizons-2-MtG-Art.jpg')">
       <div class="nav-card-label">Colors</div>
       <div class="nav-card-desc">Color identity breakdown across every commander played</div>
     </a>
@@ -605,7 +621,7 @@ permalink: /commander-dashboard/
     <h2 class="section-title">Commander Reports</h2>
     <div class="post-list">
       {% for post in cmdr_posts %}
-      <a href="{{ post.url }}" class="post-card">
+      <a href="{{ post.url }}" class="post-card"{% if post.image %} style="background-image:url('{{ post.image }}')"{% endif %}>
         <span class="post-card-title">{{ post.title }}</span>
         <span class="post-card-date">{{ post.date | date: "%B %-d, %Y" }}</span>
       </a>
