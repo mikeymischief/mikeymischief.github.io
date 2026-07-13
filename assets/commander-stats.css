@@ -24,8 +24,8 @@
 .masthead-nav a.active { color: #d4af37; pointer-events: none; }
 @media (max-width: 640px) {
   .masthead-inner { flex-wrap: wrap; overflow: hidden; }
-  .masthead-nav { margin-top: 6px; width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 12px; overflow: hidden; }
-  .masthead-nav a { font-size: 13px; letter-spacing: 0; margin-left: 0; }
+  .masthead-nav { margin-top: 6px; width: 100%; display: block; text-align: center; overflow: hidden; line-height: 2.2; }
+  .masthead-nav a { font-size: 13px; letter-spacing: 0; margin: 0 6px; display: inline; }
   .masthead-nav .nav-sep { display: none; }
 }
 
