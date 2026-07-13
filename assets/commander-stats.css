@@ -24,11 +24,9 @@
 .masthead-nav a.active { color: #d4af37; pointer-events: none; }
 @media (max-width: 640px) {
   .masthead-inner { flex-wrap: wrap; overflow: hidden; }
-  .masthead-nav { margin-top: 6px; width: 100%; display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px 4px; overflow: hidden; }
-  .masthead-nav a { font-size: 13px; letter-spacing: 0; margin-left: 0; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .masthead-nav { margin-top: 6px; width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 12px; overflow: hidden; }
+  .masthead-nav a { font-size: 13px; letter-spacing: 0; margin-left: 0; }
   .masthead-nav .nav-sep { display: none; }
-  .masthead-nav a[href="/cube/"] { grid-column: 3; }
-  .masthead-nav a[href="/about"] { grid-column: 4; }
 }
 
 .cmdr-avatars {
