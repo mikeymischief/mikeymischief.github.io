@@ -16,6 +16,8 @@ Here's what's there now.
 
 <!--more-->
 
+<img src="/images/bg/commander/Bury-in-Books-Strixhaven-MtG-Art.jpg" alt="Bury in Books" style="width:100%;border-radius:8px;margin:16px 0;"/>
+
 ## [Commander](/commander-dashboard/)
 
 The landing page. It gives a quick rundown of the format for anyone unfamiliar, links out to useful resources like the ban list, EDHREC, and Scryfall, and has a rotating spotlight on commanders we've played. There's also a "Next Session" banner when we have something scheduled.
