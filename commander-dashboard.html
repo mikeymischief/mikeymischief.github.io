@@ -614,7 +614,7 @@ permalink: /commander-dashboard/
   </div>
 
   <!-- Blog Posts -->
-  {% assign cmdr_posts = site.posts | where_exp: "post", "post.categories contains 'commander'" | limit: 4 %}
+  {% assign cmdr_posts = site.posts | where_exp: "post", "post.categories contains 'commander'" | limit: 3 %}
   {% if cmdr_posts.size > 0 %}
   <div class="blog-section">
     <div class="section-label">From the Blog</div>
