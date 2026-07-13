@@ -209,21 +209,7 @@ permalink: /commander-colors/
     align-items: center;
     gap: 16px;
   }
-  #clear-cache-btn {
-    background: none;
-    border: 1px solid var(--line);
-    color: var(--ink-faint);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: border-color 0.15s, color 0.15s;
-  }
-  #clear-cache-btn:hover { border-color: var(--gold); color: var(--gold); }
-  #clear-cache-btn:disabled { opacity: 0.5; cursor: default; }
+
   .cmdr-cell { display: inline-flex; align-items: center; gap: 6px; }
 
   tr.identity-row { cursor: pointer; }
@@ -319,12 +305,6 @@ permalink: /commander-colors/
 
     <footer>
       Source: Games tab · Color identities via Scryfall API.
-      <button id="clear-cache-btn" onclick="
-        localStorage.removeItem('cmdr_colors_v1');
-        this.textContent = 'Cache cleared — reloading…';
-        this.disabled = true;
-        setTimeout(() => location.reload(), 800);
-      ">Clear color cache</button>
     </footer>
   </div>
 </div>
