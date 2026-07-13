@@ -16,7 +16,7 @@ Here's what's there now.
 
 <!--more-->
 
-<img src="/images/bg/commander/Bury-in-Books-Strixhaven-MtG-Art.jpg" alt="Bury in Books" style="width:100%;border-radius:8px;margin:16px 0;"/>
+<img src="/images/bg/commander/Bury-in-Books-Strixhaven-MtG-Art.jpg" alt="Bury in Books" style="display:block;width:100%;max-width:360px;height:60px;object-fit:cover;object-position:center 40%;border-radius:6px;margin:24px auto;opacity:0.75;"/>
 
 ## [Commander](/commander-dashboard/)
 
