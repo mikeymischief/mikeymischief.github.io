@@ -16,7 +16,12 @@ Here's what's there now.
 
 <!--more-->
 
-<img src="/images/bg/commander/Bury-in-Books-Strixhaven-MtG-Art.jpg" alt="Bury in Books" style="display:block;width:100%;max-width:360px;height:60px;object-fit:cover;object-position:center 40%;border-radius:6px;margin:24px auto;opacity:0.75;"/>
+<div style="position:relative;width:100%;height:60px;border-radius:6px;overflow:hidden;margin:24px 0;">
+  <img src="/images/bg/commander/Bury-in-Books-Strixhaven-MtG-Art.jpg" alt="" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center 40%;opacity:0.75;"/>
+  <div style="position:absolute;inset:0;background:rgba(13,15,26,0.5);display:flex;align-items:center;justify-content:flex-start;">
+    <span style="font-family:'Cinzel',serif;font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#e8d5a3;margin-left:16px;">Commander Pages</span>
+  </div>
+</div>
 
 ## [Commander](/commander-dashboard/)
 
