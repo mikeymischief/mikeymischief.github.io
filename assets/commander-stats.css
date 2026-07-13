@@ -25,7 +25,7 @@
 @media (max-width: 640px) {
   .masthead-inner { flex-wrap: wrap; overflow: hidden; }
   .masthead-nav { margin-top: 6px; width: 100%; display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px 4px; overflow: hidden; }
-  .masthead-nav a { font-size: 10px; letter-spacing: 0; margin-left: 0; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .masthead-nav a { font-size: 13px; letter-spacing: 0; margin-left: 0; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .masthead-nav .nav-sep { display: none; }
   .masthead-nav a[href="/cube/"] { grid-column: 3; }
   .masthead-nav a[href="/about"] { grid-column: 4; }
