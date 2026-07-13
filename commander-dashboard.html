@@ -788,30 +788,11 @@ permalink: /commander-dashboard/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="/assets/commander-stats.js"></script>
 <script>
-const CSV_URL      = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=197031444&single=true&output=csv";
-const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=278389112&single=true&output=csv";
-const DECK_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=906574110&single=true&output=csv";
-const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, cmdrPlays:11 };
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=197031444&single=true&output=csv";
 let _tierMap = {};
+let _activeSet = new Set();
 let _bracketMap = {};
 let _artOverrides = {};
-const _artOverrideCache = {};
-
-function scryfallPageToApiUrl(pageUrl) {
-  const m = (pageUrl || '').match(/scryfall\.com\/card\/([^/]+)\/([^/]+)/);
-  return m ? `https://api.scryfall.com/cards/${m[1]}/${m[2]}` : null;
-}
-
-async function fetchOverrideArt(apiUrl) {
-  if (_artOverrideCache[apiUrl]) return _artOverrideCache[apiUrl];
-  try {
-    const resp = await fetch(apiUrl);
-    const data = await resp.json();
-    const url = data.image_uris?.art_crop || data.card_faces?.[0]?.image_uris?.art_crop || null;
-    if (url) _artOverrideCache[apiUrl] = url;
-    return url;
-  } catch(e) { return null; }
-}
 
 const BLOCKS = [
   { name: "Brian", start: 0 },
@@ -884,7 +865,7 @@ async function showSpotlightEntry(entry) {
   document.getElementById('sp-winpct').textContent = entry.winPct != null ? entry.winPct.toFixed(1) + '%' : '—';
   document.getElementById('sp-mmr').textContent = entry.mmr != null ? Math.round(entry.mmr) : '—';
   document.getElementById('sp-plays').textContent = entry.plays;
-  document.getElementById('sp-tier').innerHTML = tierBadgeSvg(_tierMap[cmdrKey], 28) || '—';
+  document.getElementById('sp-tier').innerHTML = activeTierBadgeSvg(cmdrKey, _tierMap, _activeSet, 28) || '—';
   document.getElementById('sp-bracket').innerHTML = bracketBadgeSvg(_bracketMap[cmdrKey], 28) || '—';
   card.href = `/game-history/?commander=${encodeURIComponent(entry.cmdr)}`;
   const artUrl = await artPromise;
@@ -942,7 +923,11 @@ Papa.parse(CSV_URL, {
 Papa.parse(GAMES_CSV_URL, {
   download: true,
   complete: function(results) {
-    if (results.data && results.data.length > 1) _tierMap = buildTierMapFromGames(results.data.slice(1));
+    if (results.data && results.data.length > 1) {
+      const rows = results.data.slice(1);
+      _tierMap = buildTierMapFromGames(rows);
+      _activeSet = buildActiveSet(rows);
+    }
     tryInitSpotlight();
   },
   error: function() { tryInitSpotlight(); }

@@ -1,3 +1,15 @@
+// ── Shared CSV endpoints ──────────────────────────────────────────────────────
+const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=278389112&single=true&output=csv";
+const DECK_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=906574110&single=true&output=csv";
+
+// ── Games CSV column indices ──────────────────────────────────────────────────
+const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, cmdrPlays:11 };
+
+// ── Shared constants ──────────────────────────────────────────────────────────
+const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
+const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
+const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#85B7EB', Jubee: '#F472B6' };
+
 function normalizeCmdr(v) {
   if (!v) return '';
   return v.replace(/\r?\n/g, ' / ').trim();
@@ -154,6 +166,38 @@ function pips(identity) {
   ).join('') + '</span>';
 }
 
+// ── Display formatters ────────────────────────────────────────────────────────
+function pct(v) {
+  if (v === undefined || v === null || v === '') return '—';
+  const n = parseFloat(String(v).replace('%', '').trim());
+  return isNaN(n) ? '—' : n.toFixed(2) + '%';
+}
+function num(v, digits) {
+  const n = parseFloat(v);
+  return isNaN(n) ? '—' : n.toFixed(digits);
+}
+function int(v) {
+  const n = parseFloat(v);
+  return isNaN(n) ? '—' : Math.round(n).toString();
+}
+
+// ── Scryfall art overrides ────────────────────────────────────────────────────
+function scryfallPageToApiUrl(pageUrl) {
+  const m = (pageUrl || '').match(/scryfall\.com\/card\/([^/]+)\/([^/]+)/);
+  return m ? `https://api.scryfall.com/cards/${m[1]}/${m[2]}` : null;
+}
+const _artOverrideCache = {};
+async function fetchOverrideArt(apiUrl) {
+  if (_artOverrideCache[apiUrl]) return _artOverrideCache[apiUrl];
+  try {
+    const resp = await fetch(apiUrl);
+    const data = await resp.json();
+    const url = data.image_uris?.art_crop || data.card_faces?.[0]?.image_uris?.art_crop || null;
+    if (url) _artOverrideCache[apiUrl] = url;
+    return url;
+  } catch(e) { return null; }
+}
+
 function parsePctDelta(val) {
   const s = String(val || '').trim();
   if (!s) return NaN;
@@ -176,6 +220,10 @@ function tierBadgeSvg(tier, size = 24) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>${tier} tier</title><rect x="2" y="2" width="24" height="24" fill="none" stroke="${stroke}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="18" fill="${stroke}">${tier}</text></svg>`;
 }
 
+function activeTierBadgeSvg(cmdr, tierMap, activeSet, size = 24) {
+  return activeSet.has(cmdr) ? tierBadgeSvg(tierMap[cmdr], size) : '';
+}
+
 const BRACKET_COLORS = { '1': '#7ab87a', '2': '#c8c848', '3': '#d4983a', '4': '#d4583a', '5': '#c83030' };
 
 function bracketBadgeSvg(n, size = 24) {
@@ -192,7 +240,6 @@ function buildTierMapFromGames(rows) {
   const latestMmr = {};
   const maxPlays = {};  // cmdrPlays is cumulative; highest value = most recent game
   const latestTs = {};  // still needed for active-pool detection
-  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
   rows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
     const endMmr = parsePctDelta(row[G.endMmr]);
@@ -219,7 +266,6 @@ function buildTierMapFromGames(rows) {
 
 // Returns a Set of commander names played within the last two years.
 function buildActiveSet(rows) {
-  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
   const latestTs = {};
   rows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);

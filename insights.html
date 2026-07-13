@@ -372,9 +372,6 @@ permalink: /insights/
 
 <script src="/assets/commander-stats.js"></script>
 <script>
-const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=278389112&single=true&output=csv";
-const DECK_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=906574110&single=true&output=csv";
-const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, cmdrPlays:11 };
 let _bracketMap = {};
 
 let _gameRows = null;
@@ -424,18 +421,6 @@ function toggleSeatFilter() {
   }
 }
 
-function pct(v) {
-  if (v === undefined || v === null || v === '') return "—";
-  const s = String(v).replace('%', '').trim();
-  const n = parseFloat(s);
-  if (isNaN(n)) return "—";
-  return n.toFixed(2) + "%";
-}
-function num(v, digits) {
-  const n = parseFloat(v);
-  if (isNaN(n)) return "—";
-  return n.toFixed(digits);
-}
 function showError(msg) {
   const el = document.getElementById('status');
   el.textContent = msg;
@@ -512,7 +497,6 @@ function toggleAllCmdrs() {
 
 function renderAllCommanders(gameRows) {
   const now = Date.now();
-  const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
   const stats = {};
   const lastPlayed = {};
 
@@ -561,7 +545,7 @@ function renderAllCommanders(gameRows) {
       <td class="num" style="color:var(--ink-dim)">${rank}</td>
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
-      <td style="text-align:center">${lp && (now - new Date(lp).getTime()) <= TWO_YEARS ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
+      <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${wins}</td>
       <td class="num">${plays}</td>
@@ -637,7 +621,6 @@ function renderMulligans(gameRows) {
 function renderShelved(gameRows) {
   const now = Date.now();
   const SIX_MONTHS = 6 * 30.5 * 24 * 60 * 60 * 1000;
-  const TWO_YEARS  = 2 * 365 * 24 * 60 * 60 * 1000;
 
   const cmdrData = {};
   gameRows.forEach(row => {
@@ -745,7 +728,7 @@ function renderPopularity(rows) {
       <td class="num" style="color:var(--ink-dim)">${i + 1}</td>
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
-      <td style="text-align:center">${_activeSet.has(cmdr) ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
+      <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${sessions} / ${eligible}</td>
       <td class="num">${(pct * 100).toFixed(1)}%</td>
@@ -791,7 +774,7 @@ function renderMostPlayed(gameRows) {
       <td class="num" style="color:var(--ink-dim)">${cmdrRank[cmdr]}</td>
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
-      <td style="text-align:center">${_activeSet.has(cmdr) ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
+      <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${p}</td>
       <td class="num">${w}</td>
@@ -834,7 +817,7 @@ function renderBlitz(gameRows) {
     tr.innerHTML = `
       <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
       <td>${pilot}</td>
-      <td style="text-align:center">${_activeSet.has(cmdr) ? tierBadgeSvg(_tierMap[cmdr]) : ''}</td>
+      <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${wins}</td>
       <td class="num">${avgRound.toFixed(1)}</td>

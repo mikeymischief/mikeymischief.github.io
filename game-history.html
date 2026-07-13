@@ -643,13 +643,6 @@ permalink: /game-history/
 
 <script src="/assets/commander-stats.js"></script>
 <script>
-const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=278389112&single=true&output=csv";
-
-
-// Games columns, 0-indexed: Date, Winner, Seat, Pilot, Commander, Starting MMR,
-// Ending MMR, MMR Delta, Win Probability, First Player W, CMDR Plays
-const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, cmdrPlays:11 };
-
 // "TIE" in the winner column signals a tie game — treat as no winner
 function isTiePod(pod) {
   return pod.some(r => (r[G.winner] || '').trim().toUpperCase() === 'TIE') ||
@@ -660,27 +653,6 @@ function rowWon(row) {
   return w !== '' && w.toUpperCase() !== 'TIE';
 }
 
-function pct(v) {
-  if (v === undefined || v === null || v === '') return "—";
-  const s = String(v).replace('%', '').trim();
-  const n = parseFloat(s);
-  if (isNaN(n)) return "—";
-  return n.toFixed(2) + "%";
-}
-function num(v, digits) {
-  const n = parseFloat(v);
-  if (isNaN(n)) return "—";
-  return n.toFixed(digits);
-}
-function int(v) {
-  const n = parseFloat(v);
-  if (isNaN(n)) return "—";
-  return Math.round(n).toString();
-}
-
-
-const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
-const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#85B7EB', Jubee: '#F472B6' };
 
 let _tierMap = {};
 let _activeSet = new Set();
