@@ -378,7 +378,7 @@ function buildPlayerCard(block, rows) {
     const tr = document.createElement('tr');
     if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
     tr.innerHTML = `
-      <td class="cmdr-name">${cmdrAvatarHtml(row[b])}<a href="/game-history/?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrName(row[b])}</a></td>
+      <td class="cmdr-name"><a href="/game-history/?commander=${encodeURIComponent((row[b]||'').replace(/\r?\n/g,' / ').trim())}">${cmdrCellInner(row[b])}</a></td>
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${row[b+2] === '0' || !row[b+2] ? '—' : int(row[b+2])}</td>
       <td class="num">${int(row[b+3])}</td>

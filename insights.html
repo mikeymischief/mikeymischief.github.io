@@ -543,7 +543,7 @@ function renderAllCommanders(gameRows) {
     tr.dataset.p = pilot;
     tr.innerHTML = `
       <td class="num" style="color:var(--ink-dim)">${rank}</td>
-      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td class="name"><a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrCellInner(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
@@ -577,7 +577,7 @@ function renderRisers(gameRows) {
   tbody.innerHTML = '';
   entries.forEach(({ cmdr, avg }) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td><td class="num">${avg.toFixed(2)}</td>`;
+    tr.innerHTML = `<td class="name"><a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrCellInner(cmdr)}</a></td><td class="num">${avg.toFixed(2)}</td>`;
     tbody.appendChild(tr);
   });
 }
@@ -609,7 +609,7 @@ function renderMulligans(gameRows) {
   entries.forEach(({ cmdr, pilot, avg, count }) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td class="name"><a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrCellInner(cmdr)}</a></td>
       <td>${pilot}</td>
       <td class="num">${avg.toFixed(2)}</td>
       <td class="num">${count}</td>`;
@@ -651,7 +651,7 @@ function renderShelved(gameRows) {
     const lastDate = new Date(lastTs).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td class="name"><a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrCellInner(cmdr)}</a></td>
       <td>${lastPilot}</td>
       <td class="num">${lastDate}</td>
       <td class="num">${months}mo ago</td>
@@ -726,7 +726,7 @@ function renderPopularity(rows) {
     const bestCell = bestStreak >= 2 ? bestStreak : '—';
     tr.innerHTML = `
       <td class="num" style="color:var(--ink-dim)">${i + 1}</td>
-      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td class="name"><a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrCellInner(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
@@ -772,7 +772,7 @@ function renderMostPlayed(gameRows) {
     tr.dataset.p = pilot;
     tr.innerHTML = `
       <td class="num" style="color:var(--ink-dim)">${cmdrRank[cmdr]}</td>
-      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td class="name"><a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrCellInner(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
@@ -815,7 +815,7 @@ function renderBlitz(gameRows) {
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
     tr.innerHTML = `
-      <td class="name">${cmdrAvatarHtml(cmdr)}<a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrName(cmdr)}</a></td>
+      <td class="name"><a href="/game-history/?commander=${encodeURIComponent(cmdr)}" class="cmdr-link">${cmdrCellInner(cmdr)}</a></td>
       <td>${pilot}</td>
       <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>

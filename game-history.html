@@ -1692,7 +1692,7 @@ function renderHistory(rows) {
       tr.innerHTML = `
         <td class="pilot-name">${pilot}</td>
         <td style="text-align:center">${_activeSet.has(normalizeCmdr(row[G.commander])) ? tierBadgeSvg(_tierMap[normalizeCmdr(row[G.commander])]) : ''}</td>
-        <td class="cmdr-name">${cmdrAvatarHtml(normalizeCmdr(row[G.commander]))}<a href="/game-history/?commander=${encodeURIComponent(normalizeCmdr(row[G.commander]))}" class="cmdr-link">${cmdrName(row[G.commander])}</a>${badges ? ' ' + badges : ''}</td>
+        <td class="cmdr-name"><a href="/game-history/?commander=${encodeURIComponent(normalizeCmdr(row[G.commander]))}" class="cmdr-link">${cmdrCellInner(normalizeCmdr(row[G.commander]))}</a>${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>

@@ -32,6 +32,13 @@ function cmdrName(v) {
   if (!v) return '';
   return v.replace(/\r?\n/g, '<br>').trim();
 }
+function cmdrCellInner(val) {
+  const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
+  const parts = normalized.split(' / ');
+  return parts.map(p =>
+    `<img class="cmdr-avatar" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">${p}`
+  ).join('<span class="cmdr-sep"> / </span>');
+}
 function cmdrToIndividualParts(cmdr) {
   return cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
 }
