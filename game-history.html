@@ -1060,22 +1060,23 @@ function buildBarChart(canvasId, labels, values, colors, tooltipSuffix) {
       }]
     },
     options: {
+      indexAxis: 'y',
       responsive: true,
       plugins: {
         legend: { display: false },
         tooltip: {
           callbacks: {
-            label: ctx => ` ${ctx.parsed.y.toFixed(1)}%${tooltipSuffix ? ' · ' + tooltipSuffix[ctx.dataIndex] : ''}`
+            label: ctx => ` ${ctx.parsed.x.toFixed(1)}%${tooltipSuffix ? ' · ' + tooltipSuffix[ctx.dataIndex] : ''}`
           }
         }
       },
       scales: {
-        x: { ticks: { color: dimColor }, grid: { color: lineColor } },
-        y: {
+        x: {
           min: 0, max: 100,
           ticks: { color: dimColor, callback: v => v + '%' },
           grid: { color: lineColor }
-        }
+        },
+        y: { ticks: { color: dimColor }, grid: { color: lineColor } }
       }
     }
   });
