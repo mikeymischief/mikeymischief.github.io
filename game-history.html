@@ -285,7 +285,7 @@ permalink: /game-history/
     border: 1px solid var(--line);
     border-radius: 14px;
     padding: 20px 24px;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
   }
   .mmr-chart-title {
     font-family: 'JetBrains Mono', monospace;
@@ -294,6 +294,47 @@ permalink: /game-history/
     letter-spacing: 0.1em;
     color: var(--ink-faint);
     margin-bottom: 16px;
+  }
+  .mini-charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .mini-chart-wrap {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 20px;
+  }
+  .mini-chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .mini-chart-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+  .mini-chart-toggle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-faint);
+    padding: 2px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .mini-chart-toggle:hover { border-color: var(--gold); color: var(--gold); }
+  @media (max-width: 600px) {
+    .mini-charts-row { grid-template-columns: 1fr; }
   }
 
   .cmdr-hero {
@@ -632,6 +673,22 @@ permalink: /game-history/
     <canvas id="mmr-chart"></canvas>
   </div>
 
+  <div class="mini-charts-row" id="mini-charts-row" style="display:none">
+    <div class="mini-chart-wrap">
+      <div class="mini-chart-header">
+        <span class="mini-chart-title" id="seat-chart-title">Win% by Seat · 3-Player</span>
+        <button class="mini-chart-toggle" id="seat-chart-toggle" onclick="toggleSeatChart()">Show 4-Player</button>
+      </div>
+      <canvas id="seat-chart"></canvas>
+    </div>
+    <div class="mini-chart-wrap">
+      <div class="mini-chart-header">
+        <span class="mini-chart-title">Win% by Mulligans</span>
+      </div>
+      <canvas id="mulligan-chart"></canvas>
+    </div>
+  </div>
+
   <div class="matchup-bar" id="matchups-bar" style="display:none"></div>
 
   <div class="history-scroll" id="history-container"></div>
@@ -945,6 +1002,131 @@ function buildMmrChart(cmdr) {
   });
 }
 
+let seatChartInstance = null;
+let mulliganChartInstance = null;
+let _miniChartCmdr = null;
+let _seatChartFilter = 3;
+
+function computeMiniChartData(cmdr) {
+  const seatData = { 3: {}, 4: {} }; // playerCount → seat → {wins, plays}
+  const mulliganData = {};            // mulligan bucket → {wins, plays}
+
+  podsChronological.forEach(pod => {
+    const playerCount = pod.length;
+    if (playerCount !== 3 && playerCount !== 4) return;
+    const tie = isTiePod(pod);
+    const winnerRow = pod.find(r => rowWon(r));
+    const winner = winnerRow ? normalizeCmdr(winnerRow[G.winner]) : null;
+
+    pod.forEach(row => {
+      if (normalizeCmdr(row[G.commander]) !== cmdr) return;
+      const won = !tie && normalizeCmdr(row[G.commander]) === winner;
+
+      // seat
+      const seat = parseInt(row[G.seat]);
+      if (seat > 0) {
+        const sd = seatData[playerCount];
+        if (!sd[seat]) sd[seat] = { wins: 0, plays: 0 };
+        sd[seat].plays++;
+        if (won) sd[seat].wins++;
+      }
+
+      // mulligan
+      const m = parseInt(row[G.mulligan]);
+      if (!isNaN(m) && m >= 0) {
+        const bucket = m >= 3 ? '3+' : String(m);
+        if (!mulliganData[bucket]) mulliganData[bucket] = { wins: 0, plays: 0 };
+        mulliganData[bucket].plays++;
+        if (won) mulliganData[bucket].wins++;
+      }
+    });
+  });
+
+  return { seatData, mulliganData };
+}
+
+function buildBarChart(canvasId, labels, values, colors, tooltipSuffix) {
+  const dimColor = '#5c5d68';
+  const lineColor = '#2c2e38';
+  return new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderRadius: 4,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.parsed.y.toFixed(1)}%${tooltipSuffix ? ' · ' + tooltipSuffix[ctx.dataIndex] : ''}`
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: dimColor }, grid: { color: lineColor } },
+        y: {
+          min: 0, max: 100,
+          ticks: { color: dimColor, callback: v => v + '%' },
+          grid: { color: lineColor }
+        }
+      }
+    }
+  });
+}
+
+function renderSeatChart(cmdr, seatData, playerCount) {
+  if (seatChartInstance) { seatChartInstance.destroy(); seatChartInstance = null; }
+  const seats = Array.from({ length: playerCount }, (_, i) => i + 1);
+  const sd = seatData[playerCount];
+  const labels = seats.map(s => `Seat ${s}`);
+  const values = seats.map(s => sd[s]?.plays ? sd[s].wins / sd[s].plays * 100 : 0);
+  const tooltips = seats.map(s => sd[s] ? `${sd[s].wins}W / ${sd[s].plays}G` : '0G');
+  const gold = '#c9a84c';
+  const dim = '#c9a84c55';
+  const colors = values.map(v => v > 0 ? gold : dim);
+  seatChartInstance = buildBarChart('seat-chart', labels, values, colors, tooltips);
+}
+
+function renderMulliganChart(mulliganData) {
+  if (mulliganChartInstance) { mulliganChartInstance.destroy(); mulliganChartInstance = null; }
+  const buckets = ['0', '1', '2', '3+'];
+  const labels = buckets.map(b => `${b} mull.`);
+  const values = buckets.map(b => mulliganData[b]?.plays ? mulliganData[b].wins / mulliganData[b].plays * 100 : 0);
+  const tooltips = buckets.map(b => mulliganData[b] ? `${mulliganData[b].wins}W / ${mulliganData[b].plays}G` : '0G');
+  const color = '#c9a84c';
+  const dim = '#c9a84c55';
+  const colors = values.map(v => v > 0 ? color : dim);
+  mulliganChartInstance = buildBarChart('mulligan-chart', labels, values, colors, tooltips);
+}
+
+function buildMiniCharts(cmdr) {
+  const row = document.getElementById('mini-charts-row');
+  if (!cmdr) { row.style.display = 'none'; return; }
+  _miniChartCmdr = cmdr;
+  const { seatData, mulliganData } = computeMiniChartData(cmdr);
+  window._miniSeatData = seatData;
+  window._miniMulliganData = mulliganData;
+  document.getElementById('seat-chart-title').textContent = `Win% by Seat · ${_seatChartFilter}-Player`;
+  document.getElementById('seat-chart-toggle').textContent = `Show ${_seatChartFilter === 3 ? 4 : 3}-Player`;
+  renderSeatChart(cmdr, seatData, _seatChartFilter);
+  renderMulliganChart(mulliganData);
+  row.style.display = '';
+}
+
+function toggleSeatChart() {
+  _seatChartFilter = _seatChartFilter === 3 ? 4 : 3;
+  document.getElementById('seat-chart-title').textContent = `Win% by Seat · ${_seatChartFilter}-Player`;
+  document.getElementById('seat-chart-toggle').textContent = `Show ${_seatChartFilter === 3 ? 4 : 3}-Player`;
+  renderSeatChart(_miniChartCmdr, window._miniSeatData, _seatChartFilter);
+}
+
 const CMDR_CARDS_CACHE_KEY = 'cmdr_cards_v1';
 
 async function fetchCmdrCards(names) {
@@ -1189,6 +1371,7 @@ async function showCmdrHero(cmdr) {
     hero.style.display = 'none'; hero.innerHTML = '';
     statBar.style.display = 'none';
     matchBar.style.display = 'none';
+    document.getElementById('mini-charts-row').style.display = 'none';
     return;
   }
   const parts = cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
@@ -1238,6 +1421,7 @@ async function showCmdrHero(cmdr) {
   statBar.style.display = '';
   renderMatchups(cmdr);
   buildMmrChart(cmdr);
+  buildMiniCharts(cmdr);
 }
 
 function applyFilter(value) {
