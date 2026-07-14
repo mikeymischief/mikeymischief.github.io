@@ -197,14 +197,21 @@ permalink: /commander-dashboard/
     margin-bottom: 14px;
     text-wrap: balance;
   }
-  .spotlight-pilot-badge {
-    display: inline-block;
+  .spotlight-pilot {
+    margin-top: 10px;
+  }
+  .spotlight-pilot-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 3px;
+  }
+  .spotlight-pilot-name {
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
-    padding: 3px 12px;
-    border-radius: 20px;
-    border: 1px solid currentColor;
   }
   .spotlight-stats {
     display: grid;
@@ -588,7 +595,10 @@ permalink: /commander-dashboard/
       <div class="spotlight-left">
         <div class="spotlight-eyebrow">Featured Commander</div>
         <div id="sp-name" class="spotlight-cmdr-name">—</div>
-        <div id="sp-pilot" class="spotlight-pilot-badge" data-pilot=""></div>
+        <div class="spotlight-pilot">
+          <div class="spotlight-pilot-label">Piloted by</div>
+          <div id="sp-pilot" class="spotlight-pilot-name" data-pilot=""></div>
+        </div>
       </div>
       <div class="spotlight-stats">
         <div class="sp-stat">
