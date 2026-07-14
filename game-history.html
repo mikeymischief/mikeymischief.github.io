@@ -656,6 +656,7 @@ function rowWon(row) {
 
 let _tierMap = {};
 let _activeSet = new Set();
+let _bracketMap = {};
 
 let _popularityRankMap = {};
 function buildPopularityRankMap(rows) {
@@ -1104,6 +1105,7 @@ function computeCmdrRankings(cmdr) {
     seatMode,
     tier,
     isActive,
+    bracket: _bracketMap[cmdr] ?? null,
   };
 }
 
@@ -1198,6 +1200,7 @@ async function showCmdrHero(cmdr) {
     <div class="cmdr-hero-panel" style="background-image:url('${c.art}')">
       <div class="cmdr-hero-content">
         ${r.tier && r.isActive ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">tier:</span>${tierBadgeSvg(r.tier, 28)}</div>` : ''}
+        ${r.bracket ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">bracket:</span>${bracketBadgeSvg(r.bracket, 28)}</div>` : ''}
         <div class="cmdr-hero-name-row">
           <div class="cmdr-hero-name">${c.name}</div>
           ${c.mana_cost ? `<div class="cmdr-hero-mana">${manaHtml(c.mana_cost)}</div>` : ''}
@@ -1503,6 +1506,17 @@ function renderHistory(rows) {
   document.getElementById('history-status').textContent =
     pods.length + ' games loaded, most recent first.';
 }
+
+Papa.parse(DECK_CSV_URL, {
+  download: true,
+  complete: function(r) {
+    (r.data || []).slice(1).forEach(row => {
+      const cmdr = normalizeCmdr(row[1] || '');
+      const bracket = (row[2] || '').trim();
+      if (cmdr && bracket) _bracketMap[cmdr] = bracket;
+    });
+  }
+});
 
 Papa.parse(GAMES_CSV_URL, {
   download: true,
