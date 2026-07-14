@@ -35,9 +35,14 @@ function cmdrName(v) {
 function cmdrCellInner(val) {
   const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
   const parts = normalized.split(' / ');
-  return parts.map(p =>
-    `<img class="cmdr-avatar" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">${p}`
-  ).join('<br>');
+  if (parts.length === 1) {
+    return `<img class="cmdr-avatar" data-cmdr="${parts[0].replace(/"/g, '&quot;')}" alt="" loading="lazy">${parts[0]}`;
+  }
+  const avatars = parts.map(p =>
+    `<img class="cmdr-avatar" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">`
+  ).join('');
+  const names = parts.map(p => `<span>${p}</span>`).join('');
+  return `<span class="cmdr-dual"><span class="cmdr-avatars">${avatars}</span><span class="cmdr-names">${names}</span></span>`;
 }
 function cmdrToIndividualParts(cmdr) {
   return cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);

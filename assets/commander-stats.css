@@ -55,9 +55,27 @@
   vertical-align: middle;
   margin-right: 5px;
 }
-.cmdr-sep {
-  color: var(--ink-faint);
-  margin: 0 4px;
+.cmdr-dual {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  vertical-align: middle;
+}
+.cmdr-dual .cmdr-avatars {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.cmdr-dual .cmdr-avatars .cmdr-avatar {
+  margin-right: 0;
+}
+.cmdr-names {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.3;
 }
 .cmdr-link { color: inherit; text-decoration: none; }
 .cmdr-link:hover { color: var(--gold); text-decoration: underline; }
