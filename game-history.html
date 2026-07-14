@@ -1052,12 +1052,24 @@ function buildBarChart(canvasId, labels, values, colors, tooltipSuffix) {
     type: 'bar',
     data: {
       labels,
-      datasets: [{
+      datasets: [
+      {
+        data: values.map(() => 100),
+        backgroundColor: 'rgba(255,255,255,0.06)',
+        borderRadius: 2,
+        borderSkipped: false,
+        barThickness: 6,
+        order: 2,
+      },
+      {
         data: values,
         backgroundColor: colors,
-        borderRadius: 4,
+        borderRadius: 2,
         borderSkipped: false,
-      }]
+        barThickness: 6,
+        order: 1,
+      }
+    ]
     },
     options: {
       indexAxis: 'y',
