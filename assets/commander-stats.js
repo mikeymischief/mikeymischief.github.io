@@ -37,7 +37,7 @@ function cmdrCellInner(val) {
   const parts = normalized.split(' / ');
   return parts.map(p =>
     `<img class="cmdr-avatar" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">${p}`
-  ).join('<span class="cmdr-sep"> / </span>');
+  ).join('<br>');
 }
 function cmdrToIndividualParts(cmdr) {
   return cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
