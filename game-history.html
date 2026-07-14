@@ -336,6 +336,54 @@ permalink: /game-history/
   @media (max-width: 600px) {
     .mini-charts-row { grid-template-columns: 1fr; }
   }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+  }
+  .bar-rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-faint);
+    width: 14px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .bar-body { flex: 1; min-width: 0; }
+  .bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+  .bar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  .bar-stats {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    white-space: nowrap;
+    margin-left: 12px;
+  }
+  .bar-stats strong { color: var(--ink); font-weight: 600; }
+  .bar-stats .bar-n { color: var(--ink-faint); }
+  .bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: #c9a84c;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
 
   .cmdr-hero {
     display: flex;
@@ -679,13 +727,13 @@ permalink: /game-history/
         <span class="mini-chart-title" id="seat-chart-title">Win% by Seat · 3-Player</span>
         <button class="mini-chart-toggle" id="seat-chart-toggle" onclick="toggleSeatChart()">Show 4-Player</button>
       </div>
-      <canvas id="seat-chart"></canvas>
+      <div id="seat-chart"></div>
     </div>
     <div class="mini-chart-wrap">
       <div class="mini-chart-header">
         <span class="mini-chart-title">Win% by Mulligans</span>
       </div>
-      <canvas id="mulligan-chart"></canvas>
+      <div id="mulligan-chart"></div>
     </div>
   </div>
 
@@ -1002,14 +1050,12 @@ function buildMmrChart(cmdr) {
   });
 }
 
-let seatChartInstance = null;
-let mulliganChartInstance = null;
 let _miniChartCmdr = null;
 let _seatChartFilter = 3;
 
 function computeMiniChartData(cmdr) {
-  const seatData = { 3: {}, 4: {} }; // playerCount → seat → {wins, plays}
-  const mulliganData = {};            // mulligan bucket → {wins, plays}
+  const seatData = { 3: {}, 4: {} };
+  const mulliganData = {};
 
   podsChronological.forEach(pod => {
     const playerCount = pod.length;
@@ -1022,7 +1068,6 @@ function computeMiniChartData(cmdr) {
       if (normalizeCmdr(row[G.commander]) !== cmdr) return;
       const won = !tie && normalizeCmdr(row[G.commander]) === winner;
 
-      // seat
       const seat = parseInt(row[G.seat]);
       if (seat > 0) {
         const sd = seatData[playerCount];
@@ -1031,7 +1076,6 @@ function computeMiniChartData(cmdr) {
         if (won) sd[seat].wins++;
       }
 
-      // mulligan
       const m = parseInt(row[G.mulligan]);
       if (!isNaN(m) && m >= 0) {
         const bucket = m >= 3 ? '3+' : String(m);
@@ -1045,78 +1089,41 @@ function computeMiniChartData(cmdr) {
   return { seatData, mulliganData };
 }
 
-function buildBarChart(canvasId, labels, values, colors, tooltipSuffix) {
-  const dimColor = '#5c5d68';
-  const lineColor = '#2c2e38';
-  return new Chart(document.getElementById(canvasId), {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-      {
-        data: values.map(() => 100),
-        backgroundColor: 'rgba(255,255,255,0.06)',
-        borderRadius: 2,
-        borderSkipped: false,
-        barThickness: 6,
-        order: 2,
-      },
-      {
-        data: values,
-        backgroundColor: colors,
-        borderRadius: 2,
-        borderSkipped: false,
-        barThickness: 6,
-        order: 1,
-      }
-    ]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.parsed.x.toFixed(1)}%${tooltipSuffix ? ' · ' + tooltipSuffix[ctx.dataIndex] : ''}`
-          }
-        }
-      },
-      scales: {
-        x: {
-          min: 0, max: 100,
-          ticks: { color: dimColor, callback: v => v + '%' },
-          grid: { color: lineColor }
-        },
-        y: { ticks: { color: dimColor }, grid: { color: lineColor } }
-      }
-    }
-  });
+function renderBarRows(containerId, rows) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = rows.map((row, i) => `
+    <div class="bar-row">
+      <span class="bar-rank">${i + 1}</span>
+      <div class="bar-body">
+        <div class="bar-header">
+          <span class="bar-label">${row.label}</span>
+          <span class="bar-stats"><strong>${row.pct.toFixed(2)}%</strong> <span class="bar-n">n=${row.plays}</span></span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${row.pct}%"></div></div>
+      </div>
+    </div>
+  `).join('');
 }
 
 function renderSeatChart(cmdr, seatData, playerCount) {
-  if (seatChartInstance) { seatChartInstance.destroy(); seatChartInstance = null; }
   const seats = Array.from({ length: playerCount }, (_, i) => i + 1);
   const sd = seatData[playerCount];
-  const labels = seats.map(s => `Seat ${s}`);
-  const values = seats.map(s => sd[s]?.plays ? sd[s].wins / sd[s].plays * 100 : 0);
-  const tooltips = seats.map(s => sd[s] ? `${sd[s].wins}W / ${sd[s].plays}G` : '0G');
-  const gold = '#c9a84c';
-  const dim = '#c9a84c55';
-  const colors = values.map(v => v > 0 ? gold : dim);
-  seatChartInstance = buildBarChart('seat-chart', labels, values, colors, tooltips);
+  const rows = seats.map(s => ({
+    label: `Seat ${s}`,
+    pct: sd[s]?.plays ? sd[s].wins / sd[s].plays * 100 : 0,
+    plays: sd[s]?.plays || 0,
+  }));
+  renderBarRows('seat-chart', rows);
 }
 
 function renderMulliganChart(mulliganData) {
-  if (mulliganChartInstance) { mulliganChartInstance.destroy(); mulliganChartInstance = null; }
   const buckets = ['0', '1', '2', '3+'];
-  const labels = buckets.map(b => `${b} mull.`);
-  const values = buckets.map(b => mulliganData[b]?.plays ? mulliganData[b].wins / mulliganData[b].plays * 100 : 0);
-  const tooltips = buckets.map(b => mulliganData[b] ? `${mulliganData[b].wins}W / ${mulliganData[b].plays}G` : '0G');
-  const color = '#c9a84c';
-  const dim = '#c9a84c55';
-  const colors = values.map(v => v > 0 ? color : dim);
-  mulliganChartInstance = buildBarChart('mulligan-chart', labels, values, colors, tooltips);
+  const rows = buckets.map(b => ({
+    label: `${b} Mulligans`,
+    pct: mulliganData[b]?.plays ? mulliganData[b].wins / mulliganData[b].plays * 100 : 0,
+    plays: mulliganData[b]?.plays || 0,
+  }));
+  renderBarRows('mulligan-chart', rows);
 }
 
 function buildMiniCharts(cmdr) {
