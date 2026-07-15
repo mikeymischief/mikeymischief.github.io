@@ -37,6 +37,7 @@
 }
 .cmdr-avatar-wrap {
   display: inline-block;
+  position: relative;
   width: 26px;
   height: 26px;
   min-width: 26px;
@@ -48,6 +49,8 @@
   vertical-align: middle;
 }
 .cmdr-avatar-wrap .cmdr-avatar {
+  position: absolute !important;
+  inset: 0;
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
