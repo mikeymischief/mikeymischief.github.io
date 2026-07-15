@@ -48,12 +48,16 @@
 .cmdr-avatar {
   width: 26px !important;
   height: 26px !important;
-  border-radius: 50%;
-  object-fit: cover;
+  min-width: 26px;
+  min-height: 26px;
+  border-radius: 50% !important;
+  object-fit: cover !important;
   object-position: center 15%;
   border: 1.5px solid rgba(255,255,255,0.15);
   vertical-align: middle;
   margin-right: 5px;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 .cmdr-single {
   display: inline-flex;

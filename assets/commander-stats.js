@@ -44,6 +44,10 @@ function cmdrCellInner(val) {
   const names = parts.map(p => `<span>${p}</span>`).join('');
   return `<span class="cmdr-dual"><span class="cmdr-avatars">${avatars}</span><span class="cmdr-names">${names}</span></span>`;
 }
+function cmdrCell(val) {
+  const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
+  return `<a href="/game-history/?commander=${encodeURIComponent(normalized)}" class="cmdr-link">${cmdrCellInner(val)}</a>`;
+}
 function cmdrToIndividualParts(cmdr) {
   return cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
 }
