@@ -35,29 +35,27 @@
   vertical-align: middle;
   margin-right: 6px;
 }
-.cmdr-avatar-wrap {
-  display: inline-block;
-  position: relative;
+.cmdr-avatars .cmdr-avatar {
   width: 26px;
   height: 26px;
-  min-width: 26px;
-  min-height: 26px;
   border-radius: 50%;
-  overflow: hidden;
+  object-fit: cover;
+  object-position: center 15%;
   border: 1.5px solid rgba(255,255,255,0.15);
   flex-shrink: 0;
-  vertical-align: middle;
 }
-.cmdr-avatar-wrap .cmdr-avatar {
-  position: absolute !important;
-  inset: 0;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
+.cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
+.cmdr-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
   object-position: center 15%;
-  display: block;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  vertical-align: middle;
+  margin-right: 5px;
+  flex-shrink: 0;
 }
-.cmdr-avatars .cmdr-avatar-wrap + .cmdr-avatar-wrap { margin-left: -9px; }
 .cmdr-single {
   display: inline-flex;
   align-items: center;

@@ -17,13 +17,16 @@ function normalizeCmdr(v) {
 function stripPilotSuffix(name) {
   return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
 }
-function avatarImg(part) {
-  return `<span class="cmdr-avatar-wrap"><img class="cmdr-avatar" data-cmdr="${part.replace(/"/g, '&quot;')}" alt="" loading="lazy"></span>`;
-}
 function cmdrAvatarHtml(val) {
   const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
   const parts = normalized.split(' / ');
-  return `<span class="cmdr-avatars">${parts.map(avatarImg).join('')}</span>`;
+  // Use data-cmdr instead of src to avoid Chrome ORB errors from the Scryfall
+  // redirect endpoint (api.scryfall.com returns Content-Type: text/html on its
+  // 302, which ORB blocks). loadAvatarImages() resolves direct CDN URLs later.
+  const imgs = parts.map(p =>
+    `<img class="cmdr-avatar" width="26" height="26" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">`
+  ).join('');
+  return `<span class="cmdr-avatars">${imgs}</span>`;
 }
 function cmdrName(v) {
   if (!v) return '';
@@ -33,9 +36,11 @@ function cmdrCellInner(val) {
   const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
   const parts = normalized.split(' / ');
   if (parts.length === 1) {
-    return `<span class="cmdr-single">${avatarImg(parts[0])}${parts[0]}</span>`;
+    return `<span class="cmdr-single"><img class="cmdr-avatar" width="26" height="26" data-cmdr="${parts[0].replace(/"/g, '&quot;')}" alt="" loading="lazy">${parts[0]}</span>`;
   }
-  const avatars = parts.map(avatarImg).join('');
+  const avatars = parts.map(p =>
+    `<img class="cmdr-avatar" width="26" height="26" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">`
+  ).join('');
   const names = parts.map(p => `<span>${p}</span>`).join('');
   return `<span class="cmdr-dual"><span class="cmdr-avatars">${avatars}</span><span class="cmdr-names">${names}</span></span>`;
 }
