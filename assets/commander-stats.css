@@ -63,9 +63,8 @@
 }
 .cmdr-dual .cmdr-avatars {
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 2px;
   flex-shrink: 0;
 }
 .cmdr-dual .cmdr-avatars .cmdr-avatar {
