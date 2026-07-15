@@ -12,7 +12,9 @@ image: /images/bg/commander/Kenrith-the-Returned-King-Throne-of-Eldraine-MtG-Art
 
 For the past few years, Gerf, Brian, and I have been playing Commander pretty regularly — and for most of that time I've been logging our games in a spreadsheet. Match results, commanders played, win rates, that kind of thing. At some point the spreadsheet got detailed enough that it felt wrong to leave it buried in Google Sheets, so I turned it into a proper site. Cube is my heart and soul, but getting six people together for a draft is a logistical nightmare — Commander only needs four (three in our case), so it ends up winning the scheduling battle more often than not.
 
-Here's what's there now.
+I've decided that more metrics is better, so starting with the next play session on August 8th, we'll be tracking how long games last and how many mulligans you take for your commanders. I think building out the full site to match player expectation and keep track of everything we're doing is an awesome way to keep the momentum of playing Commander (aka Magic) going for a long time. Hopefully, in a couple more years, the stats will be more full-bodied, leading to much more insights about this wonderful format.
+
+All that said, here's what's there now.
 
 <!--more-->
 
