@@ -35,30 +35,26 @@
   vertical-align: middle;
   margin-right: 6px;
 }
-.cmdr-avatars .cmdr-avatar {
-  width: 26px !important;
-  height: 26px !important;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center 15%;
-  border: 1.5px solid rgba(255,255,255,0.15);
-  flex-shrink: 0;
-}
-.cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
-.cmdr-avatar {
-  width: 26px !important;
-  height: 26px !important;
+.cmdr-avatar-wrap {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
   min-width: 26px;
   min-height: 26px;
-  border-radius: 50% !important;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.cmdr-avatar-wrap .cmdr-avatar {
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover !important;
   object-position: center 15%;
-  border: 1.5px solid rgba(255,255,255,0.15);
-  vertical-align: middle;
-  margin-right: 5px;
-  flex-shrink: 0;
-  overflow: hidden;
+  display: block;
 }
+.cmdr-avatars .cmdr-avatar-wrap + .cmdr-avatar-wrap { margin-left: -9px; }
 .cmdr-single {
   display: inline-flex;
   align-items: center;

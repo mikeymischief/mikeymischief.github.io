@@ -215,10 +215,10 @@ permalink: /players/
   table.cmdr-table td.cmdr-name a { color: inherit; text-decoration: none; }
   table.cmdr-table td.cmdr-name a:hover { color: var(--gold); text-decoration: underline; }
   table.cmdr-table .star-row td.cmdr-name::before { content: "★ "; }
-  .player-card[data-p="Brian"] tbody tr:first-child { background: var(--brian-dim); }
-  .player-card[data-p="Gerf"]  tbody tr:first-child { background: var(--gerf-dim); }
-  .player-card[data-p="Mikey"] tbody tr:first-child { background: var(--mikey-dim); }
-  .player-card[data-p="Jubee"] tbody tr:first-child { background: var(--jubee-dim); }
+  .player-card[data-p="Brian"] tbody tr.pop-row { background: var(--brian-dim); }
+  .player-card[data-p="Gerf"]  tbody tr.pop-row { background: var(--gerf-dim); }
+  .player-card[data-p="Mikey"] tbody tr.pop-row { background: var(--mikey-dim); }
+  .player-card[data-p="Jubee"] tbody tr.pop-row { background: var(--jubee-dim); }
   table.cmdr-table tbody tr:last-child td { border-bottom: none; }
 
   .table-scroll { max-height: 420px; overflow-y: auto; }
@@ -367,6 +367,10 @@ function buildPlayerCard(block, rows) {
   `;
   const tbody = table.querySelector('tbody');
 
+  const maxCons = commanderRows.reduce((max, row) => {
+    const c = parseFloat(row[block.start + 10]) || 0;
+    return c > max ? c : max;
+  }, 0);
   const maxPlays = commanderRows.reduce((max, row) => {
     const p = parseInt(row[block.start + 3]) || 0;
     return p > max ? p : max;
@@ -374,9 +378,11 @@ function buildPlayerCard(block, rows) {
 
   commanderRows.forEach(row => {
     const b = block.start;
+    const cons = parseFloat(row[b+10]) || 0;
     const plays = parseInt(row[b+3]) || 0;
     const tr = document.createElement('tr');
-    if (maxPlays > 0 && plays === maxPlays) tr.classList.add('star-row');
+    if (maxCons > 0 && cons === maxCons) tr.classList.add('star-row');
+    if (maxPlays > 0 && plays === maxPlays) tr.classList.add('pop-row');
     tr.innerHTML = `
       <td class="cmdr-name">${cmdrCell(row[b])}</td>
       <td class="num">${int(row[b+1])}</td>
