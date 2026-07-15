@@ -45,6 +45,7 @@ layout: default
   const tip = document.getElementById('card-tip');
   const img = document.getElementById('card-tip-img');
   const cache = {};
+  const bound = new WeakSet();
 
   function showTip(src, e) {
     if (!src) return;
@@ -64,6 +65,8 @@ layout: default
   }
 
   function bindLink(a, getSrc) {
+    if (bound.has(a)) return;
+    bound.add(a);
     let pending = false;
     a.addEventListener('mouseenter', async e => {
       pending = true;
@@ -74,13 +77,13 @@ layout: default
     a.addEventListener('mouseleave', () => { pending = false; tip.style.display = 'none'; });
   }
 
-  // Local MTG images
+  // Local MTG images — bind first so they take priority
   document.querySelectorAll('.entry a[href*="/images/mtg/"]').forEach(a => {
     bindLink(a, () => Promise.resolve(a.href));
   });
 
-  // Scryfall card page links
-  document.querySelectorAll('.entry a[href*="scryfall.com/card/"]').forEach(a => {
+  // Scryfall card page links — skip any already bound as local
+  document.querySelectorAll('.entry a[href*="scryfall.com/card/"]:not([href*="/images/mtg/"])').forEach(a => {
     bindLink(a, async () => {
       const m = a.href.match(/scryfall\.com\/card\/([^/]+)\/([^/]+)/);
       if (!m) return null;
