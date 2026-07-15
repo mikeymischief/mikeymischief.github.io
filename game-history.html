@@ -386,28 +386,48 @@ permalink: /game-history/
   }
 
   .cmdr-hero {
+    position: relative;
     display: flex;
     border-radius: 14px;
     overflow: hidden;
     margin-bottom: 24px;
     border: 1px solid var(--line);
   }
-  .cmdr-hero-panel {
-    flex: 1;
-    min-height: 280px;
-    display: flex;
-    align-items: flex-end;
+  .cmdr-hero-bg {
+    position: absolute;
+    inset: 0;
     background-size: cover;
     background-position: center 20%;
-    position: relative;
   }
-  .cmdr-hero-panel + .cmdr-hero-panel { border-left: 1px solid var(--line); }
-  .cmdr-hero-panel::before {
+  .cmdr-hero-bg::before {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, rgba(13,15,26,0) 20%, rgba(13,15,26,0.82) 60%, rgba(13,15,26,0.97) 100%);
   }
+  .cmdr-hero-bg.bg-left  { clip-path: polygon(0 0, 62% 0, 48% 100%, 0 100%); }
+  .cmdr-hero-bg.bg-right { clip-path: polygon(62% 0, 100% 0, 100% 100%, 48% 100%); }
+  .cmdr-hero-panel {
+    flex: 1;
+    min-height: 280px;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    z-index: 1;
+    /* single-commander fallback: panel carries the background itself */
+    background-size: cover;
+    background-position: center 20%;
+  }
+  .cmdr-hero-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0) 20%, rgba(13,15,26,0.82) 60%, rgba(13,15,26,0.97) 100%);
+    pointer-events: none;
+  }
+  /* when bg divs handle the art, suppress the panel's own bg gradient */
+  .cmdr-hero.has-bg-panels .cmdr-hero-panel { background-image: none !important; }
+  .cmdr-hero.has-bg-panels .cmdr-hero-panel::before { display: none; }
   .cmdr-hero-content {
     position: relative;
     z-index: 1;
@@ -1404,8 +1424,14 @@ async function showCmdrHero(cmdr) {
     if (apiUrl) { const url = await fetchOverrideArt(apiUrl); if (url) c.art = url; }
   }));
   const r = computeCmdrRankings(cmdr);
-  hero.innerHTML = cards.map(c => `
-    <div class="cmdr-hero-panel" style="background-image:url('${c.art}')">
+  const isDual = cards.length >= 2;
+  const bgDivs = isDual
+    ? `<div class="cmdr-hero-bg bg-left"  style="background-image:url('${cards[0].art}')"></div>
+       <div class="cmdr-hero-bg bg-right" style="background-image:url('${cards[1].art}')"></div>`
+    : '';
+  hero.className = isDual ? 'cmdr-hero has-bg-panels' : 'cmdr-hero';
+  hero.innerHTML = bgDivs + cards.map(c => `
+    <div class="cmdr-hero-panel" style="${isDual ? '' : `background-image:url('${c.art}')`}">
       <div class="cmdr-hero-content">
         ${r.tier && r.isActive ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">tier:</span>${tierBadgeSvg(r.tier, 28)}</div>` : ''}
         ${r.bracket ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">bracket:</span>${bracketBadgeSvg(r.bracket, 28)}</div>` : ''}

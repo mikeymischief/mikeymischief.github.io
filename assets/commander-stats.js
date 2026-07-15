@@ -232,7 +232,8 @@ async function fetchOverrideArt(apiUrl) {
   try {
     const resp = await fetch(apiUrl);
     const data = await resp.json();
-    const url = data.image_uris?.art_crop || data.card_faces?.[0]?.image_uris?.art_crop || null;
+    const face = data.card_faces?.[0] || data;
+    const url = face.image_uris?.art_crop || null;
     if (url) _artOverrideCache[apiUrl] = url;
     return url;
   } catch(e) { return null; }

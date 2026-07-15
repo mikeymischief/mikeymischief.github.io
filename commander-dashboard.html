@@ -145,6 +145,24 @@ permalink: /commander-dashboard/
   }
 
   /* ── Commander Spotlight ── */
+  .sp-art {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+  .sp-art-panel {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 10%;
+  }
+  .sp-art-panel.sp-art-left {
+    clip-path: polygon(0 0, 62% 0, 48% 100%, 0 100%);
+  }
+  .sp-art-panel.sp-art-right {
+    clip-path: polygon(62% 0, 100% 0, 100% 100%, 48% 100%);
+  }
   .spotlight {
     position: relative;
     display: block;
@@ -591,6 +609,7 @@ permalink: /commander-dashboard/
   </div>
 
   <a id="commander-spotlight" class="spotlight" href="/game-history/">
+    <div id="sp-art" class="sp-art"></div>
     <div class="spotlight-inner">
       <div class="spotlight-left">
         <div class="spotlight-eyebrow">Featured Commander</div>
@@ -864,8 +883,8 @@ async function showSpotlightEntry(entry) {
   const cmdrKey = normalizeCmdr(entry.cmdr);
   const overrideApiUrl = _artOverrides[cmdrKey];
   const artPromise = overrideApiUrl
-    ? fetchOverrideArt(overrideApiUrl)
-    : getImageMap(parts).then(m => m[parts[0].toLowerCase()] || null);
+    ? fetchOverrideArt(overrideApiUrl).then(url => url ? [url] : [])
+    : getImageMap(parts).then(m => parts.map(p => m[p.toLowerCase()]).filter(Boolean));
   await new Promise(r => setTimeout(r, 450));
   document.getElementById('sp-name').innerHTML = entry.cmdr.replace(/ \/ /g, '<br>');
   const pilotEl = document.getElementById('sp-pilot');
@@ -878,8 +897,18 @@ async function showSpotlightEntry(entry) {
   document.getElementById('sp-tier').innerHTML = activeTierBadgeSvg(cmdrKey, _tierMap, _activeSet, 28) || '—';
   document.getElementById('sp-bracket').innerHTML = bracketBadgeSvg(_bracketMap[cmdrKey], 28) || '—';
   card.href = `/game-history/?commander=${encodeURIComponent(entry.cmdr)}`;
-  const artUrl = await artPromise;
-  card.style.backgroundImage = artUrl ? `url('${artUrl}')` : '';
+  const artUrls = await artPromise;
+  const spArt = document.getElementById('sp-art');
+  if (artUrls.length >= 2) {
+    spArt.innerHTML = `
+      <div class="sp-art-panel sp-art-left"  style="background-image:url('${artUrls[0]}')"></div>
+      <div class="sp-art-panel sp-art-right" style="background-image:url('${artUrls[1]}')"></div>`;
+  } else {
+    spArt.innerHTML = artUrls[0]
+      ? `<div class="sp-art-panel" style="background-image:url('${artUrls[0]}')"></div>`
+      : '';
+  }
+  card.style.backgroundImage = '';
   card.classList.remove('fading');
   spStartProgress();
 }
