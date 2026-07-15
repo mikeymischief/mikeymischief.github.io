@@ -1412,6 +1412,7 @@ async function showCmdrHero(cmdr) {
     statBar.style.display = 'none';
     matchBar.style.display = 'none';
     document.getElementById('mini-charts-row').style.display = 'none';
+    document.getElementById('mmr-chart-wrap').style.display = 'none';
     return;
   }
   const parts = cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
