@@ -139,15 +139,43 @@ async function getImageMap(partNames) {
   return cached;
 }
 
+// Shared art overrides from deck info CSV — keyed by lowercase part name
+const _globalArtOverrides = {};
+const _deckInfoReady = new Promise(resolve => {
+  Papa.parse(DECK_CSV_URL, {
+    download: true,
+    complete: r => {
+      (r.data || []).slice(1).forEach(row => {
+        const cmdr = normalizeCmdr(row[1] || '');
+        const apiUrl = scryfallPageToApiUrl(row[3] || '');
+        if (cmdr && apiUrl) {
+          cmdr.split(' / ').forEach(p => {
+            _globalArtOverrides[stripPilotSuffix(p.trim()).toLowerCase()] = apiUrl;
+          });
+        }
+      });
+      resolve();
+    },
+    error: resolve,
+  });
+});
+
 async function loadAvatarImages(container) {
   const imgs = Array.from((container || document).querySelectorAll('.cmdr-avatar[data-cmdr]'));
   if (!imgs.length) return;
+  await _deckInfoReady;
   const partNames = [...new Set(imgs.map(img => img.dataset.cmdr).filter(Boolean))];
   const imageMap = await getImageMap(partNames);
-  imgs.forEach(img => {
-    const url = imageMap[stripPilotSuffix(img.dataset.cmdr).toLowerCase()];
+  await Promise.all(imgs.map(async img => {
+    const key = stripPilotSuffix(img.dataset.cmdr).toLowerCase();
+    const overrideApiUrl = _globalArtOverrides[key];
+    if (overrideApiUrl) {
+      const url = await fetchOverrideArt(overrideApiUrl);
+      if (url) { img.src = url; return; }
+    }
+    const url = imageMap[key];
     if (url) img.src = url;
-  });
+  }));
 }
 
 const IDENTITY_NAMES = {

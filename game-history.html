@@ -1395,9 +1395,14 @@ async function showCmdrHero(cmdr) {
     return;
   }
   const parts = cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
+  await _deckInfoReady;
   const cardMap = await fetchCmdrCards(parts);
   const cards = parts.map(p => cardMap[p.toLowerCase()]).filter(c => c && c.art);
   if (!cards.length) { hero.style.display = 'none'; return; }
+  await Promise.all(cards.map(async c => {
+    const apiUrl = _globalArtOverrides[c.name.toLowerCase()];
+    if (apiUrl) { const url = await fetchOverrideArt(apiUrl); if (url) c.art = url; }
+  }));
   const r = computeCmdrRankings(cmdr);
   hero.innerHTML = cards.map(c => `
     <div class="cmdr-hero-panel" style="background-image:url('${c.art}')">

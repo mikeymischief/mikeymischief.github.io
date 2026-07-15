@@ -951,7 +951,10 @@ Papa.parse(DECK_CSV_URL, {
       const bracket = (row[2] || '').trim();
       if (cmdr && bracket) _bracketMap[cmdr] = bracket;
       const apiUrl = scryfallPageToApiUrl(row[3] || '');
-      if (cmdr && apiUrl) _artOverrides[cmdr] = apiUrl;
+      if (cmdr && apiUrl) {
+        _artOverrides[cmdr] = apiUrl;
+        cmdr.split(' / ').forEach(p => { _globalArtOverrides[stripPilotSuffix(p.trim()).toLowerCase()] = apiUrl; });
+      }
     });
     tryInitSpotlight();
   },
