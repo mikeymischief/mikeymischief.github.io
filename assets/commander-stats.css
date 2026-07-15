@@ -36,8 +36,8 @@
   margin-right: 6px;
 }
 .cmdr-avatars .cmdr-avatar {
-  width: 26px;
-  height: 26px;
+  width: 26px !important;
+  height: 26px !important;
   border-radius: 50%;
   object-fit: cover;
   object-position: center 15%;
@@ -46,8 +46,8 @@
 }
 .cmdr-avatars .cmdr-avatar + .cmdr-avatar { margin-left: -9px; }
 .cmdr-avatar {
-  width: 26px;
-  height: 26px;
+  width: 26px !important;
+  height: 26px !important;
   border-radius: 50%;
   object-fit: cover;
   object-position: center 15%;
