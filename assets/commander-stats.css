@@ -39,6 +39,8 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   object-fit: cover;
   object-position: center 15%;
   border: 1.5px solid rgba(255,255,255,0.15);
@@ -49,16 +51,18 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   object-fit: cover;
   object-position: center 15%;
   border: 1.5px solid rgba(255,255,255,0.15);
   vertical-align: middle;
-  margin-right: 5px;
   flex-shrink: 0;
 }
 .cmdr-single {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   padding-left: 9px;
   vertical-align: middle;
 }
