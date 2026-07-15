@@ -1430,11 +1430,11 @@ async function showCmdrHero(cmdr) {
        <div class="cmdr-hero-bg bg-right" style="background-image:url('${cards[1].art}')"></div>`
     : '';
   hero.className = isDual ? 'cmdr-hero has-bg-panels' : 'cmdr-hero';
-  hero.innerHTML = bgDivs + cards.map(c => `
+  hero.innerHTML = bgDivs + cards.map((c, i) => `
     <div class="cmdr-hero-panel" style="${isDual ? '' : `background-image:url('${c.art}')`}">
       <div class="cmdr-hero-content">
-        ${r.tier && r.isActive ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">tier:</span>${tierBadgeSvg(r.tier, 28)}</div>` : ''}
-        ${r.bracket ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">bracket:</span>${bracketBadgeSvg(r.bracket, 28)}</div>` : ''}
+        ${i === 0 && r.tier && r.isActive ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">tier:</span>${tierBadgeSvg(r.tier, 28)}</div>` : ''}
+        ${i === 0 && r.bracket ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">bracket:</span>${bracketBadgeSvg(r.bracket, 28)}</div>` : ''}
         <div class="cmdr-hero-name-row">
           <div class="cmdr-hero-name">${c.name}</div>
           ${c.mana_cost ? `<div class="cmdr-hero-mana">${manaHtml(c.mana_cost)}</div>` : ''}
@@ -1723,7 +1723,7 @@ function renderHistory(rows) {
       tr.innerHTML = `
         <td class="pilot-name">${pilot}</td>
         <td style="text-align:center">${_activeSet.has(normalizeCmdr(row[G.commander])) ? tierBadgeSvg(_tierMap[normalizeCmdr(row[G.commander])]) : ''}</td>
-        <td class="cmdr-name"><a href="/game-history/?commander=${encodeURIComponent(normalizeCmdr(row[G.commander]))}" class="cmdr-link">${cmdrCellInner(normalizeCmdr(row[G.commander]))}</a>${badges ? ' ' + badges : ''}</td>
+        <td class="cmdr-name"><a href="/game-history/?commander=${encodeURIComponent(normalizeCmdr(row[G.commander]))}" class="cmdr-link">${normalizeCmdr(row[G.commander])}</a>${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>
