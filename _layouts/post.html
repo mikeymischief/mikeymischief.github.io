@@ -35,3 +35,65 @@ layout: default
   
   {% include disqus.html %}
 </article>
+
+<div id="card-tip" style="display:none;position:fixed;z-index:9999;pointer-events:none;padding:6px;">
+  <img id="card-tip-img" src="" alt="" style="width:200px;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.7);">
+</div>
+
+<script>
+(function() {
+  const tip = document.getElementById('card-tip');
+  const img = document.getElementById('card-tip-img');
+  const cache = {};
+
+  function showTip(src, e) {
+    if (!src) return;
+    img.src = src;
+    tip.style.display = 'block';
+    position(e);
+  }
+
+  function position(e) {
+    const pad = 16, w = 212, h = 310;
+    let x = e.clientX + pad;
+    let y = e.clientY + pad;
+    if (x + w > window.innerWidth)  x = e.clientX - w - pad;
+    if (y + h > window.innerHeight) y = e.clientY - h - pad;
+    tip.style.left = x + 'px';
+    tip.style.top  = y + 'px';
+  }
+
+  function bindLink(a, getSrc) {
+    let pending = false;
+    a.addEventListener('mouseenter', async e => {
+      pending = true;
+      const src = await getSrc();
+      if (pending) showTip(src, e);
+    });
+    a.addEventListener('mousemove', position);
+    a.addEventListener('mouseleave', () => { pending = false; tip.style.display = 'none'; });
+  }
+
+  // Local MTG images
+  document.querySelectorAll('.entry a[href*="/images/mtg/"]').forEach(a => {
+    bindLink(a, () => Promise.resolve(a.href));
+  });
+
+  // Scryfall card page links
+  document.querySelectorAll('.entry a[href*="scryfall.com/card/"]').forEach(a => {
+    bindLink(a, async () => {
+      const m = a.href.match(/scryfall\.com\/card\/([^/]+)\/([^/]+)/);
+      if (!m) return null;
+      const key = `${m[1]}/${m[2]}`;
+      if (cache[key]) return cache[key];
+      try {
+        const resp = await fetch(`https://api.scryfall.com/cards/${key}`);
+        const data = await resp.json();
+        const url = data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal || null;
+        if (url) cache[key] = url;
+        return url;
+      } catch(e) { return null; }
+    });
+  });
+})();
+</script>

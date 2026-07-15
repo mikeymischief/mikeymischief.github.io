@@ -36,7 +36,7 @@ function cmdrCellInner(val) {
   const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
   const parts = normalized.split(' / ');
   if (parts.length === 1) {
-    return `<img class="cmdr-avatar" data-cmdr="${parts[0].replace(/"/g, '&quot;')}" alt="" loading="lazy">${parts[0]}`;
+    return `<span class="cmdr-single"><img class="cmdr-avatar" data-cmdr="${parts[0].replace(/"/g, '&quot;')}" alt="" loading="lazy">${parts[0]}</span>`;
   }
   const avatars = parts.map(p =>
     `<img class="cmdr-avatar" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">`

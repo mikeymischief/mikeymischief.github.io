@@ -55,6 +55,12 @@
   vertical-align: middle;
   margin-right: 5px;
 }
+.cmdr-single {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 9px;
+  vertical-align: middle;
+}
 .cmdr-dual {
   display: inline-flex;
   align-items: center;
