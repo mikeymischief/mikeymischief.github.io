@@ -77,13 +77,8 @@ layout: default
     a.addEventListener('mouseleave', () => { pending = false; tip.style.display = 'none'; });
   }
 
-  // Local MTG images — bind first so they take priority
-  document.querySelectorAll('.entry a[href*="/images/mtg/"]').forEach(a => {
-    bindLink(a, () => Promise.resolve(a.href));
-  });
-
-  // Scryfall card page links — skip any already bound as local
-  document.querySelectorAll('.entry a[href*="scryfall.com/card/"]:not([href*="/images/mtg/"])').forEach(a => {
+  // Scryfall card page links
+  document.querySelectorAll('.entry a[href*="scryfall.com/card/"]').forEach(a => {
     bindLink(a, async () => {
       const m = a.href.match(/scryfall\.com\/card\/([^/]+)\/([^/]+)/);
       if (!m) return null;
