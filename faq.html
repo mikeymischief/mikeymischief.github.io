@@ -216,7 +216,7 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">How do I see a commander's profile? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>Click any commander's name in the pod tables on the <a href="/game-history/">History</a> page. This opens the commander's profile: an art card pulled from Scryfall, a stat bar with active MMR ranking, popularity rank, win–loss record, current MMR, avg round won, and avg mulligans, a line chart of their MMR over time, rivals, and a filtered game log showing only pods they appeared in. A tier badge appears above the commander name for active commanders only.</p>
+        <p>Click any commander's name in the pod tables on the <a href="/game-history/">History</a> page. This opens the commander's profile: an art card pulled from Scryfall, a stat bar showing active MMR ranking, popularity rank, current MMR, seating, avg round won, avg mulligans, King Maker count, and error count, followed by an MMR chart, rivals, and a filtered game log. The MMR chart header shows the primary pilot (color-coded) and the overall win–loss record. A tier badge appears above the commander name for active commanders only.</p>
         <p>On the MMR chart, filled points are wins, hollow points are losses, and white points are ties (🤝). Hover any point for the exact date and session number.</p>
       </div>
     </div>
@@ -240,6 +240,25 @@ permalink: /faq/
           <div class="badge-row"><span class="badge-icon">🙌</span><span><strong>Upset</strong> — the winner had the lowest predicted win probability in the pod (requires 5+ prior plays to qualify).</span></div>
           <div class="badge-row"><span class="badge-icon">🎯</span><span><strong>Undefeated</strong> — this pilot has never lost with this commander (minimum 2 plays).</span></div>
         </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">What do the 👑 and ❌ icons mean in the game table? <span class="faq-chevron">▶</span></button>
+      <div class="faq-a">
+        <p>The K/E column tracks two notable in-game moments:</p>
+        <div class="badge-rows">
+          <div class="badge-row"><span class="badge-icon">👑</span><span><strong>King Maker</strong> — this player's actions directly decided who won, without winning themselves.</span></div>
+          <div class="badge-row"><span class="badge-icon">❌</span><span><strong>Error</strong> — a notable misplay was recorded for this player in this game.</span></div>
+        </div>
+        <p>These are tracked on the <a href="/players/">Players</a> page and on each commander's stat card in <a href="/game-history/">History</a>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">How do I see the notes for a game? <span class="faq-chevron">▶</span></button>
+      <div class="faq-a">
+        <p>Some games have a 📝 icon on the game header (the line showing the session and game number). Click it to expand the notes for that game — memorable moments, rulings, or anything else worth remembering. Click again to collapse.</p>
       </div>
     </div>
 
