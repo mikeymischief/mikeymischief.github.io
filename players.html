@@ -271,7 +271,7 @@ permalink: /players/
 
   <div class="table-grid" id="grid"></div>
 
-  <footer>★ Highest conservative rating &nbsp;·&nbsp; Highlighted row = most played commander &nbsp;·&nbsp; Source: CMDRSTATS tab, published to web as CSV. Ratings computed via a TrueSkill-style Bayesian model, not raw win/loss.</footer>
+  <footer>★ Highest conservative rating &nbsp;·&nbsp; Highlighted row = most played commander &nbsp;·&nbsp; 👑 = King Me'd &nbsp;·&nbsp; ❌ = Error &nbsp;·&nbsp; Source: CMDRSTATS tab, published to web as CSV. Ratings computed via a TrueSkill-style Bayesian model, not raw win/loss.</footer>
 
 </div>
 </div><!-- /.page-wrapper -->
@@ -279,13 +279,13 @@ permalink: /players/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="/assets/commander-stats.js"></script>
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=197031444&single=true&output=csv";
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=218695172&single=true&output=csv";
 
 const BLOCKS = [
   { name: "Brian", start: 0 },
-  { name: "Gerf",  start: 12 },
-  { name: "Mikey", start: 24 },
-  { name: "Jubee", start: 36 },
+  { name: "Gerf",  start: 14 },
+  { name: "Mikey", start: 28 },
+  { name: "Jubee", start: 42 },
 ];
 const HEADER_ROW = 2;
 const DATA_START_ROW = 3;
@@ -302,7 +302,7 @@ function buildPlayerCard(block, rows) {
     commanderRows.push(row);
   }
   const overall = rows[OVERALL_ROW] || [];
-  const overallWinPct = overall[block.start + 4];
+  const overallWinPct = overall[block.start + 6];
 
   const favRow = commanderRows.reduce((best, row) => {
     if (!best) return row;
@@ -310,8 +310,8 @@ function buildPlayerCard(block, rows) {
     const rPlays = parseInt(row[block.start + 3]) || 0;
     if (rPlays > bPlays) return row;
     if (rPlays === bPlays) {
-      const bMmr = parseFloat(best[block.start + 9]) || 0;
-      const rMmr = parseFloat(row[block.start + 9]) || 0;
+      const bMmr = parseFloat(best[block.start + 11]) || 0;
+      const rMmr = parseFloat(row[block.start + 11]) || 0;
       return rMmr > bMmr ? row : best;
     }
     return best;
@@ -355,6 +355,8 @@ function buildPlayerCard(block, rows) {
         <th class="num" title="Wins">W</th>
         <th class="num" title="Losses">L</th>
         <th class="num" title="Games played">P</th>
+        <th class="num" title="Times King Me'd">👑</th>
+        <th class="num" title="Errors recorded">❌</th>
         <th class="num" title="Win percentage">Win%</th>
         <th class="num" title="Average round number when this commander wins">Rnd</th>
         <th class="num" title="Average mulligans taken per game">Mlg</th>
@@ -368,7 +370,7 @@ function buildPlayerCard(block, rows) {
   const tbody = table.querySelector('tbody');
 
   const maxCons = commanderRows.reduce((max, row) => {
-    const c = parseFloat(row[block.start + 10]) || 0;
+    const c = parseFloat(row[block.start + 12]) || 0;
     return c > max ? c : max;
   }, 0);
   const maxPlays = commanderRows.reduce((max, row) => {
@@ -378,7 +380,7 @@ function buildPlayerCard(block, rows) {
 
   commanderRows.forEach(row => {
     const b = block.start;
-    const cons = parseFloat(row[b+10]) || 0;
+    const cons = parseFloat(row[b+12]) || 0;
     const plays = parseInt(row[b+3]) || 0;
     const tr = document.createElement('tr');
     if (maxCons > 0 && cons === maxCons) tr.classList.add('star-row');
@@ -388,12 +390,14 @@ function buildPlayerCard(block, rows) {
       <td class="num">${int(row[b+1])}</td>
       <td class="num">${row[b+2] === '0' || !row[b+2] ? '—' : int(row[b+2])}</td>
       <td class="num">${int(row[b+3])}</td>
-      <td class="num">${pct(row[b+4])}</td>
-      <td class="num">${cell(row[b+5])}</td>
-      <td class="num">${num(row[b+6], 2)}</td>
-      <td class="num">${int(row[b+7])}</td>
-      <td class="num">${num(row[b+9], 1)}</td>
-      <td class="num">${num(row[b+10], 1)}</td>
+      <td class="num">${int(row[b+4]) || '—'}</td>
+      <td class="num">${int(row[b+5]) || '—'}</td>
+      <td class="num">${pct(row[b+6])}</td>
+      <td class="num">${cell(row[b+7])}</td>
+      <td class="num">${num(row[b+8], 2)}</td>
+      <td class="num">${int(row[b+9])}</td>
+      <td class="num">${num(row[b+11], 1)}</td>
+      <td class="num">${num(row[b+12], 1)}</td>
     `;
     tbody.appendChild(tr);
   });

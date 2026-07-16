@@ -826,7 +826,7 @@ permalink: /commander-dashboard/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="/assets/commander-stats.js"></script>
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=197031444&single=true&output=csv";
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=218695172&single=true&output=csv";
 let _tierMap = {};
 let _activeSet = new Set();
 let _bracketMap = {};
@@ -834,9 +834,9 @@ let _artOverrides = {};
 
 const BLOCKS = [
   { name: "Brian", start: 0 },
-  { name: "Gerf",  start: 12 },
-  { name: "Mikey", start: 24 },
-  { name: "Jubee", start: 36 },
+  { name: "Gerf",  start: 14 },
+  { name: "Mikey", start: 28 },
+  { name: "Jubee", start: 42 },
 ];
 const DATA_START_ROW = 3;
 
@@ -857,9 +857,9 @@ function buildSpotlightPool(rows) {
       const wins    = parseInt(row[block.start + 1]) || 0;
       const losses  = parseInt(row[block.start + 2]) || 0;
       const plays   = parseInt(row[block.start + 3]) || 0;
-      const wpStr   = String(row[block.start + 4] || '').replace('%', '').trim();
+      const wpStr   = String(row[block.start + 6] || '').replace('%', '').trim();
       const winPct  = parseFloat(wpStr);
-      const mmrVal  = parseFloat(row[block.start + 9]);
+      const mmrVal  = parseFloat(row[block.start + 11]);
       if (plays > 0) pool.push({
         cmdr, pilot: block.name, wins, losses, plays,
         winPct: isNaN(winPct) ? null : winPct,

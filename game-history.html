@@ -146,6 +146,22 @@ permalink: /game-history/
     color: var(--ink-faint);
     margin-bottom: 8px;
   }
+  .pod-date.has-notes { cursor: pointer; user-select: none; }
+  .pod-date.has-notes:hover { color: var(--ink-dim); }
+  .pod-date.has-notes::after { content: ' 📝'; font-style: normal; }
+  .pod-notes {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border-left: 2px solid var(--line);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--ink-dim);
+    white-space: pre-wrap;
+    line-height: 1.55;
+  }
+  .pod-notes.open { display: block; }
 
   table.pod-table {
     width: 100%;
@@ -184,7 +200,7 @@ permalink: /game-history/
     background: rgba(127, 201, 143, 0.14);
   }
   table.pod-table tr.winner-row td.cmdr-name::after {
-    content: " 👑";
+    content: " 🏆";
   }
   table.pod-table tr[data-p="Brian"] td.pilot-name { color: var(--brian); }
   table.pod-table tr[data-p="Gerf"]  td.pilot-name { color: var(--gerf); }
@@ -734,6 +750,16 @@ permalink: /game-history/
       <div class="cmdr-stat-value" id="stat-avg-mulligan">—</div>
       <div class="cmdr-stat-sub" id="stat-avg-mulligan-sub"></div>
     </a>
+    <div class="cmdr-stat-card">
+      <div class="cmdr-stat-label">King Me 👑</div>
+      <div class="cmdr-stat-value" id="stat-kingme">—</div>
+      <div class="cmdr-stat-sub" id="stat-kingme-sub"></div>
+    </div>
+    <div class="cmdr-stat-card">
+      <div class="cmdr-stat-label">Errors ❌</div>
+      <div class="cmdr-stat-value" id="stat-errors">—</div>
+      <div class="cmdr-stat-sub" id="stat-errors-sub"></div>
+    </div>
   </div>
 
   <div class="mmr-chart-wrap" id="mmr-chart-wrap" style="display:none">
@@ -1236,6 +1262,8 @@ function computeCmdrRankings(cmdr) {
   const winCounts = {};
   const lossCounts = {};
   const tieCounts = {};
+  const kingmeCounts = {};
+  const errorCounts = {};
 
   podsChronological.forEach(pod => {
     const podDate = new Date(pod[0][G.date]);
@@ -1268,6 +1296,9 @@ function computeCmdrRankings(cmdr) {
       } else {
         lossCounts[c] = (lossCounts[c] || 0) + 1;
       }
+      const km = (row[G.kingme] || '').trim().toUpperCase();
+      if (km === 'K') kingmeCounts[c] = (kingmeCounts[c] || 0) + 1;
+      if (km === 'E') errorCounts[c]  = (errorCounts[c]  || 0) + 1;
     });
     // Track avg round win: only for the winning commander when round data exists
     if (winner && !isNaN(rounds) && rounds > 0) {
@@ -1328,6 +1359,8 @@ function computeCmdrRankings(cmdr) {
     tier,
     isActive,
     bracket: _bracketMap[cmdr] ?? null,
+    kingmeCount: kingmeCounts[cmdr] || 0,
+    errorCount:  errorCounts[cmdr]  || 0,
   };
 }
 
@@ -1470,6 +1503,10 @@ async function showCmdrHero(cmdr) {
   document.getElementById('stat-avg-round-sub').textContent = r.wins > 0 ? `avg across ${r.wins} win${r.wins !== 1 ? 's' : ''}` : 'no round data yet';
   document.getElementById('stat-avg-mulligan').textContent = r.avgMulligan != null ? r.avgMulligan.toFixed(2) : '—';
   document.getElementById('stat-avg-mulligan-sub').textContent = r.mulliganGames > 0 ? `across ${r.mulliganGames} game${r.mulliganGames !== 1 ? 's' : ''}` : 'no mulligan data yet';
+  document.getElementById('stat-kingme').textContent = r.kingmeCount > 0 ? r.kingmeCount : '—';
+  document.getElementById('stat-kingme-sub').textContent = r.kingmeCount > 0 ? `time${r.kingmeCount !== 1 ? 's' : ''} king me'd` : 'none yet';
+  document.getElementById('stat-errors').textContent = r.errorCount > 0 ? r.errorCount : '—';
+  document.getElementById('stat-errors-sub').textContent = r.errorCount > 0 ? `error${r.errorCount !== 1 ? 's' : ''} recorded` : 'none yet';
   statBar.style.display = '';
   renderMatchups(cmdr);
   buildMmrChart(cmdr);
@@ -1690,6 +1727,7 @@ function renderHistory(rows) {
         <th class="num">Seat</th>
         <th class="num">Plays</th>
         <th class="num">Win%</th>
+        <th class="num" title="King Me / Error">K/E</th>
         <th class="num">MMR (before → after)</th>
         <th class="num">&Delta;</th>
       </tr>
@@ -1728,6 +1766,7 @@ function renderHistory(rows) {
         <td class="num">${seat}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>
+        <td class="num">${row[G.kingme] === 'K' ? '👑' : row[G.kingme] === 'E' ? '❌' : ''}</td>
         <td class="num">${num(row[G.startMmr],1)} → ${(v => isNaN(v) ? '—' : v.toFixed(1))(parsePctDelta(row[G.endMmr]))}</td>
         <td class="num">${row[G.delta] ? (d => d >= 0 ? '+' + d.toFixed(1) : d.toFixed(1))(parsePctDelta(row[G.delta])) : ''}</td>
       `;
@@ -1736,6 +1775,17 @@ function renderHistory(rows) {
 
     table.appendChild(tbody);
     podDiv.appendChild(table);
+
+    const note = pod.map(r => (r[G.notes] || '').trim()).find(n => n) || '';
+    if (note) {
+      dateLabel.classList.add('has-notes');
+      const notesDiv = document.createElement('div');
+      notesDiv.className = 'pod-notes';
+      notesDiv.textContent = note;
+      podDiv.appendChild(notesDiv);
+      dateLabel.addEventListener('click', () => notesDiv.classList.toggle('open'));
+    }
+
     container.appendChild(podDiv);
   });
 

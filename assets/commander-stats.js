@@ -1,9 +1,9 @@
 // ── Shared CSV endpoints ──────────────────────────────────────────────────────
-const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=278389112&single=true&output=csv";
-const DECK_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=906574110&single=true&output=csv";
+const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1421030394&single=true&output=csv";
+const DECK_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1630550165&single=true&output=csv";
 
 // ── Games CSV column indices ──────────────────────────────────────────────────
-const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, pilot:5, commander:6, startMmr:7, endMmr:8, delta:9, winProb:10, cmdrPlays:11 };
+const G = { date:0, winner:1, seat:2, mulligan:3, kingme:4, rounds:5, pilot:6, commander:7, startMmr:8, endMmr:9, delta:10, winProb:11, cmdrPlays:12, notes:13 };
 
 // ── Shared constants ──────────────────────────────────────────────────────────
 const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
