@@ -162,6 +162,7 @@ permalink: /game-history/
     line-height: 1.55;
   }
   .pod-notes.open { display: block; }
+  .pod-notes-pilot { font-weight: 700; }
 
   table.pod-table {
     width: 100%;
@@ -1593,25 +1594,31 @@ function renderHistory(rows) {
   container.innerHTML = '';
 
   const pods = [];
-  const podNotes = [];
+  const podNotes = [];  // { text, pilot }
   let current = [];
   let currentNote = '';
+  let currentNotePilot = '';
   for (let r = 1; r < rows.length; r++) {
     const row = rows[r];
     const cmdr = normalizeCmdr(row[G.commander]);
     if (!cmdr) {
       if (current.length) {
+        const sepNote = (row[G.notes] || '').trim();
         pods.push(current);
-        podNotes.push(currentNote || (row[G.notes] || '').trim());
+        podNotes.push({ text: currentNote || sepNote, pilot: currentNotePilot });
         current = [];
         currentNote = '';
+        currentNotePilot = '';
       }
       continue;
     }
-    if (!currentNote) currentNote = (row[G.notes] || '').trim();
+    if (!currentNote) {
+      const n = (row[G.notes] || '').trim();
+      if (n) { currentNote = n; currentNotePilot = (row[G.pilot] || '').trim(); }
+    }
     current.push(row);
   }
-  if (current.length) { pods.push(current); podNotes.push(currentNote); }
+  if (current.length) { pods.push(current); podNotes.push({ text: currentNote, pilot: currentNotePilot }); }
 
   // All badge sets — computed on pods in chronological order before reversing
 
@@ -1766,6 +1773,7 @@ function renderHistory(rows) {
       const isReunion = reunionRows.has(row);
       const isUpset = upsetRows.has(row);
       const isUndefeated = pilotCmdrStats && pilotCmdrStats.decisive >= 2 && pilotCmdrStats.wins === pilotCmdrStats.decisive;
+      const km = (row[G.kingme] || '').trim().toUpperCase();
       const badges = [
         isDebut    ? '<span class="badge" title="Commander debut">🔰</span>' : '',
         isFirstWin ? '<span class="badge" title="Commander\'s first win">⭐</span>' : '',
@@ -1773,6 +1781,8 @@ function renderHistory(rows) {
         isReunion  ? '<span class="badge" title="Returning after 20+ game absence">🪃</span>' : '',
         isUpset    ? '<span class="badge" title="Upset win">🙌</span>' : '',
         isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
+        km === 'K' ? '<span class="badge" title="King Maker">👑</span>' : '',
+        km === 'E' ? '<span class="badge" title="Error">❌</span>' : '',
       ].join('');
       const tr = document.createElement('tr');
       tr.className = won ? 'winner-row' : '';
@@ -1796,12 +1806,19 @@ function renderHistory(rows) {
     table.appendChild(tbody);
     podDiv.appendChild(table);
 
-    const note = podNotes[podIdx] || '';
-    if (note) {
+    const { text: noteText, pilot: notePilot } = podNotes[podIdx] || {};
+    if (noteText) {
       dateLabel.classList.add('has-notes');
       const notesDiv = document.createElement('div');
       notesDiv.className = 'pod-notes';
-      notesDiv.textContent = note;
+      if (notePilot) {
+        const pilotSpan = document.createElement('span');
+        pilotSpan.className = 'pod-notes-pilot';
+        pilotSpan.dataset.pilot = notePilot;
+        pilotSpan.textContent = notePilot + ': ';
+        notesDiv.appendChild(pilotSpan);
+      }
+      notesDiv.appendChild(document.createTextNode(noteText));
       podDiv.appendChild(notesDiv);
       dateLabel.addEventListener('click', () => notesDiv.classList.toggle('open'));
     }
