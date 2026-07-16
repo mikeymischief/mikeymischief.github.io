@@ -925,13 +925,17 @@ function buildPredictor() {
   const filterInput = document.getElementById('cmdr-filter-input');
   const filterClear = document.getElementById('cmdr-filter-clear');
   filterInput.addEventListener('input', () => {
-    applyFilter(filterInput.value.trim());
-    filterClear.style.display = filterInput.value.trim() ? '' : 'none';
+    const v = filterInput.value.trim();
+    applyFilter(v);
+    filterClear.style.display = v ? '' : 'none';
+    const url = v ? `?commander=${encodeURIComponent(v)}` : location.pathname;
+    history.replaceState(null, '', url);
   });
   filterClear.addEventListener('click', () => {
     filterInput.value = '';
     filterClear.style.display = 'none';
     applyFilter('');
+    history.replaceState(null, '', location.pathname);
   });
 }
 
