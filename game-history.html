@@ -1593,17 +1593,25 @@ function renderHistory(rows) {
   container.innerHTML = '';
 
   const pods = [];
+  const podNotes = [];
   let current = [];
+  let currentNote = '';
   for (let r = 1; r < rows.length; r++) {
     const row = rows[r];
     const cmdr = normalizeCmdr(row[G.commander]);
     if (!cmdr) {
-      if (current.length) { pods.push(current); current = []; }
+      if (current.length) {
+        pods.push(current);
+        podNotes.push(currentNote || (row[G.notes] || '').trim());
+        current = [];
+        currentNote = '';
+      }
       continue;
     }
+    if (!currentNote) currentNote = (row[G.notes] || '').trim();
     current.push(row);
   }
-  if (current.length) pods.push(current);
+  if (current.length) { pods.push(current); podNotes.push(currentNote); }
 
   // All badge sets — computed on pods in chronological order before reversing
 
@@ -1697,7 +1705,7 @@ function renderHistory(rows) {
     if (!(d in sessionNumForDate)) sessionNumForDate[d] = ++sessionCounter;
   });
 
-  pods.reverse(); // most recent first
+  pods.reverse(); podNotes.reverse(); // most recent first
 
   const totalPods = pods.length;
   totalPodsGlobal = totalPods;
@@ -1778,7 +1786,7 @@ function renderHistory(rows) {
         <td class="num">${seat}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>
-        <td class="num">${row[G.kingme] === 'K' ? '👑' : row[G.kingme] === 'E' ? '❌' : ''}</td>
+        <td class="num">${(v => v === 'K' ? '👑' : v === 'E' ? '❌' : '')((row[G.kingme] || '').trim().toUpperCase())}</td>
         <td class="num">${num(row[G.startMmr],1)} → ${(v => isNaN(v) ? '—' : v.toFixed(1))(parsePctDelta(row[G.endMmr]))}</td>
         <td class="num">${row[G.delta] ? (d => d >= 0 ? '+' + d.toFixed(1) : d.toFixed(1))(parsePctDelta(row[G.delta])) : ''}</td>
       `;
@@ -1788,7 +1796,7 @@ function renderHistory(rows) {
     table.appendChild(tbody);
     podDiv.appendChild(table);
 
-    const note = pod.map(r => (r[G.notes] || '').trim()).find(n => n) || '';
+    const note = podNotes[podIdx] || '';
     if (note) {
       dateLabel.classList.add('has-notes');
       const notesDiv = document.createElement('div');
