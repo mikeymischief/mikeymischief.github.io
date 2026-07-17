@@ -48,70 +48,11 @@ layout: default
   margin: 0;
 }
 
-.index-sections {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-}
-.index-section-card {
-  flex: 1 1 200px;
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-  min-height: 110px;
-  text-decoration: none;
-  display: flex;
-  align-items: flex-end;
-  padding: 16px 18px;
-  border: 1px solid rgba(255,255,255,0.07);
-  transition: transform 0.15s, border-color 0.15s;
-}
-.index-section-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.18); text-decoration: none; }
-.index-section-card-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: opacity 0.15s;
-}
-.index-section-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(10,8,5,0.1) 0%, rgba(10,8,5,0.75) 100%);
-}
-.index-section-card > * { position: relative; z-index: 1; }
-.index-section-card-label {
-  font-family: 'Cinzel', serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #e8d5a3;
-  line-height: 1.1;
-}
-.index-section-card-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(233,220,200,0.5);
-  margin-top: 3px;
-}
 </style>
 
 <div class="index-hero">
   <h1>Posts</h1>
   <p class="index-hero-sub">Cube drafts, Commander, and everything in between.</p>
-</div>
-
-<div class="index-sections">
-  <a href="/PR/" class="index-section-card">
-    <div class="index-section-card-bg" style="background-image: url('/images/PuertoRico/puerto-rico-1897-special-edition-box-cover-art-header.jpeg'); background-position: center 30%;"></div>
-    <div>
-      <div class="index-section-card-label">Puerto Rico 1897</div>
-      <div class="index-section-card-sub">Board game · Session tracker</div>
-    </div>
-  </a>
 </div>
 
 <div class="posts">
