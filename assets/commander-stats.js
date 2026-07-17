@@ -19,7 +19,7 @@ const _csvConfigReady = fetch('/data/config.json')
   });
 
 // ── Games CSV column indices ──────────────────────────────────────────────────
-const G = { date:0, winner:1, seat:2, mulligan:3, kingme:4, rounds:5, pilot:6, commander:7, startMmr:8, endMmr:9, delta:10, winProb:11, cmdrPlays:12, notes:13 };
+const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, kingme:5, pilot:6, commander:7, startMmr:8, endMmr:9, delta:10, winProb:11, cmdrPlays:12, notes:13 };
 
 // ── Shared constants ──────────────────────────────────────────────────────────
 const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
