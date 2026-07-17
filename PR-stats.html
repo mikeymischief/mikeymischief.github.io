@@ -265,6 +265,10 @@ title: Puerto Rico 1897 – Player Stats
   .pr-standing-card > * { position: relative; z-index: 2; }
   .pr-standing-card:hover { border-color: var(--p-color, var(--pr-amber)); transform: translateY(-1px); }
   .pr-standing-card.active { border-color: var(--p-color, var(--pr-amber)); }
+  .pr-standing-card--all { --p-color: var(--pr-amber); border-style: dashed; }
+  .pr-standing-card--all .pr-standing-name { color: var(--pr-ink-dim); font-size: 0.8rem; letter-spacing: 0.05em; }
+  .pr-standing-card--all.active { border-style: solid; }
+  .pr-standing-card--all.active .pr-standing-name { color: var(--pr-amber); }
   .pr-standing-rank {
     font-family: 'JetBrains Mono', monospace;
     font-size: 9px;
@@ -666,6 +670,8 @@ function renderAllGames() {
 
 function activateAllGames() {
   document.querySelectorAll('.pr-standing-card').forEach(c => c.classList.remove('active'));
+  const allCard = document.getElementById('pr-all-games-card');
+  if (allCard) allCard.classList.add('active');
   renderAllGames();
 }
 
@@ -702,6 +708,17 @@ function renderStandings() {
     card.addEventListener('click', () => activatePlayer(p));
     el.appendChild(card);
   });
+
+  const allCard = document.createElement('div');
+  allCard.className = 'pr-standing-card pr-standing-card--all';
+  allCard.id = 'pr-all-games-card';
+  allCard.innerHTML = `
+    <div class="pr-standing-rank">&#8203;</div>
+    <div class="pr-standing-name">All Games</div>
+    <div class="pr-standing-mmr">&#8203;</div>
+  `;
+  allCard.addEventListener('click', activateAllGames);
+  el.appendChild(allCard);
 }
 
 // ── MMR graph (multi-player, DOM-based) ───────────────────────────────────────
@@ -901,7 +918,6 @@ function renderProfile(player) {
             <th class="num" title="Finishing position by score">Place</th>
             <th class="num" title="Round the game ended on">Round</th>
             <th title="How the game ended: Buildings · VP · Colonist">Ending</th>
-            <th>Others</th>
             <th>Result</th>
           </tr>
         </thead>
@@ -918,30 +934,16 @@ function renderProfile(player) {
     const won    = winner === (row[C.player]||'').trim();
     const winRow = game.rows.find(r => (r[C.player]||'').trim() === winner);
     const endRow = game.rows.find(r => (r[C.ending]||'').trim() !== '');
-    const gameRound  = winRow ? fmt.int(winRow[C.round])     : '—';
-    const gameEnding = endRow ? fmt.ending(endRow[C.ending]) : '—';
+    const gameRound   = winRow ? fmt.int(winRow[C.round])     : '—';
+    const endPlayer   = endRow ? (endRow[C.player]||'').trim() : null;
+    const gameEnding  = endRow ? (endPlayer ? `${endPlayer} · ${fmt.ending(endRow[C.ending])}` : fmt.ending(endRow[C.ending])) : '—';
 
     const sortedScores = game.rows.map(r => parseInt(r[C.score])).filter(v => !isNaN(v)).sort((a,b) => b-a);
     const myScore = parseInt(row[C.score]);
     const place = !isNaN(myScore) ? '#' + (sortedScores.indexOf(myScore) + 1) : '—';
 
-    const others = game.rows
-      .map(r => (r[C.player]||'').trim())
-      .filter(n => n && n !== player);
-
     const tr = document.createElement('tr');
     if (won) tr.className = 'win-row';
-
-    const othersCell = document.createElement('td');
-    othersCell.style.cssText = 'white-space:normal';
-    others.forEach((name, i) => {
-      if (i > 0) othersCell.appendChild(document.createTextNode(', '));
-      const btn = document.createElement('button');
-      btn.className = 'pr-name-link';
-      btn.textContent = name;
-      btn.addEventListener('click', () => activatePlayer(name));
-      othersCell.appendChild(btn);
-    });
 
     tr.innerHTML = `
       <td>${fmt.date(game.date)}</td>
@@ -951,16 +953,14 @@ function renderProfile(player) {
       <td class="num">${place}</td>
       <td class="num">${gameRound}</td>
       <td>${gameEnding}</td>
-      <td></td>
       <td>${won?'<span class="win-badge">WIN</span>':''}</td>
     `;
-    tr.cells[7].replaceWith(othersCell);
     tbody.appendChild(tr);
   });
 
   if (!entries.length) {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="8" style="text-align:center;padding:24px;color:var(--pr-ink-faint);font-style:italic">No games recorded yet.</td>`;
+    tr.innerHTML = `<td colspan="7" style="text-align:center;padding:24px;color:var(--pr-ink-faint);font-style:italic">No games recorded yet.</td>`;
     tbody.appendChild(tr);
   }
 }
