@@ -628,6 +628,52 @@ function renderAllGames() {
   profile.innerHTML = '';
   const wrap = document.createElement('div');
 
+  // Summary bar
+  const totalGames = _games.filter(g => g.rows.length > 0).length;
+  const winCounts  = {};
+  _games.forEach(game => { const w = winnerOfGame(game); if (w) winCounts[w] = (winCounts[w]||0)+1; });
+  const topWinner  = Object.entries(winCounts).sort((a,b) => b[1]-a[1])[0];
+  const allEndingCounts = {};
+  _games.forEach(game => {
+    const endRow = game.rows.find(r => (r[C.ending]||'').trim() !== '');
+    if (endRow) { const k = (endRow[C.ending]||'').trim().toUpperCase(); allEndingCounts[k] = (allEndingCounts[k]||0)+1; }
+  });
+  const topEndingEntry = Object.entries(allEndingCounts).sort((a,b) => b[1]-a[1])[0];
+  const endingBreakdown = Object.entries(allEndingCounts).sort((a,b) => b[1]-a[1]).map(([k,v]) => `${fmt.ending(k)} ×${v}`).join(' · ') || '—';
+  const allRounds = _games.map(game => {
+    const winner = winnerOfGame(game);
+    const winRow = game.rows.find(r => (r[C.player]||'').trim() === winner);
+    return winRow ? parseInt(winRow[C.round]) : NaN;
+  }).filter(v => !isNaN(v));
+  const avgRoundAll = allRounds.length ? (allRounds.reduce((a,b)=>a+b,0)/allRounds.length).toFixed(1) : '—';
+
+  const summaryBar = document.createElement('div');
+  summaryBar.className = 'pr-stat-bar';
+  summaryBar.style.marginBottom = '20px';
+  summaryBar.innerHTML = `
+    <div class="pr-stat-card">
+      <div class="pr-stat-label">Total Games</div>
+      <div class="pr-stat-value">${totalGames}</div>
+      <div class="pr-stat-sub">sessions played</div>
+    </div>
+    <div class="pr-stat-card">
+      <div class="pr-stat-label">Most Wins</div>
+      <div class="pr-stat-value" style="font-size:1.1rem">${topWinner ? topWinner[0] : '—'}</div>
+      <div class="pr-stat-sub">${topWinner ? topWinner[1]+' win'+(topWinner[1]!==1?'s':'') : '—'}</div>
+    </div>
+    <div class="pr-stat-card">
+      <div class="pr-stat-label">Top Ending</div>
+      <div class="pr-stat-value" style="font-size:1.1rem">${topEndingEntry ? fmt.ending(topEndingEntry[0]) : '—'}</div>
+      <div class="pr-stat-sub">${endingBreakdown}</div>
+    </div>
+    <div class="pr-stat-card">
+      <div class="pr-stat-label">Avg Round</div>
+      <div class="pr-stat-value">${avgRoundAll}</div>
+      <div class="pr-stat-sub">game length</div>
+    </div>
+  `;
+  wrap.appendChild(summaryBar);
+
   [..._games].reverse().forEach(game => {
     if (!game.rows.length) return;
     const winner   = winnerOfGame(game);
@@ -744,6 +790,7 @@ function renderStandings() {
   const allCard = document.createElement('div');
   allCard.className = 'pr-standing-card pr-standing-card--all';
   allCard.id = 'pr-all-games-card';
+  allCard.style.setProperty('--card-img', "url('/images/PuertoRico/marketplace.jpeg')");
   allCard.innerHTML = `
     <div class="pr-standing-rank">&#8203;</div>
     <div class="pr-standing-name">All Games</div>
@@ -882,6 +929,16 @@ function renderProfile(player) {
   }).filter(v => !isNaN(v));
   const avgRoundEnd = endRounds.length ? endRounds.reduce((a,b)=>a+b,0)/endRounds.length : null;
 
+  const endingCounts = {};
+  endedEntries.forEach(({ row }) => {
+    const k = (row[C.ending]||'').trim().toUpperCase();
+    if (k) endingCounts[k] = (endingCounts[k] || 0) + 1;
+  });
+  const topEnding    = Object.entries(endingCounts).sort((a,b) => b[1]-a[1])[0];
+  const endBreakdown = Object.entries(endingCounts).sort((a,b) => b[1]-a[1]).map(([k,v]) => `${fmt.ending(k)} ×${v}`).join(' · ') || '—';
+  const winsWhenEnding   = endedEntries.filter(({ game, row }) => winnerOfGame(game) === (row[C.player]||'').trim()).length;
+  const winRateEnding    = gamesEnded > 0 ? winsWhenEnding / gamesEnded : null;
+
   const hist       = _mmr.history[player] || [];
   const mmrCurrent = hist.length ? hist[hist.length-1].endMmr : (_mmr.current[player] || MMR_BASE);
   const lastDelta  = hist.length ? hist[hist.length-1].delta : 0;
@@ -954,6 +1011,16 @@ function renderProfile(player) {
         <div class="pr-stat-label">Avg Round End</div>
         <div class="pr-stat-value">${avgRoundEnd!=null?avgRoundEnd.toFixed(1):'—'}</div>
         <div class="pr-stat-sub">when ending games</div>
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Fav Ending</div>
+        <div class="pr-stat-value" style="font-size:1.1rem">${topEnding ? fmt.ending(topEnding[0]) : '—'}</div>
+        <div class="pr-stat-sub">${endBreakdown}</div>
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Win % Ending</div>
+        <div class="pr-stat-value">${winRateEnding!=null?(winRateEnding*100).toFixed(0)+'%':'—'}</div>
+        <div class="pr-stat-sub">${gamesEnded ? `${winsWhenEnding} of ${gamesEnded} ended` : 'no endings yet'}</div>
       </div>
     </div>
 
