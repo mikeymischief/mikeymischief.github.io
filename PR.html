@@ -1,0 +1,362 @@
+---
+layout: default
+permalink: /PR/
+title: Puerto Rico 1897
+---
+<style>
+  /* ── Hero ─────────────────────────────────────────────────────────────────── */
+  .pr-hero {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 48px;
+    padding: 130px 40px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: url('/images/PuertoRico/puerto-rico-1897-special-edition-box-cover-art-header.jpeg');
+    background-size: cover;
+    background-position: center 30%;
+  }
+  .pr-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom, rgba(14,12,8,0.15) 0%, rgba(14,12,8,0.6) 50%, rgba(14,12,8,0.97) 100%);
+  }
+  .pr-hero > * { position: relative; z-index: 1; }
+  .pr-hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(200,121,65,0.7);
+    margin-bottom: 10px;
+  }
+  .pr-hero h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: #e8c99a;
+    margin: 0 0 10px;
+    letter-spacing: 0.03em;
+    line-height: 1.05;
+    border: none;
+    padding: 0;
+  }
+  .pr-hero h1 span {
+    color: #c87941;
+  }
+  .pr-hero-sub {
+    color: rgba(233,220,200,0.65);
+    font-family: 'Crimson Text', serif;
+    font-size: 1.15rem;
+    max-width: 560px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .pr-hero-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .pr-hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .pr-hero-stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #c87941;
+  }
+  .pr-hero-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(233,220,200,0.4);
+  }
+
+  /* ── Sections ─────────────────────────────────────────────────────────────── */
+  .pr-section { margin-bottom: 52px; }
+  .pr-section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #c87941;
+    margin-bottom: 6px;
+  }
+  .pr-section h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e8c99a;
+    margin: 0 0 14px;
+    border: none;
+    padding: 0;
+  }
+  .pr-section p {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.1rem;
+    color: rgba(233,220,200,0.8);
+    line-height: 1.8;
+    margin-bottom: 12px;
+    max-width: 700px;
+  }
+
+  /* ── Divider ──────────────────────────────────────────────────────────────── */
+  .pr-divider {
+    border: none;
+    border-top: 1px solid rgba(200,121,65,0.15);
+    margin: 0 0 52px;
+  }
+
+  /* ── Role cards ───────────────────────────────────────────────────────────── */
+  .pr-roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .pr-role-card {
+    background: #141008;
+    border: 1px solid #2a2018;
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.18s, transform 0.18s;
+  }
+  .pr-role-card:hover {
+    border-color: rgba(200,121,65,0.45);
+    transform: translateY(-2px);
+  }
+  .pr-role-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .pr-role-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e8c99a;
+  }
+  .pr-role-desc {
+    font-size: 12.5px;
+    color: rgba(233,220,200,0.55);
+    line-height: 1.5;
+  }
+  .pr-role-perk {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #c87941;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Phase flow ───────────────────────────────────────────────────────────── */
+  .pr-phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .pr-phase-card {
+    background: #141008;
+    border: 1px solid #2a2018;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .pr-phase-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(200,121,65,0.5);
+  }
+  .pr-phase-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e8c99a;
+  }
+  .pr-phase-body {
+    font-family: 'Crimson Text', serif;
+    font-size: 1rem;
+    color: rgba(233,220,200,0.65);
+    line-height: 1.65;
+  }
+
+  /* ── Victory points callout ───────────────────────────────────────────────── */
+  .pr-callout {
+    background: #141008;
+    border: 1px solid #2a2018;
+    border-left: 3px solid #c87941;
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin: 24px 0;
+    max-width: 680px;
+  }
+  .pr-callout p {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.05rem;
+    color: rgba(233,220,200,0.75);
+    line-height: 1.75;
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* ── Sub-nav ──────────────────────────────────────────────────────────────── */
+  .pr-subnav {
+    display: flex;
+    border-bottom: 1px solid rgba(200,121,65,0.18);
+    margin-bottom: 40px;
+    gap: 0;
+  }
+  .pr-subnav a {
+    padding: 10px 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(233,220,200,0.4);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .pr-subnav a:hover { color: #c87941; text-decoration: none; }
+  .pr-subnav a.active { color: #c87941; border-bottom-color: #c87941; pointer-events: none; }
+
+  @media (max-width: 640px) {
+    .pr-phases { grid-template-columns: 1fr; }
+    .pr-hero { padding: 90px 24px 30px; }
+    .pr-section { margin-bottom: 36px; }
+  }
+</style>
+
+<div class="pr-hero">
+  <div class="pr-hero-eyebrow">Board Game</div>
+  <h1>Puerto Rico <span>1897</span></h1>
+  <p class="pr-hero-sub">Manage plantations, erect buildings, and ship goods from the Caribbean island of Puerto Rico. Every role you choose shapes the round for everyone at the table.</p>
+  <div class="pr-hero-meta">
+    <div class="pr-hero-stat">
+      <span class="pr-hero-stat-value">2–5</span>
+      <span class="pr-hero-stat-label">Players</span>
+    </div>
+    <div class="pr-hero-stat">
+      <span class="pr-hero-stat-value">90–120</span>
+      <span class="pr-hero-stat-label">Minutes</span>
+    </div>
+    <div class="pr-hero-stat">
+      <span class="pr-hero-stat-value">7</span>
+      <span class="pr-hero-stat-label">Roles</span>
+    </div>
+    <div class="pr-hero-stat">
+      <span class="pr-hero-stat-value">~12</span>
+      <span class="pr-hero-stat-label">Rounds</span>
+    </div>
+  </div>
+</div>
+
+<nav class="pr-subnav">
+  <a href="/PR/" class="active">Home</a>
+  <a href="/PR/stats/">Stats</a>
+</nav>
+
+<div class="pr-section">
+  <div class="pr-section-eyebrow">About the Game</div>
+  <h2>A Century of Strategy</h2>
+  <p>Puerto Rico 1897 is a reimagining of one of the great worker-placement classics, set on the island of Puerto Rico at the close of the nineteenth century. Players compete as landowners, balancing the expansion of their plantation estates against the construction of a colonial town — all while racing to fill the cargo holds of departing ships before their rivals do.</p>
+  <p>No two sessions play out the same. The game's role-selection system means every decision you make is also a gift — or a threat — to every other player at the table. Timing, economy, and a keen sense of what your opponents need are the engines of victory.</p>
+  <div class="pr-callout">
+    <p>"The great insight of Puerto Rico is that selecting a role is an act of mutual generosity: everyone performs the chosen action, but only the selector earns the privilege. Generosity, then, is strategy in disguise."</p>
+  </div>
+</div>
+
+<hr class="pr-divider">
+
+<div class="pr-section">
+  <div class="pr-section-eyebrow">How It Works</div>
+  <h2>The Core Loop</h2>
+  <p>Each round, players take turns selecting a role from a shared pool. All players execute the role's action, but the player who chose it gains an additional privilege. Roles not chosen in a round accumulate bonus doubloons — making them more tempting next time.</p>
+
+  <div class="pr-phases">
+    <div class="pr-phase-card">
+      <div class="pr-phase-num">Phase 01</div>
+      <div class="pr-phase-title">Settle &amp; Grow</div>
+      <div class="pr-phase-body">Claim plantation tiles and populate your fields with colonists. Your crops — corn, indigo, sugar, tobacco, coffee — are the raw material of every future point.</div>
+    </div>
+    <div class="pr-phase-card">
+      <div class="pr-phase-num">Phase 02</div>
+      <div class="pr-phase-title">Build &amp; Refine</div>
+      <div class="pr-phase-body">Spend doubloons on production buildings and city structures. Small buildings grant efficiencies; large buildings provide powerful end-game scoring bonuses worth up to four victory points each.</div>
+    </div>
+    <div class="pr-phase-card">
+      <div class="pr-phase-num">Phase 03</div>
+      <div class="pr-phase-title">Trade &amp; Ship</div>
+      <div class="pr-phase-body">Move goods to the trading house for doubloons, or load cargo ships bound for Spain for victory points. The ships have limited space — coordination and timing determine who scores and who is left on the dock.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="pr-divider">
+
+<div class="pr-section">
+  <div class="pr-section-eyebrow">Roles</div>
+  <h2>Choose Wisely</h2>
+  <p>Seven roles are available each round. Pick for yourself, but know that your opponents benefit too.</p>
+  <div class="pr-roles">
+    <div class="pr-role-card">
+      <div class="pr-role-icon">🌾</div>
+      <div class="pr-role-name">Settler</div>
+      <div class="pr-role-desc">All players draft a plantation tile. The Settler may also take a quarry, reducing building costs.</div>
+      <div class="pr-role-perk">Privilege: +quarry option</div>
+    </div>
+    <div class="pr-role-card">
+      <div class="pr-role-icon">👷</div>
+      <div class="pr-role-name">Mayor</div>
+      <div class="pr-role-desc">New colonists arrive and are distributed. The Mayor takes the first extra colonist from the supply.</div>
+      <div class="pr-role-perk">Privilege: +1 colonist</div>
+    </div>
+    <div class="pr-role-card">
+      <div class="pr-role-icon">🔨</div>
+      <div class="pr-role-name">Builder</div>
+      <div class="pr-role-desc">All players may construct one building. The Builder pays one fewer doubloon.</div>
+      <div class="pr-role-perk">Privilege: −1 cost</div>
+    </div>
+    <div class="pr-role-card">
+      <div class="pr-role-icon">⚙️</div>
+      <div class="pr-role-name">Craftsman</div>
+      <div class="pr-role-desc">All players produce goods from staffed plantations and buildings. The Craftsman gains one bonus good of their choice.</div>
+      <div class="pr-role-perk">Privilege: +1 good</div>
+    </div>
+    <div class="pr-role-card">
+      <div class="pr-role-icon">💰</div>
+      <div class="pr-role-name">Trader</div>
+      <div class="pr-role-desc">Players sell one good to the trading house. The Trader earns one extra doubloon on their sale.</div>
+      <div class="pr-role-perk">Privilege: +1 doubloon</div>
+    </div>
+    <div class="pr-role-card">
+      <div class="pr-role-icon">⚓</div>
+      <div class="pr-role-name">Captain</div>
+      <div class="pr-role-desc">Players must ship as many goods as possible. The Captain earns one additional victory point.</div>
+      <div class="pr-role-perk">Privilege: +1 VP</div>
+    </div>
+    <div class="pr-role-card">
+      <div class="pr-role-icon">🏦</div>
+      <div class="pr-role-name">Prospector</div>
+      <div class="pr-role-desc">Only the Prospector acts — taking one doubloon from the bank. Others do nothing. A tempo move.</div>
+      <div class="pr-role-perk">Privilege: +1 doubloon (only)</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,701 @@
+---
+layout: default
+permalink: /PR/stats/
+title: Puerto Rico 1897 – Player Stats
+---
+<style>
+  /* ── Shared PR tokens ─────────────────────────────────────────────────────── */
+  :root {
+    --pr-amber:      #c87941;
+    --pr-amber-dim:  rgba(200,121,65,0.12);
+    --pr-ink:        rgba(233,220,200,0.85);
+    --pr-ink-dim:    rgba(233,220,200,0.5);
+    --pr-ink-faint:  rgba(233,220,200,0.3);
+    --pr-card-bg:    #141008;
+    --pr-border:     #2a2018;
+    --pr-brian:      #e08585;
+    --pr-gerf:       #7fc98f;
+    --pr-mikey:      #85B7EB;
+    --pr-jubee:      #F472B6;
+  }
+
+  /* ── Hero ─────────────────────────────────────────────────────────────────── */
+  .pr-hero {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    padding: 80px 40px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: url('/images/PuertoRico/puerto-rico-1897-special-edition-box-cover-art-header.jpeg');
+    background-size: cover;
+    background-position: center 30%;
+  }
+  .pr-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom, rgba(14,12,8,0.15) 0%, rgba(14,12,8,0.6) 50%, rgba(14,12,8,0.97) 100%);
+  }
+  .pr-hero > * { position: relative; z-index: 1; }
+  .pr-hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(200,121,65,0.65);
+    margin-bottom: 8px;
+  }
+  .pr-hero h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: #e8c99a;
+    margin: 0 0 8px;
+    letter-spacing: 0.03em;
+    line-height: 1.05;
+    border: none;
+    padding: 0;
+  }
+  .pr-hero h1 span { color: #c87941; }
+  .pr-hero-sub {
+    color: rgba(233,220,200,0.6);
+    font-family: 'Crimson Text', serif;
+    font-size: 1.05rem;
+    max-width: 520px;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ── Sub-nav ──────────────────────────────────────────────────────────────── */
+  .pr-subnav {
+    display: flex;
+    border-bottom: 1px solid rgba(200,121,65,0.18);
+    margin-bottom: 36px;
+  }
+  .pr-subnav a {
+    padding: 10px 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .pr-subnav a:hover { color: var(--pr-amber); text-decoration: none; }
+  .pr-subnav a.active { color: var(--pr-amber); border-bottom-color: var(--pr-amber); pointer-events: none; }
+
+  /* ── Player selector ──────────────────────────────────────────────────────── */
+  .pr-player-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .pr-player-tab {
+    padding: 8px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--pr-border);
+    border-radius: 6px;
+    background: var(--pr-card-bg);
+    color: var(--pr-ink-dim);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .pr-player-tab:hover { border-color: var(--pr-amber); color: var(--pr-ink); }
+  .pr-player-tab.active { color: var(--p-color, var(--pr-amber)); border-color: var(--p-color, var(--pr-amber)); }
+
+  /* ── Stat bar ─────────────────────────────────────────────────────────────── */
+  .pr-stat-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .pr-stat-card {
+    background: var(--pr-card-bg);
+    border: 1px solid var(--pr-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .pr-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+  }
+  .pr-stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e8c99a;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .pr-stat-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--pr-ink-faint);
+  }
+  /* Player colour flows through --p-color set on the element */
+  .pr-stat-card:first-child .pr-stat-value { color: var(--p-color, var(--pr-amber)); }
+  .pr-stat-card:first-child { border-top: 2px solid var(--p-color, var(--pr-amber)); }
+
+  /* ── Player hero card ─────────────────────────────────────────────────────── */
+  .pr-player-hero {
+    background: var(--pr-card-bg);
+    border: 1px solid var(--pr-border);
+    border-left: 4px solid var(--p-color, var(--pr-amber));
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .pr-player-hero-left {}
+  .pr-player-hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+    margin-bottom: 4px;
+  }
+  .pr-player-hero-name {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--p-color, var(--pr-amber));
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .pr-player-hero-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--pr-ink-faint);
+    letter-spacing: 0.05em;
+  }
+  .pr-player-hero-mmr {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .pr-player-hero-mmr-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+    margin-bottom: 2px;
+  }
+  .pr-player-hero-mmr-value {
+    font-family: 'Cinzel', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--p-color, var(--pr-amber));
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .pr-player-hero-mmr-delta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    margin-top: 3px;
+  }
+  .pr-player-hero-mmr-delta.pos { color: #7fc98f; }
+  .pr-player-hero-mmr-delta.neg { color: #e08585; }
+  .pr-player-hero-mmr-delta.neu { color: var(--pr-ink-faint); }
+
+  /* ── Standings ────────────────────────────────────────────────────────────── */
+  .pr-standings {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .pr-standing-card {
+    background: var(--pr-card-bg);
+    border: 1px solid var(--pr-border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    transition: border-color 0.15s, transform 0.15s;
+    text-align: center;
+    min-width: 90px;
+  }
+  .pr-standing-card:hover { border-color: var(--p-color, var(--pr-amber)); transform: translateY(-1px); }
+  .pr-standing-card.active { border-color: var(--p-color, var(--pr-amber)); }
+  .pr-standing-rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+  }
+  .pr-standing-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--p-color, #e8c99a);
+  }
+  .pr-standing-mmr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--pr-ink-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Clickable player name in table ──────────────────────────────────────── */
+  .pr-name-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    font-size: 12px;
+    color: var(--pr-ink-dim);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgba(233,220,200,0.2);
+    text-underline-offset: 2px;
+    transition: color 0.12s;
+  }
+  .pr-name-link:hover { color: var(--pr-ink); text-decoration-color: var(--pr-ink-dim); }
+
+  /* ── Game log table ───────────────────────────────────────────────────────── */
+  .pr-table-wrap { overflow-x: auto; margin-top: 8px; }
+  .pr-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pr-amber);
+    margin-bottom: 8px;
+  }
+  .pr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  .pr-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--pr-border);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .pr-table th.num { text-align: right; }
+  .pr-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(42,32,24,0.6);
+    color: var(--pr-ink-dim);
+    white-space: nowrap;
+  }
+  .pr-table td.num { text-align: right; }
+  .pr-table tr.win-row td { color: var(--pr-ink); }
+  .pr-table tr.win-row td.score { color: #e8c99a; font-weight: 600; }
+  .pr-table tbody tr:hover td { background: var(--pr-amber-dim); }
+  .pr-table .win-badge {
+    font-size: 11px;
+    background: rgba(200,121,65,0.15);
+    color: var(--pr-amber);
+    border: 1px solid rgba(200,121,65,0.3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Status messages ──────────────────────────────────────────────────────── */
+  .pr-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--pr-ink-faint);
+    padding: 40px 0;
+    text-align: center;
+  }
+
+  /* ── Hidden ───────────────────────────────────────────────────────────────── */
+  .hidden { display: none !important; }
+
+  @media (max-width: 640px) {
+    .pr-hero { padding: 60px 24px 28px; }
+    .pr-stat-bar { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+
+<div class="pr-hero">
+  <div class="pr-hero-eyebrow">Puerto Rico 1897 &middot; Board Game</div>
+  <h1>Player <span>Stats</span></h1>
+  <p class="pr-hero-sub">Individual records, scores, and game-by-game history for every session at the table.</p>
+</div>
+
+<nav class="pr-subnav">
+  <a href="/PR/">Home</a>
+  <a href="/PR/stats/" class="active">Stats</a>
+</nav>
+
+<div id="pr-status" class="pr-status">Loading stats&hellip;</div>
+
+<div id="pr-content" class="hidden">
+
+  <div class="pr-standings" id="pr-standings"></div>
+  <div class="pr-player-tabs" id="pr-tabs"></div>
+  <div id="pr-profile"></div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+// ── Column indices ─────────────────────────────────────────────────────────────
+// Date(0) Game(1) Player(2) Starting Position(3) Score(4) Win(5) Round(6) Ending(7)
+// Rows are grouped per game; blank rows separate games.
+// Win column holds the winner's name in their row only.
+const C = { date:0, game:1, player:2, seat:3, score:4, win:5, round:6, ending:7 };
+
+// Ending letter → full label
+const ENDING_LABELS = { B: 'Buildings', V: 'VP', C: 'Colonist' };
+
+// Player color palette — assigned in alphabetical order
+const PALETTE = ['#c87941','#7fb3a0','#e08585','#85B7EB','#b5c98f','#c48be8','#f4a261'];
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const fmt = {
+  int:  v => (v == null || v === '' || isNaN(+v)) ? '—' : String(Math.round(+v)),
+  date: v => {
+    if (!v) return '—';
+    const d = new Date(v + ' 12:00');
+    return isNaN(d) ? v : d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+  },
+  ending: v => {
+    const k = (v || '').trim().toUpperCase();
+    return ENDING_LABELS[k] || (k || '—');
+  },
+};
+
+// ── Parse grouped game structure ───────────────────────────────────────────────
+function parseGames(rawRows) {
+  const games = [];
+  let currentDate = '', currentGameNum = '', currentRows = [];
+
+  const flush = () => {
+    if (currentRows.length) {
+      games.push({ date: currentDate, gameNum: currentGameNum, rows: currentRows });
+      currentRows = [];
+    }
+  };
+
+  for (const row of rawRows) {
+    const date    = (row[C.date]   || '').trim();
+    const gameNum = (row[C.game]   || '').trim();
+    const player  = (row[C.player] || '').trim();
+    if (date)    currentDate    = date;
+    if (gameNum) currentGameNum = gameNum;
+    if (!player) { flush(); continue; }
+    currentRows.push(row);
+  }
+  flush();
+  return games;
+}
+
+// ── Build per-player index ─────────────────────────────────────────────────────
+function buildPlayerIndex(games) {
+  const index = {};
+  for (const game of games) {
+    for (const row of game.rows) {
+      const name = (row[C.player] || '').trim();
+      if (!name) continue;
+      if (!index[name]) index[name] = [];
+      index[name].push({ game, row });
+    }
+  }
+  return index;
+}
+
+// ── Elo-style MMR (zero-sum, N-player) ────────────────────────────────────────
+const MMR_BASE = 1000, MMR_K = 32;
+
+function calculateMMR(games, allPlayers) {
+  const current = {};
+  const history = {};
+  allPlayers.forEach(p => { current[p] = MMR_BASE; history[p] = []; });
+
+  for (const game of games) {
+    const participants = [...new Set(game.rows.map(r => (r[C.player]||'').trim()).filter(Boolean))];
+    const N = participants.length;
+    if (!N) continue;
+    const expected = 1 / N;
+    const winnerRow = game.rows.find(r => (r[C.win]||'').trim() !== '');
+    const winner    = winnerRow ? (winnerRow[C.player]||'').trim() : null;
+
+    const deltas = {};
+    participants.forEach(p => {
+      deltas[p] = MMR_K * ((p === winner ? 1 : 0) - expected);
+    });
+    participants.forEach(p => {
+      if (!(p in current)) current[p] = MMR_BASE;
+      const before = current[p];
+      current[p] = Math.round((current[p] + deltas[p]) * 10) / 10;
+      history[p].push({ game, mmrBefore: before, mmrAfter: current[p], delta: deltas[p] });
+    });
+  }
+  return { current, history };
+}
+
+// ── Shared state ───────────────────────────────────────────────────────────────
+let _playerIndex, _allPlayers, _games, _mmr, _colorMap;
+
+function getColor(player) { return _colorMap[player] || '#c87941'; }
+
+// ── Activate player (tabs + standings + profile) ───────────────────────────────
+function activatePlayer(player) {
+  document.querySelectorAll('.pr-player-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.p === player);
+  });
+  document.querySelectorAll('.pr-standing-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.p === player);
+  });
+  renderProfile(player);
+}
+
+// ── Render standings row ───────────────────────────────────────────────────────
+function renderStandings() {
+  const el = document.getElementById('pr-standings');
+  el.innerHTML = '';
+
+  const ranked = _allPlayers
+    .map(p => ({ p, mmr: _mmr.current[p] || MMR_BASE }))
+    .sort((a, b) => b.mmr - a.mmr);
+
+  ranked.forEach(({ p, mmr }, i) => {
+    const card = document.createElement('div');
+    card.className = 'pr-standing-card';
+    card.dataset.p = p;
+    card.style.setProperty('--p-color', getColor(p));
+    card.innerHTML = `
+      <div class="pr-standing-rank">#${i+1}</div>
+      <div class="pr-standing-name">${p}</div>
+      <div class="pr-standing-mmr">${Math.round(mmr)} MMR</div>
+    `;
+    card.addEventListener('click', () => activatePlayer(p));
+    el.appendChild(card);
+  });
+}
+
+// ── Render player profile ──────────────────────────────────────────────────────
+function renderProfile(player) {
+  const color   = getColor(player);
+  const entries = _playerIndex[player] || [];
+  const wins    = entries.filter(({ row }) => (row[C.win]||'').trim() !== '');
+  const scores  = entries.map(({ row }) => parseInt(row[C.score])).filter(v => !isNaN(v));
+  const avgScore  = scores.length ? scores.reduce((a,b)=>a+b,0)/scores.length : null;
+  const bestScore = scores.length ? Math.max(...scores) : null;
+  const winRate   = entries.length ? wins.length / entries.length : null;
+
+  const mmrCurrent = Math.round(_mmr.current[player] || MMR_BASE);
+  const hist       = _mmr.history[player] || [];
+  const lastDelta  = hist.length ? hist[hist.length-1].delta : 0;
+  const deltaSign  = lastDelta > 0 ? '+' : '';
+  const deltaClass = lastDelta > 0 ? 'pos' : lastDelta < 0 ? 'neg' : 'neu';
+
+  const ranked = _allPlayers
+    .map(p => ({ p, mmr: _mmr.current[p] || MMR_BASE }))
+    .sort((a,b) => b.mmr - a.mmr);
+  const rank = ranked.findIndex(x => x.p === player) + 1;
+
+  const profile = document.getElementById('pr-profile');
+  profile.innerHTML = '';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'pr-profile';
+  wrap.dataset.p = player;
+  wrap.style.setProperty('--p-color', color);
+
+  wrap.innerHTML = `
+    <div class="pr-player-hero">
+      <div class="pr-player-hero-left">
+        <div class="pr-player-hero-eyebrow">Player Profile</div>
+        <div class="pr-player-hero-name">${player}</div>
+        <div class="pr-player-hero-sub">
+          ${entries.length} game${entries.length!==1?'s':''}&ensp;&middot;&ensp;${wins.length} win${wins.length!==1?'s':''}&ensp;&middot;&ensp;${winRate!=null?(winRate*100).toFixed(0)+'% win rate':'no games yet'}
+        </div>
+      </div>
+      <div class="pr-player-hero-mmr">
+        <div class="pr-player-hero-mmr-label">MMR</div>
+        <div class="pr-player-hero-mmr-value">${mmrCurrent}</div>
+        ${hist.length ? `<div class="pr-player-hero-mmr-delta ${deltaClass}">${deltaSign}${lastDelta.toFixed(1)} last game</div>` : ''}
+      </div>
+    </div>
+
+    <div class="pr-stat-bar">
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">MMR Rank</div>
+        <div class="pr-stat-value">#${rank}</div>
+        <div class="pr-stat-sub">among active players</div>
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Games</div>
+        <div class="pr-stat-value">${entries.length || '—'}</div>
+        <div class="pr-stat-sub">sessions played</div>
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Wins</div>
+        <div class="pr-stat-value">${wins.length}</div>
+        <div class="pr-stat-sub">${winRate!=null?(winRate*100).toFixed(0)+'% win rate':'—'}</div>
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Avg Score</div>
+        <div class="pr-stat-value">${avgScore!=null?avgScore.toFixed(1):'—'}</div>
+        <div class="pr-stat-sub">victory points</div>
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Best Score</div>
+        <div class="pr-stat-value">${bestScore!=null?bestScore:'—'}</div>
+        <div class="pr-stat-sub">personal best VP</div>
+      </div>
+    </div>
+
+    <div class="pr-section-label">Game Log</div>
+    <div class="pr-table-wrap">
+      <table class="pr-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th class="num">Game</th>
+            <th class="num">Seat</th>
+            <th class="num">Score</th>
+            <th class="num">Round</th>
+            <th>Ending</th>
+            <th>Others</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="pr-tbody"></tbody>
+      </table>
+    </div>
+  `;
+  profile.appendChild(wrap);
+
+  const tbody = document.getElementById('pr-tbody');
+  [...entries].reverse().forEach(({ game, row }) => {
+    const won = (row[C.win]||'').trim() !== '';
+    const others = game.rows
+      .map(r => (r[C.player]||'').trim())
+      .filter(n => n && n !== player);
+
+    const tr = document.createElement('tr');
+    if (won) tr.className = 'win-row';
+
+    const othersCell = document.createElement('td');
+    othersCell.style.cssText = 'white-space:normal';
+    others.forEach((name, i) => {
+      if (i > 0) othersCell.appendChild(document.createTextNode(', '));
+      const btn = document.createElement('button');
+      btn.className = 'pr-name-link';
+      btn.textContent = name;
+      btn.addEventListener('click', () => activatePlayer(name));
+      othersCell.appendChild(btn);
+    });
+
+    tr.innerHTML = `
+      <td>${fmt.date(game.date)}</td>
+      <td class="num">${game.gameNum||'—'}</td>
+      <td class="num">${fmt.int(row[C.seat])}</td>
+      <td class="num score">${fmt.int(row[C.score])}</td>
+      <td class="num">${fmt.int(row[C.round])}</td>
+      <td>${fmt.ending(row[C.ending])}</td>
+      <td></td>
+      <td>${won?'<span class="win-badge">WIN</span>':''}</td>
+    `;
+    tr.cells[6].replaceWith(othersCell);
+    tbody.appendChild(tr);
+  });
+
+  if (!entries.length) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td colspan="8" style="text-align:center;padding:24px;color:var(--pr-ink-faint);font-style:italic">No games recorded yet.</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+// ── Load data ──────────────────────────────────────────────────────────────────
+async function init() {
+  const statusEl  = document.getElementById('pr-status');
+  const contentEl = document.getElementById('pr-content');
+
+  let csvUrl = '';
+  try {
+    const cfg = await fetch('/data/config.json').then(r => r.json());
+    csvUrl = cfg.pr_stats || '';
+  } catch(e) {}
+
+  if (!csvUrl) {
+    statusEl.textContent = 'Stats sheet not configured yet.';
+    return;
+  }
+
+  Papa.parse(csvUrl, {
+    download: true,
+    complete({ data }) {
+      if (data.length < 2) { statusEl.textContent = 'Sheet appears empty.'; return; }
+
+      const rawRows = data.slice(1);
+      _games       = parseGames(rawRows);
+      _playerIndex = buildPlayerIndex(_games);
+      _allPlayers  = Object.keys(_playerIndex).sort();
+      _mmr         = calculateMMR(_games, _allPlayers);
+      _colorMap    = Object.fromEntries(_allPlayers.map((p, i) => [p, PALETTE[i % PALETTE.length]]));
+
+      if (!_allPlayers.length) { statusEl.textContent = 'No player data found.'; return; }
+
+      // Build tabs
+      const tabsEl = document.getElementById('pr-tabs');
+      _allPlayers.forEach((p, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'pr-player-tab' + (i === 0 ? ' active' : '');
+        btn.dataset.p = p;
+        btn.style.setProperty('--p-color', _colorMap[p]);
+        btn.textContent = p;
+        tabsEl.appendChild(btn);
+      });
+      tabsEl.addEventListener('click', e => {
+        const btn = e.target.closest('.pr-player-tab');
+        if (btn) activatePlayer(btn.dataset.p);
+      });
+
+      renderStandings();
+
+      statusEl.classList.add('hidden');
+      contentEl.classList.remove('hidden');
+
+      activatePlayer(_allPlayers[0]);
+    },
+    error(err) {
+      statusEl.textContent = 'Could not load the stats sheet (' + err + ').';
+    },
+  });
+}
+
+init();
+</script>
