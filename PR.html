@@ -215,6 +215,78 @@ title: Puerto Rico 1897
     font-style: italic;
   }
 
+  /* ── Building cards ──────────────────────────────────────────────────────── */
+  .pr-buildings {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .pr-building-card {
+    background: #141008;
+    border: 1px solid #2a2018;
+    border-radius: 8px;
+    padding: 14px 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .pr-building-card:hover {
+    transform: translateY(-2px);
+  }
+  .pr-building-card--wide {
+    grid-column: span 2;
+  }
+  .pr-building-color-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .pr-building-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .pr-building-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #e8c99a;
+    line-height: 1.25;
+    flex: 1;
+  }
+  .pr-building-cost {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #c87941;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .pr-building-cost::before { content: ''; }
+  /* color variants */
+  .pr-bc-green  { border-top: 2px solid #5a9e4a; }
+  .pr-bc-white  { border-top: 2px solid #c8bfa0; }
+  .pr-bc-blue   { border-top: 2px solid #4a7fc1; }
+  .pr-bc-brown  { border-top: 2px solid #8b6340; }
+  .pr-bc-dbrown { border-top: 2px solid #5c3d20; }
+  .pr-bc-green:hover  { border-color: #5a9e4a; }
+  .pr-bc-white:hover  { border-color: #c8bfa0; }
+  .pr-bc-blue:hover   { border-color: #4a7fc1; }
+  .pr-bc-brown:hover  { border-color: #8b6340; }
+  .pr-bc-dbrown:hover { border-color: #5c3d20; }
+  .dot-green  { background: #5a9e4a; }
+  .dot-white  { background: #c8bfa0; }
+  .dot-blue   { background: #4a7fc1; }
+  .dot-brown  { background: #8b6340; }
+  .dot-dbrown { background: #5c3d20; }
+  @media (max-width: 700px) {
+    .pr-buildings { grid-template-columns: repeat(3, 1fr); }
+    .pr-building-card--wide { grid-column: span 1; }
+  }
+
   /* ── Sub-nav ──────────────────────────────────────────────────────────────── */
   .pr-subnav {
     display: flex;
@@ -353,6 +425,194 @@ title: Puerto Rico 1897
       <div class="pr-role-name">Adventurer</div>
       <div class="pr-role-desc">Only the Adventurer acts — taking one doubloon from the bank. Others do nothing. A tempo move.</div>
       <div class="pr-role-perk">Privilege: +1 doubloon (only)</div>
+    </div>
+  </div>
+</div>
+
+<hr class="pr-divider">
+
+<div class="pr-section">
+  <div class="pr-section-eyebrow">Buildings</div>
+  <h2>What We Build</h2>
+  <p>The buildings available in our games, organized by tier. Cost is in doubloons at default pricing.</p>
+
+  <div class="pr-buildings">
+    <!-- Row 1 -->
+    <div class="pr-building-card pr-bc-green">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-green"></div>
+        <div class="pr-building-name">Small Fruit Depot</div>
+      </div>
+      <div class="pr-building-cost">1 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-white">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-white"></div>
+        <div class="pr-building-name">Small Sugar Mill</div>
+      </div>
+      <div class="pr-building-cost">2 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Small Market</div>
+      </div>
+      <div class="pr-building-cost">1 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Lumbermill</div>
+      </div>
+      <div class="pr-building-cost">2 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Hacienda</div>
+      </div>
+      <div class="pr-building-cost">2 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Storehouse</div>
+      </div>
+      <div class="pr-building-cost">3 db</div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="pr-building-card pr-bc-green">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-green"></div>
+        <div class="pr-building-name">Large Fruit Depot</div>
+      </div>
+      <div class="pr-building-cost">3 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-white">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-white"></div>
+        <div class="pr-building-name">Large Sugar Mill</div>
+      </div>
+      <div class="pr-building-cost">4 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Hospital</div>
+      </div>
+      <div class="pr-building-cost">4 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Large Market</div>
+      </div>
+      <div class="pr-building-cost">5 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Office</div>
+      </div>
+      <div class="pr-building-cost">5 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Large Warehouse</div>
+      </div>
+      <div class="pr-building-cost">6 db</div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="pr-building-card pr-bc-brown">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-brown"></div>
+        <div class="pr-building-name">Large Tobacco Storage</div>
+      </div>
+      <div class="pr-building-cost">5 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-dbrown">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-dbrown"></div>
+        <div class="pr-building-name">Large Coffee Roasters</div>
+      </div>
+      <div class="pr-building-cost">6 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">School</div>
+      </div>
+      <div class="pr-building-cost">7 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Factory</div>
+      </div>
+      <div class="pr-building-cost">8 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Harbor</div>
+      </div>
+      <div class="pr-building-cost">8 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Wharf</div>
+      </div>
+      <div class="pr-building-cost">9 db</div>
+    </div>
+
+    <!-- Row 4 — double-wide -->
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Customs House</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Fortress</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Monument</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+    </div>
+
+    <!-- Row 5 — double-wide -->
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">City Hall</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Fire Station</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Residence</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
     </div>
   </div>
 </div>
