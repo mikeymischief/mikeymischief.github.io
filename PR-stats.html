@@ -444,6 +444,27 @@ title: Puerto Rico 1897 – Player Stats
     letter-spacing: 0.04em;
   }
   .pr-game-card .pr-table td { padding: 7px 16px; }
+  .pr-game-card-header { cursor: default; }
+  .pr-game-card-header.has-notes { cursor: pointer; }
+  .pr-game-card-header.has-notes:hover .pr-game-card-num { color: var(--pr-amber); }
+  .pr-game-note-icon {
+    margin-left: auto;
+    font-size: 13px;
+    opacity: 0.55;
+    transition: opacity 0.15s;
+  }
+  .pr-game-card-header.has-notes:hover .pr-game-note-icon { opacity: 1; }
+  .pr-game-notes {
+    display: none;
+    padding: 12px 16px 14px;
+    border-top: 1px solid var(--pr-border);
+    font-family: 'Crimson Text', serif;
+    font-size: 1rem;
+    color: var(--pr-ink-dim);
+    line-height: 1.65;
+    white-space: pre-wrap;
+  }
+  .pr-game-notes.open { display: block; }
 
   /* ── MMR tooltip ──────────────────────────────────────────────────────────── */
   .pr-mmr-tooltip {
@@ -493,7 +514,7 @@ title: Puerto Rico 1897 – Player Stats
 // Starting MMR(6) Ending MMR(7) Delta(8) Round(9) Ending(10)
 // Rows are grouped per game; blank rows separate games.
 // Round is in the winner's row. Ending is in the row of the player who ended the game.
-const C = { date:0, game:1, player:2, seat:3, score:4, startMmr:6, endMmr:7, delta:8, round:9, ending:10 };
+const C = { date:0, game:1, player:2, seat:3, score:4, startMmr:6, endMmr:7, delta:8, round:9, ending:10, notes:11 };
 
 // Ending letter → full label
 const ENDING_LABELS = { B: 'Buildings', V: 'VP', C: 'Colonist' };
@@ -616,6 +637,8 @@ function renderAllGames() {
     const endLabel   = endRow ? fmt.ending(endRow[C.ending]) : null;
     const gameRound  = winRow ? fmt.int(winRow[C.round]) : null;
 
+    const notes = (game.rows[0]?.[C.notes] || '').trim();
+
     const metaParts = [fmt.date(game.date)];
     if (gameRound && gameRound !== '—') metaParts.push('Round ' + gameRound);
 
@@ -627,8 +650,8 @@ function renderAllGames() {
     card.className = 'pr-game-card';
 
     const header = document.createElement('div');
-    header.className = 'pr-game-card-header';
-    header.innerHTML = `<span class="pr-game-card-num">Game ${game.gameNum || '?'}</span><span class="pr-game-card-meta">${metaParts.join(' · ')}</span>`;
+    header.className = 'pr-game-card-header' + (notes ? ' has-notes' : '');
+    header.innerHTML = `<span class="pr-game-card-num">Game ${game.gameNum || '?'}</span><span class="pr-game-card-meta">${metaParts.join(' · ')}</span>${notes ? '<span class="pr-game-note-icon" title="Session notes">📝</span>' : ''}`;
     card.appendChild(header);
 
     const table = document.createElement('table');
@@ -662,6 +685,15 @@ function renderAllGames() {
     });
     table.appendChild(tbody);
     card.appendChild(table);
+
+    if (notes) {
+      const notesEl = document.createElement('div');
+      notesEl.className = 'pr-game-notes';
+      notesEl.textContent = notes;
+      card.appendChild(notesEl);
+      header.addEventListener('click', () => notesEl.classList.toggle('open'));
+    }
+
     wrap.appendChild(card);
   });
 
