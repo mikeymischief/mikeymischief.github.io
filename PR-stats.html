@@ -644,7 +644,7 @@ function renderAllGames() {
 
     const sorted = [...game.rows]
       .filter(r => (r[C.player]||'').trim())
-      .sort((a, b) => parseInt(b[C.score]) - parseInt(a[C.score]));
+      .sort((a, b) => parseInt(a[C.seat]) - parseInt(b[C.seat]));
 
     const card = document.createElement('div');
     card.className = 'pr-game-card';
