@@ -316,6 +316,16 @@ title: Puerto Rico 1897 – Player Stats
   .pr-table tr.win-row td { color: var(--pr-ink); }
   .pr-table tr.win-row td.score { color: #e8c99a; font-weight: 600; }
   .pr-table tbody tr:hover td { background: var(--pr-amber-dim); }
+  .pr-table .end-badge {
+    font-size: 11px;
+    background: rgba(127,179,160,0.12);
+    color: #7fb3a0;
+    border: 1px solid rgba(127,179,160,0.3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
   .pr-table .win-badge {
     font-size: 11px;
     background: rgba(200,121,65,0.15);
@@ -445,7 +455,6 @@ title: Puerto Rico 1897 – Player Stats
 <div id="pr-content" class="hidden">
 
   <div class="pr-standings" id="pr-standings"></div>
-  <div class="pr-player-tabs" id="pr-tabs"></div>
   <div id="pr-profile"></div>
 
 </div>
@@ -568,12 +577,12 @@ function renderAllGames() {
     const winner   = winnerOfGame(game);
     const winRow   = game.rows.find(r => (r[C.player]||'').trim() === winner);
     const endRow   = game.rows.find(r => (r[C.ending]||'').trim() !== '');
-    const gameRound  = winRow ? fmt.int(winRow[C.round])     : null;
-    const gameEnding = endRow ? fmt.ending(endRow[C.ending]) : null;
+    const endPlayer  = endRow ? (endRow[C.player]||'').trim() : null;
+    const endLabel   = endRow ? fmt.ending(endRow[C.ending]) : null;
+    const gameRound  = winRow ? fmt.int(winRow[C.round]) : null;
 
     const metaParts = [fmt.date(game.date)];
-    if (gameRound  && gameRound  !== '—') metaParts.push('Round ' + gameRound);
-    if (gameEnding && gameEnding !== '—') metaParts.push(gameEnding);
+    if (gameRound && gameRound !== '—') metaParts.push('Round ' + gameRound);
 
     const sorted = [...game.rows]
       .filter(r => (r[C.player]||'').trim())
@@ -590,17 +599,22 @@ function renderAllGames() {
     const table = document.createElement('table');
     table.className = 'pr-table';
     const tbody = document.createElement('tbody');
-    sorted.forEach(row => {
-      const player = (row[C.player]||'').trim();
-      const won    = player === winner;
-      const color  = getColor(player);
-      const tr     = document.createElement('tr');
+    sorted.forEach((row, idx) => {
+      const player  = (row[C.player]||'').trim();
+      const won     = player === winner;
+      const isEnder = player === endPlayer;
+      const color   = getColor(player);
+      const tr      = document.createElement('tr');
       if (won) tr.className = 'win-row';
+      const badges = [
+        won     ? '<span class="win-badge">WIN</span>'                                : '',
+        isEnder && endLabel ? `<span class="end-badge">${endLabel}</span>` : '',
+      ].filter(Boolean).join(' ');
       tr.innerHTML = `
         <td></td>
         <td class="num">Seat ${fmt.int(row[C.seat])}</td>
         <td class="num score">${fmt.int(row[C.score])} VP</td>
-        <td>${won ? '<span class="win-badge">WIN</span>' : ''}</td>`;
+        <td>${badges}</td>`;
       const nameCell = document.createElement('td');
       const nameBtn  = document.createElement('button');
       nameBtn.className = 'pr-name-link';
@@ -620,21 +634,17 @@ function renderAllGames() {
 }
 
 function activateAllGames() {
-  document.querySelectorAll('.pr-player-tab').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.pr-standing-card').forEach(c => c.classList.remove('active'));
-  const btn = document.getElementById('pr-all-games-btn');
-  if (btn) btn.classList.add('active');
   renderAllGames();
 }
 
-// ── Activate player (tabs + standings + profile) ───────────────────────────────
+// ── Activate player (standings card click; clicking active card returns to All Games) ──
 function activatePlayer(player) {
-  document.querySelectorAll('.pr-player-tab').forEach(b => {
-    b.classList.toggle('active', b.dataset.p === player);
-  });
-  document.querySelectorAll('.pr-standing-card').forEach(c => {
-    c.classList.toggle('active', c.dataset.p === player);
-  });
+  const card = document.querySelector(`.pr-standing-card[data-p="${CSS.escape(player)}"]`);
+  const wasActive = card && card.classList.contains('active');
+  document.querySelectorAll('.pr-standing-card').forEach(c => c.classList.remove('active'));
+  if (wasActive) { renderAllGames(); return; }
+  if (card) card.classList.add('active');
   renderProfile(player);
 }
 
@@ -856,6 +866,7 @@ function renderProfile(player) {
             <th class="num">Game</th>
             <th class="num">Seat</th>
             <th class="num">Score</th>
+            <th class="num" title="Finishing position by score">Place</th>
             <th class="num" title="Round the game ended on">Round</th>
             <th title="How the game ended: Buildings · VP · Colonist">Ending</th>
             <th>Others</th>
@@ -877,6 +888,11 @@ function renderProfile(player) {
     const endRow = game.rows.find(r => (r[C.ending]||'').trim() !== '');
     const gameRound  = winRow ? fmt.int(winRow[C.round])     : '—';
     const gameEnding = endRow ? fmt.ending(endRow[C.ending]) : '—';
+
+    const sortedScores = game.rows.map(r => parseInt(r[C.score])).filter(v => !isNaN(v)).sort((a,b) => b-a);
+    const myScore = parseInt(row[C.score]);
+    const place = !isNaN(myScore) ? '#' + (sortedScores.indexOf(myScore) + 1) : '—';
+
     const others = game.rows
       .map(r => (r[C.player]||'').trim())
       .filter(n => n && n !== player);
@@ -900,12 +916,13 @@ function renderProfile(player) {
       <td class="num">${game.gameNum||'—'}</td>
       <td class="num">${fmt.int(row[C.seat])}</td>
       <td class="num score">${fmt.int(row[C.score])}</td>
+      <td class="num">${place}</td>
       <td class="num">${gameRound}</td>
       <td>${gameEnding}</td>
       <td></td>
       <td>${won?'<span class="win-badge">WIN</span>':''}</td>
     `;
-    tr.cells[6].replaceWith(othersCell);
+    tr.cells[7].replaceWith(othersCell);
     tbody.appendChild(tr);
   });
 
@@ -946,29 +963,6 @@ async function init() {
 
       if (!_allPlayers.length) { statusEl.textContent = 'No player data found.'; return; }
 
-      // Build tabs
-      const tabsEl = document.getElementById('pr-tabs');
-      _allPlayers.forEach((p, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'pr-player-tab' + (i === 0 ? ' active' : '');
-        btn.dataset.p = p;
-        btn.style.setProperty('--p-color', _colorMap[p]);
-        btn.textContent = p;
-        tabsEl.appendChild(btn);
-      });
-      tabsEl.addEventListener('click', e => {
-        const btn = e.target.closest('.pr-player-tab');
-        if (btn && btn.dataset.p) activatePlayer(btn.dataset.p);
-      });
-
-      // All Games tab
-      const agBtn = document.createElement('button');
-      agBtn.className = 'pr-player-tab pr-all-games-tab';
-      agBtn.id = 'pr-all-games-btn';
-      agBtn.textContent = 'All Games';
-      agBtn.addEventListener('click', activateAllGames);
-      tabsEl.appendChild(agBtn);
-
       renderStandings();
 
       statusEl.classList.add('hidden');
@@ -989,7 +983,7 @@ async function init() {
         if (tip.style.display !== 'none') { tip.style.left = (e.clientX + 14) + 'px'; tip.style.top = (e.clientY - 32) + 'px'; }
       });
 
-      activatePlayer(_allPlayers[0]);
+      activateAllGames();
     },
     error(err) {
       statusEl.textContent = 'Could not load the stats sheet (' + err + ').';
