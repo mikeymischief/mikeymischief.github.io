@@ -38,10 +38,14 @@
           </div>
 
           <nav>
-            <a href="{{ site.baseurl }}/commander-dashboard/">Commander</a>
-            <a href="/cube/"{% if page.url == '/cube/' %} class="active"{% endif %}>Cube</a>
-            <a href="/PR/"{% if page.url == '/PR/' %} class="active"{% endif %}>Puerto Rico</a>
-            <a href="{{ site.baseurl }}/about">About</a>
+            {% if page.url contains '/PR/' %}
+              <a href="/PR/"{% if page.url == '/PR/' %} class="active"{% endif %}>Puerto Rico</a>
+              <a href="/PR/stats/"{% if page.url == '/PR/stats/' %} class="active"{% endif %}>Stats</a>
+            {% else %}
+              <a href="{{ site.baseurl }}/commander-dashboard/">Commander</a>
+              <a href="/cube/"{% if page.url == '/cube/' %} class="active"{% endif %}>Cube</a>
+              <a href="{{ site.baseurl }}/about">About</a>
+            {% endif %}
           </nav>
         </header>
       </div>
