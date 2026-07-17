@@ -489,6 +489,7 @@ function renderTable(agg) {
   });
 }
 
+_csvConfigReady.then(() => {
 Papa.parse(GAMES_CSV_URL, {
   download: true,
   complete: async function(results) {
@@ -507,6 +508,7 @@ Papa.parse(GAMES_CSV_URL, {
   },
   error: err => setStatus('Could not load games sheet: ' + err, true),
 });
+}); // _csvConfigReady
 </script>
 </body>
 </html>

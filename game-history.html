@@ -1830,6 +1830,8 @@ function renderHistory(rows) {
     pods.length + ' games loaded, most recent first.';
 }
 
+_csvConfigReady.then(() => {
+
 Papa.parse(DECK_CSV_URL, {
   download: true,
   complete: function(r) {
@@ -1872,6 +1874,8 @@ Papa.parse(GAMES_CSV_URL, {
     showHistoryError('Could not load the Games sheet (' + err + ').');
   }
 });
+
+}); // _csvConfigReady
 </script>
 </body>
 </html>

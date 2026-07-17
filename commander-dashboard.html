@@ -826,7 +826,6 @@ permalink: /commander-dashboard/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="/assets/commander-stats.js"></script>
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=218695172&single=true&output=csv";
 let _tierMap = {};
 let _activeSet = new Set();
 let _bracketMap = {};
@@ -959,7 +958,9 @@ function tryInitSpotlight() {
   try { initSpotlight(_statRows); } catch(e) { console.error(e); }
 }
 
-Papa.parse(CSV_URL, {
+_csvConfigReady.then(() => {
+
+Papa.parse(CMDRSTATS_CSV_URL, {
   download: true,
   complete: function(results) {
     if (results.data && results.data.length >= DATA_START_ROW) _statRows = results.data;
@@ -998,6 +999,8 @@ Papa.parse(DECK_CSV_URL, {
   },
   error: function() { tryInitSpotlight(); }
 });
+
+}); // _csvConfigReady
 </script>
 </body>
 </html>

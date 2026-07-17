@@ -1,6 +1,22 @@
-// ── Shared CSV endpoints ──────────────────────────────────────────────────────
-const GAMES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1421030394&single=true&output=csv";
-const DECK_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1630550165&single=true&output=csv";
+// ── Shared CSV endpoints — sourced from /data/config.json ────────────────────
+// To update after a Google Sheets republish: edit /data/config.json only.
+let GAMES_CSV_URL     = '';
+let DECK_CSV_URL      = '';
+let CMDRSTATS_CSV_URL = '';
+
+const _csvConfigReady = fetch('/data/config.json')
+  .then(r => r.json())
+  .then(cfg => {
+    GAMES_CSV_URL     = cfg.games;
+    DECK_CSV_URL      = cfg.deck;
+    CMDRSTATS_CSV_URL = cfg.cmdrstats;
+  })
+  .catch(() => {
+    // Fallback hardcoded values if config fetch fails
+    GAMES_CSV_URL     = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1421030394&single=true&output=csv';
+    DECK_CSV_URL      = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1630550165&single=true&output=csv';
+    CMDRSTATS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=218695172&single=true&output=csv';
+  });
 
 // ── Games CSV column indices ──────────────────────────────────────────────────
 const G = { date:0, winner:1, seat:2, mulligan:3, kingme:4, rounds:5, pilot:6, commander:7, startMmr:8, endMmr:9, delta:10, winProb:11, cmdrPlays:12, notes:13 };

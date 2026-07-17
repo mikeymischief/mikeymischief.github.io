@@ -899,6 +899,7 @@ async function renderColorProfiles(gameRows) {
   document.getElementById('color-profiles').innerHTML = html;
 }
 
+_csvConfigReady.then(() => {
 Papa.parse(GAMES_CSV_URL, {
   download: true,
   complete: function(results) {
@@ -952,6 +953,7 @@ Papa.parse(GAMES_CSV_URL, {
     showError('Could not load the Games sheet (' + err + ').');
   }
 });
+}); // _csvConfigReady
 </script>
 </body>
 </html>
