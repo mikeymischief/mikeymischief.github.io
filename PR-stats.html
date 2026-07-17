@@ -222,9 +222,9 @@ title: Puerto Rico 1897 – Player Stats
 
   /* ── Standings ────────────────────────────────────────────────────────────── */
   .pr-standings {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 8px;
-    flex-wrap: wrap;
     margin-bottom: 28px;
   }
   .pr-standing-card {
@@ -362,6 +362,49 @@ title: Puerto Rico 1897 – Player Stats
     padding: 1px 6px;
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.05em;
+  }
+
+  /* ── All Games summary strip ─────────────────────────────────────────────── */
+  .pr-all-summary {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--pr-border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .pr-all-summary-item {
+    flex: 1;
+    padding: 10px 16px;
+    border-right: 1px solid var(--pr-border);
+    min-width: 0;
+  }
+  .pr-all-summary-item:last-child { border-right: none; }
+  .pr-all-summary-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+    margin-bottom: 3px;
+    white-space: nowrap;
+  }
+  .pr-all-summary-value {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #e8c99a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pr-all-summary-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--pr-ink-faint);
+    margin-top: 1px;
+    white-space: nowrap;
   }
 
   /* ── Status messages ──────────────────────────────────────────────────────── */
@@ -648,28 +691,25 @@ function renderAllGames() {
   const avgRoundAll = allRounds.length ? (allRounds.reduce((a,b)=>a+b,0)/allRounds.length).toFixed(1) : '—';
 
   const summaryBar = document.createElement('div');
-  summaryBar.className = 'pr-stat-bar';
-  summaryBar.style.marginBottom = '20px';
+  summaryBar.className = 'pr-all-summary';
   summaryBar.innerHTML = `
-    <div class="pr-stat-card">
-      <div class="pr-stat-label">Total Games</div>
-      <div class="pr-stat-value">${totalGames}</div>
-      <div class="pr-stat-sub">sessions played</div>
+    <div class="pr-all-summary-item">
+      <div class="pr-all-summary-label">Total Games</div>
+      <div class="pr-all-summary-value">${totalGames}</div>
     </div>
-    <div class="pr-stat-card">
-      <div class="pr-stat-label">Most Wins</div>
-      <div class="pr-stat-value" style="font-size:1.1rem">${topWinner ? topWinner[0] : '—'}</div>
-      <div class="pr-stat-sub">${topWinner ? topWinner[1]+' win'+(topWinner[1]!==1?'s':'') : '—'}</div>
+    <div class="pr-all-summary-item">
+      <div class="pr-all-summary-label">Most Wins</div>
+      <div class="pr-all-summary-value">${topWinner ? topWinner[0] : '—'}</div>
+      <div class="pr-all-summary-sub">${topWinner ? topWinner[1]+' win'+(topWinner[1]!==1?'s':'') : ''}</div>
     </div>
-    <div class="pr-stat-card">
-      <div class="pr-stat-label">Top Ending</div>
-      <div class="pr-stat-value" style="font-size:1.1rem">${topEndingEntry ? fmt.ending(topEndingEntry[0]) : '—'}</div>
-      <div class="pr-stat-sub">${endingBreakdown}</div>
+    <div class="pr-all-summary-item">
+      <div class="pr-all-summary-label">Top Ending</div>
+      <div class="pr-all-summary-value">${topEndingEntry ? fmt.ending(topEndingEntry[0]) : '—'}</div>
+      <div class="pr-all-summary-sub">${endingBreakdown}</div>
     </div>
-    <div class="pr-stat-card">
-      <div class="pr-stat-label">Avg Round</div>
-      <div class="pr-stat-value">${avgRoundAll}</div>
-      <div class="pr-stat-sub">game length</div>
+    <div class="pr-all-summary-item">
+      <div class="pr-all-summary-label">Avg Round</div>
+      <div class="pr-all-summary-value">${avgRoundAll}</div>
     </div>
   `;
   wrap.appendChild(summaryBar);
