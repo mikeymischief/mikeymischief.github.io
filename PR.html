@@ -233,9 +233,24 @@ title: Puerto Rico 1897
     position: relative;
     transition: border-color 0.15s, transform 0.15s;
   }
+  .pr-building-card {
+    cursor: pointer;
+  }
   .pr-building-card:hover {
     transform: translateY(-2px);
   }
+  .pr-building-rules {
+    display: none;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.95rem;
+    color: rgba(233,220,200,0.65);
+    line-height: 1.5;
+    border-top: 1px solid rgba(200,121,65,0.12);
+    padding-top: 8px;
+    margin-top: 2px;
+  }
+  .pr-building-card.open .pr-building-rules { display: block; }
+  .pr-building-card.open { transform: none; }
   .pr-building-card--wide {
     grid-column: span 2;
   }
@@ -354,6 +369,218 @@ title: Puerto Rico 1897
 <hr class="pr-divider">
 
 <div class="pr-section">
+  <div class="pr-section-eyebrow">Buildings</div>
+  <h2>What We Build</h2>
+  <p>A quick reference for our group — the buildings we use in our sessions, organized by tier. Click any card to see what it does. Cost is in doubloons at default pricing.</p>
+
+  <div class="pr-buildings">
+    <!-- Row 1 -->
+    <div class="pr-building-card pr-bc-green">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-green"></div>
+        <div class="pr-building-name">Small Fruit Depot</div>
+      </div>
+      <div class="pr-building-cost">1 db</div>
+      <div class="pr-building-rules">Produce 1 Fruit.</div>
+    </div>
+    <div class="pr-building-card pr-bc-white">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-white"></div>
+        <div class="pr-building-name">Small Sugar Mill</div>
+      </div>
+      <div class="pr-building-cost">2 db</div>
+      <div class="pr-building-rules">Produce 1 Sugar.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Small Market</div>
+      </div>
+      <div class="pr-building-cost">1 db</div>
+      <div class="pr-building-rules">Gain 1 Coin whenever you sell.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Lumbermill</div>
+      </div>
+      <div class="pr-building-cost">2 db</div>
+      <div class="pr-building-rules">Planter: Gain a Forest. Builder: Pay 1 Coin less for every 2 Forests you have.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Hacienda</div>
+      </div>
+      <div class="pr-building-cost">2 db</div>
+      <div class="pr-building-rules">Gain 1 Estate from the bag before taking the usual one.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Storehouse</div>
+      </div>
+      <div class="pr-building-cost">3 db</div>
+      <div class="pr-building-rules">Store any 3 Crates.</div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="pr-building-card pr-bc-green">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-green"></div>
+        <div class="pr-building-name">Large Fruit Depot</div>
+      </div>
+      <div class="pr-building-cost">3 db</div>
+      <div class="pr-building-rules">Produce 3 Fruit.</div>
+    </div>
+    <div class="pr-building-card pr-bc-white">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-white"></div>
+        <div class="pr-building-name">Large Sugar Mill</div>
+      </div>
+      <div class="pr-building-cost">4 db</div>
+      <div class="pr-building-rules">Produce 3 Sugar.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Hospital</div>
+      </div>
+      <div class="pr-building-cost">4 db</div>
+      <div class="pr-building-rules">Gained Countryside tiles come with 1 Worker from the supply.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Large Market</div>
+      </div>
+      <div class="pr-building-cost">5 db</div>
+      <div class="pr-building-rules">Gain 2 Coins whenever you sell.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Office</div>
+      </div>
+      <div class="pr-building-cost">5 db</div>
+      <div class="pr-building-rules">You may sell a Good that is already present in the Trading House.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Large Warehouse</div>
+      </div>
+      <div class="pr-building-cost">6 db</div>
+      <div class="pr-building-rules">Store all Crates of 2 Goods types.</div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="pr-building-card pr-bc-brown">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-brown"></div>
+        <div class="pr-building-name">Large Tobacco Storage</div>
+      </div>
+      <div class="pr-building-cost">5 db</div>
+      <div class="pr-building-rules">Produce 3 Tobacco.</div>
+    </div>
+    <div class="pr-building-card pr-bc-dbrown">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-dbrown"></div>
+        <div class="pr-building-name">Large Coffee Roasters</div>
+      </div>
+      <div class="pr-building-cost">6 db</div>
+      <div class="pr-building-rules">Produce 3 Coffee.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">School</div>
+      </div>
+      <div class="pr-building-cost">7 db</div>
+      <div class="pr-building-rules">Built Buildings come with 1 Worker from the supply.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Factory</div>
+      </div>
+      <div class="pr-building-cost">8 db</div>
+      <div class="pr-building-rules">Gain 1/2/3/5 Coins if you produce 2/3/4/5 different goods.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Harbor</div>
+      </div>
+      <div class="pr-building-cost">8 db</div>
+      <div class="pr-building-rules">Gain 1 VP whenever you load Goods onto a Ship.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Wharf</div>
+      </div>
+      <div class="pr-building-cost">9 db</div>
+      <div class="pr-building-rules">Gain a Personal Ship Token that allows you to load all Crates of one type of Goods (once per phase).</div>
+    </div>
+
+    <!-- Row 4 — double-wide -->
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Customs House</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+      <div class="pr-building-rules">Score 1 VP for every 4 VP tokens you have.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Fortress</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+      <div class="pr-building-rules">Score 1 VP for every 3 Workers.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Monument</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+      <div class="pr-building-rules">This building has no function, but it scores more VP at the end of the game.</div>
+    </div>
+
+    <!-- Row 5 — double-wide -->
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">City Hall</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+      <div class="pr-building-rules">Score 1 VP for each Commercial Building you have.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Fire Station</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+      <div class="pr-building-rules">Score 1/2 VP for each Small/Large Production Building you have.</div>
+    </div>
+    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
+      <div class="pr-building-header">
+        <div class="pr-building-color-dot dot-blue"></div>
+        <div class="pr-building-name">Residence</div>
+      </div>
+      <div class="pr-building-cost">10 db</div>
+      <div class="pr-building-rules">Score 4/5/6/7 VP if you have 1–9/10/11/12 Countryside Tiles.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="pr-divider">
+
+<div class="pr-section">
   <div class="pr-section-eyebrow">How It Works</div>
   <h2>The Core Loop</h2>
   <p>Each round, players take turns selecting a role from a shared pool. All players execute the role's action, but the player who chose it gains an additional privilege. Roles not chosen in a round accumulate bonus doubloons — making them more tempting next time.</p>
@@ -429,190 +656,10 @@ title: Puerto Rico 1897
   </div>
 </div>
 
-<hr class="pr-divider">
-
-<div class="pr-section">
-  <div class="pr-section-eyebrow">Buildings</div>
-  <h2>What We Build</h2>
-  <p>The buildings available in our games, organized by tier. Cost is in doubloons at default pricing.</p>
-
-  <div class="pr-buildings">
-    <!-- Row 1 -->
-    <div class="pr-building-card pr-bc-green">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-green"></div>
-        <div class="pr-building-name">Small Fruit Depot</div>
-      </div>
-      <div class="pr-building-cost">1 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-white">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-white"></div>
-        <div class="pr-building-name">Small Sugar Mill</div>
-      </div>
-      <div class="pr-building-cost">2 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Small Market</div>
-      </div>
-      <div class="pr-building-cost">1 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Lumbermill</div>
-      </div>
-      <div class="pr-building-cost">2 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Hacienda</div>
-      </div>
-      <div class="pr-building-cost">2 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Storehouse</div>
-      </div>
-      <div class="pr-building-cost">3 db</div>
-    </div>
-
-    <!-- Row 2 -->
-    <div class="pr-building-card pr-bc-green">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-green"></div>
-        <div class="pr-building-name">Large Fruit Depot</div>
-      </div>
-      <div class="pr-building-cost">3 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-white">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-white"></div>
-        <div class="pr-building-name">Large Sugar Mill</div>
-      </div>
-      <div class="pr-building-cost">4 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Hospital</div>
-      </div>
-      <div class="pr-building-cost">4 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Large Market</div>
-      </div>
-      <div class="pr-building-cost">5 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Office</div>
-      </div>
-      <div class="pr-building-cost">5 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Large Warehouse</div>
-      </div>
-      <div class="pr-building-cost">6 db</div>
-    </div>
-
-    <!-- Row 3 -->
-    <div class="pr-building-card pr-bc-brown">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-brown"></div>
-        <div class="pr-building-name">Large Tobacco Storage</div>
-      </div>
-      <div class="pr-building-cost">5 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-dbrown">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-dbrown"></div>
-        <div class="pr-building-name">Large Coffee Roasters</div>
-      </div>
-      <div class="pr-building-cost">6 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">School</div>
-      </div>
-      <div class="pr-building-cost">7 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Factory</div>
-      </div>
-      <div class="pr-building-cost">8 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Harbor</div>
-      </div>
-      <div class="pr-building-cost">8 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Wharf</div>
-      </div>
-      <div class="pr-building-cost">9 db</div>
-    </div>
-
-    <!-- Row 4 — double-wide -->
-    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Customs House</div>
-      </div>
-      <div class="pr-building-cost">10 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Fortress</div>
-      </div>
-      <div class="pr-building-cost">10 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Monument</div>
-      </div>
-      <div class="pr-building-cost">10 db</div>
-    </div>
-
-    <!-- Row 5 — double-wide -->
-    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">City Hall</div>
-      </div>
-      <div class="pr-building-cost">10 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Fire Station</div>
-      </div>
-      <div class="pr-building-cost">10 db</div>
-    </div>
-    <div class="pr-building-card pr-bc-blue pr-building-card--wide">
-      <div class="pr-building-header">
-        <div class="pr-building-color-dot dot-blue"></div>
-        <div class="pr-building-name">Residence</div>
-      </div>
-      <div class="pr-building-cost">10 db</div>
-    </div>
-  </div>
-</div>
+<script>
+  document.querySelectorAll('.pr-building-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('open');
+    });
+  });
+</script>

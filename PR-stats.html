@@ -487,7 +487,7 @@ title: Puerto Rico 1897 – Player Stats
 
   @media (max-width: 640px) {
     .pr-hero { padding: 60px 24px 28px; }
-    .pr-stat-bar { grid-template-columns: repeat(3, 1fr); }
+    .pr-stat-bar { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
   }
 </style>
 
@@ -873,6 +873,15 @@ function renderProfile(player) {
   const bestScore = scores.length ? Math.max(...scores) : null;
   const winRate   = entries.length ? wins.length / entries.length : null;
 
+  const endedEntries = entries.filter(({ row }) => (row[C.ending]||'').trim() !== '');
+  const gamesEnded   = endedEntries.length;
+  const endRounds    = endedEntries.map(({ game }) => {
+    const winner = winnerOfGame(game);
+    const winRow = game.rows.find(r => (r[C.player]||'').trim() === winner);
+    return winRow ? parseInt(winRow[C.round]) : NaN;
+  }).filter(v => !isNaN(v));
+  const avgRoundEnd = endRounds.length ? endRounds.reduce((a,b)=>a+b,0)/endRounds.length : null;
+
   const hist       = _mmr.history[player] || [];
   const mmrCurrent = hist.length ? hist[hist.length-1].endMmr : (_mmr.current[player] || MMR_BASE);
   const lastDelta  = hist.length ? hist[hist.length-1].delta : 0;
@@ -935,6 +944,16 @@ function renderProfile(player) {
         <div class="pr-stat-label">Best Score</div>
         <div class="pr-stat-value">${bestScore!=null?bestScore:'—'}</div>
         <div class="pr-stat-sub">personal best VP</div>
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Games Ended</div>
+        <div class="pr-stat-value">${gamesEnded || '—'}</div>
+        <div class="pr-stat-sub">${entries.length ? (gamesEnded/entries.length*100).toFixed(0)+'% of games' : '—'}</div>
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Avg Round End</div>
+        <div class="pr-stat-value">${avgRoundEnd!=null?avgRoundEnd.toFixed(1):'—'}</div>
+        <div class="pr-stat-sub">when ending games</div>
       </div>
     </div>
 
