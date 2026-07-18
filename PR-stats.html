@@ -235,7 +235,7 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
   }
   .pr-player-hero-name {
     font-family: 'Cinzel', serif;
-    font-size: 2.8rem;
+    font-size: 4rem;
     font-weight: 700;
     color: var(--p-color, var(--pr-amber));
     line-height: 1;
@@ -261,7 +261,7 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
   }
   .pr-player-hero-mmr-value {
     font-family: 'Cinzel', serif;
-    font-size: 2.8rem;
+    font-size: 4rem;
     font-weight: 700;
     color: var(--p-color, var(--pr-amber));
     line-height: 1;
@@ -1227,7 +1227,7 @@ function scrollToGame(gameNum, openNotes) {
 
 function handleInitialHash() {
   const m = location.hash.match(/^#game-(\d+)$/);
-  activateAllGames();
+  activateAllGames(false);
   if (m) setTimeout(() => scrollToGame(m[1], true), 80);
 }
 
@@ -1237,12 +1237,12 @@ function clearActive() {
   if (allBtn) allBtn.classList.remove('active');
 }
 
-function activateAllGames() {
+function activateAllGames(scroll = true) {
   clearActive();
   const allBtn = document.getElementById('pr-all-games-card');
   if (allBtn) allBtn.classList.add('active');
   renderAllGames();
-  document.getElementById('pr-profile').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (scroll) document.getElementById('pr-profile').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ── Activate player (click active → return to All Games) ──────────────────────
@@ -1547,7 +1547,6 @@ function renderProfile(player) {
         </div>
       </div>
       <div class="pr-player-hero-mmr">
-        <div class="pr-player-hero-mmr-label">MMR</div>
         <div class="pr-player-hero-mmr-value">${mmrCurrent}</div>
         ${hist.length ? `<div class="pr-player-hero-mmr-delta ${deltaClass}">${deltaSign}${lastDelta.toFixed(1)} last game</div>` : ''}
       </div>
@@ -1742,7 +1741,7 @@ async function init() {
         const m = location.hash.match(/^#game-(\d+)$/);
         if (!m) return;
         if (!document.querySelector('.pr-game-card')) {
-          activateAllGames();
+          activateAllGames(false);
           setTimeout(() => scrollToGame(m[1], true), 80);
         } else {
           scrollToGame(m[1], true);
