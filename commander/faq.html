@@ -1,6 +1,6 @@
 ---
 layout: null
-permalink: /faq/
+permalink: /commander/faq/
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -190,15 +190,12 @@ permalink: /faq/
       <div class="masthead-site-desc">A Magic The Gathering Blog</div>
     </div>
     <nav class="masthead-nav">
-      <a href="/commander-dashboard/">Home</a>
-      <a href="/players/">Stats</a>
-      <a href="/game-history/">History</a>
-      <a href="/insights/">Insights</a>
-      <a href="/commander-colors/">Colors</a>
-      <a href="/faq/" class="active">FAQ</a>
-      <span class="nav-sep">|</span>
-      <a href="/cube/">Cube</a>
-      <a href="/about">About</a>
+      <a href="/commander/">Home</a>
+      <a href="/commander/stats/">Stats</a>
+      <a href="/commander/game-history/">History</a>
+      <a href="/commander/insights/">Insights</a>
+      <a href="/commander/colors/">Colors</a>
+      <a href="/commander/faq/" class="active">FAQ</a>
     </nav>
   </div>
 </div>
@@ -216,7 +213,7 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">How do I see a commander's profile? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>Click any commander's name in the pod tables on the <a href="/game-history/">History</a> page. This opens the commander's profile: an art card pulled from Scryfall, a stat bar showing active MMR ranking, popularity rank, current MMR, seating, avg round won, avg mulligans, King Maker count, and error count, followed by an MMR chart, rivals, and a filtered game log. The MMR chart header shows the primary pilot (color-coded) and the overall win–loss record. A tier badge appears above the commander name for active commanders only.</p>
+        <p>Click any commander's name in the pod tables on the <a href="/commander/game-history/">History</a> page. This opens the commander's profile: an art card pulled from Scryfall, a stat bar showing active MMR ranking, popularity rank, current MMR, seating, avg round won, avg mulligans, King Maker count, and error count, followed by an MMR chart, rivals, and a filtered game log. The MMR chart header shows the primary pilot (color-coded) and the overall win–loss record. A tier badge appears above the commander name for active commanders only.</p>
         <p>On the MMR chart, filled points are wins, hollow points are losses, and white points are ties (🤝). Hover any point for the exact date and session number.</p>
       </div>
     </div>
@@ -251,7 +248,7 @@ permalink: /faq/
           <div class="badge-row"><span class="badge-icon">👑</span><span><strong>King Maker</strong> — this player's actions directly decided who won, without winning themselves.</span></div>
           <div class="badge-row"><span class="badge-icon">❌</span><span><strong>Error</strong> — a notable misplay was recorded for this player in this game.</span></div>
         </div>
-        <p>These are tracked on the <a href="/players/">Players</a> page and on each commander's stat card in <a href="/game-history/">History</a>.</p>
+        <p>These are tracked on the <a href="/commander/stats/">Players</a> page and on each commander's stat card in <a href="/commander/game-history/">History</a>.</p>
       </div>
     </div>
 
@@ -276,8 +273,8 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">What does "active" mean? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>A commander is considered active if they've been played at least once in the past two years. The active pool is used as the benchmark for tier and MMR rankings in <a href="/game-history/">History</a> and <a href="/insights/">Insights</a> — so your rank reflects how you compare to commanders that are actually getting played, not just the all-time historical field.</p>
-        <p>Inactive commanders still appear in the data and retain an approximate tier based on where they'd land against the current active pool. On the <a href="/commander-colors/">Colors page</a>, inactive commander names are dimmed. The <a href="/insights/#section-blitz">On the Shelf</a> table flags active commanders that haven't been played in 6 or more months — a heads-up that they're at risk of going inactive.</p>
+        <p>A commander is considered active if they've been played at least once in the past two years. The active pool is used as the benchmark for tier and MMR rankings in <a href="/commander/game-history/">History</a> and <a href="/commander/insights/">Insights</a> — so your rank reflects how you compare to commanders that are actually getting played, not just the all-time historical field.</p>
+        <p>Inactive commanders still appear in the data and retain an approximate tier based on where they'd land against the current active pool. On the <a href="/commander/colors/">Colors page</a>, inactive commander names are dimmed. The <a href="/commander/insights/#section-blitz">On the Shelf</a> table flags active commanders that haven't been played in 6 or more months — a heads-up that they're at risk of going inactive.</p>
       </div>
     </div>
 
@@ -285,7 +282,7 @@ permalink: /faq/
       <button class="faq-q" onclick="tog(this)">How are S / A / B / C / D tiers assigned? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
         <p>Tiers are assigned by comparing a commander's MMR to the active pool using a z-score. A competitive, evenly-matched meta could result in most commanders sitting in B with a handful in A and C and nothing at the extremes.</p>
-        <p>Tier badges appear on active commanders in the <a href="/game-history/">History</a> profile card and game log, and in the MMR table on <a href="/insights/">Insights</a>. Inactive commanders have no tier badge.</p>
+        <p>Tier badges appear on active commanders in the <a href="/commander/game-history/">History</a> profile card and game log, and in the MMR table on <a href="/commander/insights/">Insights</a>. Inactive commanders have no tier badge.</p>
         <div class="tier-rows">
           <div class="tier-row"><span class="pill">S</span><span>Dominating — well above the rest of the field</span></div>
           <div class="tier-row"><span class="pill">A</span><span>Strong — clearly above average</span></div>
@@ -299,7 +296,7 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">What is Popularity Rank? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>Commanders are ranked by total games played across all pilots, with most-recent play date as the tiebreaker. The rank on a commander's profile in <a href="/game-history/">History</a> and the rank in the <a href="/insights/#section-popularity">Popularity table</a> on Insights are calculated with the same logic.</p>
+        <p>Commanders are ranked by total games played across all pilots, with most-recent play date as the tiebreaker. The rank on a commander's profile in <a href="/commander/game-history/">History</a> and the rank in the <a href="/commander/insights/#section-popularity">Popularity table</a> on Insights are calculated with the same logic.</p>
       </div>
     </div>
   </section>
@@ -317,7 +314,7 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">Why are some commander names dimmed? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>Dimmed names haven't been played in the past two years and are considered inactive. The <strong>Highest Win% (Active)</strong> column on the <a href="/commander-colors/">Colors page</a> always tries to show the best active commander first. If a color pair has no active commanders, the best all-time pick is shown but dimmed to signal it reflects older data.</p>
+        <p>Dimmed names haven't been played in the past two years and are considered inactive. The <strong>Highest Win% (Active)</strong> column on the <a href="/commander/colors/">Colors page</a> always tries to show the best active commander first. If a color pair has no active commanders, the best all-time pick is shown but dimmed to signal it reflects older data.</p>
         <p>The same dimming applies inside the expanded accordion rows — active commanders appear at full brightness, inactive ones at reduced opacity.</p>
       </div>
     </div>
@@ -325,7 +322,7 @@ permalink: /faq/
     <div class="faq-item">
       <button class="faq-q" onclick="tog(this)">How do I see all commanders for a color identity? <span class="faq-chevron">▶</span></button>
       <div class="faq-a">
-        <p>Click any row in the <a href="/commander-colors/">Colors table</a> to expand it. Every commander the group has played under that color identity appears, sorted by win rate, with win counts, total games, and a percentage for each.</p>
+        <p>Click any row in the <a href="/commander/colors/">Colors table</a> to expand it. Every commander the group has played under that color identity appears, sorted by win rate, with win counts, total games, and a percentage for each.</p>
       </div>
     </div>
   </section>

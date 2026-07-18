@@ -1,6 +1,6 @@
 ---
 layout: null
-permalink: /game-history/
+permalink: /commander/game-history/
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -716,15 +716,12 @@ permalink: /game-history/
       <div class="masthead-site-desc">A Magic The Gathering Blog</div>
     </div>
     <nav class="masthead-nav">
-      <a href="/commander-dashboard/">Home</a>
-      <a href="/players/">Stats</a>
-      <a href="/game-history/" class="active">History</a>
-      <a href="/insights/">Insights</a>
-      <a href="/commander-colors/">Colors</a>
-      <a href="/faq/">FAQ</a>
-      <span class="nav-sep">|</span>
-      <a href="/cube/">Cube</a>
-      <a href="/about">About</a>
+      <a href="/commander/">Home</a>
+      <a href="/commander/stats/">Stats</a>
+      <a href="/commander/game-history/" class="active">History</a>
+      <a href="/commander/insights/">Insights</a>
+      <a href="/commander/colors/">Colors</a>
+      <a href="/commander/faq/">FAQ</a>
     </nav>
   </div>
 </div>
@@ -755,32 +752,32 @@ permalink: /game-history/
   <div class="cmdr-hero" id="cmdr-hero" style="display:none"></div>
 
   <div class="cmdr-stat-bar" id="cmdr-stat-bar" style="display:none">
-    <a class="cmdr-stat-card" href="/insights/#section-all-cmdr">
+    <a class="cmdr-stat-card" href="/commander/insights/#section-all-cmdr">
       <div class="cmdr-stat-label">Active MMR Ranking</div>
       <div class="cmdr-stat-value" id="stat-mmr-rank">—</div>
       <div class="cmdr-stat-sub" id="stat-mmr-rank-sub"></div>
     </a>
-    <a class="cmdr-stat-card" href="/insights/#section-popularity">
+    <a class="cmdr-stat-card" href="/commander/insights/#section-popularity">
       <div class="cmdr-stat-label">Popularity</div>
       <div class="cmdr-stat-value" id="stat-active-rank">—</div>
       <div class="cmdr-stat-sub" id="stat-active-rank-sub"></div>
     </a>
-    <a class="cmdr-stat-card" href="/insights/?showall=1#section-all-cmdr">
+    <a class="cmdr-stat-card" href="/commander/insights/?showall=1#section-all-cmdr">
       <div class="cmdr-stat-label">MMR</div>
       <div class="cmdr-stat-value" id="stat-mmr">—</div>
       <div class="cmdr-stat-sub" id="stat-mmr-sub"></div>
     </a>
-    <a class="cmdr-stat-card" href="/insights/#seat-heading">
+    <a class="cmdr-stat-card" href="/commander/insights/#seat-heading">
       <div class="cmdr-stat-label">Seating</div>
       <div class="cmdr-stat-value" id="stat-avg-seat">—</div>
       <div class="cmdr-stat-sub" id="stat-avg-seat-sub"></div>
     </a>
-    <a class="cmdr-stat-card" href="/insights/#section-blitz">
+    <a class="cmdr-stat-card" href="/commander/insights/#section-blitz">
       <div class="cmdr-stat-label">Avg Round Won</div>
       <div class="cmdr-stat-value" id="stat-avg-round">—</div>
       <div class="cmdr-stat-sub" id="stat-avg-round-sub"></div>
     </a>
-    <a class="cmdr-stat-card" href="/insights/#section-mulligans">
+    <a class="cmdr-stat-card" href="/commander/insights/#section-mulligans">
       <div class="cmdr-stat-label">Avg Mulligans</div>
       <div class="cmdr-stat-value" id="stat-avg-mulligan">—</div>
       <div class="cmdr-stat-sub" id="stat-avg-mulligan-sub"></div>
@@ -1451,7 +1448,7 @@ async function renderMatchups(cmdr) {
   const cards = matches.map(({ cmdr: opp, count, wins: w, oppWins: l, mmr }) => {
     const firstPart = stripPilotSuffix(opp.split(' / ')[0].trim());
     const imgUrl = imageMap[firstPart.toLowerCase()] || '';
-    const href = `/game-history/?commander=${encodeURIComponent(opp)}`;
+    const href = `/commander/game-history/?commander=${encodeURIComponent(opp)}`;
     return `<a class="matchup-card" href="${href}"${imgUrl ? ` style="background-image:url('${imgUrl}')"` : ''}>
       <div class="matchup-card-content">
         <div class="matchup-record">

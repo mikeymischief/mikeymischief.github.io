@@ -1,6 +1,6 @@
 ---
 layout: null
-permalink: /commander-dashboard/
+permalink: /commander/
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -582,15 +582,12 @@ permalink: /commander-dashboard/
       <div class="masthead-site-desc">A Magic The Gathering Blog</div>
     </div>
     <nav class="masthead-nav">
-      <a href="/commander-dashboard/" class="active">Home</a>
-      <a href="/players/">Stats</a>
-      <a href="/game-history/">History</a>
-      <a href="/insights/">Insights</a>
-      <a href="/commander-colors/">Colors</a>
-      <a href="/faq/">FAQ</a>
-      <span class="nav-sep">|</span>
-      <a href="/cube/">Cube</a>
-      <a href="/about">About</a>
+      <a href="/commander/" class="active">Home</a>
+      <a href="/commander/stats/">Stats</a>
+      <a href="/commander/game-history/">History</a>
+      <a href="/commander/insights/">Insights</a>
+      <a href="/commander/colors/">Colors</a>
+      <a href="/commander/faq/">FAQ</a>
     </nav>
   </div>
 </div>
@@ -608,7 +605,7 @@ permalink: /commander-dashboard/
     <span class="session-countdown" id="session-countdown"></span>
   </div>
 
-  <a id="commander-spotlight" class="spotlight" href="/game-history/">
+  <a id="commander-spotlight" class="spotlight" href="/commander/game-history/">
     <div id="sp-art" class="sp-art"></div>
     <div class="spotlight-inner">
       <div class="spotlight-left">
@@ -651,19 +648,19 @@ permalink: /commander-dashboard/
 
   <!-- Nav Cards -->
   <nav class="nav-cards" aria-label="Site sections">
-    <a href="/players/" class="nav-card" style="background-image:url('/images/bg/Jayemdae-Tome-MtG-Art-2048x1616.jpg')">
+    <a href="/commander/stats/" class="nav-card" style="background-image:url('/images/bg/Jayemdae-Tome-MtG-Art-2048x1616.jpg')">
       <div class="nav-card-label">Stats</div>
       <div class="nav-card-desc">Per-commander records and TrueSkill ratings for each pilot</div>
     </a>
-    <a href="/game-history/" class="nav-card" style="background-image:url('/images/bg/Conspiracy-Theorist-Strixhaven-MtG-Art.jpg')">
+    <a href="/commander/game-history/" class="nav-card" style="background-image:url('/images/bg/Conspiracy-Theorist-Strixhaven-MtG-Art.jpg')">
       <div class="nav-card-label">History</div>
       <div class="nav-card-desc">Full game log with match results and commander profiles</div>
     </a>
-    <a href="/insights/" class="nav-card" style="background-image:url('/images/bg/Lunar-Insight-Foundations-MtG-Art.jpg')">
+    <a href="/commander/insights/" class="nav-card" style="background-image:url('/images/bg/Lunar-Insight-Foundations-MtG-Art.jpg')">
       <div class="nav-card-label">Insights</div>
       <div class="nav-card-desc">Meta trends, seating patterns, and active commander rankings</div>
     </a>
-    <a href="/commander-colors/" class="nav-card" style="background-image:url('/images/bg/Lucid-Dreams-Modern-Horizons-2-MtG-Art.jpg')">
+    <a href="/commander/colors/" class="nav-card" style="background-image:url('/images/bg/Lucid-Dreams-Modern-Horizons-2-MtG-Art.jpg')">
       <div class="nav-card-label">Colors</div>
       <div class="nav-card-desc">Color identity breakdown across every commander played</div>
     </a>
@@ -814,7 +811,7 @@ permalink: /commander-dashboard/
       This site tracks the ongoing Commander games between Mikey, Gerf, Brian, and sometimes a fourth player — a pod that's been battling it out across hundreds of games. Match results are logged after every session, and ratings are computed using a TrueSkill-style Bayesian model that accounts for the free-for-all format better than a simple win/loss record ever could.
     </p>
     <p class="section-body" style="margin-top:10px;">
-      Head to <a href="/players/" style="color:var(--gold)">Stats</a> for the full standings, <a href="/game-history/" style="color:var(--gold)">History</a> to dig into individual games, <a href="/insights/" style="color:var(--gold)">Insights</a> for meta analysis, <a href="/commander-colors/" style="color:var(--gold)">Colors</a> for a breakdown of color identities across the pod, or the <a href="/faq/" style="color:var(--gold)">FAQ</a> for common questions.
+      Head to <a href="/commander/stats/" style="color:var(--gold)">Stats</a> for the full standings, <a href="/commander/game-history/" style="color:var(--gold)">History</a> to dig into individual games, <a href="/commander/insights/" style="color:var(--gold)">Insights</a> for meta analysis, <a href="/commander/colors/" style="color:var(--gold)">Colors</a> for a breakdown of color identities across the pod, or the <a href="/commander/faq/" style="color:var(--gold)">FAQ</a> for common questions.
     </p>
   </div>
 
@@ -904,7 +901,7 @@ async function showSpotlightEntry(entry) {
   document.getElementById('sp-plays').textContent = entry.plays;
   document.getElementById('sp-tier').innerHTML = activeTierBadgeSvg(cmdrKey, _tierMap, _activeSet, 28) || '—';
   document.getElementById('sp-bracket').innerHTML = bracketBadgeSvg(_bracketMap[cmdrKey], 28) || '—';
-  card.href = `/game-history/?commander=${encodeURIComponent(entry.cmdr)}`;
+  card.href = `/commander/game-history/?commander=${encodeURIComponent(entry.cmdr)}`;
   const artUrls = await artPromise;
   const spArt = document.getElementById('sp-art');
   if (artUrls.length >= 2) {

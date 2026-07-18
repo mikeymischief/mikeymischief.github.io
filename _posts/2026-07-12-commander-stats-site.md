@@ -25,29 +25,29 @@ All that said, here's what's there now.
   </div>
 </div>
 
-## [Commander](/commander-dashboard/)
+## [Commander](/commander/)
 
 The landing page. It gives a quick rundown of the format for anyone unfamiliar, links out to useful resources like the ban list, EDHREC, and Scryfall, and has a rotating spotlight on commanders we've played. There's also a "Next Session" banner when we have something scheduled.
 
-## [Stats](/players/)
+## [Stats](/commander/stats/)
 
 The meat of the site. Each player gets a card with their full commander history — every deck they've piloted, win/loss record, and a TrueSkill rating that tries to account for the four-player free-for-all format better than raw win percentage ever could. TrueSkill was originally developed by Microsoft for Xbox matchmaking, and it works well here because it handles uncertainty: a player who's gone 3-0 with a new deck is ranked differently than someone who's gone 30-0 over two years.
 
 Commanders are sorted by play count and color-coded by tier — S through D — based on where each one lands relative to the pod's rating distribution.
 
-## [History](/game-history/)
+## [History](/commander/game-history/)
 
 A full log of every game, newest first. Each row shows who played what, who won, and links to the commander's Scryfall page. You can filter by player to see their game-by-game record, or dig into specific matchup history. The "latest game" is automatically detected from the data so it's always current.
 
-## [Insights](/insights/)
+## [Insights](/commander/insights/)
 
 This is where I got a little nerdy. Insights breaks down things like seating patterns (does going first matter in our pod?), commander popularity over time, which color combinations have the best win rates, and a head-to-head matchup table. Some of it is small-sample-size territory, but even with the games we have logged, some trends are already starting to take shape.
 
-## [Colors](/commander-colors/)
+## [Colors](/commander/colors/)
 
 A breakdown of every commander we've played by color identity. You can see which color pairs or combinations show up most often, which ones win more, and how the meta has shifted over time. Our pod skews heavily toward blue, which surprises absolutely no one who has played with us.
 
-## [FAQ](/faq/)
+## [FAQ](/commander/faq/)
 
 Answers the questions that come up whenever someone looks at the site for the first time — how TrueSkill works, what counts as a win, how the tier bands are calculated, and why certain commanders show up multiple times in someone's history.
 
@@ -57,7 +57,7 @@ The whole thing pulls live from the same Google Sheet I've been using for years,
 
 I put a lot of work into this site, so if you're reading this, please provide some constructive feedback; anything helps.
 
-I'll keep adding to it as we play. If you want to dig in, [start here](/commander-dashboard/).
+I'll keep adding to it as we play. If you want to dig in, [start here](/commander/).
 
 {% if page.comments %}
 <div id="disqus_thread"></div>

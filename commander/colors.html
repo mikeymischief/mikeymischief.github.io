@@ -1,6 +1,6 @@
 ---
 layout: null
-permalink: /commander-colors/
+permalink: /commander/colors/
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -265,15 +265,12 @@ permalink: /commander-colors/
         <div class="masthead-site-desc">A Magic The Gathering Blog</div>
       </div>
       <nav class="masthead-nav">
-        <a href="/commander-dashboard/">Home</a>
-        <a href="/players/">Stats</a>
-        <a href="/game-history/">History</a>
-        <a href="/insights/">Insights</a>
-        <a href="/commander-colors/" class="active">Colors</a>
-        <a href="/faq/">FAQ</a>
-        <span class="nav-sep">|</span>
-      <a href="/cube/">Cube</a>
-        <a href="/about">About</a>
+        <a href="/commander/">Home</a>
+        <a href="/commander/stats/">Stats</a>
+        <a href="/commander/game-history/">History</a>
+        <a href="/commander/insights/">Insights</a>
+        <a href="/commander/colors/" class="active">Colors</a>
+        <a href="/commander/faq/">FAQ</a>
       </nav>
     </div>
   </div>
@@ -402,7 +399,7 @@ function bestCmdrCell(cmdrStats) {
   const result = findBestCmdr(cmdrStats);
   if (!result) return '<span style="color:var(--ink-faint)">—</span>';
   const { cmdr, pct, isActive } = result;
-  const url = `/game-history/?commander=${encodeURIComponent(cmdr)}`;
+  const url = `/commander/game-history/?commander=${encodeURIComponent(cmdr)}`;
   const display = cmdr.replace(/ \/ /g, ' / ');
   const dim = isActive ? '' : 'opacity:0.4;';
   return `<span class="cmdr-cell" style="${dim}">${cmdrAvatarHtml(cmdr)}<a href="${url}" class="cmdr-link">${display}</a><span style="color:var(--ink-faint)">${(pct * 100).toFixed(1)}%</span></span>`;
@@ -467,7 +464,7 @@ function renderTable(agg) {
       const a = document.createElement('a');
       a.className = 'expand-cmdr' + (cmdr === topCmdr ? ' top-cmdr' : '');
       if (!active) a.style.opacity = '0.4';
-      a.href = `/game-history/?commander=${encodeURIComponent(cmdr)}`;
+      a.href = `/commander/game-history/?commander=${encodeURIComponent(cmdr)}`;
       a.innerHTML = `
         ${cmdrAvatarHtml(cmdr)}
         <span class="expand-name">${cmdr.replace(/ \/ /g, ' / ')}</span>

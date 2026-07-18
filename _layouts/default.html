@@ -44,9 +44,9 @@
             {% elsif page.url contains '/cube/' %}
               <a href="/cube/"{% if page.url == '/cube/' %} class="active"{% endif %}>Cube</a>
             {% elsif page.url contains '/commander' %}
-              <a href="{{ site.baseurl }}/commander-dashboard/"{% if page.url contains '/commander' %} class="active"{% endif %}>Commander</a>
+              <a href="{{ site.baseurl }}/commander/"{% if page.url contains '/commander' %} class="active"{% endif %}>Commander</a>
             {% else %}
-              <a href="{{ site.baseurl }}/commander-dashboard/">Commander</a>
+              <a href="{{ site.baseurl }}/commander/">Commander</a>
               <a href="/cube/">Cube</a>
               <a href="/PR/">Puerto Rico</a>
               <a href="{{ site.baseurl }}/about">About</a>
