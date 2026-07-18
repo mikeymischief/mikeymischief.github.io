@@ -145,10 +145,41 @@ permalink: /game-history/
     text-transform: uppercase;
     color: var(--ink-faint);
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
   .pod-date.has-notes { cursor: pointer; user-select: none; }
   .pod-date.has-notes:hover { color: var(--ink-dim); }
-  .pod-date.has-notes::after { content: ' 📝'; font-style: normal; }
+  .pod-date.has-notes::after { content: '📝'; font-style: normal; font-size: 12px; }
+  .pod-share-btn {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    color: var(--ink-faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+  .pod:hover .pod-share-btn { opacity: 1; }
+  .pod-share-btn:hover { color: var(--gold); border-color: var(--gold); }
+  @keyframes pod-linked-pulse {
+    0%   { box-shadow: 0 0 0 0   rgba(212,175,55,0.5); }
+    50%  { box-shadow: 0 0 0 6px rgba(212,175,55,0.15); }
+    100% { box-shadow: 0 0 0 0   rgba(212,175,55,0); }
+  }
+  .pod--linked {
+    outline: 1px solid var(--gold);
+    border-radius: 4px;
+    animation: pod-linked-pulse 0.7s ease 2;
+  }
+  #history-container .pod { transition: opacity 0.3s; }
+  #history-container.has-linked .pod:not(.pod--linked) { opacity: 0.12; }
   .pod-notes {
     display: none;
     margin-top: 10px;
@@ -1737,10 +1768,25 @@ function renderHistory(rows) {
     podDiv.dataset.cmdrs = pod.map(row => normalizeCmdr(row[G.commander])).filter(Boolean).join('|');
 
     const gameNum = totalPods - podIdx;
+    podDiv.dataset.gameNum = gameNum;
     const dateLabel = document.createElement('div');
     dateLabel.className = 'pod-date';
     dateLabel.textContent = `S${sessionNum}  ·  Game ${gameNum}`;
     if (chaosPods.has(pod)) dateLabel.textContent += '  🎲';
+
+    const shareBtn = document.createElement('button');
+    shareBtn.className = 'pod-share-btn';
+    shareBtn.title = 'Copy link to this game';
+    shareBtn.textContent = '#';
+    shareBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      history.replaceState(null, '', '#game-' + gameNum);
+      navigator.clipboard.writeText(location.href).then(() => {
+        shareBtn.textContent = '✓';
+        setTimeout(() => { shareBtn.textContent = '#'; }, 1500);
+      });
+    });
+    dateLabel.appendChild(shareBtn);
     podDiv.appendChild(dateLabel);
 
     const table = document.createElement('table');
@@ -1828,6 +1874,39 @@ function renderHistory(rows) {
     pods.length + ' games loaded, most recent first.';
 }
 
+function scrollToGame(gameNum, openNotes) {
+  const pod = document.querySelector(`.pod[data-game-num="${gameNum}"]`);
+  if (!pod) return;
+  if (openNotes) {
+    const notesEl = pod.querySelector('.pod-notes');
+    if (notesEl) notesEl.classList.add('open');
+  }
+  const container = document.getElementById('history-container');
+  if (container) {
+    container.classList.add('has-linked');
+    const dismiss = e => {
+      if (e.type === 'keydown' && e.key !== 'Escape') return;
+      if (e.type === 'click' && pod.contains(e.target)) return;
+      container.classList.remove('has-linked');
+      pod.classList.remove('pod--linked');
+      history.replaceState(null, '', location.pathname + location.search);
+      document.removeEventListener('click', dismiss);
+      document.removeEventListener('keydown', dismiss);
+    };
+    setTimeout(() => {
+      document.addEventListener('click', dismiss);
+      document.addEventListener('keydown', dismiss);
+    }, 100);
+  }
+  pod.classList.add('pod--linked');
+  pod.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function handleInitialHash() {
+  const m = location.hash.match(/^#game-(\d+)$/);
+  if (m) setTimeout(() => scrollToGame(m[1], true), 80);
+}
+
 _csvConfigReady.then(() => {
 
 Papa.parse(DECK_CSV_URL, {
@@ -1857,6 +1936,11 @@ Papa.parse(GAMES_CSV_URL, {
       buildPredictor();
       renderHistory(results.data);
       loadAvatarImages(document.getElementById('history-table') || document.body);
+      handleInitialHash();
+      window.addEventListener('hashchange', () => {
+        const m = location.hash.match(/^#game-(\d+)$/);
+        if (m) scrollToGame(m[1], true);
+      });
       const urlCmdr = new URLSearchParams(location.search).get('commander');
       if (urlCmdr) {
         const fi = document.getElementById('cmdr-filter-input');

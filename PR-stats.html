@@ -691,12 +691,38 @@ title: Puerto Rico 1897 – Player Stats
   .pr-game-card-header.has-notes { cursor: pointer; }
   .pr-game-card-header.has-notes:hover .pr-game-card-num { color: var(--pr-amber); }
   .pr-game-note-icon {
-    margin-left: auto;
     font-size: 13px;
     opacity: 0.55;
     transition: opacity 0.15s;
   }
   .pr-game-card-header.has-notes:hover .pr-game-note-icon { opacity: 1; }
+  .pr-game-share-btn {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--pr-border);
+    border-radius: 5px;
+    color: var(--pr-ink-faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+  .pr-game-card:hover .pr-game-share-btn { opacity: 1; }
+  .pr-game-share-btn:hover { color: var(--pr-amber); border-color: var(--pr-amber); }
+  @keyframes pr-game-linked-pulse {
+    0%   { box-shadow: 0 0 0 0   rgba(212,175,55,0.5); }
+    50%  { box-shadow: 0 0 0 6px rgba(212,175,55,0.15); }
+    100% { box-shadow: 0 0 0 0   rgba(212,175,55,0); }
+  }
+  .pr-game-card--linked {
+    border-color: var(--pr-amber) !important;
+    animation: pr-game-linked-pulse 0.7s ease 2;
+  }
+  .pr-game-list .pr-game-card { transition: opacity 0.3s; }
+  .pr-game-list.has-linked .pr-game-card:not(.pr-game-card--linked) { opacity: 0.12; }
   .pr-game-notes {
     display: none;
     padding: 12px 16px 14px;
@@ -1036,6 +1062,7 @@ function renderAllGames() {
   const profile = document.getElementById('pr-profile');
   profile.innerHTML = '';
   const wrap = document.createElement('div');
+  wrap.className = 'pr-game-list';
 
   // Summary bar
   const totalGames = _games.filter(g => g.rows.length > 0).length;
@@ -1100,10 +1127,25 @@ function renderAllGames() {
 
     const card = document.createElement('div');
     card.className = 'pr-game-card';
+    card.dataset.gameNum = game.gameNum;
 
     const header = document.createElement('div');
     header.className = 'pr-game-card-header' + (notes ? ' has-notes' : '');
-    header.innerHTML = `<span class="pr-game-card-num">Game ${game.gameNum || '?'}</span><span class="pr-game-card-meta">${metaParts.join(' · ')}</span>${notes ? '<span class="pr-game-note-icon" title="Session notes">📝</span>' : ''}`;
+    header.innerHTML = `<span class="pr-game-card-num">Game ${game.gameNum || '?'}</span><span class="pr-game-card-meta">${metaParts.join(' · ')}</span>${notes ? '<span class="pr-game-note-icon" title="Session notes">\u{1F4DD}</span>' : ''}`;
+
+    const shareBtn = document.createElement('button');
+    shareBtn.className = 'pr-game-share-btn';
+    shareBtn.title = 'Copy link to this game';
+    shareBtn.textContent = '#';
+    shareBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      history.replaceState(null, '', '#game-' + game.gameNum);
+      navigator.clipboard.writeText(location.href).then(() => {
+        shareBtn.textContent = '✓';
+        setTimeout(() => { shareBtn.textContent = '#'; }, 1500);
+      });
+    });
+    header.appendChild(shareBtn);
     card.appendChild(header);
 
     const table = document.createElement('table');
@@ -1151,6 +1193,40 @@ function renderAllGames() {
   });
 
   profile.appendChild(wrap);
+}
+
+function scrollToGame(gameNum, openNotes) {
+  const card = document.querySelector(`.pr-game-card[data-game-num="${gameNum}"]`);
+  if (!card) return;
+  if (openNotes) {
+    const notesEl = card.querySelector('.pr-game-notes');
+    if (notesEl) notesEl.classList.add('open');
+  }
+  const list = card.closest('.pr-game-list');
+  if (list) {
+    list.classList.add('has-linked');
+    const dismiss = e => {
+      if (e.type === 'keydown' && e.key !== 'Escape') return;
+      if (e.type === 'click' && card.contains(e.target)) return;
+      list.classList.remove('has-linked');
+      card.classList.remove('pr-game-card--linked');
+      history.replaceState(null, '', location.pathname + location.search);
+      document.removeEventListener('click', dismiss);
+      document.removeEventListener('keydown', dismiss);
+    };
+    setTimeout(() => {
+      document.addEventListener('click', dismiss);
+      document.addEventListener('keydown', dismiss);
+    }, 100);
+  }
+  card.classList.add('pr-game-card--linked');
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function handleInitialHash() {
+  const m = location.hash.match(/^#game-(\d+)$/);
+  activateAllGames();
+  if (m) setTimeout(() => scrollToGame(m[1], true), 80);
 }
 
 function clearActive() {
@@ -1659,7 +1735,17 @@ async function init() {
         if (tip.style.display !== 'none') { tip.style.left = (e.clientX + 14) + 'px'; tip.style.top = (e.clientY - 32) + 'px'; }
       });
 
-      activateAllGames();
+      handleInitialHash();
+      window.addEventListener('hashchange', () => {
+        const m = location.hash.match(/^#game-(\d+)$/);
+        if (!m) return;
+        if (!document.querySelector('.pr-game-card')) {
+          activateAllGames();
+          setTimeout(() => scrollToGame(m[1], true), 80);
+        } else {
+          scrollToGame(m[1], true);
+        }
+      });
     },
   });
 }
