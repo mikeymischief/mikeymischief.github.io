@@ -242,27 +242,23 @@ title: Puerto Rico 1897 – Player Stats
     position: relative;
     overflow: hidden;
   }
-  .pr-standing-card::before {
-    content: '';
+  .pr-card-portrait {
     position: absolute;
     inset: 0;
-    background-image: var(--card-img);
     background-size: cover;
     background-position: center 20%;
-    opacity: 1;
     z-index: 0;
     transition: opacity 0.15s;
   }
-  .pr-standing-card:hover::before { opacity: 0.35; }
-  .pr-standing-card.active::before { opacity: 0.35; }
-  .pr-standing-card::after {
-    content: '';
+  .pr-card-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, transparent 30%, rgba(10,8,5,0.55) 100%);
     z-index: 1;
   }
-  .pr-standing-card > * { position: relative; z-index: 2; }
+  .pr-standing-card:hover .pr-card-portrait { opacity: 0.35; }
+  .pr-standing-card.active .pr-card-portrait { opacity: 0.35; }
+  .pr-standing-card > *:not(.pr-card-portrait):not(.pr-card-overlay) { position: relative; z-index: 2; }
   .pr-standing-card:hover { border-color: var(--p-color, var(--pr-amber)); transform: translateY(-1px); }
   .pr-standing-card.active { border-color: var(--p-color, var(--pr-amber)); }
   .pr-standing-card--all { --p-color: var(--pr-amber); border-style: dashed; }
@@ -817,8 +813,8 @@ function renderStandings() {
     card.className = 'pr-standing-card';
     card.dataset.p = p;
     card.style.setProperty('--p-color', getColor(p));
-    if (PLAYER_IMG[p]) card.style.setProperty('--card-img', `url('${PLAYER_IMG[p]}')`);
     card.innerHTML = `
+      ${PLAYER_IMG[p] ? `<div class="pr-card-portrait" style="background-image:url('${PLAYER_IMG[p]}')"></div><div class="pr-card-overlay"></div>` : ''}
       <div class="pr-standing-rank">#${i+1}</div>
       <div class="pr-standing-name">${p}</div>
       <div class="pr-standing-mmr">${Math.round(mmr)} MMR</div>
@@ -830,8 +826,9 @@ function renderStandings() {
   const allCard = document.createElement('div');
   allCard.className = 'pr-standing-card pr-standing-card--all';
   allCard.id = 'pr-all-games-card';
-  allCard.style.setProperty('--card-img', "url('/images/PuertoRico/marketplace.jpeg')");
   allCard.innerHTML = `
+    <div class="pr-card-portrait" style="background-image:url('/images/PuertoRico/marketplace.jpeg')"></div>
+    <div class="pr-card-overlay"></div>
     <div class="pr-standing-rank">&#8203;</div>
     <div class="pr-standing-name">All Games</div>
     <div class="pr-standing-mmr">&#8203;</div>
