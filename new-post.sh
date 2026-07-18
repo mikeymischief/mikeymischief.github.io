@@ -11,7 +11,7 @@ DATE=$(date +%Y-%m-%d)
 DATETIME=$(date +"%Y-%m-%d %H:%M:%S %z")
 
 # Prompt for description
-read -p "Description (short summary): " DESCRIPTION
+read -p "Excerpt / OG description (short summary): " DESCRIPTION
 
 # Prompt for categories
 read -p "Categories (default: mtg cube): " CATEGORIES
@@ -41,7 +41,7 @@ title: "${TITLE}"
 author: mikey
 date: ${DATETIME}
 pubDate: ${DATE}
-description: "${DESCRIPTION}"
+excerpt: "${DESCRIPTION}"
 comments: true
 excerpt_separator: <!--more-->
 categories: ${CATEGORIES}
