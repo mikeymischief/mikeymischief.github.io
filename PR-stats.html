@@ -221,69 +221,208 @@ title: Puerto Rico 1897 – Player Stats
   .pr-player-hero-mmr-delta.neu { color: var(--pr-ink-faint); }
 
   /* ── Standings ────────────────────────────────────────────────────────────── */
-  .pr-standings {
+  /* ── Podium (top 3) ──────────────────────────────────────────────────────── */
+  .pr-standings { margin-bottom: 10px; }
+  .pr-podium {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 8px;
-    margin-bottom: 28px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
   }
-  .pr-standing-card {
+  .pr-podium-card {
     background: var(--pr-card-bg);
     border: 1px solid var(--pr-border);
-    border-radius: 8px;
-    padding: 10px 16px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
     cursor: pointer;
+    min-height: 220px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    transition: border-color 0.15s, transform 0.15s;
-    text-align: center;
-    min-width: 90px;
-    position: relative;
-    overflow: hidden;
+    justify-content: flex-end;
+    transition: transform 0.15s, border-color 0.15s;
   }
-  .pr-card-portrait {
+  .pr-podium-card:hover { transform: translateY(-2px); border-color: var(--p-color, var(--pr-amber)); }
+  .pr-podium-card.active { border-color: var(--p-color, var(--pr-amber)); border-top: 2px solid var(--p-color, var(--pr-amber)); }
+  .pr-podium-portrait {
     position: absolute;
     inset: 0;
     background-size: cover;
-    background-position: center 20%;
+    background-position: center 10%;
     z-index: 0;
     transition: opacity 0.15s;
   }
-  .pr-card-overlay {
+  .pr-podium-card:hover .pr-podium-portrait,
+  .pr-podium-card.active .pr-podium-portrait { opacity: 0.55; }
+  .pr-podium-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 30%, rgba(10,8,5,0.55) 100%);
+    background: linear-gradient(to bottom, rgba(10,8,5,0.05) 0%, rgba(10,8,5,0.55) 40%, rgba(10,8,5,0.96) 100%);
     z-index: 1;
   }
-  .pr-standing-card:hover .pr-card-portrait { opacity: 0.35; }
-  .pr-standing-card.active .pr-card-portrait { opacity: 0.35; }
-  .pr-standing-card > *:not(.pr-card-portrait):not(.pr-card-overlay) { position: relative; z-index: 2; }
-  .pr-standing-card:hover { border-color: var(--p-color, var(--pr-amber)); transform: translateY(-1px); }
-  .pr-standing-card.active { border-color: var(--p-color, var(--pr-amber)); }
-  .pr-standing-card--all { --p-color: var(--pr-amber); border-style: dashed; }
-  .pr-standing-card--all .pr-standing-name { color: var(--pr-ink-dim); font-size: 0.8rem; letter-spacing: 0.05em; }
-  .pr-standing-card--all.active { border-style: solid; }
-  .pr-standing-card--all.active .pr-standing-name { color: var(--pr-amber); }
-  .pr-standing-rank {
+  .pr-podium-card > *:not(.pr-podium-portrait):not(.pr-podium-overlay):not(.pr-podium-trophy) { position: relative; z-index: 2; }
+  .pr-podium-trophy {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 1.4rem;
+    z-index: 2;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.9));
+  }
+  .pr-podium-body { padding: 14px 14px 0; }
+  .pr-podium-rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+    margin-bottom: 2px;
+  }
+  .pr-podium-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--p-color, #e8c99a);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1px;
+  }
+  .pr-podium-mmr {
     font-family: 'JetBrains Mono', monospace;
     font-size: 9px;
+    color: var(--pr-ink-faint);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .pr-podium-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--pr-border);
+  }
+  .pr-podium-stat {
+    padding: 7px 6px 8px;
+    text-align: center;
+    border-right: 1px solid var(--pr-border);
+  }
+  .pr-podium-stat:last-child { border-right: none; }
+  .pr-podium-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--pr-ink-faint);
+    margin-bottom: 3px;
+    white-space: nowrap;
   }
-  .pr-standing-name {
+  .pr-podium-stat-value {
     font-family: 'Cinzel', serif;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-weight: 700;
-    color: var(--p-color, #e8c99a);
-  }
-  .pr-standing-mmr {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--pr-ink-dim);
+    color: #e8c99a;
     font-variant-numeric: tabular-nums;
   }
+  .pr-podium-stat-bar {
+    height: 2px;
+    border-radius: 1px;
+    margin-top: 4px;
+    background: var(--p-color, var(--pr-amber));
+    opacity: 0.5;
+  }
+
+  /* ── Leaderboard table (4th+) + All Games ────────────────────────────────── */
+  .pr-base {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .pr-base-card {
+    background: var(--pr-card-bg);
+    border: 1px solid var(--pr-border);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .pr-base-card:hover { transform: translateY(-2px); border-color: var(--p-color, var(--pr-amber)); }
+  .pr-base-card.active { border-color: var(--p-color, var(--pr-amber)); border-top: 2px solid var(--p-color, var(--pr-amber)); }
+  .pr-base-card:hover .pr-podium-portrait,
+  .pr-base-card.active .pr-podium-portrait { opacity: 0.55; }
+  .pr-base-card > *:not(.pr-podium-portrait):not(.pr-podium-overlay) { position: relative; z-index: 2; }
+  .pr-base-body { padding: 10px 14px 0; }
+  .pr-base-rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+    margin-bottom: 2px;
+  }
+  .pr-base-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--p-color, var(--pr-amber));
+    line-height: 1.1;
+  }
+  .pr-base-mmr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--pr-ink-faint);
+    margin-top: 2px;
+  }
+  .pr-base-stats {
+    display: flex;
+    border-top: 1px solid var(--pr-border);
+    margin-top: 8px;
+  }
+  .pr-base-stat {
+    flex: 1;
+    padding: 5px 10px;
+    border-right: 1px solid var(--pr-border);
+    text-align: center;
+  }
+  .pr-base-stat:last-child { border-right: none; }
+  .pr-base-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+    margin-bottom: 2px;
+  }
+  .pr-base-stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--pr-ink);
+  }
+  .pr-all-games-btn {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--pr-card-bg);
+    border: 1px solid var(--pr-border);
+    border-radius: 10px;
+    padding: 11px;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pr-ink-faint);
+    margin-bottom: 28px;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+    display: block;
+  }
+  .pr-all-games-btn:hover { color: var(--pr-amber); background: var(--pr-amber-dim); border-color: var(--pr-amber); }
+  .pr-all-games-btn.active { color: var(--pr-amber); background: rgba(200,121,65,0.06); border-color: var(--pr-amber); }
 
   /* ── Clickable player name in table ──────────────────────────────────────── */
   .pr-name-link {
@@ -782,24 +921,35 @@ function renderAllGames() {
   profile.appendChild(wrap);
 }
 
+function clearActive() {
+  document.querySelectorAll('.pr-podium-card, .pr-base-card').forEach(c => c.classList.remove('active'));
+  const allBtn = document.getElementById('pr-all-games-card');
+  if (allBtn) allBtn.classList.remove('active');
+}
+
 function activateAllGames() {
-  document.querySelectorAll('.pr-standing-card').forEach(c => c.classList.remove('active'));
-  const allCard = document.getElementById('pr-all-games-card');
-  if (allCard) allCard.classList.add('active');
+  clearActive();
+  const allBtn = document.getElementById('pr-all-games-card');
+  if (allBtn) allBtn.classList.add('active');
   renderAllGames();
+  document.getElementById('pr-profile').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ── Activate player (standings card click; clicking active card returns to All Games) ──
+// ── Activate player (click active → return to All Games) ──────────────────────
 function activatePlayer(player) {
-  const card = document.querySelector(`.pr-standing-card[data-p="${CSS.escape(player)}"]`);
-  const wasActive = card && card.classList.contains('active');
-  document.querySelectorAll('.pr-standing-card').forEach(c => c.classList.remove('active'));
-  if (wasActive) { renderAllGames(); return; }
-  if (card) card.classList.add('active');
+  const podiumCard = document.querySelector(`.pr-podium-card[data-p="${CSS.escape(player)}"]`);
+  const baseCard   = document.querySelector(`.pr-base-card[data-p="${CSS.escape(player)}"]`);
+  const wasActive  = (podiumCard && podiumCard.classList.contains('active')) ||
+                     (baseCard && baseCard.classList.contains('active'));
+  clearActive();
+  if (wasActive) { activateAllGames(); return; }
+  if (podiumCard) podiumCard.classList.add('active');
+  if (baseCard) baseCard.classList.add('active');
   renderProfile(player);
+  document.getElementById('pr-profile').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ── Render standings row ───────────────────────────────────────────────────────
+// ── Render standings (podium + leaderboard) ───────────────────────────────────
 function renderStandings() {
   const el = document.getElementById('pr-standings');
   el.innerHTML = '';
@@ -808,33 +958,110 @@ function renderStandings() {
     .map(p => ({ p, mmr: _mmr.current[p] || MMR_BASE }))
     .sort((a, b) => b.mmr - a.mmr);
 
-  ranked.forEach(({ p, mmr }, i) => {
-    const card = document.createElement('div');
-    card.className = 'pr-standing-card';
-    card.dataset.p = p;
-    card.style.setProperty('--p-color', getColor(p));
-    card.innerHTML = `
-      ${PLAYER_IMG[p] ? `<div class="pr-card-portrait" style="background-image:url('${PLAYER_IMG[p]}')"></div><div class="pr-card-overlay"></div>` : ''}
-      <div class="pr-standing-rank">#${i+1}</div>
-      <div class="pr-standing-name">${p}</div>
-      <div class="pr-standing-mmr">${Math.round(mmr)} MMR</div>
-    `;
-    card.addEventListener('click', () => activatePlayer(p));
-    el.appendChild(card);
-  });
+  function playerStats(p) {
+    const entries = _playerIndex[p] || [];
+    const wins    = entries.filter(({ game, row }) => winnerOfGame(game) === (row[C.player]||'').trim());
+    const scores  = entries.map(({ row }) => parseInt(row[C.score])).filter(v => !isNaN(v));
+    return {
+      record:  `${wins.length}-${entries.length - wins.length}`,
+      winRate: entries.length ? `${(wins.length/entries.length*100).toFixed(0)}%` : '—',
+      avgVP:   scores.length  ? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1) : '—',
+    };
+  }
 
-  const allCard = document.createElement('div');
-  allCard.className = 'pr-standing-card pr-standing-card--all';
-  allCard.id = 'pr-all-games-card';
-  allCard.innerHTML = `
-    <div class="pr-card-portrait" style="background-image:url('/images/PuertoRico/marketplace.jpeg')"></div>
-    <div class="pr-card-overlay"></div>
-    <div class="pr-standing-rank">&#8203;</div>
-    <div class="pr-standing-name">All Games</div>
-    <div class="pr-standing-mmr">&#8203;</div>
-  `;
-  allCard.addEventListener('click', activateAllGames);
-  el.appendChild(allCard);
+  const trophies = [String.fromCodePoint(0x1F3C6), String.fromCodePoint(0x1F948), String.fromCodePoint(0x1F949)];
+  const top3 = ranked.slice(0, 3);
+  const rest  = ranked.slice(3);
+
+  // ── Podium ──
+  const podium = document.createElement('div');
+  podium.className = 'pr-podium';
+  top3.forEach(({ p, mmr }, i) => {
+    const color = getColor(p);
+    const stats = playerStats(p);
+    const img   = PLAYER_IMG[p];
+    const card  = document.createElement('div');
+    card.className = 'pr-podium-card';
+    card.dataset.p  = p;
+    card.style.setProperty('--p-color', color);
+    card.innerHTML = `
+      ${img ? `<div class="pr-podium-portrait" style="background-image:url('${img}')"></div>` : ''}
+      <div class="pr-podium-overlay"></div>
+      <div class="pr-podium-trophy">${trophies[i]}</div>
+      <div class="pr-podium-body">
+        <div class="pr-podium-rank">#${i+1} Ranked</div>
+        <div class="pr-podium-name">${p}</div>
+        <div class="pr-podium-mmr">${Math.round(mmr)} MMR</div>
+      </div>
+      <div class="pr-podium-stats">
+        <div class="pr-podium-stat">
+          <div class="pr-podium-stat-label">Record</div>
+          <div class="pr-podium-stat-value">${stats.record}</div>
+          <div class="pr-podium-stat-bar"></div>
+        </div>
+        <div class="pr-podium-stat">
+          <div class="pr-podium-stat-label">Win Rate</div>
+          <div class="pr-podium-stat-value">${stats.winRate}</div>
+          <div class="pr-podium-stat-bar"></div>
+        </div>
+        <div class="pr-podium-stat">
+          <div class="pr-podium-stat-label">Avg VP</div>
+          <div class="pr-podium-stat-value">${stats.avgVP}</div>
+          <div class="pr-podium-stat-bar"></div>
+        </div>
+      </div>`;
+    card.addEventListener('click', () => activatePlayer(p));
+    podium.appendChild(card);
+  });
+  el.appendChild(podium);
+
+  // ── Base row (4th+ players as compact cards) ──
+  if (rest.length) {
+    const base = document.createElement('div');
+    base.className = 'pr-base';
+    rest.forEach(({ p, mmr }, i) => {
+      const color = getColor(p);
+      const stats = playerStats(p);
+      const img   = PLAYER_IMG[p];
+      const card  = document.createElement('div');
+      card.className = 'pr-base-card';
+      card.dataset.p  = p;
+      card.style.setProperty('--p-color', color);
+      card.innerHTML = `
+        ${img ? `<div class="pr-podium-portrait" style="background-image:url('${img}')"></div>` : ''}
+        <div class="pr-podium-overlay"></div>
+        <div class="pr-base-body">
+          <div class="pr-base-rank">#${top3.length + i + 1} Ranked</div>
+          <div class="pr-base-name">${p}</div>
+          <div class="pr-base-mmr">${Math.round(mmr)} MMR</div>
+        </div>
+        <div class="pr-base-stats">
+          <div class="pr-base-stat">
+            <div class="pr-base-stat-label">Record</div>
+            <div class="pr-base-stat-value">${stats.record}</div>
+          </div>
+          <div class="pr-base-stat">
+            <div class="pr-base-stat-label">Win Rate</div>
+            <div class="pr-base-stat-value">${stats.winRate}</div>
+          </div>
+          <div class="pr-base-stat">
+            <div class="pr-base-stat-label">Avg VP</div>
+            <div class="pr-base-stat-value">${stats.avgVP}</div>
+          </div>
+        </div>`;
+      card.addEventListener('click', () => activatePlayer(p));
+      base.appendChild(card);
+    });
+    el.appendChild(base);
+  }
+
+  // ── All Games button ──
+  const allBtn = document.createElement('div');
+  allBtn.className = 'pr-all-games-btn';
+  allBtn.id = 'pr-all-games-card';
+  allBtn.textContent = 'All Games';
+  allBtn.addEventListener('click', activateAllGames);
+  el.appendChild(allBtn);
 }
 
 // ── MMR graph (multi-player, DOM-based) ───────────────────────────────────────
