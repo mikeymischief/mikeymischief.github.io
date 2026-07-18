@@ -592,6 +592,17 @@ title: Puerto Rico 1897 – Player Stats
   .pr-mmr-legend-btn:hover { border-color: var(--p-color, var(--pr-amber)); color: var(--pr-ink); }
   .pr-mmr-legend-btn.active { border-color: var(--p-color, var(--pr-amber)); color: var(--p-color, var(--pr-amber)); }
 
+  /* ── VP split bar ─────────────────────────────────────────────────────────── */
+  .pr-vp-split { display: flex; height: 6px; border-radius: 3px; overflow: hidden; gap: 1px; min-width: 60px; }
+  .pr-vp-split-chips { background: #7ec8a0; border-radius: 3px 0 0 3px; }
+  .pr-vp-split-bldg  { background: #85B7EB; border-radius: 0 3px 3px 0; }
+  .pr-vp-split-rest  { background: var(--pr-border); flex: 1; border-radius: 0 3px 3px 0; }
+  .pr-vp-split-wrap  { display: flex; flex-direction: column; gap: 3px; min-width: 70px; }
+  .pr-vp-split-labels { display: flex; justify-content: space-between; }
+  .pr-vp-split-label  { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; color: var(--pr-ink-faint); white-space: nowrap; }
+  .pr-vp-split-label.chips { color: #7ec8a0; }
+  .pr-vp-split-label.bldg  { color: #85B7EB; }
+
   /* ── All Games view ───────────────────────────────────────────────────────── */
   .pr-all-games-tab { margin-left: auto; border-style: dashed !important; }
   .pr-game-card {
@@ -688,11 +699,11 @@ title: Puerto Rico 1897 – Player Stats
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
 // ── Column indices ─────────────────────────────────────────────────────────────
-// Date(0) Game(1) Player(2) Starting Position(3) Score(4) [Win col ignored—derived from max score]
+// Date(0) Game(1) Player(2) Seat(3) ChipsVP(4) BuildingsVP(5) Score(6) Win(7) StartMMR(8) EndMMR(9) Delta(10) Round(11) Ending(12) Notes(13)
 // Starting MMR(6) Ending MMR(7) Delta(8) Round(9) Ending(10)
 // Rows are grouped per game; blank rows separate games.
 // Round is in the winner's row. Ending is in the row of the player who ended the game.
-const C = { date:0, game:1, player:2, seat:3, score:4, startMmr:6, endMmr:7, delta:8, round:9, ending:10, notes:11 };
+const C = { date:0, game:1, player:2, seat:3, chipsVP:4, buildingsVP:5, score:6, startMmr:8, endMmr:9, delta:10, round:11, ending:12, notes:13 };
 
 // Ending letter → full label
 const ENDING_LABELS = { B: 'Buildings', V: 'VP', C: 'Colonist' };
@@ -713,6 +724,29 @@ const fmt = {
     return ENDING_LABELS[k] || (k || '—');
   },
 };
+
+function vpSplitBar(chips, bldg, total) {
+  const c = parseFloat(chips), b = parseFloat(bldg), t = parseFloat(total);
+  if (isNaN(c) && isNaN(b)) return '';
+  const tot = !isNaN(t) && t > 0 ? t : ((isNaN(c)?0:c) + (isNaN(b)?0:b));
+  if (tot <= 0) return '';
+  const cp = !isNaN(c) ? Math.round(c/tot*100) : 0;
+  const bp = !isNaN(b) ? Math.round(b/tot*100) : 0;
+  const rp = Math.max(0, 100 - cp - bp);
+  const cLabel = !isNaN(c) ? `${Math.round(c)}` : '';
+  const bLabel = !isNaN(b) ? `${Math.round(b)}` : '';
+  return `<div class="pr-vp-split-wrap">
+    <div class="pr-vp-split">
+      ${cp > 0 ? `<div class="pr-vp-split-chips" style="width:${cp}%"></div>` : ''}
+      ${bp > 0 ? `<div class="pr-vp-split-bldg"  style="width:${bp}%"></div>` : ''}
+      ${rp > 0 ? `<div class="pr-vp-split-rest"  style="width:${rp}%"></div>` : ''}
+    </div>
+    <div class="pr-vp-split-labels">
+      <span class="pr-vp-split-label chips">${cLabel ? cLabel+' chips' : ''}</span>
+      <span class="pr-vp-split-label bldg">${bLabel ? bLabel+' bldg' : ''}</span>
+    </div>
+  </div>`;
+}
 
 // ── Parse grouped game structure ───────────────────────────────────────────────
 function parseGames(rawRows) {
@@ -893,6 +927,7 @@ function renderAllGames() {
         <td></td>
         <td class="num">Seat ${fmt.int(row[C.seat])}</td>
         <td class="num score">${fmt.int(row[C.score])} VP</td>
+        <td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>
         <td>${badges}</td>`;
       const nameCell = document.createElement('td');
       const nameBtn  = document.createElement('button');
@@ -1203,6 +1238,11 @@ function renderProfile(player) {
   const winsWhenEnding   = endedEntries.filter(({ game, row }) => winnerOfGame(game) === (row[C.player]||'').trim()).length;
   const winRateEnding    = gamesEnded > 0 ? winsWhenEnding / gamesEnded : null;
 
+  const chipVPs  = entries.map(({ row }) => parseFloat(row[C.chipsVP])).filter(v => !isNaN(v));
+  const bldgVPs  = entries.map(({ row }) => parseFloat(row[C.buildingsVP])).filter(v => !isNaN(v));
+  const avgChipVP = chipVPs.length ? chipVPs.reduce((a,b)=>a+b,0)/chipVPs.length : null;
+  const avgBldgVP = bldgVPs.length ? bldgVPs.reduce((a,b)=>a+b,0)/bldgVPs.length : null;
+
   const hist       = _mmr.history[player] || [];
   const mmrCurrent = hist.length ? hist[hist.length-1].endMmr : (_mmr.current[player] || MMR_BASE);
   const lastDelta  = hist.length ? hist[hist.length-1].delta : 0;
@@ -1267,6 +1307,16 @@ function renderProfile(player) {
         <div class="pr-stat-sub">personal best VP</div>
       </div>
       <div class="pr-stat-card">
+        <div class="pr-stat-label">Avg Chip VP</div>
+        <div class="pr-stat-value" style="color:#7ec8a0">${avgChipVP!=null?avgChipVP.toFixed(1):'—'}</div>
+        <div class="pr-stat-sub">from goods &amp; shipping</div>
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Avg Bldg VP</div>
+        <div class="pr-stat-value" style="color:#85B7EB">${avgBldgVP!=null?avgBldgVP.toFixed(1):'—'}</div>
+        <div class="pr-stat-sub">from buildings</div>
+      </div>
+      <div class="pr-stat-card">
         <div class="pr-stat-label">Games Ended</div>
         <div class="pr-stat-value">${gamesEnded || '—'}</div>
         <div class="pr-stat-sub">${entries.length ? (gamesEnded/entries.length*100).toFixed(0)+'% of games' : '—'}</div>
@@ -1297,6 +1347,7 @@ function renderProfile(player) {
             <th class="num">Game</th>
             <th class="num">Seat</th>
             <th class="num">Score</th>
+            <th title="VP breakdown: chips vs buildings">Split</th>
             <th class="num" title="Finishing position by score">Place</th>
             <th class="num" title="Round the game ended on">Round</th>
             <th title="How the game ended: Buildings · VP · Colonist">Ending</th>
@@ -1332,6 +1383,7 @@ function renderProfile(player) {
       <td class="num">${game.gameNum||'—'}</td>
       <td class="num">${fmt.int(row[C.seat])}</td>
       <td class="num score">${fmt.int(row[C.score])}</td>
+      <td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>
       <td class="num">${place}</td>
       <td class="num">${gameRound}</td>
       <td>${gameEnding}</td>
@@ -1363,8 +1415,15 @@ async function init() {
     return;
   }
 
-  Papa.parse(csvUrl, {
-    download: true,
+  let csvText;
+  try {
+    csvText = await fetch(csvUrl).then(r => r.text());
+  } catch(e) {
+    statusEl.textContent = 'Could not load the stats sheet (' + e + ').';
+    return;
+  }
+
+  Papa.parse(csvText, {
     complete({ data }) {
       if (data.length < 2) { statusEl.textContent = 'Sheet appears empty.'; return; }
 
@@ -1398,9 +1457,6 @@ async function init() {
       });
 
       activateAllGames();
-    },
-    error(err) {
-      statusEl.textContent = 'Could not load the stats sheet (' + err + ').';
     },
   });
 }
