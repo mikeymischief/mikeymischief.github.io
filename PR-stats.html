@@ -119,6 +119,12 @@ title: Puerto Rico 1897 – Player Stats
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 10px;
+    margin-bottom: 10px;
+  }
+  .pr-stat-bar-wide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     margin-bottom: 32px;
   }
   .pr-stat-card {
@@ -153,6 +159,26 @@ title: Puerto Rico 1897 – Player Stats
   /* Player colour flows through --p-color set on the element */
   .pr-stat-card:first-child .pr-stat-value { color: var(--p-color, var(--pr-amber)); }
   .pr-stat-card:first-child { border-top: 2px solid var(--p-color, var(--pr-amber)); }
+
+  /* ── VP breakdown wide cards ──────────────────────────────────────────────── */
+  .pr-stat-bar-wide .pr-stat-card { padding: 18px 22px; }
+  .pr-stat-bar-wide .pr-stat-card:first-child {
+    border-top: 3px solid #7ec8a0;
+    background: linear-gradient(135deg, rgba(126,200,160,0.09) 0%, var(--pr-card-bg) 65%);
+  }
+  .pr-stat-bar-wide .pr-stat-card:first-child .pr-stat-value { color: #7ec8a0 !important; }
+  .pr-stat-bar-wide .pr-stat-card:last-child {
+    border-top: 3px solid #85B7EB;
+    background: linear-gradient(135deg, rgba(133,183,235,0.09) 0%, var(--pr-card-bg) 65%);
+  }
+  .pr-vp-prop-bar {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--pr-border);
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  .pr-vp-prop-fill { height: 100%; border-radius: 2px; }
 
   /* ── Player hero card ─────────────────────────────────────────────────────── */
   .pr-player-hero {
@@ -1307,16 +1333,6 @@ function renderProfile(player) {
         <div class="pr-stat-sub">personal best VP</div>
       </div>
       <div class="pr-stat-card">
-        <div class="pr-stat-label">Avg Chip VP</div>
-        <div class="pr-stat-value" style="color:#7ec8a0">${avgChipVP!=null?avgChipVP.toFixed(1):'—'}</div>
-        <div class="pr-stat-sub">from goods &amp; shipping</div>
-      </div>
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Avg Bldg VP</div>
-        <div class="pr-stat-value" style="color:#85B7EB">${avgBldgVP!=null?avgBldgVP.toFixed(1):'—'}</div>
-        <div class="pr-stat-sub">from buildings</div>
-      </div>
-      <div class="pr-stat-card">
         <div class="pr-stat-label">Games Ended</div>
         <div class="pr-stat-value">${gamesEnded || '—'}</div>
         <div class="pr-stat-sub">${entries.length ? (gamesEnded/entries.length*100).toFixed(0)+'% of games' : '—'}</div>
@@ -1338,6 +1354,21 @@ function renderProfile(player) {
       </div>
     </div>
 
+    <div class="pr-stat-bar-wide">
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Avg Chip VP</div>
+        <div class="pr-stat-value">${avgChipVP!=null?avgChipVP.toFixed(1):'—'}</div>
+        <div class="pr-stat-sub">${avgChipVP!=null&&avgScore!=null?Math.round(avgChipVP/avgScore*100)+'% of avg score · ':''}from goods &amp; shipping</div>
+        ${avgChipVP!=null&&avgScore!=null?`<div class="pr-vp-prop-bar"><div class="pr-vp-prop-fill" style="width:${Math.round(avgChipVP/avgScore*100)}%;background:#7ec8a0"></div></div>`:''}
+      </div>
+      <div class="pr-stat-card">
+        <div class="pr-stat-label">Avg Bldg VP</div>
+        <div class="pr-stat-value" style="color:#85B7EB">${avgBldgVP!=null?avgBldgVP.toFixed(1):'—'}</div>
+        <div class="pr-stat-sub">${avgBldgVP!=null&&avgScore!=null?Math.round(avgBldgVP/avgScore*100)+'% of avg score · ':''}from buildings</div>
+        ${avgBldgVP!=null&&avgScore!=null?`<div class="pr-vp-prop-bar"><div class="pr-vp-prop-fill" style="width:${Math.round(avgBldgVP/avgScore*100)}%;background:#85B7EB"></div></div>`:''}
+      </div>
+    </div>
+
     <div class="pr-section-label">Game Log</div>
     <div class="pr-table-wrap">
       <table class="pr-table">
@@ -1347,7 +1378,6 @@ function renderProfile(player) {
             <th class="num">Game</th>
             <th class="num">Seat</th>
             <th class="num">Score</th>
-            <th title="VP breakdown: chips vs buildings">Split</th>
             <th class="num" title="Finishing position by score">Place</th>
             <th class="num" title="Round the game ended on">Round</th>
             <th title="How the game ended: Buildings · VP · Colonist">Ending</th>
@@ -1360,6 +1390,17 @@ function renderProfile(player) {
   `;
   profile.appendChild(wrap);
   initMMRGraph(player);
+
+  const hasSplitData = entries.some(({ row }) =>
+    parseFloat(row[C.chipsVP]) > 0 || parseFloat(row[C.buildingsVP]) > 0
+  );
+  if (hasSplitData) {
+    const thead = profile.querySelector('thead tr');
+    const splitTh = document.createElement('th');
+    splitTh.title = 'VP breakdown: chips vs buildings';
+    splitTh.textContent = 'Split';
+    thead.insertBefore(splitTh, thead.children[4]);
+  }
 
   const tbody = document.getElementById('pr-tbody');
   [...entries].reverse().forEach(({ game, row }) => {
@@ -1378,12 +1419,13 @@ function renderProfile(player) {
     const tr = document.createElement('tr');
     if (won) tr.className = 'win-row';
 
+    const splitCell = hasSplitData ? `<td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>` : '';
     tr.innerHTML = `
       <td>${fmt.date(game.date)}</td>
       <td class="num">${game.gameNum||'—'}</td>
       <td class="num">${fmt.int(row[C.seat])}</td>
       <td class="num score">${fmt.int(row[C.score])}</td>
-      <td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>
+      ${splitCell}
       <td class="num">${place}</td>
       <td class="num">${gameRound}</td>
       <td>${gameEnding}</td>
