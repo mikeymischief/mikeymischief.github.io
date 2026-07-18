@@ -810,7 +810,7 @@ function renderAllGames() {
   const totalGames = _games.filter(g => g.rows.length > 0).length;
   const winCounts  = {};
   _games.forEach(game => { const w = winnerOfGame(game); if (w) winCounts[w] = (winCounts[w]||0)+1; });
-  const topWinner  = Object.entries(winCounts).sort((a,b) => b[1]-a[1])[0];
+  const topWinner  = Object.entries(winCounts).sort((a,b) => b[1]-a[1] || (_mmr.current[b[0]]||MMR_BASE)-(_mmr.current[a[0]]||MMR_BASE))[0];
   const allEndingCounts = {};
   _games.forEach(game => {
     const endRow = game.rows.find(r => (r[C.ending]||'').trim() !== '');
@@ -1059,7 +1059,7 @@ function renderStandings() {
   const allBtn = document.createElement('div');
   allBtn.className = 'pr-all-games-btn';
   allBtn.id = 'pr-all-games-card';
-  allBtn.textContent = 'All Games';
+  allBtn.textContent = 'Games Log';
   allBtn.addEventListener('click', activateAllGames);
   el.appendChild(allBtn);
 }
