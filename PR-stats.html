@@ -172,15 +172,22 @@ title: Puerto Rico 1897 – Player Stats
   .pr-stat-card:first-child .pr-stat-value { color: var(--p-color, var(--pr-amber)); }
   .pr-stat-card:first-child { border-top: 2px solid var(--p-color, var(--pr-amber)); }
 
-  /* ── VP charts row ────────────────────────────────────────────────────────── */
-  .pr-vp-charts-row {
+  /* ── Stats main row (cards col + donut) ──────────────────────────────────── */
+  .pr-stats-main-row {
     display: flex;
     gap: 10px;
     align-items: stretch;
+    margin-bottom: 10px;
   }
+  .pr-stats-cards-col {
+    flex: 0 0 65%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pr-stats-cards-col .pr-stat-bar { margin-bottom: 0; }
   .pr-vp-donut-wrap {
-    flex: 0 0 auto;
-    width: 190px;
+    flex: 1 1 0;
     background: var(--pr-card-bg);
     border: 1px solid var(--pr-border);
     border-radius: 10px;
@@ -188,12 +195,12 @@ title: Puerto Rico 1897 – Player Stats
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 0;
   }
   .pr-vp-donut-svg { width: 100%; height: auto; display: block; }
 
   /* ── VP grouped bar chart ─────────────────────────────────────────────────── */
   .pr-vp-chart-wrap {
-    flex: 1 1 0;
     background: var(--pr-card-bg);
     border: 1px solid var(--pr-border);
     border-radius: 10px;
@@ -1471,56 +1478,56 @@ function renderProfile(player) {
     <div id="pr-mmr-graph-section"></div>
 
     <div class="pr-stats-bg">
-    <div class="pr-stat-bar">
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Rank</div>
-        <div class="pr-stat-value">#${rank}</div>
-        <div class="pr-stat-sub">among active players</div>
+    <div class="pr-stats-main-row">
+      <div class="pr-stats-cards-col">
+        <div class="pr-stat-bar">
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Rank</div>
+            <div class="pr-stat-value">#${rank}</div>
+            <div class="pr-stat-sub">among active players</div>
+          </div>
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Wins</div>
+            <div class="pr-stat-value">${wins.length}</div>
+            <div class="pr-stat-sub">${winRate!=null?(winRate*100).toFixed(0)+'% win rate':'—'}</div>
+          </div>
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Avg Score</div>
+            <div class="pr-stat-value">${avgScore!=null?avgScore.toFixed(1):'—'}</div>
+            <div class="pr-stat-sub">victory points</div>
+          </div>
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Best Score</div>
+            <div class="pr-stat-value">${bestScore!=null?bestScore:'—'}</div>
+            <div class="pr-stat-sub">personal best VP</div>
+          </div>
+        </div>
+        <div class="pr-stat-bar">
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Games Ended</div>
+            <div class="pr-stat-value">${gamesEnded || '—'}</div>
+            <div class="pr-stat-sub">${entries.length ? (gamesEnded/entries.length*100).toFixed(0)+'% of games' : '—'}</div>
+          </div>
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Avg Round End</div>
+            <div class="pr-stat-value">${avgRoundEnd!=null?avgRoundEnd.toFixed(1):'—'}</div>
+            <div class="pr-stat-sub">when ending games</div>
+          </div>
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Fav Ending</div>
+            <div class="pr-stat-value" style="font-size:1.1rem">${topEnding ? fmt.ending(topEnding[0]) : '—'}</div>
+            <div class="pr-stat-sub">${endBreakdown}</div>
+          </div>
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Win % Ending</div>
+            <div class="pr-stat-value">${winRateEnding!=null?(winRateEnding*100).toFixed(0)+'%':'—'}</div>
+            <div class="pr-stat-sub">${gamesEnded ? `${winsWhenEnding} of ${gamesEnded} ended` : 'no endings yet'}</div>
+          </div>
+        </div>
       </div>
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Wins</div>
-        <div class="pr-stat-value">${wins.length}</div>
-        <div class="pr-stat-sub">${winRate!=null?(winRate*100).toFixed(0)+'% win rate':'—'}</div>
-      </div>
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Avg Score</div>
-        <div class="pr-stat-value">${avgScore!=null?avgScore.toFixed(1):'—'}</div>
-        <div class="pr-stat-sub">victory points</div>
-      </div>
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Best Score</div>
-        <div class="pr-stat-value">${bestScore!=null?bestScore:'—'}</div>
-        <div class="pr-stat-sub">personal best VP</div>
-      </div>
-    </div>
-
-    <div class="pr-stat-bar">
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Games Ended</div>
-        <div class="pr-stat-value">${gamesEnded || '—'}</div>
-        <div class="pr-stat-sub">${entries.length ? (gamesEnded/entries.length*100).toFixed(0)+'% of games' : '—'}</div>
-      </div>
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Avg Round End</div>
-        <div class="pr-stat-value">${avgRoundEnd!=null?avgRoundEnd.toFixed(1):'—'}</div>
-        <div class="pr-stat-sub">when ending games</div>
-      </div>
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Fav Ending</div>
-        <div class="pr-stat-value" style="font-size:1.1rem">${topEnding ? fmt.ending(topEnding[0]) : '—'}</div>
-        <div class="pr-stat-sub">${endBreakdown}</div>
-      </div>
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Win % Ending</div>
-        <div class="pr-stat-value">${winRateEnding!=null?(winRateEnding*100).toFixed(0)+'%':'—'}</div>
-        <div class="pr-stat-sub">${gamesEnded ? `${winsWhenEnding} of ${gamesEnded} ended` : 'no endings yet'}</div>
-      </div>
-    </div>
-
-    <div class="pr-vp-charts-row">
       ${vpDonutChart(avgChipVP, avgBldgVP, avgScore)}
-      ${vpGroupedBarChart(entries)}
     </div>
+    ${vpGroupedBarChart(entries)}
     </div>
 
     <div class="pr-section-label">Game Log</div>
