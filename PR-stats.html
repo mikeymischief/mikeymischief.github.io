@@ -235,7 +235,7 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
   }
   .pr-player-hero-name {
     font-family: 'Cinzel', serif;
-    font-size: 4rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: var(--p-color, var(--pr-amber));
     line-height: 1;
@@ -261,7 +261,7 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
   }
   .pr-player-hero-mmr-value {
     font-family: 'Cinzel', serif;
-    font-size: 4rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: var(--p-color, var(--pr-amber));
     line-height: 1;
@@ -326,6 +326,13 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     filter: drop-shadow(0 1px 4px rgba(0,0,0,0.9));
   }
   .pr-podium-body { padding: 14px 14px 0; }
+  .pr-podium-name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
   .pr-podium-rank {
     font-family: 'JetBrains Mono', monospace;
     font-size: 8px;
@@ -342,17 +349,19 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 4px;
     line-height: 1;
+    min-width: 0;
   }
   .pr-podium-mmr {
     font-family: 'Cinzel', serif;
-    font-size: 1.6rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--p-color, #e8c99a);
     letter-spacing: 0.02em;
-    margin-bottom: 10px;
     line-height: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-bottom: 10px;
   }
   .pr-podium-stats {
     display: grid;
@@ -1303,8 +1312,10 @@ function renderStandings() {
       <div class="pr-podium-trophy">${trophies[i]}</div>
       <div class="pr-podium-body">
         <div class="pr-podium-rank">#${i+1} Ranked</div>
-        <div class="pr-podium-name">${p}</div>
-        <div class="pr-podium-mmr">${Math.round(mmr)} MMR</div>
+        <div class="pr-podium-name-row">
+          <div class="pr-podium-name">${p}</div>
+          <div class="pr-podium-mmr">${Math.round(mmr)} MMR</div>
+        </div>
       </div>
       <div class="pr-podium-stats">
         <div class="pr-podium-stat">
