@@ -115,17 +115,29 @@ title: Puerto Rico 1897 – Player Stats
   .pr-player-tab.active { color: var(--p-color, var(--pr-amber)); border-color: var(--p-color, var(--pr-amber)); }
 
   /* ── Stat bar ─────────────────────────────────────────────────────────────── */
+  .pr-stats-bg {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 16px;
+    margin-bottom: 10px;
+  }
+  .pr-stats-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/PuertoRico/banana_man.jpeg');
+    background-size: cover;
+    background-position: center top;
+    opacity: 0.13;
+    border-radius: 12px;
+  }
+  .pr-stats-bg > * { position: relative; z-index: 1; }
   .pr-stat-bar {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 10px;
     margin-bottom: 10px;
-  }
-  .pr-stat-bar-wide {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 32px;
   }
   .pr-stat-card {
     background: var(--pr-card-bg);
@@ -160,25 +172,34 @@ title: Puerto Rico 1897 – Player Stats
   .pr-stat-card:first-child .pr-stat-value { color: var(--p-color, var(--pr-amber)); }
   .pr-stat-card:first-child { border-top: 2px solid var(--p-color, var(--pr-amber)); }
 
-  /* ── VP breakdown wide cards ──────────────────────────────────────────────── */
-  .pr-stat-bar-wide .pr-stat-card { padding: 18px 22px; }
-  .pr-stat-bar-wide .pr-stat-card:first-child {
-    border-top: 3px solid #7ec8a0;
-    background: linear-gradient(135deg, rgba(126,200,160,0.09) 0%, var(--pr-card-bg) 65%);
+  /* ── VP charts row ────────────────────────────────────────────────────────── */
+  .pr-vp-charts-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
   }
-  .pr-stat-bar-wide .pr-stat-card:first-child .pr-stat-value { color: #7ec8a0 !important; }
-  .pr-stat-bar-wide .pr-stat-card:last-child {
-    border-top: 3px solid #85B7EB;
-    background: linear-gradient(135deg, rgba(133,183,235,0.09) 0%, var(--pr-card-bg) 65%);
+  .pr-vp-donut-wrap {
+    flex: 0 0 auto;
+    width: 190px;
+    background: var(--pr-card-bg);
+    border: 1px solid var(--pr-border);
+    border-radius: 10px;
+    padding: 10px 6px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .pr-vp-prop-bar {
-    height: 4px;
-    border-radius: 2px;
-    background: var(--pr-border);
-    margin-top: 10px;
-    overflow: hidden;
+  .pr-vp-donut-svg { width: 100%; height: auto; display: block; }
+
+  /* ── VP grouped bar chart ─────────────────────────────────────────────────── */
+  .pr-vp-chart-wrap {
+    flex: 1 1 0;
+    background: var(--pr-card-bg);
+    border: 1px solid var(--pr-border);
+    border-radius: 10px;
+    padding: 12px 12px 8px;
   }
-  .pr-vp-prop-fill { height: 100%; border-radius: 2px; }
+  .pr-vp-chart-svg { width: 100%; height: auto; display: block; }
 
   /* ── Player hero card ─────────────────────────────────────────────────────── */
   .pr-player-hero {
@@ -774,6 +795,149 @@ function vpSplitBar(chips, bldg, total) {
   </div>`;
 }
 
+function vpDonutChart(chipAvg, bldgAvg, scoreAvg) {
+  const c = chipAvg != null ? chipAvg : 0;
+  const b = bldgAvg != null ? bldgAvg : 0;
+  const hasData = chipAvg != null || bldgAvg != null;
+  const total = scoreAvg != null && scoreAvg > 0 ? scoreAvg : (c + b);
+  const cx = 100, cy = 96, R = 64, ri = 42;
+  const GAP = 0.04, START = -Math.PI / 2;
+  function pxy(a, radius) {
+    return [+(cx + radius * Math.cos(a)).toFixed(2), +(cy + radius * Math.sin(a)).toFixed(2)];
+  }
+  function arcPath(sa, ea, color) {
+    if (ea - sa < 0.02) return '';
+    const [x1,y1]=pxy(sa,R),[x2,y2]=pxy(ea,R),[x3,y3]=pxy(ea,ri),[x4,y4]=pxy(sa,ri);
+    const lg = ea - sa > Math.PI ? 1 : 0;
+    return `<path d="M${x1},${y1} A${R},${R} 0 ${lg},1 ${x2},${y2} L${x3},${y3} A${ri},${ri} 0 ${lg},0 ${x4},${y4} Z" fill="${color}"/>`;
+  }
+  function arcLabel(sa, ea, name, pct, val, color) {
+    if (ea - sa < 0.22) return '';
+    const mid = (sa + ea) / 2;
+    const [t1x,t1y]=pxy(mid,R+3),[t2x,t2y]=pxy(mid,R+11);
+    const [lx,ly]=pxy(mid,R+22);
+    const anchor = lx < cx - 8 ? 'end' : lx > cx + 8 ? 'start' : 'middle';
+    return `<line x1="${t1x}" y1="${t1y}" x2="${t2x}" y2="${t2y}" stroke="${color}" stroke-width="1.5" opacity="0.5"/>
+      <text x="${lx}" y="${ly-9}" text-anchor="${anchor}" fill="${color}" font-size="7" font-family="'JetBrains Mono',monospace" opacity="0.7" letter-spacing="0.06em">${name.toUpperCase()}</text>
+      <text x="${lx}" y="${ly+2}" text-anchor="${anchor}" fill="${color}" font-size="10" font-weight="700" font-family="'JetBrains Mono',monospace">${Math.round(pct*100)}%</text>
+      <text x="${lx}" y="${ly+12}" text-anchor="${anchor}" fill="${color}" font-size="7.5" font-family="'JetBrains Mono',monospace" opacity="0.75">${val.toFixed(1)} vp</text>`;
+  }
+  if (!hasData || total <= 0) {
+    return `<div class="pr-vp-donut-wrap">
+      <svg viewBox="0 0 200 192" class="pr-vp-donut-svg" style="overflow:visible">
+        <circle cx="${cx}" cy="${cy}" r="${(R+ri)/2}" fill="none" stroke="var(--pr-border)" stroke-width="${R-ri}" stroke-dasharray="5 4"/>
+        <text x="${cx}" y="${cy-6}" text-anchor="middle" fill="var(--pr-ink-faint)" font-size="6.5" font-family="'JetBrains Mono',monospace" letter-spacing="0.1em">AVG SPLIT</text>
+        <text x="${cx}" y="${cy+9}" text-anchor="middle" fill="var(--pr-ink-faint)" font-size="8.5" font-family="'JetBrains Mono',monospace">no data</text>
+      </svg>
+    </div>`;
+  }
+  const cp=c/total, bp=b/total, rp=Math.max(0,1-cp-bp);
+  const a0=START, a1=a0+cp*2*Math.PI, a2=a1+bp*2*Math.PI, a3=a2+rp*2*Math.PI;
+  const segs = [
+    cp>0.01 ? arcPath(a0+GAP/2, a1-GAP/2, '#7ec8a0') : '',
+    bp>0.01 ? arcPath(a1+GAP/2, a2-GAP/2, '#85B7EB') : '',
+    rp>0.01 ? arcPath(a2+GAP/2, a3-GAP/2, 'rgba(200,180,140,0.18)') : '',
+  ].join('');
+  const lbls = [
+    cp>0.01 ? arcLabel(a0, a1, 'Chips', cp, c, '#7ec8a0') : '',
+    bp>0.01 ? arcLabel(a1, a2, 'Bldg',  bp, b, '#85B7EB') : '',
+    rp>0.08 ? arcLabel(a2, a3, 'Other', rp, total*rp, 'rgba(200,180,140,0.6)') : '',
+  ].join('');
+  return `<div class="pr-vp-donut-wrap">
+    <svg viewBox="0 0 200 192" class="pr-vp-donut-svg" style="overflow:visible">
+      ${segs}${lbls}
+      <text x="${cx}" y="${cy-7}" text-anchor="middle" fill="var(--pr-ink-faint)" font-size="6.5" font-family="'JetBrains Mono',monospace" letter-spacing="0.1em">AVG VP</text>
+      <text x="${cx}" y="${cy+13}" text-anchor="middle" fill="#e8c99a" font-size="21" font-weight="700" font-family="'Cinzel',serif">${total.toFixed(1)}</text>
+    </svg>
+  </div>`;
+}
+
+function vpGroupedBarChart(entries) {
+  const sorted = [...entries].sort((a,b) => parseInt(a.game.gameNum) - parseInt(b.game.gameNum));
+  const data = sorted.map(({game, row}) => ({
+    label: '#' + game.gameNum,
+    chips: parseFloat(row[C.chipsVP]),
+    bldg:  parseFloat(row[C.buildingsVP])
+  })).filter(d => !isNaN(d.chips) || !isNaN(d.bldg));
+
+  const EMPTY_H = 140;
+  if (data.length === 0) {
+    return `<div class="pr-vp-chart-wrap">
+      <svg viewBox="0 0 560 ${EMPTY_H}" class="pr-vp-chart-svg">
+        <text x="12" y="16" fill="var(--pr-ink-faint)" font-size="7.5" font-family="'JetBrains Mono',monospace" letter-spacing="0.1em" text-transform="uppercase">VP BY GAME</text>
+        <line x1="40" y1="20" x2="40" y2="${EMPTY_H - 24}" stroke="var(--pr-border)" stroke-width="1"/>
+        <line x1="40" y1="${EMPTY_H - 24}" x2="548" y2="${EMPTY_H - 24}" stroke="var(--pr-border)" stroke-width="1"/>
+        <text x="294" y="${EMPTY_H / 2 + 4}" text-anchor="middle" fill="var(--pr-ink-faint)" font-size="9" font-family="'JetBrains Mono',monospace">no data yet</text>
+      </svg>
+    </div>`;
+  }
+
+  const VW = 560, VH = 200;
+  const PL = 40, PR = 16, PT = 26, PB = 36;
+  const chartW = VW - PL - PR, chartH = VH - PT - PB;
+  const N = data.length;
+
+  const allVals = data.flatMap(d => [isNaN(d.chips) ? 0 : d.chips, isNaN(d.bldg) ? 0 : d.bldg]);
+  const rawMax  = Math.max(...allVals);
+  const step    = rawMax <= 10 ? 2 : rawMax <= 30 ? 5 : 10;
+  const yMax    = Math.ceil(rawMax / step) * step || step;
+
+  const yS = v  => PT + chartH - (v / yMax) * chartH;
+  const xG = i  => PL + i * (chartW / N);
+  const groupW  = chartW / N;
+  const barW    = Math.max(4, Math.min(groupW * 0.33, 20));
+  const innerGap = 2;
+  const groupOffset = (groupW - barW * 2 - innerGap) / 2;
+
+  // Y gridlines + labels
+  const tickCount = Math.min(4, yMax / step);
+  let grid = '';
+  for (let i = 0; i <= tickCount; i++) {
+    const v = Math.round(yMax * i / tickCount);
+    const y = yS(v).toFixed(1);
+    grid += `<line x1="${PL}" y1="${y}" x2="${VW - PR}" y2="${y}" stroke="var(--pr-border)" stroke-width="0.7" opacity="0.6"/>`;
+    grid += `<text x="${PL - 5}" y="${(+y + 3.5).toFixed(1)}" text-anchor="end" fill="var(--pr-ink-faint)" font-size="8" font-family="'JetBrains Mono',monospace">${v}</text>`;
+  }
+
+  // Bars + x labels
+  let bars = '', xlbls = '';
+  const axisY = (PT + chartH).toFixed(1);
+  data.forEach((d, i) => {
+    const gx    = xG(i) + groupOffset;
+    const cx    = gx + barW + innerGap / 2;       // group center x
+    const skip  = N > 20 && i % Math.ceil(N / 20) !== 0;
+
+    if (!isNaN(d.chips) && d.chips > 0) {
+      const h = ((d.chips / yMax) * chartH).toFixed(1);
+      const y = (PT + chartH - +h).toFixed(1);
+      bars += `<rect x="${gx.toFixed(1)}" y="${y}" width="${barW}" height="${h}" fill="#7ec8a0" rx="2" opacity="0.9"/>`;
+      if (+h > 14) bars += `<text x="${(gx + barW/2).toFixed(1)}" y="${(+y - 3).toFixed(1)}" text-anchor="middle" fill="#7ec8a0" font-size="7.5" font-family="'JetBrains Mono',monospace">${Math.round(d.chips)}</text>`;
+    }
+    if (!isNaN(d.bldg) && d.bldg > 0) {
+      const bx = gx + barW + innerGap;
+      const h  = ((d.bldg / yMax) * chartH).toFixed(1);
+      const y  = (PT + chartH - +h).toFixed(1);
+      bars += `<rect x="${bx.toFixed(1)}" y="${y}" width="${barW}" height="${h}" fill="#85B7EB" rx="2" opacity="0.9"/>`;
+      if (+h > 14) bars += `<text x="${(bx + barW/2).toFixed(1)}" y="${(+y - 3).toFixed(1)}" text-anchor="middle" fill="#85B7EB" font-size="7.5" font-family="'JetBrains Mono',monospace">${Math.round(d.bldg)}</text>`;
+    }
+    if (!skip) xlbls += `<text x="${cx.toFixed(1)}" y="${(+axisY + 13).toFixed(1)}" text-anchor="middle" fill="var(--pr-ink-faint)" font-size="7.5" font-family="'JetBrains Mono',monospace">${d.label}</text>`;
+  });
+
+  const legendX = VW - PR - 88;
+  return `<div class="pr-vp-chart-wrap">
+    <svg viewBox="0 0 ${VW} ${VH}" class="pr-vp-chart-svg">
+      <text x="${PL}" y="16" fill="var(--pr-ink-faint)" font-size="7.5" font-family="'JetBrains Mono',monospace" letter-spacing="0.1em">VP BY GAME</text>
+      <circle cx="${legendX}" cy="12" r="4" fill="#7ec8a0"/>
+      <text x="${legendX + 7}" y="16" fill="var(--pr-ink-faint)" font-size="8" font-family="'JetBrains Mono',monospace">Chips</text>
+      <circle cx="${legendX + 42}" cy="12" r="4" fill="#85B7EB"/>
+      <text x="${legendX + 49}" y="16" fill="var(--pr-ink-faint)" font-size="8" font-family="'JetBrains Mono',monospace">Bldg</text>
+      ${grid}
+      <line x1="${PL}" y1="${axisY}" x2="${VW - PR}" y2="${axisY}" stroke="var(--pr-border)" stroke-width="1"/>
+      ${bars}${xlbls}
+    </svg>
+  </div>`;
+}
+
 // ── Parse grouped game structure ───────────────────────────────────────────────
 function parseGames(rawRows) {
   const games = [];
@@ -1306,16 +1470,12 @@ function renderProfile(player) {
 
     <div id="pr-mmr-graph-section"></div>
 
+    <div class="pr-stats-bg">
     <div class="pr-stat-bar">
       <div class="pr-stat-card">
-        <div class="pr-stat-label">MMR Rank</div>
+        <div class="pr-stat-label">Rank</div>
         <div class="pr-stat-value">#${rank}</div>
         <div class="pr-stat-sub">among active players</div>
-      </div>
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Games</div>
-        <div class="pr-stat-value">${entries.length || '—'}</div>
-        <div class="pr-stat-sub">sessions played</div>
       </div>
       <div class="pr-stat-card">
         <div class="pr-stat-label">Wins</div>
@@ -1332,6 +1492,9 @@ function renderProfile(player) {
         <div class="pr-stat-value">${bestScore!=null?bestScore:'—'}</div>
         <div class="pr-stat-sub">personal best VP</div>
       </div>
+    </div>
+
+    <div class="pr-stat-bar">
       <div class="pr-stat-card">
         <div class="pr-stat-label">Games Ended</div>
         <div class="pr-stat-value">${gamesEnded || '—'}</div>
@@ -1354,19 +1517,10 @@ function renderProfile(player) {
       </div>
     </div>
 
-    <div class="pr-stat-bar-wide">
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Avg Chip VP</div>
-        <div class="pr-stat-value">${avgChipVP!=null?avgChipVP.toFixed(1):'—'}</div>
-        <div class="pr-stat-sub">${avgChipVP!=null&&avgScore!=null?Math.round(avgChipVP/avgScore*100)+'% of avg score · ':''}from goods &amp; shipping</div>
-        ${avgChipVP!=null&&avgScore!=null?`<div class="pr-vp-prop-bar"><div class="pr-vp-prop-fill" style="width:${Math.round(avgChipVP/avgScore*100)}%;background:#7ec8a0"></div></div>`:''}
-      </div>
-      <div class="pr-stat-card">
-        <div class="pr-stat-label">Avg Bldg VP</div>
-        <div class="pr-stat-value" style="color:#85B7EB">${avgBldgVP!=null?avgBldgVP.toFixed(1):'—'}</div>
-        <div class="pr-stat-sub">${avgBldgVP!=null&&avgScore!=null?Math.round(avgBldgVP/avgScore*100)+'% of avg score · ':''}from buildings</div>
-        ${avgBldgVP!=null&&avgScore!=null?`<div class="pr-vp-prop-bar"><div class="pr-vp-prop-fill" style="width:${Math.round(avgBldgVP/avgScore*100)}%;background:#85B7EB"></div></div>`:''}
-      </div>
+    <div class="pr-vp-charts-row">
+      ${vpDonutChart(avgChipVP, avgBldgVP, avgScore)}
+      ${vpGroupedBarChart(entries)}
+    </div>
     </div>
 
     <div class="pr-section-label">Game Log</div>
