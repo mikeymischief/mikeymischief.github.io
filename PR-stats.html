@@ -170,9 +170,6 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     font-size: 9.5px;
     color: var(--pr-ink-faint);
   }
-  /* Player colour flows through --p-color set on the element */
-  .pr-stat-card:first-child .pr-stat-value { color: var(--p-color, var(--pr-amber)); }
-  .pr-stat-card:first-child { border-top: 2px solid var(--p-color, var(--pr-amber)); }
 
   /* ── Stats main row (cards col + donut) ──────────────────────────────────── */
   .pr-stats-main-row {
@@ -1583,6 +1580,13 @@ function renderProfile(player) {
             <div class="pr-stat-sub">${winRate!=null?(winRate*100).toFixed(0)+'% win rate':'—'}</div>
           </div>
           <div class="pr-stat-card">
+            <div class="pr-stat-label">Avg Rnd End</div>
+            <div class="pr-stat-value">${avgRoundEnd!=null?avgRoundEnd.toFixed(1):'—'}</div>
+            <div class="pr-stat-sub">when ending games</div>
+          </div>
+        </div>
+        <div class="pr-stat-bar">
+          <div class="pr-stat-card">
             <div class="pr-stat-label">Avg Score</div>
             <div class="pr-stat-value">${avgScore!=null?avgScore.toFixed(1):'—'}</div>
             <div class="pr-stat-sub">victory points</div>
@@ -1598,11 +1602,6 @@ function renderProfile(player) {
             <div class="pr-stat-label">Games Ended</div>
             <div class="pr-stat-value">${gamesEnded || '—'}</div>
             <div class="pr-stat-sub">${entries.length ? (gamesEnded/entries.length*100).toFixed(0)+'% of games' : '—'}</div>
-          </div>
-          <div class="pr-stat-card">
-            <div class="pr-stat-label">Avg Round End</div>
-            <div class="pr-stat-value">${avgRoundEnd!=null?avgRoundEnd.toFixed(1):'—'}</div>
-            <div class="pr-stat-sub">when ending games</div>
           </div>
           <div class="pr-stat-card">
             <div class="pr-stat-label">Fav Ending</div>
