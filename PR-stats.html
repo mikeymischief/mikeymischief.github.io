@@ -429,18 +429,32 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     color: var(--pr-ink-faint);
     margin-bottom: 2px;
   }
+  .pr-base-name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
   .pr-base-name {
     font-family: 'Cinzel', serif;
     font-size: 1rem;
     font-weight: 700;
     color: var(--p-color, var(--pr-amber));
     line-height: 1.1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .pr-base-mmr {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--pr-ink-faint);
-    margin-top: 2px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--p-color, var(--pr-amber));
+    line-height: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .pr-base-stats {
     display: flex;
@@ -868,7 +882,7 @@ function vpDonutChart(chipAvg, bldgAvg, scoreAvg) {
   }
   if (!hasData || total <= 0) {
     return `<div class="pr-vp-donut-wrap">
-      <svg viewBox="0 0 200 192" class="pr-vp-donut-svg" style="overflow:visible">
+      <svg viewBox="-24 -10 248 212" class="pr-vp-donut-svg">
         <circle cx="${cx}" cy="${cy}" r="${(R+ri)/2}" fill="none" stroke="var(--pr-border)" stroke-width="${R-ri}" stroke-dasharray="5 4"/>
         <text x="${cx}" y="${cy-6}" text-anchor="middle" fill="var(--pr-ink-faint)" font-size="6.5" font-family="'JetBrains Mono',monospace" letter-spacing="0.1em">AVG SPLIT</text>
         <text x="${cx}" y="${cy+9}" text-anchor="middle" fill="var(--pr-ink-faint)" font-size="8.5" font-family="'JetBrains Mono',monospace">no data</text>
@@ -888,7 +902,7 @@ function vpDonutChart(chipAvg, bldgAvg, scoreAvg) {
     rp>0.08 ? arcLabel(a2, a3, 'Other', rp, total*rp, 'rgba(200,180,140,0.6)') : '',
   ].join('');
   return `<div class="pr-vp-donut-wrap">
-    <svg viewBox="0 0 200 192" class="pr-vp-donut-svg" style="overflow:visible">
+    <svg viewBox="-24 -10 248 212" class="pr-vp-donut-svg">
       ${segs}${lbls}
       <text x="${cx}" y="${cy-7}" text-anchor="middle" fill="var(--pr-ink-faint)" font-size="6.5" font-family="'JetBrains Mono',monospace" letter-spacing="0.1em">AVG VP</text>
       <text x="${cx}" y="${cy+13}" text-anchor="middle" fill="#e8c99a" font-size="21" font-weight="700" font-family="'Cinzel',serif">${total.toFixed(1)}</text>
@@ -1360,8 +1374,10 @@ function renderStandings() {
         <div class="pr-podium-overlay"></div>
         <div class="pr-base-body">
           <div class="pr-base-rank">#${top3.length + i + 1} Ranked</div>
-          <div class="pr-base-name">${p}</div>
-          <div class="pr-base-mmr">${Math.round(mmr)} MMR</div>
+          <div class="pr-base-name-row">
+            <div class="pr-base-name">${p}</div>
+            <div class="pr-base-mmr">${Math.round(mmr)}</div>
+          </div>
         </div>
         <div class="pr-base-stats">
           <div class="pr-base-stat">
