@@ -1235,9 +1235,14 @@ function scrollToGame(gameNum, openNotes) {
 }
 
 function handleInitialHash() {
-  const m = location.hash.match(/^#game-(\d+)$/);
+  const game = location.hash.match(/^#game-(\d+)$/);
+  const player = location.hash.match(/^#player-(.+)$/);
+  if (player) {
+    const name = decodeURIComponent(player[1]);
+    if (_allPlayers.includes(name)) { activatePlayer(name, false); return; }
+  }
   activateAllGames(false);
-  if (m) setTimeout(() => scrollToGame(m[1], true), 80);
+  if (game) setTimeout(() => scrollToGame(game[1], true), 80);
 }
 
 function clearActive() {
@@ -1251,11 +1256,12 @@ function activateAllGames(scroll = true) {
   const allBtn = document.getElementById('pr-all-games-card');
   if (allBtn) allBtn.classList.add('active');
   renderAllGames();
+  history.replaceState(null, '', location.pathname + location.search);
   if (scroll) document.getElementById('pr-profile').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ── Activate player (click active → return to All Games) ──────────────────────
-function activatePlayer(player) {
+function activatePlayer(player, scroll = true) {
   const podiumCard = document.querySelector(`.pr-podium-card[data-p="${CSS.escape(player)}"]`);
   const baseCard   = document.querySelector(`.pr-base-card[data-p="${CSS.escape(player)}"]`);
   const wasActive  = (podiumCard && podiumCard.classList.contains('active')) ||
@@ -1264,8 +1270,9 @@ function activatePlayer(player) {
   if (wasActive) { activateAllGames(); return; }
   if (podiumCard) podiumCard.classList.add('active');
   if (baseCard) baseCard.classList.add('active');
+  history.replaceState(null, '', '#player-' + encodeURIComponent(player));
   renderProfile(player);
-  document.getElementById('pr-profile').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (scroll) document.getElementById('pr-profile').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ── Render standings (podium + leaderboard) ───────────────────────────────────
