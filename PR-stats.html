@@ -1331,10 +1331,11 @@ function renderStandings() {
   function playerStats(p) {
     const entries = _playerIndex[p] || [];
     const wins    = entries.filter(({ game, row }) => winnerOfGame(game) === (row[C.player]||'').trim());
+    const decided = entries.filter(({ game }) => winnerOfGame(game) !== null);
     const scores  = entries.map(({ row }) => parseInt(row[C.score])).filter(v => !isNaN(v));
     return {
-      record:  `${wins.length}-${entries.length - wins.length}`,
-      winRate: entries.length ? `${(wins.length/entries.length*100).toFixed(0)}%` : '—',
+      record:  `${wins.length}-${decided.length - wins.length}`,
+      winRate: decided.length ? `${(wins.length/decided.length*100).toFixed(0)}%` : '—',
       avgVP:   scores.length  ? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1) : '—',
     };
   }
@@ -1556,7 +1557,8 @@ function renderProfile(player) {
   const scores  = entries.map(({ row }) => parseInt(row[C.score])).filter(v => !isNaN(v));
   const avgScore  = scores.length ? scores.reduce((a,b)=>a+b,0)/scores.length : null;
   const bestScore = scores.length ? Math.max(...scores) : null;
-  const winRate   = entries.length ? wins.length / entries.length : null;
+  const decided   = entries.filter(({ game }) => winnerOfGame(game) !== null);
+  const winRate   = decided.length ? wins.length / decided.length : null;
 
   const endedEntries = entries.filter(({ row }) => (row[C.ending]||'').trim() !== '');
   const gamesEnded   = endedEntries.length;
