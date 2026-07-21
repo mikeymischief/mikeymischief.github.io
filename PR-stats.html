@@ -577,6 +577,16 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.05em;
   }
+  .pr-table .king-badge {
+    font-size: 11px;
+    background: rgba(160,110,240,0.12);
+    color: #b07aff;
+    border: 1px solid rgba(160,110,240,0.3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
 
   /* ── All Games summary strip ─────────────────────────────────────────────── */
   .pr-all-summary {
@@ -1028,6 +1038,18 @@ function parseGames(rawRows) {
 }
 
 // ── Winner derived from highest score ─────────────────────────────────────────
+function kingmakerOfGame(game) {
+  const winner = winnerOfGame(game);
+  if (!winner) return null;
+  const seated = game.rows
+    .filter(r => (r[C.player]||'').trim() && !isNaN(parseInt(r[C.seat])))
+    .sort((a, b) => parseInt(a[C.seat]) - parseInt(b[C.seat]));
+  if (seated.length < 2) return null;
+  const winnerIdx = seated.findIndex(r => (r[C.player]||'').trim() === winner);
+  if (winnerIdx === -1) return null;
+  return (seated[(winnerIdx - 1 + seated.length) % seated.length][C.player]||'').trim();
+}
+
 function winnerOfGame(game) {
   let max = -Infinity, winner = null;
   for (const row of game.rows) {
@@ -1189,9 +1211,11 @@ function renderAllGames() {
       const color   = getColor(player);
       const tr      = document.createElement('tr');
       if (won) tr.className = 'win-row';
+      const isKingmaker = player === kingmakerOfGame(game);
       const badges = [
-        won     ? '<span class="win-badge">WIN</span>'                                : '',
-        isEnder && endLabel ? `<span class="end-badge">${endLabel}</span>` : '',
+        won          ? '<span class="win-badge">WIN</span>'                          : '',
+        isEnder && endLabel ? `<span class="end-badge">${endLabel}</span>`           : '',
+        isKingmaker  ? '<span class="king-badge">KINGMAKER</span>'                   : '',
       ].filter(Boolean).join(' ');
       tr.innerHTML = `
         <td></td>
@@ -1551,6 +1575,8 @@ function renderProfile(player) {
   const topEnding    = Object.entries(endingCounts).sort((a,b) => b[1]-a[1])[0];
   const endBreakdown = Object.entries(endingCounts).sort((a,b) => b[1]-a[1]).map(([k,v]) => `${fmt.ending(k)} ×${v}`).join(' · ') || '—';
   const winsWhenEnding   = endedEntries.filter(({ game, row }) => winnerOfGame(game) === (row[C.player]||'').trim()).length;
+  const kingmakerCount  = entries.filter(({ game }) => kingmakerOfGame(game) === player).length;
+  const kingmakerRate   = entries.length ? kingmakerCount / entries.length : null;
   const winRateEnding    = gamesEnded > 0 ? winsWhenEnding / gamesEnded : null;
 
   const chipVPs  = entries.map(({ row }) => parseFloat(row[C.chipsVP])).filter(v => !isNaN(v));
@@ -1642,6 +1668,11 @@ function renderProfile(player) {
             <div class="pr-stat-value">${winRateEnding!=null?(winRateEnding*100).toFixed(0)+'%':'—'}</div>
             <div class="pr-stat-sub">${gamesEnded ? `${winsWhenEnding} of ${gamesEnded} ended` : 'no endings yet'}</div>
           </div>
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Kingmaker Rate</div>
+            <div class="pr-stat-value">${kingmakerRate!=null?(kingmakerRate*100).toFixed(0)+'%':'—'}</div>
+            <div class="pr-stat-sub">${kingmakerCount} time${kingmakerCount!==1?'s':''}</div>
+          </div>
         </div>
       </div>
       ${vpDonutChart(avgChipVP, avgBldgVP, avgScore)}
@@ -1709,7 +1740,7 @@ function renderProfile(player) {
       <td class="num">${place}</td>
       <td class="num">${gameRound}</td>
       <td>${gameEnding}</td>
-      <td>${won?'<span class="win-badge">WIN</span>':''}</td>
+      <td>${[won?'<span class="win-badge">WIN</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">KINGMAKER</span>':''].filter(Boolean).join(' ')}</td>
     `;
     tbody.appendChild(tr);
   });
