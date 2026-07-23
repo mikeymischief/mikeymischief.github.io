@@ -149,8 +149,15 @@ permalink: /commander/insights/
     gap: 28px;
     align-items: start;
   }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
   @media (max-width: 800px) {
     .two-col { grid-template-columns: 1fr; }
+    .three-col { grid-template-columns: 1fr; }
   }
 
   table.data-table {
@@ -325,14 +332,31 @@ permalink: /commander/insights/
     </div>
   </section>
 
-  <section class="block" id="section-mulligans">
-    <h2>Most Mulligans</h2>
-    <div class="sub">Commanders ranked by highest average mulligans taken per game.</div>
-    <div class="scroll-tall">
-      <table class="data-table" id="mulligans-table">
-        <thead><tr><th>Commander</th><th>Pilot</th><th class="num">Avg Mulligans</th><th class="num">Games</th></tr></thead>
-        <tbody></tbody>
-      </table>
+  <section class="block" id="section-behavioral">
+    <h2>Behavioral Stats</h2>
+    <div class="sub">Mulligans per commander · kingmaker and error counts per player.</div>
+    <div class="three-col">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;">Most Mulligans</div>
+        <table class="data-table" id="mulligans-table">
+          <thead><tr><th>Commander</th><th>Pilot</th><th class="num">Avg</th><th class="num">G</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;">Most Kingmakers</div>
+        <table class="data-table" id="kingmakers-table">
+          <thead><tr><th>Player</th><th class="num">Times</th><th class="num">Rate</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;">Most Errors</div>
+        <table class="data-table" id="errors-table">
+          <thead><tr><th>Player</th><th class="num">Times</th><th class="num">Rate</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -606,7 +630,8 @@ function renderMulligans(gameRows) {
   const entries = Object.entries(cmdrData)
     .filter(([, d]) => d.count >= 3)
     .map(([cmdr, d]) => ({ cmdr, pilot: d.pilot, avg: d.sum / d.count, count: d.count }))
-    .sort((a, b) => b.avg - a.avg);
+    .sort((a, b) => b.avg - a.avg)
+    .slice(0, 10);
 
   const tbody = document.querySelector('#mulligans-table tbody');
   tbody.innerHTML = '';
@@ -624,6 +649,62 @@ function renderMulligans(gameRows) {
     tbody.appendChild(tr);
   });
   loadAvatarImages(tbody);
+}
+
+function renderKingmakers(gameRows) {
+  const counts = {};
+  const games = {};
+  gameRows.forEach(row => {
+    const pilot = (row[G.pilot] || '').trim();
+    if (!pilot) return;
+    games[pilot] = (games[pilot] || 0) + 1;
+    if ((row[G.kingme] || '').trim().toUpperCase() === 'K') {
+      counts[pilot] = (counts[pilot] || 0) + 1;
+    }
+  });
+  const entries = Object.keys(games)
+    .map(p => ({ pilot: p, count: counts[p] || 0, total: games[p] }))
+    .sort((a, b) => b.count - a.count);
+  const tbody = document.querySelector('#kingmakers-table tbody');
+  tbody.innerHTML = '';
+  if (!entries.some(e => e.count > 0)) {
+    tbody.innerHTML = '<tr><td colspan="3" style="color:var(--ink-faint);text-align:center;padding:24px">No kingmaker data yet.</td></tr>';
+    return;
+  }
+  entries.forEach(({ pilot, count, total }) => {
+    const tr = document.createElement('tr');
+    tr.dataset.p = pilot;
+    tr.innerHTML = `<td class="name">${pilot}</td><td class="num">${count}</td><td class="num">${total ? (count/total*100).toFixed(1)+'%' : '—'}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderErrors(gameRows) {
+  const counts = {};
+  const games = {};
+  gameRows.forEach(row => {
+    const pilot = (row[G.pilot] || '').trim();
+    if (!pilot) return;
+    games[pilot] = (games[pilot] || 0) + 1;
+    if ((row[G.kingme] || '').trim().toUpperCase() === 'E') {
+      counts[pilot] = (counts[pilot] || 0) + 1;
+    }
+  });
+  const entries = Object.keys(games)
+    .map(p => ({ pilot: p, count: counts[p] || 0, total: games[p] }))
+    .sort((a, b) => b.count - a.count);
+  const tbody = document.querySelector('#errors-table tbody');
+  tbody.innerHTML = '';
+  if (!entries.some(e => e.count > 0)) {
+    tbody.innerHTML = '<tr><td colspan="3" style="color:var(--ink-faint);text-align:center;padding:24px">No error data yet.</td></tr>';
+    return;
+  }
+  entries.forEach(({ pilot, count, total }) => {
+    const tr = document.createElement('tr');
+    tr.dataset.p = pilot;
+    tr.innerHTML = `<td class="name">${pilot}</td><td class="num">${count}</td><td class="num">${total ? (count/total*100).toFixed(1)+'%' : '—'}</td>`;
+    tbody.appendChild(tr);
+  });
 }
 
 function renderShelved(gameRows) {
@@ -929,6 +1010,8 @@ Papa.parse(GAMES_CSV_URL, {
         renderBlitz(_gameRows);
         renderRisers(_gameRows);
         renderMulligans(_gameRows);
+        renderKingmakers(_gameRows);
+        renderErrors(_gameRows);
         renderShelved(_gameRows);
         renderPopularity(_gameRows);
         renderColorProfiles(_gameRows);
