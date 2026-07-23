@@ -982,8 +982,7 @@ Papa.parse(GAMES_CSV_URL, {
   complete: function(results) {
     if (results.data && results.data.length > 1) {
       const rows = results.data.slice(1);
-      _tierMap = buildTierMapFromGames(rows);
-      _activeSet = buildActiveSet(rows);
+      ({ tierMap: _tierMap, activeSet: _activeSet } = buildTierAndActiveSet(rows));
     }
     tryInitSpotlight();
   },
@@ -1000,7 +999,6 @@ Papa.parse(DECK_CSV_URL, {
       const apiUrl = scryfallPageToApiUrl(row[3] || '');
       if (cmdr && apiUrl) {
         _artOverrides[cmdr] = apiUrl;
-        cmdr.split(' / ').forEach(p => { _globalArtOverrides[stripPilotSuffix(p.trim()).toLowerCase()] = apiUrl; });
       }
     });
     tryInitSpotlight();

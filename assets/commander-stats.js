@@ -4,12 +4,35 @@ let GAMES_CSV_URL     = '';
 let DECK_CSV_URL      = '';
 let CMDRSTATS_CSV_URL = '';
 
+let _deckInfoResolve;
+const _deckInfoReady = new Promise(resolve => { _deckInfoResolve = resolve; });
+
+function _initDeckInfo() {
+  Papa.parse(DECK_CSV_URL, {
+    download: true,
+    complete: r => {
+      (r.data || []).slice(1).forEach(row => {
+        const cmdr = normalizeCmdr(row[1] || '');
+        const apiUrl = scryfallPageToApiUrl(row[3] || '');
+        if (cmdr && apiUrl) {
+          cmdr.split(' / ').forEach(p => {
+            _globalArtOverrides[stripPilotSuffix(p.trim()).toLowerCase()] = apiUrl;
+          });
+        }
+      });
+      _deckInfoResolve();
+    },
+    error: _deckInfoResolve,
+  });
+}
+
 const _csvConfigReady = fetch('/data/config.json')
   .then(r => r.json())
   .then(cfg => {
     GAMES_CSV_URL     = cfg.games;
     DECK_CSV_URL      = cfg.deck;
     CMDRSTATS_CSV_URL = cfg.cmdrstats;
+    _initDeckInfo();
   });
 
 // ── Games CSV column indices ──────────────────────────────────────────────────
@@ -17,9 +40,13 @@ const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, kingme:5, pilot:6, c
 
 // ── Shared constants ──────────────────────────────────────────────────────────
 const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
+const CACHE_TTL = 7 * 24 * 60 * 60 * 1000;
 const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
 const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#85B7EB', Jubee: '#F472B6' };
 
+function escHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
 function normalizeCmdr(v) {
   if (!v) return '';
   return v.replace(/\r?\n/g, ' / ').trim();
@@ -28,13 +55,13 @@ function stripPilotSuffix(name) {
   return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
 }
 function cmdrAvatarHtml(val) {
-  const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
+  const normalized = normalizeCmdr(val);
   const parts = normalized.split(' / ');
   // Use data-cmdr instead of src to avoid Chrome ORB errors from the Scryfall
   // redirect endpoint (api.scryfall.com returns Content-Type: text/html on its
   // 302, which ORB blocks). loadAvatarImages() resolves direct CDN URLs later.
   const imgs = parts.map(p =>
-    `<img class="cmdr-avatar" width="26" height="26" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">`
+    `<img class="cmdr-avatar" width="26" height="26" data-cmdr="${escHtml(p)}" alt="" loading="lazy">`
   ).join('');
   return `<span class="cmdr-avatars">${imgs}</span>`;
 }
@@ -43,19 +70,19 @@ function cmdrName(v) {
   return v.replace(/\r?\n/g, '<br>').trim();
 }
 function cmdrCellInner(val) {
-  const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
+  const normalized = normalizeCmdr(val);
   const parts = normalized.split(' / ');
   if (parts.length === 1) {
-    return `<span class="cmdr-single"><img class="cmdr-avatar" width="26" height="26" data-cmdr="${parts[0].replace(/"/g, '&quot;')}" alt="" loading="lazy">${parts[0]}</span>`;
+    return `<span class="cmdr-single"><img class="cmdr-avatar" width="26" height="26" data-cmdr="${escHtml(parts[0])}" alt="" loading="lazy">${escHtml(parts[0])}</span>`;
   }
   const avatars = parts.map(p =>
-    `<img class="cmdr-avatar" width="26" height="26" data-cmdr="${p.replace(/"/g, '&quot;')}" alt="" loading="lazy">`
+    `<img class="cmdr-avatar" width="26" height="26" data-cmdr="${escHtml(p)}" alt="" loading="lazy">`
   ).join('');
-  const names = parts.map(p => `<span>${p}</span>`).join('');
+  const names = parts.map(p => `<span>${escHtml(p)}</span>`).join('');
   return `<span class="cmdr-dual"><span class="cmdr-avatars">${avatars}</span><span class="cmdr-names">${names}</span></span>`;
 }
 function cmdrCell(val) {
-  const normalized = (val || '').replace(/\r?\n/g, ' / ').trim();
+  const normalized = normalizeCmdr(val);
   return `<a href="/game-history/?commander=${encodeURIComponent(normalized)}" class="cmdr-link">${cmdrCellInner(val)}</a>`;
 }
 function cmdrToIndividualParts(cmdr) {
@@ -65,6 +92,28 @@ function cmdrToIndividualParts(cmdr) {
 // Scryfall color identity lookup with localStorage cache
 const SCRYFALL_COLLECTION = 'https://api.scryfall.com/cards/collection';
 const CMDR_COLORS_CACHE_KEY = 'cmdr_colors_v1';
+const CMDR_IMAGES_CACHE_KEY = 'cmdr_images_v1';
+
+// Module-level cache to avoid repeated localStorage reads/JSON parses per page load
+let _colorCacheData = null;
+function _getColorCache() {
+  if (_colorCacheData !== null) return _colorCacheData;
+  try {
+    const raw = JSON.parse(localStorage.getItem(CMDR_COLORS_CACHE_KEY) || 'null');
+    _colorCacheData = (raw && (Date.now() - raw.timestamp) < CACHE_TTL) ? (raw.colors || {}) : {};
+  } catch(e) { _colorCacheData = {}; }
+  return _colorCacheData;
+}
+
+let _imageCacheData = null;
+function _getImageCache() {
+  if (_imageCacheData !== null) return _imageCacheData;
+  try {
+    const raw = JSON.parse(localStorage.getItem(CMDR_IMAGES_CACHE_KEY) || 'null');
+    _imageCacheData = (raw && (Date.now() - raw.timestamp) < CACHE_TTL) ? (raw.images || {}) : {};
+  } catch(e) { _imageCacheData = {}; }
+  return _imageCacheData;
+}
 
 async function fetchScryfallBatch(names) {
   const cardColors = {};
@@ -88,20 +137,14 @@ async function fetchScryfallBatch(names) {
 }
 
 async function getColorMap(cmdrNames) {
-  let cached = {};
-  try {
-    const raw = JSON.parse(localStorage.getItem(CMDR_COLORS_CACHE_KEY) || 'null');
-    if (raw) cached = raw.colors || {};
-  } catch(e) {}
+  const cached = _getColorCache();
 
   const missing = cmdrNames.filter(c => !(c in cached));
   if (missing.length > 0) {
-    const individualNames = [...new Set(
-      missing.flatMap(cmdrToIndividualParts).map(p => p.toLowerCase())
-    )];
-    const cardColors = await fetchScryfallBatch(individualNames.map(n =>
-      missing.flatMap(cmdrToIndividualParts).find(p => p.toLowerCase() === n) || n
-    ));
+    const allParts = missing.flatMap(cmdrToIndividualParts);
+    const partLookup = new Map(allParts.map(p => [p.toLowerCase(), p]));
+    const individualNames = [...new Set(allParts.map(p => p.toLowerCase()))];
+    const cardColors = await fetchScryfallBatch(individualNames.map(n => partLookup.get(n) ?? n));
     missing.forEach(cmdr => {
       const merged = new Set();
       cmdrToIndividualParts(cmdr).forEach(part => {
@@ -116,14 +159,8 @@ async function getColorMap(cmdrNames) {
   return cached;
 }
 
-const CMDR_IMAGES_CACHE_KEY = 'cmdr_images_v1';
-
 async function getImageMap(partNames) {
-  let cached = {};
-  try {
-    const raw = JSON.parse(localStorage.getItem(CMDR_IMAGES_CACHE_KEY) || 'null');
-    if (raw) cached = raw.images || {};
-  } catch(e) {}
+  const cached = _getImageCache();
 
   const stripped = partNames.map(stripPilotSuffix);
   const missing = stripped.filter(n => !(n.toLowerCase() in cached));
@@ -155,24 +192,6 @@ async function getImageMap(partNames) {
 
 // Shared art overrides from deck info CSV — keyed by lowercase part name
 const _globalArtOverrides = {};
-const _deckInfoReady = new Promise(resolve => {
-  Papa.parse(DECK_CSV_URL, {
-    download: true,
-    complete: r => {
-      (r.data || []).slice(1).forEach(row => {
-        const cmdr = normalizeCmdr(row[1] || '');
-        const apiUrl = scryfallPageToApiUrl(row[3] || '');
-        if (cmdr && apiUrl) {
-          cmdr.split(' / ').forEach(p => {
-            _globalArtOverrides[stripPilotSuffix(p.trim()).toLowerCase()] = apiUrl;
-          });
-        }
-      });
-      resolve();
-    },
-    error: resolve,
-  });
-});
 
 async function loadAvatarImages(container) {
   const imgs = Array.from((container || document).querySelectorAll('.cmdr-avatar[data-cmdr]'));
@@ -287,20 +306,23 @@ function bracketBadgeSvg(n, size = 24) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 28 28" role="img" style="vertical-align:middle"><title>Bracket ${n}</title><circle cx="14" cy="14" r="12" fill="none" stroke="${color}" stroke-width="2"/><text x="14" y="20" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="16" fill="${color}">${n}</text></svg>`;
 }
 
-// Builds a tier map from Games CSV rows. mu/sigma are computed from active
-// commanders only (played within the last 2 years) so tiers reflect the current
-// meta. All commanders — including inactive ones — are scored against those stats,
-// giving inactive commanders a frozen approximation of their last-known tier.
-function buildTierMapFromGames(rows) {
+// Single-pass replacement for buildTierMapFromGames + buildActiveSet.
+// Returns { tierMap, activeSet } so callers avoid scanning rows twice.
+function buildTierAndActiveSet(rows) {
   const latestMmr = {};
-  const maxPlays = {};  // cmdrPlays is cumulative; highest value = most recent game
-  const latestTs = {};  // still needed for active-pool detection
+  const maxPlays = {};
+  const latestTs = {};
   rows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
+    if (!cmdr) return;
     const endMmr = parsePctDelta(row[G.endMmr]);
-    if (!cmdr || isNaN(endMmr)) return;
-    const plays = parseInt(row[G.cmdrPlays]) || 0;
-    if (!(cmdr in maxPlays) || plays > maxPlays[cmdr]) { maxPlays[cmdr] = plays; latestMmr[cmdr] = endMmr; }
+    if (!isNaN(endMmr)) {
+      const plays = parseInt(row[G.cmdrPlays]) || 0;
+      if (!(cmdr in maxPlays) || plays > maxPlays[cmdr]) {
+        maxPlays[cmdr] = plays;
+        latestMmr[cmdr] = endMmr;
+      }
+    }
     const ts = new Date((row[G.date] || '').trim()).getTime();
     if (!isNaN(ts) && (!latestTs[cmdr] || ts > latestTs[cmdr])) latestTs[cmdr] = ts;
   });
@@ -309,25 +331,13 @@ function buildTierMapFromGames(rows) {
   const vals = active.map(c => latestMmr[c]);
   const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
   const sigma = vals.length > 1 ? Math.sqrt(vals.reduce((s, v) => s + (v - mu) ** 2, 0) / vals.length) : 0;
-  const map = {};
+  const tierMap = {};
   if (sigma > 0) {
     Object.keys(latestMmr).forEach(c => {
       const z = (latestMmr[c] - mu) / sigma;
-      map[c] = z >= 1.5 ? 'S' : z >= 0.5 ? 'A' : z >= -0.5 ? 'B' : z >= -1.5 ? 'C' : 'D';
+      tierMap[c] = z >= 1.5 ? 'S' : z >= 0.5 ? 'A' : z >= -0.5 ? 'B' : z >= -1.5 ? 'C' : 'D';
     });
   }
-  return map;
-}
-
-// Returns a Set of commander names played within the last two years.
-function buildActiveSet(rows) {
-  const latestTs = {};
-  rows.forEach(row => {
-    const cmdr = normalizeCmdr(row[G.commander]);
-    if (!cmdr) return;
-    const ts = new Date((row[G.date] || '').trim()).getTime();
-    if (!latestTs[cmdr] || ts > latestTs[cmdr]) latestTs[cmdr] = ts;
-  });
-  const cutoff = Date.now() - TWO_YEARS;
-  return new Set(Object.keys(latestTs).filter(c => latestTs[c] >= cutoff));
+  const activeSet = new Set(Object.keys(latestTs).filter(c => latestTs[c] >= cutoff));
+  return { tierMap, activeSet };
 }

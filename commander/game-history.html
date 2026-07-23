@@ -1843,7 +1843,7 @@ function renderHistory(rows) {
       const seat = row[G.seat] ? 'Seat ' + int(row[G.seat]) : '';
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
-        <td class="pilot-name">${pilot}</td>
+        <td class="pilot-name">${escHtml(pilot)}</td>
         <td style="text-align:center">${_activeSet.has(normalizeCmdr(row[G.commander])) ? tierBadgeSvg(_tierMap[normalizeCmdr(row[G.commander])]) : ''}</td>
         <td class="cmdr-name">${cmdrCell(row[G.commander])}${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
@@ -1938,8 +1938,7 @@ Papa.parse(GAMES_CSV_URL, {
     try {
       tiePodRows = buildTiePodRows(results.data);
       statsMap = buildStatsMap(results.data);
-      _tierMap = buildTierMapFromGames(results.data.slice(1));
-      _activeSet = buildActiveSet(results.data.slice(1));
+      ({ tierMap: _tierMap, activeSet: _activeSet } = buildTierAndActiveSet(results.data.slice(1)));
       _popularityRankMap = buildPopularityRankMap(results.data.slice(1));
       buildPredictor();
       renderHistory(results.data);

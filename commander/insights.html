@@ -556,7 +556,7 @@ function renderSeatByPlayer(gameRows) {
       if (!d || !d.plays) return '<td>—</td>';
       return `<td>${(d.wins/d.plays*100).toFixed(1)}%</td>`;
     }).join('');
-    tr.innerHTML = `<td class="name">${pilot}</td>${cells}`;
+    tr.innerHTML = `<td class="name">${escHtml(pilot)}</td>${cells}`;
     tbody.appendChild(tr);
   });
 }
@@ -621,7 +621,7 @@ function renderAllCommanders(gameRows) {
     tr.innerHTML = `
       <td class="num" style="color:var(--ink-dim)">${rank}</td>
       <td class="name">${cmdrCell(cmdr)}</td>
-      <td>${pilot}</td>
+      <td>${escHtml(pilot)}</td>
       <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${wins}</td>
@@ -688,7 +688,7 @@ function renderMulligans(gameRows) {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td class="name">${cmdrCell(cmdr)}</td>
-      <td>${pilot}</td>
+      <td>${escHtml(pilot)}</td>
       <td class="num">${avg.toFixed(2)}</td>
       <td class="num">${count}</td>`;
     tbody.appendChild(tr);
@@ -719,7 +719,7 @@ function renderKingmakers(gameRows) {
   entries.forEach(({ pilot, count, total }) => {
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
-    tr.innerHTML = `<td class="name">${pilot}</td><td class="num">${count}</td><td class="num">${total ? (count/total*100).toFixed(1)+'%' : '—'}</td>`;
+    tr.innerHTML = `<td class="name">${escHtml(pilot)}</td><td class="num">${count}</td><td class="num">${total ? (count/total*100).toFixed(1)+'%' : '—'}</td>`;
     tbody.appendChild(tr);
   });
 }
@@ -747,7 +747,7 @@ function renderErrors(gameRows) {
   entries.forEach(({ pilot, count, total }) => {
     const tr = document.createElement('tr');
     tr.dataset.p = pilot;
-    tr.innerHTML = `<td class="name">${pilot}</td><td class="num">${count}</td><td class="num">${total ? (count/total*100).toFixed(1)+'%' : '—'}</td>`;
+    tr.innerHTML = `<td class="name">${escHtml(pilot)}</td><td class="num">${count}</td><td class="num">${total ? (count/total*100).toFixed(1)+'%' : '—'}</td>`;
     tbody.appendChild(tr);
   });
 }
@@ -786,7 +786,7 @@ function renderShelved(gameRows) {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td class="name">${cmdrCell(cmdr)}</td>
-      <td>${lastPilot}</td>
+      <td>${escHtml(lastPilot)}</td>
       <td class="num">${lastDate}</td>
       <td class="num">${months}mo ago</td>
       <td class="num">${winPct}</td>
@@ -861,7 +861,7 @@ function renderPopularity(rows) {
     tr.innerHTML = `
       <td class="num" style="color:var(--ink-dim)">${i + 1}</td>
       <td class="name">${cmdrCell(cmdr)}</td>
-      <td>${pilot}</td>
+      <td>${escHtml(pilot)}</td>
       <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${sessions} / ${eligible}</td>
@@ -907,7 +907,7 @@ function renderMostPlayed(gameRows) {
     tr.innerHTML = `
       <td class="num" style="color:var(--ink-dim)">${cmdrRank[cmdr]}</td>
       <td class="name">${cmdrCell(cmdr)}</td>
-      <td>${pilot}</td>
+      <td>${escHtml(pilot)}</td>
       <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${p}</td>
@@ -950,7 +950,7 @@ function renderBlitz(gameRows) {
     tr.dataset.p = pilot;
     tr.innerHTML = `
       <td class="name">${cmdrCell(cmdr)}</td>
-      <td>${pilot}</td>
+      <td>${escHtml(pilot)}</td>
       <td style="text-align:center">${activeTierBadgeSvg(cmdr, _tierMap, _activeSet)}</td>
       <td style="text-align:center">${bracketBadgeSvg(_bracketMap[cmdr])}</td>
       <td class="num">${wins}</td>
@@ -1044,8 +1044,7 @@ Papa.parse(GAMES_CSV_URL, {
     try {
       _gameRows = results.data.slice(1);
       _rowPodSize = buildRowPodSizeMap(_gameRows);
-      _tierMap = buildTierMapFromGames(_gameRows);
-      _activeSet = buildActiveSet(_gameRows);
+      ({ tierMap: _tierMap, activeSet: _activeSet } = buildTierAndActiveSet(_gameRows));
       const seatRows = seatFilteredRows();
       renderSeatOverall(seatRows);
       renderSeatByPlayer(seatRows);
