@@ -10,12 +10,6 @@ const _csvConfigReady = fetch('/data/config.json')
     GAMES_CSV_URL     = cfg.games;
     DECK_CSV_URL      = cfg.deck;
     CMDRSTATS_CSV_URL = cfg.cmdrstats;
-  })
-  .catch(() => {
-    // Fallback hardcoded values if config fetch fails
-    GAMES_CSV_URL     = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1421030394&single=true&output=csv';
-    DECK_CSV_URL      = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=1630550165&single=true&output=csv';
-    CMDRSTATS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsK_Gpf_-Zd7xCn5hCJ0vtAnQXBqbTXa6RWR92QR6OJ7b1fiGUM7ZtP6ZgMc9KqXYQuRCH4zLovBz3/pub?gid=218695172&single=true&output=csv';
   });
 
 // ── Games CSV column indices ──────────────────────────────────────────────────
