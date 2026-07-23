@@ -207,6 +207,45 @@ permalink: /commander/insights/
   tr[data-p="Mikey"] { background: var(--mikey-dim); }
   tr[data-p="Jubee"] { background: var(--jubee-dim); }
 
+  .player-band {
+    position: relative;
+    margin: 0 -24px 48px;
+    padding: 40px 24px 8px;
+    background-image: url('/images/bg/Village-Rites-Core-Set-2021-MtG-Art.jpg');
+    background-size: cover;
+    background-position: center 30%;
+  }
+  .player-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,15,26,0.82) 0%, rgba(13,15,26,0.88) 60%, rgba(13,15,26,0.96) 100%);
+    pointer-events: none;
+  }
+  .player-band > * { position: relative; z-index: 1; }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 8px 0 48px;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .section-divider span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
   footer {
     margin-top: 48px;
     color: var(--ink-faint);
@@ -255,6 +294,8 @@ permalink: /commander/insights/
     <div id="status">Loading insights…</div>
   </header>
 
+  <div class="player-band">
+
   <section class="block">
     <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
       <h2 id="seat-heading" style="margin:0;">Seat Position · 3-Player</h2>
@@ -282,6 +323,38 @@ permalink: /commander/insights/
     <div class="sub">Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander's identity.</div>
     <div id="color-profiles"><span style="color:var(--ink-faint)">Loading…</span></div>
   </section>
+
+  <section class="block" id="section-behavioral">
+    <h2>Behavioral Stats</h2>
+    <div class="sub">Mulligans per commander · kingmaker and error counts per player.</div>
+    <div class="three-col">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;">Most Mulligans</div>
+        <table class="data-table" id="mulligans-table">
+          <thead><tr><th>Commander</th><th>Pilot</th><th class="num">Avg</th><th class="num">G</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;">Most Kingmakers</div>
+        <table class="data-table" id="kingmakers-table">
+          <thead><tr><th>Player</th><th class="num">Times</th><th class="num">Rate</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;">Most Errors</div>
+        <table class="data-table" id="errors-table">
+          <thead><tr><th>Player</th><th class="num">Times</th><th class="num">Rate</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /.player-band -->
+
+  <div class="section-divider"><span>Commanders</span></div>
 
   <section class="block" id="section-all-cmdr">
     <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
@@ -329,34 +402,6 @@ permalink: /commander/insights/
         </thead>
         <tbody></tbody>
       </table>
-    </div>
-  </section>
-
-  <section class="block" id="section-behavioral">
-    <h2>Behavioral Stats</h2>
-    <div class="sub">Mulligans per commander · kingmaker and error counts per player.</div>
-    <div class="three-col">
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;">Most Mulligans</div>
-        <table class="data-table" id="mulligans-table">
-          <thead><tr><th>Commander</th><th>Pilot</th><th class="num">Avg</th><th class="num">G</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;">Most Kingmakers</div>
-        <table class="data-table" id="kingmakers-table">
-          <thead><tr><th>Player</th><th class="num">Times</th><th class="num">Rate</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;">Most Errors</div>
-        <table class="data-table" id="errors-table">
-          <thead><tr><th>Player</th><th class="num">Times</th><th class="num">Rate</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
     </div>
   </section>
 
