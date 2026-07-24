@@ -83,7 +83,7 @@ function cmdrCellInner(val) {
 }
 function cmdrCell(val) {
   const normalized = normalizeCmdr(val);
-  return `<a href="/game-history/?commander=${encodeURIComponent(normalized)}" class="cmdr-link">${cmdrCellInner(val)}</a>`;
+  return `<a href="/commander/game-history/?commander=${encodeURIComponent(normalized)}" class="cmdr-link">${cmdrCellInner(val)}</a>`;
 }
 function cmdrToIndividualParts(cmdr) {
   return cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
