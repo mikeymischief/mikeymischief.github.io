@@ -554,6 +554,27 @@ permalink: /commander/game-history/
     margin-top: 2px;
   }
 
+  .cmdr-share-btn {
+    display: block;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+    background: rgba(13,15,26,0.72);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 7px 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: background 0.15s, color 0.15s;
+  }
+  .cmdr-share-btn:hover { background: var(--gold); color: #0d0f1a; }
+  #cmdr-hero { position: relative; }
+
   .cmdr-stat-bar {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -854,6 +875,7 @@ function rowWon(row) {
 let _tierMap = {};
 let _activeSet = new Set();
 let _bracketMap = {};
+let _shareCmdr = null;
 
 let _popularityRankMap = {};
 function buildPopularityRankMap(rows) {
@@ -1464,11 +1486,6 @@ async function renderMatchups(cmdr) {
       <div class="matchup-card-content">
         <div class="matchup-record">
           <div class="matchup-record-block">
-            <div class="matchup-record-num">${count}</div>
-            <div class="matchup-record-lbl">Games</div>
-          </div>
-          <div class="matchup-record-sep">–</div>
-          <div class="matchup-record-block">
             <div class="matchup-record-num">${w}</div>
             <div class="matchup-record-lbl">Wins</div>
           </div>
@@ -1509,13 +1526,14 @@ async function showCmdrHero(cmdr) {
     if (apiUrl) { const url = await fetchOverrideArt(apiUrl); if (url) c.art = url; }
   }));
   const r = computeCmdrRankings(cmdr);
+  _shareCmdr = { cmdr, r, cards };
   const isDual = cards.length >= 2;
   const bgDivs = isDual
     ? `<div class="cmdr-hero-bg bg-left"  style="background-image:url('${cards[0].art}')"></div>
        <div class="cmdr-hero-bg bg-right" style="background-image:url('${cards[1].art}')"></div>`
     : '';
   hero.className = isDual ? 'cmdr-hero has-bg-panels' : 'cmdr-hero';
-  hero.innerHTML = bgDivs + cards.map((c, i) => `
+  hero.innerHTML = `<button class="cmdr-share-btn" onclick="downloadCmdrCard()" title="Save as image">⬇ Save Image</button>` + bgDivs + cards.map((c, i) => `
     <div class="cmdr-hero-panel" style="${isDual ? '' : `background-image:url('${c.art}')`}">
       <div class="cmdr-hero-content">
         ${i === 0 && r.tier && r.isActive ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">tier:</span>${tierBadgeSvg(r.tier, 28)}</div>` : ''}
@@ -1965,6 +1983,191 @@ Papa.parse(GAMES_CSV_URL, {
 });
 
 }); // _csvConfigReady
+
+async function downloadCmdrCard() {
+  if (!_shareCmdr) return;
+  const { cmdr, r, cards } = _shareCmdr;
+
+  const mmrCanvas = document.getElementById('mmr-chart');
+  const hasMmr = mmrCanvas && mmrCanvas.width > 0 && mmrChartInstance;
+
+  // Portrait card — phone-shareable
+  const W = 900, H = hasMmr ? 1500 : 1100;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  const loadImg = url => new Promise(resolve => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = url + (url.includes('?') ? '&' : '?') + '_cb=' + Date.now();
+  });
+
+  const imgs = (await Promise.all(cards.map(c => loadImg(c.art)))).filter(Boolean);
+
+  await document.fonts.ready;
+
+  const BG = '#0f1120';
+  const GOLD = '#C9A84C';
+  const DIM = 'rgba(255,255,255,0.38)';
+
+  // ── Background ──────────────────────────────────────────────
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+
+  // ── Art section (top 480px) ──────────────────────────────────
+  const ART_H = 480;
+  if (imgs.length) {
+    const drawArt = (img, x, y, w, h) => {
+      const scale = Math.max(w / img.width, h / img.height);
+      const sw = w / scale, sh = h / scale;
+      const sx = (img.width - sw) / 2, sy = img.height * 0.05;
+      ctx.drawImage(img, sx, sy, sw, Math.min(sh, img.height - sy), x, y, w, h);
+    };
+    if (imgs.length === 1) {
+      drawArt(imgs[0], 0, 0, W, ART_H);
+    } else {
+      drawArt(imgs[0], 0, 0, W / 2, ART_H);
+      drawArt(imgs[1], W / 2, 0, W / 2, ART_H);
+    }
+    // Gradient fade bottom of art into dark panel
+    const fade = ctx.createLinearGradient(0, ART_H * 0.55, 0, ART_H);
+    fade.addColorStop(0, 'rgba(15,17,32,0)');
+    fade.addColorStop(1, BG);
+    ctx.fillStyle = fade;
+    ctx.fillRect(0, 0, W, ART_H);
+  }
+
+  // ── Name block ───────────────────────────────────────────────
+  const PAD = 44;
+  let y = imgs.length ? ART_H - 10 : 60;
+
+  const nameParts = cmdr.split(' / ');
+  let nameSize = 40;
+  ctx.font = `700 ${nameSize}px Cinzel, serif`;
+  while (ctx.measureText(nameParts[0]).width > W - PAD * 2 && nameSize > 22) {
+    nameSize -= 2;
+    ctx.font = `700 ${nameSize}px Cinzel, serif`;
+  }
+  ctx.fillStyle = GOLD;
+  ctx.textBaseline = 'top';
+  ctx.textAlign = 'center';
+  ctx.fillText(nameParts[0], W / 2, y);
+  y += nameSize + 6;
+  if (nameParts.length > 1) {
+    ctx.font = `400 20px Cinzel, serif`;
+    ctx.fillStyle = 'rgba(201,168,76,0.55)';
+    ctx.fillText('/ ' + nameParts[1], W / 2, y);
+    y += 28;
+  }
+  if (cards[0]?.type_line) {
+    ctx.font = '500 12px "JetBrains Mono", monospace';
+    ctx.fillStyle = DIM;
+    ctx.fillText(cards[0].type_line.toUpperCase(), W / 2, y + 4);
+    y += 22;
+  }
+
+  // ── Divider ──────────────────────────────────────────────────
+  y += 20;
+  ctx.strokeStyle = 'rgba(201,168,76,0.2)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
+  y += 28;
+
+  // ── W-L-T row ────────────────────────────────────────────────
+  const winPct = (r.wlt.w + r.wlt.l + r.wlt.t) > 0
+    ? ((r.wlt.w / (r.wlt.w + r.wlt.l + r.wlt.t)) * 100).toFixed(1) + '%'
+    : '—';
+  const wltItems = [
+    { label: 'WINS', value: String(r.wlt.w), color: '#4ade80' },
+    { label: 'LOSSES', value: String(r.wlt.l), color: '#f87171' },
+    { label: 'WIN%', value: winPct, color: '#e2e8f0' },
+    ...(r.wlt.t > 0 ? [{ label: 'TIES', value: String(r.wlt.t), color: '#94a3b8' }] : []),
+  ];
+  const wltCols = wltItems.length;
+  const wltColW = (W - PAD * 2) / wltCols;
+  wltItems.forEach((item, i) => {
+    const cx = PAD + i * wltColW + wltColW / 2;
+    ctx.font = '700 56px "JetBrains Mono", monospace';
+    ctx.fillStyle = item.color;
+    ctx.textBaseline = 'top';
+    ctx.textAlign = 'center';
+    ctx.fillText(item.value, cx, y);
+    ctx.font = '500 11px "JetBrains Mono", monospace';
+    ctx.fillStyle = DIM;
+    ctx.fillText(item.label, cx, y + 62);
+  });
+  y += 96;
+
+  // ── Divider ──────────────────────────────────────────────────
+  ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
+  y += 28;
+
+  // ── Stats grid (3 cols × 2 rows) ────────────────────────────
+  const stats = [
+    { label: 'MMR', value: r.currentMmr != null ? String(Math.round(r.currentMmr)) : '—' },
+    { label: 'MMR RANK', value: r.mmrRank ? `#${r.mmrRank}` : '—' },
+    { label: 'PILOT', value: r.primaryPilot || '—' },
+    { label: 'AVG ROUND WON', value: r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—' },
+    { label: 'AVG MULLIGANS', value: r.avgMulligan != null ? r.avgMulligan.toFixed(2) : '—' },
+    { label: 'PLAYS', value: String(r.plays || '—') },
+  ];
+  const COLS = 3, ROWS = 2;
+  const cellW = (W - PAD * 2) / COLS, cellH = 80;
+  stats.forEach((stat, i) => {
+    const col = i % COLS, row = Math.floor(i / COLS);
+    const cx = PAD + col * cellW + cellW / 2;
+    const cy = y + row * cellH;
+    ctx.font = '700 26px "JetBrains Mono", monospace';
+    ctx.fillStyle = '#ffffff';
+    ctx.textBaseline = 'top';
+    ctx.textAlign = 'center';
+    ctx.fillText(stat.value, cx, cy);
+    ctx.font = '500 10px "JetBrains Mono", monospace';
+    ctx.fillStyle = DIM;
+    ctx.fillText(stat.label, cx, cy + 30);
+  });
+  y += ROWS * cellH + 20;
+
+  // ── MMR chart ────────────────────────────────────────────────
+  if (hasMmr) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
+    y += 16;
+    ctx.font = '500 10px "JetBrains Mono", monospace';
+    ctx.fillStyle = 'rgba(201,168,76,0.45)';
+    ctx.textBaseline = 'top';
+    ctx.textAlign = 'left';
+    ctx.fillText('MMR OVER TIME', PAD, y);
+    y += 18;
+    const chartH = H - y - 48;
+    ctx.drawImage(mmrCanvas, PAD, y, W - PAD * 2, chartH);
+    y += chartH;
+  }
+
+  // ── Branding ─────────────────────────────────────────────────
+  ctx.font = '400 11px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  ctx.textBaseline = 'alphabetic';
+  ctx.textAlign = 'center';
+  ctx.fillText('mikeymischief.github.io/commander', W / 2, H - 18);
+
+  canvas.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = cmdr.replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }, 'image/png');
+}
 </script>
 </body>
 </html>
