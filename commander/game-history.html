@@ -1590,7 +1590,7 @@ async function showCmdrHero(cmdr) {
        <div class="cmdr-hero-bg bg-right" style="background-image:url('${cards[1].art}')"></div>`
     : '';
   hero.className = isDual ? 'cmdr-hero has-bg-panels' : 'cmdr-hero';
-  hero.innerHTML = `<button class="cmdr-share-btn" onclick="downloadCmdrCard()" title="Save as image">⬇ Save Image</button>` + bgDivs + cards.map((c, i) => `
+  hero.innerHTML = `<button class="cmdr-share-btn" onclick="downloadCmdrCard()" title="Save as image">⬇</button>` + bgDivs + cards.map((c, i) => `
     <div class="cmdr-hero-panel" style="${isDual ? '' : `background-image:url('${c.art}')`}">
       <div class="cmdr-hero-content">
         ${i === 0 && r.tier && r.isActive ? `<div class="cmdr-hero-tier"><span class="cmdr-hero-tier-label">tier:</span>${tierBadgeSvg(r.tier, 28)}</div>` : ''}
