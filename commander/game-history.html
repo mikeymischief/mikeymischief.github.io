@@ -560,7 +560,7 @@ permalink: /commander/game-history/
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.88);
+    background: #000;
     z-index: 9999;
     flex-direction: column;
     align-items: center;
@@ -2173,7 +2173,7 @@ async function downloadCmdrCard() {
   });
   y += ROWS * cellH + 20;
 
-  // ── MMR chart ────────────────────────────────────────────────
+  // ── MMR chart (native canvas render) ─────────────────────────
   if (hasMmr) {
     ctx.strokeStyle = 'rgba(255,255,255,0.07)';
     ctx.lineWidth = 1;
@@ -2184,9 +2184,83 @@ async function downloadCmdrCard() {
     ctx.textBaseline = 'top';
     ctx.textAlign = 'left';
     ctx.fillText('MMR OVER TIME', PAD, y);
-    y += 18;
-    const chartH = H - y - 48;
-    ctx.drawImage(mmrCanvas, PAD, y, W - PAD * 2, chartH);
+    y += 20;
+
+    const chartH = H - y - 52;
+    const datasets = mmrChartInstance.data.datasets.filter(ds => ds.data.length);
+    if (datasets.length) {
+      const allPts = datasets.flatMap(ds => ds.data);
+      const xVals = allPts.map(p => p.x);
+      const yVals = allPts.map(p => p.y);
+      const xMin = Math.min(...xVals), xMax = Math.max(...xVals);
+      const yMin = Math.min(...yVals), yMax = Math.max(...yVals);
+      const yPad = (yMax - yMin) * 0.12 || 50;
+
+      const LPAD = 58, RPAD = 12, TPAD = 8, BPAD = 8;
+      const cX = PAD + LPAD, cY = y + TPAD;
+      const cW = W - PAD * 2 - LPAD - RPAD, cH = chartH - TPAD - BPAD;
+      const xRange = xMax - xMin || 1;
+      const yLo = yMin - yPad, yHi = yMax + yPad;
+      const yRange = yHi - yLo;
+
+      const mx = v => cX + ((v - xMin) / xRange) * cW;
+      const my = v => cY + (1 - (v - yLo) / yRange) * cH;
+
+      // Subtle horizontal grid lines + Y labels
+      const rawStep = yRange / 4;
+      const step = Math.pow(10, Math.floor(Math.log10(rawStep))) * Math.ceil(rawStep / Math.pow(10, Math.floor(Math.log10(rawStep))));
+      const gridStart = Math.ceil(yLo / step) * step;
+      ctx.font = '400 18px "JetBrains Mono", monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.28)';
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'right';
+      for (let v = gridStart; v <= yHi; v += step) {
+        const py = my(v);
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(cX, py); ctx.lineTo(cX + cW, py); ctx.stroke();
+        ctx.fillText(Math.round(v), cX - 6, py);
+      }
+
+      // Lines + dots per pilot
+      datasets.forEach(ds => {
+        const pts = ds.data;
+        const color = ds.borderColor;
+
+        // Subtle area fill
+        ctx.beginPath();
+        pts.forEach((p, i) => { i === 0 ? ctx.moveTo(mx(p.x), my(p.y)) : ctx.lineTo(mx(p.x), my(p.y)); });
+        ctx.lineTo(mx(pts[pts.length - 1].x), cY + cH);
+        ctx.lineTo(mx(pts[0].x), cY + cH);
+        ctx.closePath();
+        ctx.fillStyle = color + '18';
+        ctx.fill();
+
+        // Line
+        ctx.beginPath();
+        pts.forEach((p, i) => { i === 0 ? ctx.moveTo(mx(p.x), my(p.y)) : ctx.lineTo(mx(p.x), my(p.y)); });
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2.5;
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+
+        // Dots
+        pts.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(mx(p.x), my(p.y), 4, 0, Math.PI * 2);
+          ctx.fillStyle = color;
+          ctx.fill();
+        });
+
+        // Pilot label near last point
+        const last = pts[pts.length - 1];
+        ctx.font = '600 18px "JetBrains Mono", monospace';
+        ctx.fillStyle = color;
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'left';
+        ctx.fillText(ds.label, mx(last.x) + 8, my(last.y));
+      });
+    }
     y += chartH;
   }
 
