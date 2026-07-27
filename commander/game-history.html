@@ -914,6 +914,7 @@ let _tierMap = {};
 let _activeSet = new Set();
 let _bracketMap = {};
 let _shareCmdr = null;
+let _pilotPoints = null;
 
 let _popularityRankMap = {};
 function buildPopularityRankMap(rows) {
@@ -1129,6 +1130,7 @@ function buildMmrChart(cmdr) {
 
   const pilots = Object.keys(pilotPoints);
   if (!pilots.length) { wrap.style.display = 'none'; return; }
+  _pilotPoints = pilotPoints;
 
   const datasets = pilots.map(pilot => {
     const color = PILOT_COLORS[pilot] || '#aaa';
@@ -2244,12 +2246,23 @@ async function downloadCmdrCard() {
         ctx.lineJoin = 'round';
         ctx.stroke();
 
-        // Dots
-        pts.forEach(p => {
+        // Dots — filled for wins/ties, hollow for losses
+        const pilotMeta = (_pilotPoints && _pilotPoints[ds.label]) || [];
+        pts.forEach((p, i) => {
+          const meta = pilotMeta[i];
+          const isLoss = meta && !meta.won && !meta.tie;
           ctx.beginPath();
           ctx.arc(mx(p.x), my(p.y), 7, 0, Math.PI * 2);
-          ctx.fillStyle = color;
-          ctx.fill();
+          if (isLoss) {
+            ctx.fillStyle = BG;
+            ctx.fill();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+          } else {
+            ctx.fillStyle = meta?.tie ? '#ffffff' : color;
+            ctx.fill();
+          }
         });
 
         // Pilot label near last point
