@@ -22,7 +22,7 @@ permalink: /admin/
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; min-height: 100vh; }
-  body { display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; padding: 40px 24px; }
 
   .card {
     background: var(--bg-raised);
@@ -175,6 +175,31 @@ permalink: /admin/
   </div>
 </div>
 
+<div class="card">
+  <div class="card-hero" style="background-image:url('/images/PuertoRico/puerto-rico-1897-special-edition-box-cover-art-header.jpeg'); background-position: center 20%;"></div>
+  <div class="card-body">
+  <div class="eyebrow">Puerto Rico 1897</div>
+  <h1 style="color:#e8c99a;">Next Session</h1>
+
+  <label for="pr-date-input">Date</label>
+  <input type="date" id="pr-date-input">
+
+  <div class="btn-row">
+    <button class="btn-save" style="background:#c87941;" onclick="prSave()">Save</button>
+    <button class="btn-clear" onclick="prClear()">Clear</button>
+  </div>
+
+  <div class="preview" id="pr-preview" style="border-left-color:#c87941;">
+    <div class="preview-label" style="color:#c87941;">Next Session</div>
+    <div class="preview-date" id="pr-preview-date"></div>
+    <div class="preview-count" id="pr-preview-count"></div>
+  </div>
+
+  <div class="toast" id="pr-toast"></div>
+  <a href="/PR/" style="display:block;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none;">← Puerto Rico</a>
+  </div>
+</div>
+
 <script>
 const input = document.getElementById('date-input');
 const preview = document.getElementById('preview');
@@ -201,28 +226,70 @@ function save() {
   if (!input.value) {
     localStorage.removeItem('nextSession');
     preview.classList.remove('visible');
-    flash('Cleared.');
+    flash(toast, 'Cleared.');
     return;
   }
   localStorage.setItem('nextSession', input.value);
-  flash('Saved — dashboard updated.');
+  flash(toast, 'Saved — dashboard updated.');
 }
 
 function clear() {
   localStorage.removeItem('nextSession');
   input.value = '';
   preview.classList.remove('visible');
-  flash('Cleared.');
+  flash(toast, 'Cleared.');
 }
 
-function flash(msg) {
-  toast.textContent = msg;
-  setTimeout(() => toast.textContent = '', 2500);
+// PR card
+const prInput = document.getElementById('pr-date-input');
+const prPreview = document.getElementById('pr-preview');
+const prPreviewDate = document.getElementById('pr-preview-date');
+const prPreviewCount = document.getElementById('pr-preview-count');
+const prToast = document.getElementById('pr-toast');
+
+function formatPrPreview(val) {
+  const date = new Date(val + 'T00:00:00');
+  const label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  const days = Math.round((date - new Date()) / (1000 * 60 * 60 * 24));
+  const countdown = days > 0 ? `in ${days} day${days === 1 ? '' : 's'}` : days === 0 ? 'today' : `${Math.abs(days)} day${Math.abs(days) === 1 ? '' : 's'} ago`;
+  prPreviewDate.textContent = label;
+  prPreviewCount.textContent = countdown;
+  prPreview.classList.add('visible');
 }
 
-// Load existing value on open
+prInput.addEventListener('change', () => {
+  if (prInput.value) formatPrPreview(prInput.value);
+  else prPreview.classList.remove('visible');
+});
+
+function prSave() {
+  if (!prInput.value) {
+    localStorage.removeItem('nextSessionPR');
+    prPreview.classList.remove('visible');
+    flash(prToast, 'Cleared.');
+    return;
+  }
+  localStorage.setItem('nextSessionPR', prInput.value);
+  flash(prToast, 'Saved — PR page updated.');
+}
+
+function prClear() {
+  localStorage.removeItem('nextSessionPR');
+  prInput.value = '';
+  prPreview.classList.remove('visible');
+  flash(prToast, 'Cleared.');
+}
+
+function flash(el, msg) {
+  el.textContent = msg;
+  setTimeout(() => el.textContent = '', 2500);
+}
+
+// Load existing values
 const stored = localStorage.getItem('nextSession');
 if (stored) { input.value = stored; formatPreview(stored); }
+const prStored = localStorage.getItem('nextSessionPR');
+if (prStored) { prInput.value = prStored; formatPrPreview(prStored); }
 </script>
 </body>
 </html>
