@@ -326,7 +326,8 @@ function buildTierAndActiveSet(rows) {
     const ts = new Date((row[G.date] || '').trim()).getTime();
     if (!isNaN(ts) && (!latestTs[cmdr] || ts > latestTs[cmdr])) latestTs[cmdr] = ts;
   });
-  const cutoff = Date.now() - TWO_YEARS;
+  const lastPlayTs = Object.values(latestTs).reduce((a, b) => Math.max(a, b), 0);
+  const cutoff = (lastPlayTs || Date.now()) - TWO_YEARS;
   const active = Object.keys(latestMmr).filter(c => latestTs[c] >= cutoff);
   const vals = active.map(c => latestMmr[c]);
   const mu = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
