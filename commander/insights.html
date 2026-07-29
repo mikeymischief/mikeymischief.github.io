@@ -554,7 +554,7 @@ function renderSeatByPlayer(gameRows) {
     const cells = seatNums.map(s => {
       const d = data[pilot]?.[s];
       if (!d || !d.plays) return '<td>—</td>';
-      return `<td>${(d.wins/d.plays*100).toFixed(1)}%</td>`;
+      return `<td><span style="display:block;">${(d.wins/d.plays*100).toFixed(1)}%</span><span style="display:block;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-faint);letter-spacing:0.04em;">n=${d.plays}</span></td>`;
     }).join('');
     tr.innerHTML = `<td class="name">${escHtml(pilot)}</td>${cells}`;
     tbody.appendChild(tr);
