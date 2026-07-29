@@ -1779,6 +1779,21 @@ function renderHistory(rows) {
     });
   });
 
+  // ⏳ Return from Retirement: commander's first game back after a 2+ year absence
+  const retiredReturnRows = new Set();
+  const lastSeenDate = {};
+  pods.forEach(pod => {
+    const podTs = new Date((pod[0][G.date] || '').trim()).getTime();
+    pod.forEach(row => {
+      const cmdr = normalizeCmdr(row[G.commander]);
+      if (!cmdr) return;
+      if (lastSeenDate[cmdr] !== undefined && (podTs - lastSeenDate[cmdr]) >= TWO_YEARS) {
+        retiredReturnRows.add(row);
+      }
+      if (!isNaN(podTs)) lastSeenDate[cmdr] = podTs;
+    });
+  });
+
   // 🙌 Upset: winner had the lowest predicted win% in their pod, with ≥5 plays
   const upsetRows = new Set();
   pods.forEach(pod => {
@@ -1884,14 +1899,15 @@ function renderHistory(rows) {
       const isFirstWin = firstWinRows.has(row);
       const isStreak = streakRows.has(row);
       const isReunion = reunionRows.has(row);
+      const isRetiredReturn = retiredReturnRows.has(row);
       const isUpset = upsetRows.has(row);
       const isUndefeated = pilotCmdrStats && pilotCmdrStats.decisive >= 2 && pilotCmdrStats.wins === pilotCmdrStats.decisive;
       const km = (row[G.kingme] || '').trim().toUpperCase();
       const badges = [
         isDebut    ? '<span class="badge" title="Commander debut">🔰</span>' : '',
         isFirstWin ? '<span class="badge" title="Commander\'s first win">⭐</span>' : '',
-        isStreak   ? '<span class="badge" title="Commander on a winning streak">🔥</span>' : '',
-        isReunion  ? '<span class="badge" title="Returning after 20+ game absence">🪃</span>' : '',
+        isStreak        ? '<span class="badge" title="Commander on a winning streak">🔥</span>' : '',
+        isRetiredReturn ? '<span class="badge" title="Return from retirement">⏳</span>' : (isReunion ? '<span class="badge" title="Returning after 20+ game absence">🪃</span>' : ''),
         isUpset    ? '<span class="badge" title="Upset win">🙌</span>' : '',
         isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
         km === 'K' ? '<span class="badge" title="King Maker">👑</span>' : '',
