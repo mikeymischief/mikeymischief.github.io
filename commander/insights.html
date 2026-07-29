@@ -361,7 +361,7 @@ permalink: /commander/insights/
       <h2 id="all-cmdr-heading" style="margin:0;">Active Commanders by MMR</h2>
       <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show All</button>
     </div>
-    <div id="all-cmdr-sub" class="sub">Every commander played within the last two years, ranked head-to-head.</div>
+    <div id="all-cmdr-sub" class="sub">Every commander played within two years of the last session, ranked head-to-head.</div>
     <div class="scroll-tall">
       <table class="data-table" id="all-cmdr-table">
         <thead>
@@ -564,7 +564,7 @@ function renderSeatByPlayer(gameRows) {
 function toggleAllCmdrs() {
   _acState.showAll = !_acState.showAll;
   document.getElementById('all-cmdr-heading').textContent = _acState.showAll ? 'All Commanders by MMR' : 'Active Commanders by MMR';
-  document.getElementById('all-cmdr-sub').textContent = _acState.showAll ? 'Every commander across the whole group, ranked head-to-head.' : 'Every commander played within the last two years, ranked head-to-head.';
+  document.getElementById('all-cmdr-sub').textContent = _acState.showAll ? 'Every commander across the whole group, ranked head-to-head.' : 'Every commander played within two years of the last session, ranked head-to-head.';
   document.getElementById('all-cmdr-toggle').textContent = _acState.showAll ? 'Show Active' : 'Show All';
   if (_gameRows) {
     renderAllCommanders(_gameRows);
