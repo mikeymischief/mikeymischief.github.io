@@ -1215,7 +1215,7 @@ function renderAllGames() {
       const badges = [
         won          ? '<span class="win-badge">WIN</span>'                          : '',
         isEnder && endLabel ? `<span class="end-badge">${endLabel}</span>`           : '',
-        isKingmaker  ? '<span class="king-badge">KINGMAKER</span>'                   : '',
+        isKingmaker  ? '<span class="king-badge">UPSTREAM</span>'                    : '',
       ].filter(Boolean).join(' ');
       tr.innerHTML = `
         <td></td>
@@ -1671,7 +1671,7 @@ function renderProfile(player) {
             <div class="pr-stat-sub">${gamesEnded ? `${winsWhenEnding} of ${gamesEnded} ended` : 'no endings yet'}</div>
           </div>
           <div class="pr-stat-card">
-            <div class="pr-stat-label">Kingmaker Rate</div>
+            <div class="pr-stat-label">Upstream Rate</div>
             <div class="pr-stat-value">${kingmakerRate!=null?(kingmakerRate*100).toFixed(0)+'%':'—'}</div>
             <div class="pr-stat-sub">${kingmakerCount} time${kingmakerCount!==1?'s':''}</div>
           </div>
@@ -1742,7 +1742,7 @@ function renderProfile(player) {
       <td class="num">${place}</td>
       <td class="num">${gameRound}</td>
       <td>${gameEnding}</td>
-      <td>${[won?'<span class="win-badge">WIN</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">KINGMAKER</span>':''].filter(Boolean).join(' ')}</td>
+      <td>${[won?'<span class="win-badge">WIN</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">UPSTREAM</span>':''].filter(Boolean).join(' ')}</td>
     `;
     tbody.appendChild(tr);
   });
