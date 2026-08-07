@@ -1339,7 +1339,7 @@ async function fetchCmdrCards(names) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifiers: missing.map(name => ({ name })) }),
       });
-      const normAposKey = s => s.toLowerCase().replace(/[‘’ʼ]/g, "'");
+      const normAposKey = s => s.toLowerCase().replace(/[‘’ʼ]/g, "’");
       const data = await resp.json();
       (data.data || []).forEach(card => {
         const face = card.card_faces?.[0] || card;
@@ -1355,14 +1355,22 @@ async function fetchCmdrCards(names) {
         };
         cached[card.name.toLowerCase()] = cardObj;
         cached[normAposKey(card.name)] = cardObj; // also store with normalized apostrophes
+        // For DFCs (e.g. "Kefka // Trance Finale"), also index under the front-face name alone
+        const firstName = card.name.split(' // ')[0].trim();
+        if (firstName !== card.name) {
+          cached[firstName.toLowerCase()] = cardObj;
+          cached[normAposKey(firstName)] = cardObj;
+        }
       });
       // For any queried name still missing, try apostrophe-normalized fallback
+      // then DFC prefix match (queried name matches the start of a stored "X // Y" key)
       missing.forEach(name => {
         const key = name.toLowerCase();
-        if (!(key in cached)) {
-          const normKey = normAposKey(name);
-          if (normKey in cached) cached[key] = cached[normKey];
-        }
+        if (key in cached) return;
+        const normKey = normAposKey(name);
+        if (normKey in cached) { cached[key] = cached[normKey]; return; }
+        const dfc = Object.keys(cached).find(k => k.startsWith(key + ' //'));
+        if (dfc) cached[key] = cached[dfc];
       });
       localStorage.setItem(CMDR_CARDS_CACHE_KEY, JSON.stringify({ timestamp: Date.now(), cards: cached }));
     } catch(e) { console.warn('Scryfall card fetch failed:', e); }
