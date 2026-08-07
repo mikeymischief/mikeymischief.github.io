@@ -1328,10 +1328,11 @@ async function fetchCmdrCards(names) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifiers: missing.map(name => ({ name })) }),
       });
+      const normAposKey = s => s.toLowerCase().replace(/[‘’ʼ]/g, "'");
       const data = await resp.json();
       (data.data || []).forEach(card => {
         const face = card.card_faces?.[0] || card;
-        cached[card.name.toLowerCase()] = {
+        const cardObj = {
           name: card.name,
           art: face.image_uris?.art_crop || null,
           type_line: card.type_line || '',
@@ -1341,6 +1342,16 @@ async function fetchCmdrCards(names) {
           toughness: card.toughness ?? null,
           loyalty: card.loyalty ?? null,
         };
+        cached[card.name.toLowerCase()] = cardObj;
+        cached[normAposKey(card.name)] = cardObj; // also store with normalized apostrophes
+      });
+      // For any queried name still missing, try apostrophe-normalized fallback
+      missing.forEach(name => {
+        const key = name.toLowerCase();
+        if (!(key in cached)) {
+          const normKey = normAposKey(name);
+          if (normKey in cached) cached[key] = cached[normKey];
+        }
       });
       localStorage.setItem(CMDR_CARDS_CACHE_KEY, JSON.stringify({ timestamp: Date.now(), cards: cached }));
     } catch(e) { console.warn('Scryfall card fetch failed:', e); }
