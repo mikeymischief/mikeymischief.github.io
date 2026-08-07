@@ -477,8 +477,8 @@ permalink: /commander/game-history/
     inset: 0;
     background: linear-gradient(to bottom, rgba(13,15,26,0) 20%, rgba(13,15,26,0.82) 60%, rgba(13,15,26,0.97) 100%);
   }
-  .cmdr-hero-bg.bg-left  { clip-path: polygon(0 0, 62% 0, 38% 100%, 0 100%); }
-  .cmdr-hero-bg.bg-right { clip-path: polygon(62% 0, 100% 0, 100% 100%, 38% 100%); }
+  .cmdr-hero-bg.bg-left  { clip-path: polygon(0 0, 62% 0, 38% 100%, 0 100%); background-position: 25% 20%; }
+  .cmdr-hero-bg.bg-right { clip-path: polygon(62% 0, 100% 0, 100% 100%, 38% 100%); background-position: 75% 20%; }
   .cmdr-hero-panel {
     flex: 1;
     min-height: 280px;
@@ -1322,12 +1322,6 @@ function toggleSeatChart() {
 
 const CMDR_CARDS_CACHE_KEY = 'cmdr_cards_v1';
 
-// Per-commander art position overrides for the hero bg panels.
-// Key: lowercase card name. Value: CSS background-position string.
-const HERO_ART_POSITION = {
-  'frodo, adventurous hobbit': '90% 20%',
-  'sam, loyal attendant':      '20% 20%',
-};
 
 async function fetchCmdrCards(names) {
   let cached = {};
@@ -1613,10 +1607,9 @@ async function showCmdrHero(cmdr) {
   const r = computeCmdrRankings(cmdr);
   _shareCmdr = { cmdr, r, cards };
   const isDual = cards.length >= 2;
-  const artPos = c => { const p = HERO_ART_POSITION[c.name.toLowerCase()]; return p ? `background-position:${p};` : ''; };
   const bgDivs = isDual
-    ? `<div class="cmdr-hero-bg bg-left"  style="background-image:url('${cards[0].art}');${artPos(cards[0])}"></div>
-       <div class="cmdr-hero-bg bg-right" style="background-image:url('${cards[1].art}');${artPos(cards[1])}"></div>`
+    ? `<div class="cmdr-hero-bg bg-left"  style="background-image:url('${cards[0].art}')"></div>
+       <div class="cmdr-hero-bg bg-right" style="background-image:url('${cards[1].art}')"></div>`
     : '';
   hero.className = isDual ? 'cmdr-hero has-bg-panels' : 'cmdr-hero';
   hero.onclick = downloadCmdrCard;
