@@ -49,7 +49,9 @@ function escHtml(s) {
 }
 function normalizeCmdr(v) {
   if (!v) return '';
-  return v.replace(/\r?\n/g, ' / ').trim();
+  // Newline = partner pair separator → ' / '
+  // ' // ...' = DFC back-face → drop it, keep only the front face
+  return v.replace(/\r?\n/g, ' / ').replace(/ \/\/ .+$/, '').trim();
 }
 function stripPilotSuffix(name) {
   return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
