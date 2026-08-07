@@ -920,6 +920,20 @@ let _tierMap = {};
 let _activeSet = new Set();
 let _bracketMap = {};
 let _youtubeMap = {};
+let _deckCmdrs = new Set();
+let _gamesCmdrs = new Set();
+
+function rebuildCmdrDatalist() {
+  const dl = document.getElementById('all-cmdrs-list');
+  if (!dl) return;
+  dl.innerHTML = '';
+  const combined = new Set([..._gamesCmdrs, ..._deckCmdrs]);
+  Array.from(combined).sort((a, b) => a.localeCompare(b)).forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    dl.appendChild(opt);
+  });
+}
 let _shareCmdr = null;
 let _pilotPoints = null;
 
@@ -1018,16 +1032,10 @@ function buildPredictor() {
   document.getElementById('predictor').style.display = '';
 
   // Build all-commanders datalist for the filter box
-  const allCmdrs = new Set();
   PILOTS.forEach(pilot => {
-    Object.keys(statsMap[pilot] || {}).forEach(c => { if (c !== '_total') allCmdrs.add(c.trim()); });
+    Object.keys(statsMap[pilot] || {}).forEach(c => { if (c !== '_total') _gamesCmdrs.add(c.trim()); });
   });
-  const allDl = document.getElementById('all-cmdrs-list');
-  Array.from(allCmdrs).sort((a, b) => a.localeCompare(b)).forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c;
-    allDl.appendChild(opt);
-  });
+  rebuildCmdrDatalist();
   document.getElementById('cmdr-filter').style.display = '';
 
   const filterInput = document.getElementById('cmdr-filter-input');
@@ -1314,6 +1322,13 @@ function toggleSeatChart() {
 
 const CMDR_CARDS_CACHE_KEY = 'cmdr_cards_v1';
 
+// Per-commander art position overrides for the hero bg panels.
+// Key: lowercase card name. Value: CSS background-position string.
+const HERO_ART_POSITION = {
+  'frodo, adventurous hobbit': '70% 20%',
+  'sam, loyal attendant':      '35% 20%',
+};
+
 async function fetchCmdrCards(names) {
   let cached = {};
   try {
@@ -1598,9 +1613,10 @@ async function showCmdrHero(cmdr) {
   const r = computeCmdrRankings(cmdr);
   _shareCmdr = { cmdr, r, cards };
   const isDual = cards.length >= 2;
+  const artPos = c => { const p = HERO_ART_POSITION[c.name.toLowerCase()]; return p ? `background-position:${p};` : ''; };
   const bgDivs = isDual
-    ? `<div class="cmdr-hero-bg bg-left"  style="background-image:url('${cards[0].art}')"></div>
-       <div class="cmdr-hero-bg bg-right" style="background-image:url('${cards[1].art}')"></div>`
+    ? `<div class="cmdr-hero-bg bg-left"  style="background-image:url('${cards[0].art}');${artPos(cards[0])}"></div>
+       <div class="cmdr-hero-bg bg-right" style="background-image:url('${cards[1].art}');${artPos(cards[1])}"></div>`
     : '';
   hero.className = isDual ? 'cmdr-hero has-bg-panels' : 'cmdr-hero';
   hero.onclick = downloadCmdrCard;
@@ -2043,7 +2059,9 @@ Papa.parse(DECK_CSV_URL, {
       const youtube = (row[4] || '').trim();
       if (cmdr && bracket) _bracketMap[cmdr] = bracket;
       if (cmdr && youtube) _youtubeMap[cmdr] = youtube;
+      if (cmdr) _deckCmdrs.add(cmdr);
     });
+    rebuildCmdrDatalist();
   }
 });
 
