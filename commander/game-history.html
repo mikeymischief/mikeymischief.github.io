@@ -477,8 +477,10 @@ permalink: /commander/game-history/
     inset: 0;
     background: linear-gradient(to bottom, rgba(13,15,26,0) 20%, rgba(13,15,26,0.82) 60%, rgba(13,15,26,0.97) 100%);
   }
-  .cmdr-hero-bg.bg-left  { clip-path: polygon(0 0, 62% 0, 38% 100%, 0 100%); background-position: 25% 20%; }
-  .cmdr-hero-bg.bg-right { clip-path: polygon(62% 0, 100% 0, 100% 100%, 38% 100%); background-position: 75% 20%; }
+  /* Each half-bg spans only its side so background-size:cover scales relative to that half,
+     making background-position:center actually center the art on that side. */
+  .cmdr-hero-bg.bg-left  { top: 0; bottom: 0; left: 0; right: 38%; clip-path: polygon(0 0, 100% 0, 61.3% 100%, 0 100%); background-position: center 20%; }
+  .cmdr-hero-bg.bg-right { top: 0; bottom: 0; right: 0; left: 38%; clip-path: polygon(38.7% 0, 100% 0, 100% 100%, 0 100%); background-position: center 20%; }
   .cmdr-hero-panel {
     flex: 1;
     min-height: 280px;
@@ -2157,23 +2159,19 @@ async function downloadCmdrCard() {
   let y = imgs.length ? ART_H - 10 : 60;
 
   const nameParts = cmdr.split(' / ');
-  let nameSize = 40;
-  ctx.font = `700 ${nameSize}px Cinzel, serif`;
-  while (ctx.measureText(nameParts[0]).width > W - PAD * 2 && nameSize > 22) {
-    nameSize -= 2;
-    ctx.font = `700 ${nameSize}px Cinzel, serif`;
-  }
-  ctx.fillStyle = GOLD;
   ctx.textBaseline = 'top';
   ctx.textAlign = 'center';
-  ctx.fillText(nameParts[0], W / 2, y);
-  y += nameSize + 6;
-  if (nameParts.length > 1) {
-    ctx.font = `400 20px Cinzel, serif`;
-    ctx.fillStyle = 'rgba(201,168,76,0.55)';
-    ctx.fillText('/ ' + nameParts[1], W / 2, y);
-    y += 28;
-  }
+  ctx.fillStyle = GOLD;
+  nameParts.forEach((part, i) => {
+    let nameSize = 40;
+    ctx.font = `700 ${nameSize}px Cinzel, serif`;
+    while (ctx.measureText(part).width > W - PAD * 2 && nameSize > 22) {
+      nameSize -= 2;
+      ctx.font = `700 ${nameSize}px Cinzel, serif`;
+    }
+    ctx.fillText(part, W / 2, y);
+    y += nameSize + 6;
+  });
   if (cards[0]?.type_line) {
     ctx.font = '500 12px "JetBrains Mono", monospace';
     ctx.fillStyle = DIM;
