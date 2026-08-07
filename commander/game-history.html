@@ -2134,10 +2134,14 @@ async function downloadCmdrCard() {
   // ── Art section (top 480px) ──────────────────────────────────
   const ART_H = 480;
   if (imgs.length) {
-    const drawArt = (img, x, y, w, h) => {
+    // focalX: canvas x where the art's center should land (defaults to draw rect center)
+    const drawArt = (img, x, y, w, h, focalX = x + w / 2) => {
       const scale = Math.max(w / img.width, h / img.height);
       const sw = w / scale, sh = h / scale;
-      const sx = (img.width - sw) / 2, sy = img.height * 0.05;
+      // Shift source crop so the focal point aligns with focalX in the draw rect
+      const relCenter = (focalX - x) / w;
+      const sx = Math.max(0, Math.min(img.width - sw, img.width * relCenter - sw / 2));
+      const sy = img.height * 0.05;
       ctx.drawImage(img, sx, sy, sw, Math.min(sh, img.height - sy), x, y, w, h);
     };
     if (imgs.length === 1) {
@@ -2156,7 +2160,7 @@ async function downloadCmdrCard() {
       ctx.lineTo(0, ART_H);
       ctx.closePath();
       ctx.clip();
-      drawArt(imgs[0], 0, 0, W, ART_H);
+      drawArt(imgs[0], 0, 0, W, ART_H, W * 0.25); // center art on left panel
       ctx.restore();
 
       // Right commander — clipped to right diagonal polygon
@@ -2168,7 +2172,7 @@ async function downloadCmdrCard() {
       ctx.lineTo(diagBotX, ART_H);
       ctx.closePath();
       ctx.clip();
-      drawArt(imgs[1], 0, 0, W, ART_H);
+      drawArt(imgs[1], 0, 0, W, ART_H, W * 0.75); // center art on right panel
       ctx.restore();
 
       // Dark vignette along the seam
