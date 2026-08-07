@@ -2143,8 +2143,57 @@ async function downloadCmdrCard() {
     if (imgs.length === 1) {
       drawArt(imgs[0], 0, 0, W, ART_H);
     } else {
-      drawArt(imgs[0], 0, 0, W / 2, ART_H);
-      drawArt(imgs[1], W / 2, 0, W / 2, ART_H);
+      // Diagonal split matching the hero card: 62% at top → 38% at bottom
+      const diagTopX  = W * 0.62;
+      const diagBotX  = W * 0.38;
+
+      // Left commander — clipped to left diagonal polygon
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(diagTopX, 0);
+      ctx.lineTo(diagBotX, ART_H);
+      ctx.lineTo(0, ART_H);
+      ctx.closePath();
+      ctx.clip();
+      drawArt(imgs[0], 0, 0, W, ART_H);
+      ctx.restore();
+
+      // Right commander — clipped to right diagonal polygon
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(diagTopX, 0);
+      ctx.lineTo(W, 0);
+      ctx.lineTo(W, ART_H);
+      ctx.lineTo(diagBotX, ART_H);
+      ctx.closePath();
+      ctx.clip();
+      drawArt(imgs[1], 0, 0, W, ART_H);
+      ctx.restore();
+
+      // Dark vignette along the seam
+      const seamW = W * 0.14;
+      const seam = ctx.createLinearGradient(W / 2 - seamW, 0, W / 2 + seamW, 0);
+      seam.addColorStop(0,   'rgba(15,17,32,0)');
+      seam.addColorStop(0.45, 'rgba(15,17,32,0.72)');
+      seam.addColorStop(0.5,  'rgba(15,17,32,0.88)');
+      seam.addColorStop(0.55, 'rgba(15,17,32,0.72)');
+      seam.addColorStop(1,   'rgba(15,17,32,0)');
+      ctx.fillStyle = seam;
+      ctx.fillRect(0, 0, W, ART_H);
+
+      // Gold diagonal line at the seam
+      const goldFade = ctx.createLinearGradient(0, 0, 0, ART_H);
+      goldFade.addColorStop(0,   'rgba(201,168,76,0)');
+      goldFade.addColorStop(0.15, 'rgba(201,168,76,0.9)');
+      goldFade.addColorStop(0.75, 'rgba(201,168,76,0.9)');
+      goldFade.addColorStop(1,   'rgba(201,168,76,0)');
+      ctx.beginPath();
+      ctx.moveTo(diagTopX, 0);
+      ctx.lineTo(diagBotX, ART_H);
+      ctx.strokeStyle = goldFade;
+      ctx.lineWidth = 2;
+      ctx.stroke();
     }
     // Gradient fade bottom of art into dark panel
     const fade = ctx.createLinearGradient(0, ART_H * 0.55, 0, ART_H);
