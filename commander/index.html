@@ -168,12 +168,10 @@ permalink: /commander/
     background-size: cover;
     background-position: center 10%;
   }
-  .sp-art-panel.sp-art-left {
-    clip-path: polygon(0 0, 62% 0, 38% 100%, 0 100%);
-  }
-  .sp-art-panel.sp-art-right {
-    clip-path: polygon(62% 0, 100% 0, 100% 100%, 38% 100%);
-  }
+  /* Each panel spans only its own side so cover scales relative to that half,
+     centering each commander's art within their panel rather than the full width. */
+  .sp-art-panel.sp-art-left  { top: 0; bottom: 0; left: 0; right: 38%; clip-path: polygon(0 0, 100% 0, 61.3% 100%, 0 100%); }
+  .sp-art-panel.sp-art-right { top: 0; bottom: 0; right: 0; left: 38%; clip-path: polygon(38.7% 0, 100% 0, 100% 100%, 0 100%); }
   .spotlight {
     position: relative;
     display: block;
