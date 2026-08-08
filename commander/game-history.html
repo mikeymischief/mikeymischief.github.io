@@ -936,6 +936,22 @@ function rebuildCmdrDatalist() {
     dl.appendChild(opt);
   });
 }
+
+// Resolve a query to its canonical stored name.
+// Supports front-face-only queries for DFCs:
+//   "Kefka, Court Mage" → "Kefka, Court Mage // Kefka, Ruler of Ruin"
+function resolveCmdrQuery(query) {
+  if (!query) return query;
+  const norm = normalizeCmdr(query);
+  // Exact match in either set → already canonical
+  const combined = new Set([..._gamesCmdrs, ..._deckCmdrs]);
+  if (combined.has(norm)) return norm;
+  // Front-face prefix: find a DFC entry "Front // Back" where Front === norm
+  for (const name of combined) {
+    if (name.split(' // ')[0].trim() === norm.trim()) return name;
+  }
+  return norm;
+}
 let _shareCmdr = null;
 let _pilotPoints = null;
 
@@ -1044,9 +1060,11 @@ function buildPredictor() {
   const filterClear = document.getElementById('cmdr-filter-clear');
   filterInput.addEventListener('input', () => {
     const v = filterInput.value.trim();
-    applyFilter(v);
-    filterClear.style.display = v ? '' : 'none';
-    const url = v ? `?commander=${encodeURIComponent(v)}` : location.pathname;
+    const resolved = resolveCmdrQuery(v);
+    if (resolved !== v) filterInput.value = resolved;
+    applyFilter(resolved);
+    filterClear.style.display = resolved ? '' : 'none';
+    const url = resolved ? `?commander=${encodeURIComponent(resolved)}` : location.pathname;
     history.replaceState(null, '', url);
   });
   filterClear.addEventListener('click', () => {
@@ -2091,9 +2109,10 @@ Papa.parse(GAMES_CSV_URL, {
       const urlCmdr = new URLSearchParams(location.search).get('commander');
       if (urlCmdr) {
         const fi = document.getElementById('cmdr-filter-input');
-        fi.value = urlCmdr;
+        const resolvedUrl = resolveCmdrQuery(urlCmdr);
+        fi.value = resolvedUrl;
         document.getElementById('cmdr-filter-clear').style.display = '';
-        applyFilter(urlCmdr);
+        applyFilter(resolvedUrl);
       }
     } catch (e) {
       showHistoryError('Could not parse game history: ' + e.message);
