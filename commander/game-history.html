@@ -1943,6 +1943,7 @@ function renderHistory(rows) {
     shareBtn.addEventListener('click', e => {
       e.stopPropagation();
       history.replaceState(null, '', '#game-' + gameNum);
+      scrollToGame(gameNum, false);
       const url = location.href;
       const confirm = () => {
         shareBtn.textContent = '✓';
