@@ -179,6 +179,7 @@ permalink: /commander/game-history/
   }
   .pod:hover .pod-share-btn { opacity: 1; }
   .pod-share-btn:hover { color: var(--gold); border-color: var(--gold); }
+  @media (hover: none) { .pod-share-btn { opacity: 1; } }
   @keyframes pod-linked-pulse {
     0%   { box-shadow: 0 0 0 0   rgba(212,175,55,0.5); }
     50%  { box-shadow: 0 0 0 6px rgba(212,175,55,0.15); }
@@ -1942,10 +1943,27 @@ function renderHistory(rows) {
     shareBtn.addEventListener('click', e => {
       e.stopPropagation();
       history.replaceState(null, '', '#game-' + gameNum);
-      navigator.clipboard.writeText(location.href).then(() => {
+      const url = location.href;
+      const confirm = () => {
         shareBtn.textContent = '✓';
         setTimeout(() => { shareBtn.textContent = '#'; }, 1500);
-      });
+      };
+      const fallback = () => {
+        try {
+          const ta = Object.assign(document.createElement('textarea'), { value: url });
+          ta.style.cssText = 'position:fixed;opacity:0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          confirm();
+        } catch (_) {}
+      };
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(confirm).catch(fallback);
+      } else {
+        fallback();
+      }
     });
     dateLabel.appendChild(shareBtn);
     podDiv.appendChild(dateLabel);
