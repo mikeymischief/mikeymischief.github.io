@@ -1562,6 +1562,7 @@ function renderProfile(player) {
 
   const endedEntries = entries.filter(({ row }) => (row[C.ending]||'').trim() !== '');
   const gamesEnded   = endedEntries.length;
+  const gamesWithDeterminedEnding = entries.filter(({ game }) => game.rows.some(r => (r[C.ending]||'').trim() !== '')).length;
   const endRounds    = endedEntries.map(({ game }) => {
     const winner = winnerOfGame(game);
     const winRow = game.rows.find(r => (r[C.player]||'').trim() === winner);
@@ -1581,8 +1582,9 @@ function renderProfile(player) {
   const kingmakerRate   = entries.length ? kingmakerCount / entries.length : null;
   const winRateEnding    = gamesEnded > 0 ? winsWhenEnding / gamesEnded : null;
 
-  const chipVPs  = entries.map(({ row }) => parseFloat(row[C.chipsVP])).filter(v => !isNaN(v));
-  const bldgVPs  = entries.map(({ row }) => parseFloat(row[C.buildingsVP])).filter(v => !isNaN(v));
+  const bothVPEntries = entries.filter(({ row }) => !isNaN(parseFloat(row[C.chipsVP])) && !isNaN(parseFloat(row[C.buildingsVP])));
+  const chipVPs  = bothVPEntries.map(({ row }) => parseFloat(row[C.chipsVP]));
+  const bldgVPs  = bothVPEntries.map(({ row }) => parseFloat(row[C.buildingsVP]));
   const avgChipVP = chipVPs.length ? chipVPs.reduce((a,b)=>a+b,0)/chipVPs.length : null;
   const avgBldgVP = bldgVPs.length ? bldgVPs.reduce((a,b)=>a+b,0)/bldgVPs.length : null;
 
@@ -1658,7 +1660,7 @@ function renderProfile(player) {
           <div class="pr-stat-card">
             <div class="pr-stat-label">Games Ended</div>
             <div class="pr-stat-value">${gamesEnded || '—'}</div>
-            <div class="pr-stat-sub">${entries.length ? (gamesEnded/entries.length*100).toFixed(0)+'% of games' : '—'}</div>
+            <div class="pr-stat-sub">${gamesWithDeterminedEnding ? (gamesEnded/gamesWithDeterminedEnding*100).toFixed(0)+'% of decided games' : '—'}</div>
           </div>
           <div class="pr-stat-card">
             <div class="pr-stat-label">Fav Ending</div>
