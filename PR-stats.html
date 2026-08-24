@@ -576,6 +576,7 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     padding: 1px 6px;
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.05em;
+    text-transform: none;
   }
   .pr-table .king-badge {
     font-size: 11px;
@@ -1213,7 +1214,7 @@ function renderAllGames() {
       if (won) tr.className = 'win-row';
       const isKingmaker = player === kingmakerOfGame(game);
       const badges = [
-        won          ? '<span class="win-badge">WIN</span>'                          : '',
+        won          ? '<span class="win-badge">Win</span>'                          : '',
         isEnder && endLabel ? `<span class="end-badge">${endLabel}</span>`           : '',
         isKingmaker  ? '<span class="king-badge">Upstream</span>'                    : '',
       ].filter(Boolean).join(' ');
@@ -1744,7 +1745,7 @@ function renderProfile(player) {
       <td class="num">${place}</td>
       <td class="num">${gameRound}</td>
       <td>${gameEnding}</td>
-      <td>${[won?'<span class="win-badge">WIN</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">Upstream</span>':''].filter(Boolean).join(' ')}</td>
+      <td>${[won?'<span class="win-badge">Win</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">Upstream</span>':''].filter(Boolean).join(' ')}</td>
     `;
     tbody.appendChild(tr);
   });
