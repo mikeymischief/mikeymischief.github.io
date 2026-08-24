@@ -588,6 +588,12 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.05em;
   }
+  .badge-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: flex-start;
+  }
 
   /* ── All Games summary strip ─────────────────────────────────────────────── */
   .pr-all-summary {
@@ -799,6 +805,13 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     .pr-stats-main-row { flex-direction: column; }
     .pr-stats-cards-col { flex: none; width: 100%; }
     .pr-vp-donut-wrap { flex: none; width: 100%; }
+    .pr-table { font-size: 11px; }
+    .pr-table th { font-size: 8px; padding: 6px 6px; }
+    .pr-table td { padding: 6px 6px; white-space: normal; }
+    .pr-table td.num { white-space: nowrap; }
+    .pr-table .win-badge,
+    .pr-table .end-badge,
+    .pr-table .king-badge { font-size: 10px; padding: 1px 4px; }
   }
 </style>
 
@@ -1217,13 +1230,13 @@ function renderAllGames() {
         won          ? '<span class="win-badge">Win</span>'                          : '',
         isEnder && endLabel ? `<span class="end-badge">${endLabel}</span>`           : '',
         isKingmaker  ? '<span class="king-badge">Upstream</span>'                    : '',
-      ].filter(Boolean).join(' ');
+      ].filter(Boolean).join('');
       tr.innerHTML = `
         <td></td>
         <td class="num">Seat ${fmt.int(row[C.seat])}</td>
         <td class="num score">${fmt.int(row[C.score])} VP</td>
         <td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>
-        <td>${badges}</td>`;
+        <td><div class="badge-stack">${badges}</div></td>`;
       const nameCell = document.createElement('td');
       const nameBtn  = document.createElement('button');
       nameBtn.className = 'pr-name-link';
@@ -1745,7 +1758,7 @@ function renderProfile(player) {
       <td class="num">${place}</td>
       <td class="num">${gameRound}</td>
       <td>${gameEnding}</td>
-      <td>${[won?'<span class="win-badge">Win</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">Upstream</span>':''].filter(Boolean).join(' ')}</td>
+      <td><div class="badge-stack">${[won?'<span class="win-badge">Win</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">Upstream</span>':''].filter(Boolean).join('')}</div></td>
     `;
     tbody.appendChild(tr);
   });
