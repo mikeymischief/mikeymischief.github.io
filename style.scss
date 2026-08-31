@@ -99,6 +99,17 @@ a {
   }
 }
 
+// Inline card-hover links (generated from [[Card Name]] syntax)
+a.card-ref {
+  color: $gold;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover, &:active {
+    color: $gold-light;
+    text-decoration: underline;
+  }
+}
+
 ul, ol {
   margin: 15px 0;
   padding-left: 30px;
