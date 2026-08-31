@@ -330,6 +330,34 @@ title: The Synergy Cube
     line-height: 1.55;
   }
 
+  /* card-ref links inside card subtext inherit the dim color — no gold */
+  .guild-legends a.card-ref,
+  .guild-lands a.card-ref,
+  .synergy-card-desc a.card-ref,
+  .synergy-card-keys a.card-ref,
+  .design-rule-body a.card-ref,
+  .design-rule-exception a.card-ref,
+  .draft-tip-body a.card-ref,
+  .uld-card a.card-ref {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(233,232,228,0.3);
+  }
+  .guild-legends a.card-ref:hover,
+  .guild-lands a.card-ref:hover,
+  .synergy-card-desc a.card-ref:hover,
+  .synergy-card-keys a.card-ref:hover,
+  .design-rule-body a.card-ref:hover,
+  .design-rule-exception a.card-ref:hover,
+  .draft-tip-body a.card-ref:hover,
+  .uld-card a.card-ref:hover {
+    color: inherit;
+    text-decoration-style: solid;
+    text-decoration-color: currentColor;
+  }
+
   /* Synergy archetype cards */
   .synergy-grid {
     display: grid;
