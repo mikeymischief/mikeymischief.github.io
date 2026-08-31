@@ -205,21 +205,414 @@ title: The Synergy Cube
     .cube-post-list { grid-template-columns: 1fr; }
     .cube-hero { padding: 80px 24px 28px; }
   }
+
+  /* Design principles list */
+  .design-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .design-rule {
+    padding: 12px 16px;
+    background: #1c1e26;
+    border: 1px solid #2c2e38;
+    border-left: 3px solid #d4af37;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .design-rule-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d4af37;
+  }
+  .design-rule-body {
+    font-size: 12.5px;
+    color: rgba(233,232,228,0.72);
+    line-height: 1.6;
+  }
+  .design-rule-exception {
+    font-size: 11px;
+    color: rgba(233,232,228,0.45);
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  /* ULD section */
+  .uld-card {
+    padding: 20px 22px;
+    background: #1c1e26;
+    border: 1px solid #2c2e38;
+    border-radius: 12px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .uld-card p {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(233,232,228,0.75);
+    line-height: 1.7;
+  }
+  .uld-stat-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .uld-stat {
+    padding: 8px 14px;
+    background: rgba(212,175,55,0.07);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #d4af37;
+  }
+
+  /* Archetypes / guild grid */
+  .guild-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .guild-card {
+    padding: 14px 16px;
+    background: #1c1e26;
+    border: 1px solid #2c2e38;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .guild-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .guild-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #e8d5a3;
+  }
+  .guild-colors {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .guild-archetype {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d4af37;
+  }
+  .guild-legends {
+    font-size: 11px;
+    color: rgba(233,232,228,0.62);
+    line-height: 1.55;
+    border-top: 1px solid #2c2e38;
+    padding-top: 6px;
+  }
+  .guild-lands {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: rgba(233,232,228,0.3);
+    line-height: 1.55;
+  }
+
+  /* Synergy archetype cards */
+  .synergy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .synergy-card {
+    padding: 18px 20px;
+    background: #1c1e26;
+    border: 1px solid #2c2e38;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .synergy-card-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #e8d5a3;
+  }
+  .synergy-card-desc {
+    font-size: 12.5px;
+    color: rgba(233,232,228,0.7);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .synergy-card-keys {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #d4af37;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    border-top: 1px solid #2c2e38;
+    padding-top: 8px;
+  }
+
+  /* Drafting tips */
+  .draft-tips {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .draft-tip {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 18px;
+    background: #1c1e26;
+    border: 1px solid #2c2e38;
+    border-radius: 10px;
+  }
+  .draft-tip-num {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #d4af37;
+    flex-shrink: 0;
+    line-height: 1;
+    padding-top: 2px;
+    width: 20px;
+  }
+  .draft-tip-body {
+    font-size: 13px;
+    color: rgba(233,232,228,0.78);
+    line-height: 1.65;
+  }
+  .draft-tip-body strong {
+    color: #e8d5a3;
+    font-weight: 600;
+  }
 </style>
 
 <div class="cube-hero">
   <div class="cube-hero-eyebrow">Mischief's Gaming Blog &middot; Magic: The Gathering</div>
   <h1>The Synergy Cube</h1>
-  <p class="cube-hero-sub">A 540-card unpowered cube built on archetypes and synergies — where every card is chosen to support a theme, not just raw power.</p>
+  <p class="cube-hero-sub">A singleton unpowered cube built on Legacy-level efficiency — fetchlands, shocklands, and clean removal alongside synergy-first archetypes and a splash of flavor crossovers.</p>
 </div>
 
 <div class="cube-section">
   <div class="cube-section-label">About</div>
   <h2>What is the Synergy Cube?</h2>
-  <p>The Synergy Cube started as a max-power Legacy cube and evolved into something more interesting: an environment where the power level is deliberately flatter so synergistic, archetype-driven decks can actually compete. Skullclamps and Oppositions were swapped out for cards that reward drafters who find the thread running through their seat.</p>
+  <p>The Synergy Cube is a singleton cube built on Legacy-level efficiency without the format-warping stuff — no [[Black Lotus]], no Moxen, no [[Ancestral Recall]]. What fills that gap instead is depth: real mana dorks, real mana rocks, a full cycle of fetchlands feeding a full cycle of shocklands, and removal so clean ([[Swords to Plowshares]], [[Path to Exile]], [[Fatal Push]]) that it's rarely a wrong pick.</p>
+  <p>Sitting alongside the Legacy staples is a run of higher-flavor cards — Final Fantasy, Avatar: The Last Airbender, and Duskmourn crossovers among them — chosen on power level and role, not novelty. They play the same game as everything else here.</p>
   <p>The mono-colored sections each contain multiple distinct themes that overlap and play well together — so you're rarely forced on rails, but always rewarded for reading the signals. It drafts best at six players, though we make it work whenever we can scrounge up the headcount.</p>
-  <p>The Cube Cobra site has everything on there for my cube, so there will not be a necessary push to build out a cube section on this site here unfortunately (or fortunately); please explore!</p>
+</div>
 
+<div class="cube-section">
+  <div class="cube-section-label">Design Philosophy</div>
+  <h2>What's Not Here — and Why</h2>
+  <p>This cube has long moved away from the max-power paradigm. The goal is high variance in drafting but low variance in gameplay — multiple branching decision trees, always a way to outplay your opponent. That means a deliberate set of exclusions.</p>
+  <div class="design-rules">
+    <div class="design-rule">
+      <div class="design-rule-title">No fast mana</div>
+      <div class="design-rule-body">[[Sol Ring]], the Moxen ([[Mox Ruby]], [[Mox Emerald]], etc.), [[Chrome Mox]], [[Mox Diamond]], [[Black Lotus]] — all out. Mana dorks and rocks are how decks get ahead here, not free acceleration.</div>
+    </div>
+    <div class="design-rule">
+      <div class="design-rule-title">No absurd card advantage</div>
+      <div class="design-rule-body">[[Library of Alexandria]], [[Ancestral Recall]], [[Skullclamp]], [[Timetwister]] — cards that refill a hand for free or near-free collapse the decision space the cube is built around.</div>
+    </div>
+    <div class="design-rule">
+      <div class="design-rule-title">No format-warping power</div>
+      <div class="design-rule-body">[[Time Walk]], [[Balance]] — a single card that ends the game or resets the board at no real cost isn't interesting, it's just a trap for whoever doesn't have it.</div>
+    </div>
+    <div class="design-rule">
+      <div class="design-rule-title">No oppressive or repetitive cards</div>
+      <div class="design-rule-body">[[Recurring Nightmare]], [[Opposition]], [[Umezawa's Jitte]], [[Minsc & Boo, Timeless Heroes]], [[Broadside Bombardiers]] — cards that create poor gameplay loops or make it impossible for the opponent to catch up.</div>
+    </div>
+    <div class="design-rule">
+      <div class="design-rule-title">No free / pitch spells</div>
+      <div class="design-rule-body">[[Force of Will]], [[Daze]], [[Snuff Out]], [[Treachery]] — the emphasis is on reading open mana. Interaction should always cost mana.</div>
+      <div class="design-rule-exception">Exceptions for proactive effects only: [[Grief]], [[Gitaxian Probe]], [[Mishra's Bauble]], [[Urza's Bauble]], [[Frantic Search]].</div>
+    </div>
+    <div class="design-rule">
+      <div class="design-rule-title">No cheat-into-play cards</div>
+      <div class="design-rule-body">[[Oath of Druids]], [[Through the Breach]], [[Sneak Attack]], [[Show and Tell]], [[Natural Order]], [[Eureka]] are all out.</div>
+      <div class="design-rule-exception">Exception: [[Tinker]] stays to push the artifact deck — and there's an abundance of removal for artifact creatures to keep it honest.</div>
+    </div>
+    <div class="design-rule">
+      <div class="design-rule-title">No strict combos</div>
+      <div class="design-rule-body">No [[Kiki-Jiki, Mirror Breaker]] / [[Splinter Twin]], no Persist combo ([[Anafenza, Kin-Tree Spirit]]). Synergistic pairs are fine; two-card instant wins are not.</div>
+      <div class="design-rule-exception">Example of the line: [[Reanimate]] is in, but [[Entomb]] is not.</div>
+    </div>
+    <div class="design-rule">
+      <div class="design-rule-title">No signets or talismans</div>
+      <div class="design-rule-body">[[Boros Signet]], [[Talisman of Conviction]] and their cycle are out. Two-color fixing rocks push three-color decks in a direction that undermines the guild-lane draft structure.</div>
+    </div>
+    <div class="design-rule">
+      <div class="design-rule-title">No non-interactive cards</div>
+      <div class="design-rule-body">[[True-Name Nemesis]] and similar — there should always be a way to outplay your opponent. Cards that deny all interaction aren't interesting, they just end discussions.</div>
+    </div>
+    <div class="design-rule">
+      <div class="design-rule-title">Curated tutors only</div>
+      <div class="design-rule-body">No [[Demonic Tutor]] or [[Vampiric Tutor]]. Allowed: [[Green Sun's Zenith]] (toolbox), [[Mystical Tutor]] and [[Tinker]] (sorcery build-arounds). Companions [[Yorion, Sky Nomad]] (blink) and [[Lurrus of the Dream-Den]] (recursion) bolster specific archetypes.</div>
+    </div>
+  </div>
+</div>
+
+<div class="cube-section">
+  <div class="cube-section-label">Archetypes</div>
+  <h2>How the Manabase Signals the Lanes</h2>
+  <p>The land base is built lane by lane — every one of the ten two-color pairs gets its own fetchland, shockland, and surveil land, plus a fourth or fifth wildcard land (a horizon land or allied manland depending on the pair). Riding along with those lands are three or four gold cards built to reward staying in exactly that lane.</p>
+  <p>That combination — a guild's fetch, shock, and surveil land wheeling back around with its signpost legends still in the pack — is the clearest signal an archetype is open.</p>
+  <div class="guild-grid">
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Azorius</div><div class="guild-colors"><i class="ms ms-cost ms-w"></i><i class="ms ms-cost ms-u"></i></div></div>
+      <div class="guild-archetype">Control &amp; Flicker</div>
+      <div class="guild-legends">[[Teferi, Hero of Dominaria]] · [[Supreme Verdict]] · [[Spell Queller]]</div>
+      <div class="guild-lands">[[Celestial Colonnade]] · [[Hallowed Fountain]] · [[Meticulous Archive]]</div>
+    </div>
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Dimir</div><div class="guild-colors"><i class="ms ms-cost ms-u"></i><i class="ms ms-cost ms-b"></i></div></div>
+      <div class="guild-archetype">Grindy Value</div>
+      <div class="guild-legends">[[Ertai Resurrected]] · [[Baleful Strix]] · [[Master of Death]]</div>
+      <div class="guild-lands">[[Creeping Tar Pit]] · [[Watery Grave]] · [[Undercity Sewers]]</div>
+    </div>
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Rakdos</div><div class="guild-colors"><i class="ms ms-cost ms-b"></i><i class="ms ms-cost ms-r"></i></div></div>
+      <div class="guild-archetype">Aristocrats &amp; Reanimator</div>
+      <div class="guild-legends">[[Kroxa, Titan of Death's Hunger]] · [[Alesha, Who Laughs at Fate]] · [[Falkenrath Aristocrat]]</div>
+      <div class="guild-lands">[[Blood Crypt]] · [[Raucous Theater]] · [[Restless Vents]]</div>
+    </div>
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Gruul</div><div class="guild-colors"><i class="ms ms-cost ms-r"></i><i class="ms ms-cost ms-g"></i></div></div>
+      <div class="guild-archetype">Lands &amp; Midrange Beats</div>
+      <div class="guild-legends">[[Wrenn and Six]] · [[Rydia, Summoner of Mist]] · [[Mawloc]]</div>
+      <div class="guild-lands">[[Stomping Ground]] · [[Raging Ravine]] · [[Commercial District]]</div>
+    </div>
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Selesnya</div><div class="guild-colors"><i class="ms ms-cost ms-g"></i><i class="ms ms-cost ms-w"></i></div></div>
+      <div class="guild-archetype">Toolbox Value</div>
+      <div class="guild-legends">[[Voice of Resurgence]] · [[Knight of the Reliquary]] · [[Renegade Rallier]]</div>
+      <div class="guild-lands">[[Temple Garden]] · [[Horizon Canopy]] · [[Lush Portico]]</div>
+    </div>
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Orzhov</div><div class="guild-colors"><i class="ms ms-cost ms-w"></i><i class="ms ms-cost ms-b"></i></div></div>
+      <div class="guild-archetype">Tokens &amp; Disruption</div>
+      <div class="guild-legends">[[General Kudro of Drannith]] · [[Lingering Souls]] · [[Tidehollow Sculler]]</div>
+      <div class="guild-lands">[[Godless Shrine]] · [[Marsh Flats]] · [[Shadowy Backstreet]]</div>
+    </div>
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Izzet</div><div class="guild-colors"><i class="ms ms-cost ms-u"></i><i class="ms ms-cost ms-r"></i></div></div>
+      <div class="guild-archetype">Spells-Matter Tempo</div>
+      <div class="guild-legends">[[Vivi Ornitier]] · [[Expressive Iteration]] · [[Prismari Command]]</div>
+      <div class="guild-lands">[[Steam Vents]] · [[Scalding Tarn]] · [[Thundering Falls]]</div>
+    </div>
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Golgari</div><div class="guild-colors"><i class="ms ms-cost ms-b"></i><i class="ms ms-cost ms-g"></i></div></div>
+      <div class="guild-archetype">Graveyard Value</div>
+      <div class="guild-legends">[[The Gitrog Monster]] · [[Meren of Clan Nel Toth]] · [[Alpha Deathclaw]]</div>
+      <div class="guild-lands">[[Overgrown Tomb]] · [[Verdant Catacombs]] · [[Underground Mortuary]]</div>
+    </div>
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Boros</div><div class="guild-colors"><i class="ms ms-cost ms-r"></i><i class="ms ms-cost ms-w"></i></div></div>
+      <div class="guild-archetype">Go-Wide Aggro</div>
+      <div class="guild-legends">[[Winota, Joiner of Forces]] · [[Phlage, Titan of Fire's Fury]] · [[Rip Apart]]</div>
+      <div class="guild-lands">[[Sacred Foundry]] · [[Arid Mesa]] · [[Elegant Parlor]]</div>
+    </div>
+    <div class="guild-card">
+      <div class="guild-header"><div class="guild-name">Simic</div><div class="guild-colors"><i class="ms ms-cost ms-g"></i><i class="ms ms-cost ms-u"></i></div></div>
+      <div class="guild-archetype">Ramp &amp; Card Advantage</div>
+      <div class="guild-legends">[[Uro, Titan of Nature's Wrath]] · [[Hydroid Krasis]] · [[Tamiyo, Collector of Tales]]</div>
+      <div class="guild-lands">[[Breeding Pool]] · [[Misty Rainforest]] · [[Hedge Maze]]</div>
+    </div>
+  </div>
+</div>
+
+<div class="cube-section">
+  <div class="cube-section-label">Synergies</div>
+  <h2>The Cross-Lane Strategies</h2>
+  <p>The more interesting decks usually don't stay inside one lane — they're built around a synergy that cuts across several of them.</p>
+  <div class="synergy-grid">
+    <div class="synergy-card">
+      <div class="synergy-card-name">Reanimator</div>
+      <div class="synergy-card-desc">The cube's most explosive plan. Fill the yard early with [[Faithless Looting]], [[Careful Study]], and [[Stitcher's Supplier]], then cheat a game-ending threat into play two or three turns ahead of schedule.</div>
+      <div class="synergy-card-keys">[[Reanimate]] · [[Griselbrand]] · [[Archon of Cruelty]] · [[Emrakul, the Promised End]]</div>
+    </div>
+    <div class="synergy-card">
+      <div class="synergy-card-name">Affinity</div>
+      <div class="synergy-card-desc">Five original Mirrodin artifact lands form the backbone of a near-colorless aggro plan. The whole shell barely touches colored mana, making it one of the cube's most consistent strategies.</div>
+      <div class="synergy-card-keys">[[Steel Overseer]] · [[Arcbound Ravager]] · [[Hangarback Walker]]</div>
+    </div>
+    <div class="synergy-card">
+      <div class="synergy-card-name">Humans</div>
+      <div class="synergy-card-desc">A go-wide white tribal plan built around stacking lord effects. [[Champion of the Parish]] and [[Thalia's Lieutenant]] scale with every Human you play, and [[Winota, Joiner of Forces]] bridges into red to reward flooding the board with cheap bodies.</div>
+      <div class="synergy-card-keys">[[Champion of the Parish]] · [[Thalia's Lieutenant]] · [[Winota, Joiner of Forces]]</div>
+    </div>
+    <div class="synergy-card">
+      <div class="synergy-card-name">Lands Matter</div>
+      <div class="synergy-card-desc">[[Life from the Loam]] and [[Crucible of Worlds]] turn the deep fetchland package from a mana-fixing tool into a genuine card-advantage engine. Feeds a long, grindy game plan that's hard to race.</div>
+      <div class="synergy-card-keys">[[Wrenn and Six]] · [[The Gitrog Monster]] · [[Field of the Dead]]</div>
+    </div>
+    <div class="synergy-card">
+      <div class="synergy-card-name">Blink Value</div>
+      <div class="synergy-card-desc">A quieter white shell built around repeating enter-the-battlefield triggers. [[Ephemerate]] and [[Restoration Angel]] reset [[Monastery Mentor]], [[Adeline, Resplendent Cathar]], and [[Sun Titan]] over and over without over-committing.</div>
+      <div class="synergy-card-keys">[[Ephemerate]] · [[Restoration Angel]] · [[Flickerwisp]] · [[Sun Titan]]</div>
+    </div>
+  </div>
+</div>
+
+<div class="cube-section">
+  <div class="cube-section-label">Strategy</div>
+  <h2>Drafting It</h2>
+  <div class="draft-tips">
+    <div class="draft-tip">
+      <div class="draft-tip-num">1</div>
+      <div class="draft-tip-body"><strong>Read the signposts.</strong> A guild's fetch, shock, surveil land, and gold legends wheeling back to you is the clearest sign that lane is open.</div>
+    </div>
+    <div class="draft-tip">
+      <div class="draft-tip-num">2</div>
+      <div class="draft-tip-body"><strong>Take the efficient removal.</strong> [[Swords to Plowshares]], [[Path to Exile]], and [[Fatal Push]] are safe in almost any deck — take them over a speculative bomb if you're still unsure of your lane.</div>
+    </div>
+    <div class="draft-tip">
+      <div class="draft-tip-num">3</div>
+      <div class="draft-tip-body"><strong>Fast mana is scarce power here, not filler.</strong> With no Power Nine, dorks like [[Noble Hierarch]] and rocks like [[Mind Stone]] are how decks actually get ahead — prioritize them if you're building toward the top end.</div>
+    </div>
+    <div class="draft-tip">
+      <div class="draft-tip-num">4</div>
+      <div class="draft-tip-body"><strong>Commit to two colors, splash carefully.</strong> The guild lanes are built to support a clean two-color deck; a third color should be earned with fetches, shocks, or a fixing land, not assumed.</div>
+    </div>
+    <div class="draft-tip">
+      <div class="draft-tip-num">5</div>
+      <div class="draft-tip-body"><strong>Watch for the cross-lane packages.</strong> Reanimator, Affinity, and Humans all pull pieces from outside a single lane — if those cards are flowing, they're often worth breaking plan for.</div>
+    </div>
+  </div>
+</div>
+
+<div class="cube-section">
+  <div class="cube-section-label">Utility Land Draft</div>
+  <h2>The ULD</h2>
+  <div class="uld-card">
+    <p>Lands are arguably the most important part of Magic: The Gathering, and it's a shame that in most draft environments they barely register. The Utility Land Draft fixes that. After the main draft, lands with narrow synergies are drafted rotisserie-style — each player makes picks in turn, no pack, no passing.</p>
+    <div class="uld-stat-row">
+      <div class="uld-stat">4 picks per player</div>
+      <div class="uld-stat">6-player → 24 lands</div>
+      <div class="uld-stat">8-player → 32 lands</div>
+      <div class="uld-stat">~40 cards in the pool</div>
+    </div>
+    <p>The ULD is not for mana fixing — those lands are already in the main cube. It exists to give archetypes access to lands with narrow synergies: [[Raging Ravine]] for Gruul, [[Creeping Tar Pit]] for Dimir, [[Field of the Dead]] for Lands Matter, and so on. The pool stays small by design; it's a lot to take in for new players and the goal is to celebrate lands as a drafting resource, not to overwhelm.</p>
+    <p>The main cube also runs a handful of non-singleton utility lands: double fetchlands, double enemy shocklands, triple [[Prismatic Vista]], and triple [[Wasteland]].</p>
+  </div>
 </div>
 
 <div class="cube-section">
