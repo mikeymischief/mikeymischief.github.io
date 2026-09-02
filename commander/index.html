@@ -163,14 +163,14 @@ permalink: /commander/
     background-position: center 60%;
     border-radius: 10px;
     overflow: hidden;
-    padding: 18px 24px;
+    padding: 18px 24px 22px;
     margin-bottom: 24px;
   }
   #showcase-banner::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(13,15,26,0.95) 0%, rgba(13,15,26,0.82) 55%, rgba(13,15,26,0.55) 100%);
+    background: rgba(10,12,22,0.82);
   }
   #showcase-banner > * { position: relative; z-index: 1; }
   #showcase-banner.hidden { display: none !important; }
@@ -179,48 +179,77 @@ permalink: /commander/
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
 
   .showcase-games-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-  }
-
-  .showcase-game-row {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
+    gap: 20px;
   }
 
   .showcase-game-title {
     font-family: 'Cinzel', serif;
-    font-size: 0.92rem;
+    font-size: 0.82rem;
     color: #e8d5a3;
     font-weight: 700;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .showcase-players {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .showcase-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 72px;
+  }
+
+  /* Override circular avatar for showcase — tall rectangular card art */
+  #showcase-banner .cmdr-avatar {
+    width: 72px;
+    height: 100px;
+    border-radius: 6px;
+    object-fit: cover;
+    object-position: center top;
+    background: rgba(255,255,255,0.08);
+    display: block;
     flex-shrink: 0;
   }
+  /* Dual commanders: two images side-by-side at half width */
+  .showcase-art {
+    display: flex;
+    gap: 3px;
+  }
+  .showcase-art.dual .cmdr-avatar {
+    width: 34px;
+    border-radius: 5px;
+  }
 
-  .showcase-game-cmdrs {
+  .showcase-pilot-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.5);
+  }
+  .showcase-pilot-name[data-p="Brian"] { color: #e08585; }
+  .showcase-pilot-name[data-p="Gerf"]  { color: #7fc98f; }
+  .showcase-pilot-name[data-p="Mikey"] { color: #85B7EB; }
+  .showcase-pilot-name[data-p="Jubee"] { color: #F472B6; }
+
+  .showcase-win-pct {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: rgba(255,255,255,0.5);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .showcase-pilot { font-weight: 600; }
-  .showcase-pilot[data-p="Brian"] { color: #e08585; }
-  .showcase-pilot[data-p="Gerf"]  { color: #7fc98f; }
-  .showcase-pilot[data-p="Mikey"] { color: #85B7EB; }
-  .showcase-pilot[data-p="Jubee"] { color: #F472B6; }
-  .showcase-arrow { opacity: 0.4; }
-
-  @media (max-width: 600px) {
-    .showcase-game-row { flex-direction: column; gap: 2px; }
-    .showcase-game-cmdrs { white-space: normal; }
+    font-variant-numeric: tabular-nums;
+    color: rgba(255,255,255,0.45);
   }
 
   /* ── Commander Spotlight ── */
@@ -1046,22 +1075,32 @@ function renderShowcaseGames() {
   try { games = JSON.parse(localStorage.getItem('showcaseGames') || '[]'); } catch(e) {}
   if (!games.length) { showcaseBanner.classList.add('hidden'); return; }
   showcaseList.innerHTML = games.map(g => {
-    // Support both new {players:[{pilot,cmdr}]} and legacy {commanders:[]} formats
-    const players = g.players
+    // Support both new {players:[{pilot,cmdr,winPct}]} and legacy formats
+    const players = (g.players
       ? g.players.filter(p => p.cmdr)
-      : (g.commanders || []).map(c => ({ pilot: '', cmdr: c }));
-    const cmdrsHtml = players.map(p =>
-      p.pilot
-        ? `<span class="showcase-pilot" data-p="${p.pilot}">${p.pilot}</span><span class="showcase-arrow"> → </span>${p.cmdr}`
-        : p.cmdr
-    ).join(' &nbsp;·&nbsp; ');
-    return `
-      <div class="showcase-game-row">
-        <span class="showcase-game-title">${g.title || '(untitled)'}</span>
-        <span class="showcase-game-cmdrs">${cmdrsHtml}</span>
+      : (g.commanders || []).map(c => ({ pilot: '', cmdr: c })));
+    const playersHtml = players.map(p => {
+      const pctDisplay = (p.winPct != null && p.winPct !== '') ? `${parseFloat(p.winPct).toFixed(1)}%` : '';
+      const cmdrParts = normalizeCmdr(p.cmdr).split(' / ');
+      const isDual = cmdrParts.length > 1;
+      const imgs = cmdrParts.map(part =>
+        `<img class="cmdr-avatar" data-cmdr="${escHtml(part.trim())}" alt="${escHtml(part.trim())}">`
+      ).join('');
+      const artHtml = `<div class="showcase-art${isDual ? ' dual' : ''}">${imgs}</div>`;
+      return `<div class="showcase-player">
+        ${artHtml}
+        ${p.pilot ? `<div class="showcase-pilot-name" data-p="${escHtml(p.pilot)}">${escHtml(p.pilot)}</div>` : ''}
+        ${pctDisplay ? `<div class="showcase-win-pct">${pctDisplay}</div>` : ''}
       </div>`;
+    }).join('');
+    return `<div class="showcase-game">
+      <div class="showcase-game-title">${escHtml(g.title || '(untitled)')}</div>
+      <div class="showcase-players">${playersHtml}</div>
+    </div>`;
   }).join('');
   showcaseBanner.classList.remove('hidden');
+  // Load commander art images after rendering
+  loadAvatarImages(showcaseBanner);
 }
 
 renderNextSession();

@@ -236,7 +236,7 @@ permalink: /admin/
   }
   .sg-pod-row {
     display: grid;
-    grid-template-columns: 58px 1fr;
+    grid-template-columns: 58px 1fr 62px;
     gap: 8px;
     align-items: center;
     margin-bottom: 8px;
@@ -251,8 +251,23 @@ permalink: /admin/
   .sg-pod-row[data-p="Brian"] .sg-pod-pilot { color: var(--brian); }
   .sg-pod-row[data-p="Gerf"]  .sg-pod-pilot { color: var(--gerf);  }
   .sg-pod-row[data-p="Mikey"] .sg-pod-pilot { color: var(--mikey); }
-  /* Guest row: both cells are inputs */
-  .sg-pod-row-guest { grid-template-columns: 90px 1fr; }
+  /* Guest row: both cells are inputs + win% */
+  .sg-pod-row-guest { grid-template-columns: 90px 1fr 62px; }
+  .sg-pct-input {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 6px;
+    width: 100%;
+    outline: none;
+    margin-bottom: 0;
+    text-align: right;
+  }
+  .sg-pct-input:focus { border-color: var(--ink-faint); }
+  .sg-pct-input::placeholder { color: var(--ink-faint); font-size: 11px; }
   .sg-pod-name-input {
     background: var(--bg);
     border: 1px solid var(--line);
@@ -452,7 +467,7 @@ const prStored = localStorage.getItem('nextSessionPR');
 if (prStored) { prInput.value = prStored; formatPrPreview(prStored); }
 
 // ── Showcase Games ────────────────────────────────────────────────────────
-// Data format: { title: string, players: [{pilot, cmdr}] }
+// Data format: { title: string, players: [{pilot, cmdr, winPct}] }
 // Core three pilots are fixed; fourth slot is a free-text guest.
 const PILOTS = ['Brian', 'Gerf', 'Mikey'];
 
@@ -479,6 +494,8 @@ PILOTS.forEach(pilot => {
     <span class="sg-pod-pilot">${pilot}</span>
     <input class="sg-pod-input" type="text" list="${dlId}" autocomplete="off"
            placeholder="Commander…" id="sg-input-${pilot.toLowerCase()}">
+    <input class="sg-pct-input" type="number" min="0" max="100" step="0.1"
+           placeholder="%" id="sg-pct-${pilot.toLowerCase()}">
   `;
   sgPodRows.appendChild(row);
 });
@@ -490,6 +507,8 @@ PILOTS.forEach(pilot => {
   row.innerHTML = `
     <input class="sg-pod-name-input" type="text" id="sg-input-guest-name" placeholder="Guest…" autocomplete="off">
     <input class="sg-pod-input" type="text" id="sg-input-guest-cmdr" autocomplete="off" placeholder="Commander…">
+    <input class="sg-pct-input" type="number" min="0" max="100" step="0.1"
+           placeholder="%" id="sg-pct-guest">
   `;
   sgPodRows.appendChild(row);
 })();
@@ -531,21 +550,30 @@ function sgRender() {
 function sgAdd() {
   const title = sgTitleInput.value.trim();
   if (!title) { flash(sgToast, 'Enter a game title.'); return; }
-  const players = PILOTS.map(pilot => ({
-    pilot,
-    cmdr: (document.getElementById(`sg-input-${pilot.toLowerCase()}`)?.value || '').trim(),
-  }));
+  const players = PILOTS.map(pilot => {
+    const pctRaw = parseFloat(document.getElementById(`sg-pct-${pilot.toLowerCase()}`)?.value);
+    return {
+      pilot,
+      cmdr: (document.getElementById(`sg-input-${pilot.toLowerCase()}`)?.value || '').trim(),
+      winPct: isNaN(pctRaw) ? null : pctRaw,
+    };
+  });
   // Guest slot
   const guestName = (document.getElementById('sg-input-guest-name')?.value || '').trim();
   const guestCmdr = (document.getElementById('sg-input-guest-cmdr')?.value || '').trim();
-  if (guestName || guestCmdr) players.push({ pilot: guestName, cmdr: guestCmdr });
+  const guestPctRaw = parseFloat(document.getElementById('sg-pct-guest')?.value);
+  if (guestName || guestCmdr) players.push({ pilot: guestName, cmdr: guestCmdr, winPct: isNaN(guestPctRaw) ? null : guestPctRaw });
   const games = sgLoad();
   games.push({ title, players });
   sgSave(games);
   sgTitleInput.value = '';
-  PILOTS.forEach(p => { const el = document.getElementById(`sg-input-${p.toLowerCase()}`); if (el) el.value = ''; });
+  PILOTS.forEach(p => {
+    const c = document.getElementById(`sg-input-${p.toLowerCase()}`); if (c) c.value = '';
+    const pct = document.getElementById(`sg-pct-${p.toLowerCase()}`); if (pct) pct.value = '';
+  });
   document.getElementById('sg-input-guest-name').value = '';
   document.getElementById('sg-input-guest-cmdr').value = '';
+  document.getElementById('sg-pct-guest').value = '';
   sgRender();
   flash(sgToast, 'Game saved.');
 }
