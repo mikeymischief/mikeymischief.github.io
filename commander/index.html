@@ -209,28 +209,30 @@ permalink: /commander/
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    width: 72px;
+    flex: 1;
+    min-width: 0;
   }
 
   /* Override circular avatar for showcase — tall rectangular card art */
   #showcase-banner .cmdr-avatar {
-    width: 72px;
-    height: 100px;
-    border-radius: 6px;
+    width: 100%;
+    aspect-ratio: 5 / 7;
+    height: auto;
+    border-radius: 3px;
     object-fit: cover;
     object-position: center top;
     background: rgba(255,255,255,0.08);
     display: block;
-    flex-shrink: 0;
   }
-  /* Dual commanders: two images side-by-side at half width */
+  /* Art wrapper fills player slot width */
   .showcase-art {
     display: flex;
     gap: 3px;
+    width: 100%;
   }
-  .showcase-art.dual .cmdr-avatar {
-    width: 34px;
-    border-radius: 5px;
+  .showcase-art .cmdr-avatar {
+    flex: 1;
+    width: 0; /* let flex sizing take over */
   }
 
   .showcase-pilot-name {
