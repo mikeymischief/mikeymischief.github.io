@@ -283,6 +283,23 @@ permalink: /commander/game-history/
   .predictor-row[data-p="Gerf"]  .predictor-pilot { color: var(--gerf); }
   .predictor-row[data-p="Mikey"] .predictor-pilot { color: var(--mikey); }
   .predictor-row[data-p="Jubee"] .predictor-pilot { color: var(--jubee); }
+  .predictor-guest-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    cursor: pointer;
+    margin-top: 10px;
+    user-select: none;
+  }
+  .predictor-guest-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
   .predictor-input {
     background: var(--bg);
     border: 1px solid var(--line);
@@ -801,6 +818,15 @@ permalink: /commander/game-history/
   <div class="predictor" id="predictor" style="display:none">
     <div class="predictor-title">Pod Predictor — historical win % by commander</div>
     <div id="predictor-rows"></div>
+    <label class="predictor-guest-label">
+      <input type="checkbox" id="predictor-guest-check"> + Guest
+    </label>
+    <div class="predictor-row predictor-guest-row" id="predictor-guest-row" style="display:none">
+      <span class="predictor-pilot" style="color:var(--ink-faint)">Guest</span>
+      <span class="predictor-guest-note">unknown deck · 1500 MMR</span>
+      <span></span>
+      <span class="predictor-pct" id="pct-Guest">—</span>
+    </div>
   </div>
 
   <div class="cmdr-filter" id="cmdr-filter" style="display:none">
@@ -1040,7 +1066,7 @@ function buildPredictor() {
     row.className = 'predictor-row';
     row.dataset.p = pilot;
     row.innerHTML = `
-      <span class="predictor-pilot">${pilot === 'Jubee' ? 'Guest' : pilot}</span>
+      <span class="predictor-pilot">${pilot}</span>
       <input class="predictor-input" list="${dlId}" placeholder="Commander…" data-pilot="${pilot}">
       <span class="predictor-badges" id="pbadges-${pilot}"></span>
       <span class="predictor-pct no-data" id="pct-${pilot}">—</span>
@@ -1049,6 +1075,7 @@ function buildPredictor() {
   });
 
   container.addEventListener('input', updatePredictor);
+  document.getElementById('predictor-guest-check').addEventListener('change', updatePredictor);
   document.getElementById('predictor').style.display = '';
 
   // Build all-commanders datalist for the filter box
@@ -1095,9 +1122,29 @@ function updatePredictor() {
     }
   });
 
+  // Factor in guest at neutral 25% win rate (1500 MMR baseline)
+  const guestChecked = document.getElementById('predictor-guest-check')?.checked;
+  const guestRow = document.getElementById('predictor-guest-row');
+  if (guestChecked) {
+    rates['Guest'] = 0.25;
+    if (guestRow) guestRow.style.display = '';
+  } else {
+    if (guestRow) guestRow.style.display = 'none';
+  }
+
   // Normalize the rates that have data
-  const values = PILOTS.map(p => rates[p]).filter(v => v !== null);
+  const activePilots = guestChecked ? [...PILOTS, 'Guest'] : PILOTS;
+  const values = activePilots.map(p => rates[p]).filter(v => v !== null);
   const total = values.reduce((a, b) => a + b, 0);
+
+  // Guest pct
+  if (guestChecked) {
+    const el = document.getElementById('pct-Guest');
+    if (el) {
+      el.textContent = total > 0 ? ((rates['Guest'] / total) * 100).toFixed(1) + '%' : '—';
+      el.className = 'predictor-pct';
+    }
+  }
 
   PILOTS.forEach(pilot => {
     const input = document.querySelector(`.predictor-input[data-pilot="${pilot}"]`);
