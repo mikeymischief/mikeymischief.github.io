@@ -163,7 +163,7 @@ permalink: /commander/
     background-position: center 60%;
     border-radius: 0;
     overflow: hidden;
-    padding: 18px 24px 22px;
+    padding: 18px 24px 0;
     margin-bottom: 24px;
   }
   #showcase-banner::before {
@@ -213,11 +213,13 @@ permalink: /commander/
     min-width: 0;
   }
 
-  /* Override circular avatar styles for showcase — flat rectangular card art */
+  /* Override circular avatar styles for showcase — rectangular card art with rounded corners */
   #showcase-banner .cmdr-avatar {
     width: 100%;
     height: 110px;
-    border-radius: 0;
+    border-radius: 6px;
+    clip-path: none;
+    border: none;
     object-fit: cover;
     object-position: center top;
     background: rgba(255,255,255,0.08);
@@ -233,6 +235,9 @@ permalink: /commander/
     flex: 1 1 0;
     min-width: 0;
     width: 0;
+    clip-path: none;
+    border-radius: 6px;
+    border: none;
   }
 
   .showcase-pilot-name {
