@@ -161,7 +161,7 @@ permalink: /commander/
     background-image: url('/images/bg/Scrawling-Crawler-Foundations-Mtg-Art.jpg');
     background-size: cover;
     background-position: center 60%;
-    border-radius: 10px;
+    border-radius: 0;
     overflow: hidden;
     padding: 18px 24px 22px;
     margin-bottom: 24px;
@@ -211,11 +211,12 @@ permalink: /commander/
     gap: 6px;
     flex: 1;
     min-width: 0;
+    max-width: 80px;
   }
 
-  /* Override circular avatar for showcase — tall rectangular card art */
+  /* Override circular avatar styles for showcase — tall rectangular card art.
+     Width is intentionally absent here; .showcase-art flex controls it. */
   #showcase-banner .cmdr-avatar {
-    width: 100%;
     aspect-ratio: 5 / 7;
     height: auto;
     border-radius: 3px;
@@ -224,15 +225,16 @@ permalink: /commander/
     background: rgba(255,255,255,0.08);
     display: block;
   }
-  /* Art wrapper fills player slot width */
+  /* Art wrapper fills player slot; each img grows equally (handles 1 or 2 cmdrs) */
   .showcase-art {
     display: flex;
     gap: 3px;
     width: 100%;
   }
-  .showcase-art .cmdr-avatar {
-    flex: 1;
-    width: 0; /* let flex sizing take over */
+  #showcase-banner .showcase-art .cmdr-avatar {
+    flex: 1 1 0;
+    min-width: 0;
+    width: 0;
   }
 
   .showcase-pilot-name {
