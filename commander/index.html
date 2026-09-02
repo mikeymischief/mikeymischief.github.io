@@ -1079,22 +1079,23 @@ function renderShowcaseGames() {
   try { games = JSON.parse(localStorage.getItem('showcaseGames') || '[]'); } catch(e) {}
   if (!games.length) { showcaseBanner.classList.add('hidden'); return; }
   showcaseList.innerHTML = games.map(g => {
-    // Support both new {players:[{pilot,cmdr,winPct}]} and legacy formats
+    // Support both {players:[{pilot,cmdr}]} and legacy formats
     const players = (g.players
       ? g.players.filter(p => p.cmdr)
       : (g.commanders || []).map(c => ({ pilot: '', cmdr: c })));
     const playersHtml = players.map(p => {
-      const pctDisplay = (p.winPct != null && p.winPct !== '') ? `${parseFloat(p.winPct).toFixed(1)}%` : '';
       const cmdrParts = normalizeCmdr(p.cmdr).split(' / ');
       const isDual = cmdrParts.length > 1;
       const imgs = cmdrParts.map(part =>
         `<img class="cmdr-avatar" data-cmdr="${escHtml(part.trim())}" alt="${escHtml(part.trim())}">`
       ).join('');
       const artHtml = `<div class="showcase-art${isDual ? ' dual' : ''}">${imgs}</div>`;
+      const pilotAttr = p.pilot ? ` data-pilot="${escHtml(p.pilot)}"` : '';
+      const cmdrAttr  = ` data-cmdr="${escHtml(normalizeCmdr(p.cmdr))}"`;
       return `<div class="showcase-player">
         ${artHtml}
         ${p.pilot ? `<div class="showcase-pilot-name" data-p="${escHtml(p.pilot)}">${escHtml(p.pilot)}</div>` : ''}
-        ${pctDisplay ? `<div class="showcase-win-pct">${pctDisplay}</div>` : ''}
+        <div class="showcase-win-pct"${pilotAttr}${cmdrAttr}>—</div>
       </div>`;
     }).join('');
     return `<div class="showcase-game">
@@ -1103,8 +1104,26 @@ function renderShowcaseGames() {
     </div>`;
   }).join('');
   showcaseBanner.classList.remove('hidden');
-  // Load commander art images after rendering
   loadAvatarImages(showcaseBanner);
+}
+
+// Called after games CSV loads — fills in win probabilities from current MMR
+function updateShowcaseWinPcts(mmrMap) {
+  document.querySelectorAll('#showcase-games-list .showcase-game').forEach(gameEl => {
+    const pctEls = Array.from(gameEl.querySelectorAll('.showcase-win-pct[data-cmdr]'));
+    if (!pctEls.length) return;
+    // skill = 10^(mmr/400) for Elo-based multi-player win probability
+    const skills = pctEls.map(el => {
+      const pilot = el.dataset.pilot || '';
+      const cmdr  = el.dataset.cmdr  || '';
+      const mmr = mmrMap[`${pilot}|${cmdr}`] || mmrMap[`|${cmdr}`] || 1500;
+      return Math.pow(10, mmr / 400);
+    });
+    const total = skills.reduce((a, b) => a + b, 0);
+    pctEls.forEach((el, i) => {
+      el.textContent = `${((skills[i] / total) * 100).toFixed(1)}%`;
+    });
+  });
 }
 
 renderNextSession();
@@ -1134,6 +1153,18 @@ Papa.parse(GAMES_CSV_URL, {
     if (results.data && results.data.length > 1) {
       const rows = results.data.slice(1);
       ({ tierMap: _tierMap, activeSet: _activeSet } = buildTierAndActiveSet(rows));
+      // Build current-MMR map for showcase win probability calculation
+      // G: pilot=6, commander=7, endMmr=9
+      const mmrMap = {};
+      rows.forEach(row => {
+        const pilot = (row[6] || '').trim();
+        const cmdr  = normalizeCmdr(row[7] || '');
+        const endMmr = parseFloat(row[9]);
+        if (pilot && cmdr && !isNaN(endMmr)) {
+          mmrMap[`${pilot}|${cmdr}`] = endMmr; // later rows overwrite → most recent wins
+        }
+      });
+      updateShowcaseWinPcts(mmrMap);
     }
     tryInitSpotlight();
   },
