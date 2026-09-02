@@ -568,21 +568,24 @@ sgRender();
 
 // ── Populate per-pilot datalists from DECK CSV ────────────────────────────
 // Uses normalizeCmdr + stripPilotSuffix from commander-utils.js
-// All commanders (played or not) live in the deck info sheet.
+// col 0 = pilot name, col 1 = commander name
 _csvConfigReady.then(() => {
   Papa.parse(DECK_CSV_URL, {
     download: true,
     complete: function(results) {
-      const names = new Set();
+      const pilotNameSets = {};
+      PILOTS.forEach(p => { pilotNameSets[p] = new Set(); });
       (results.data || []).slice(1).forEach(row => {
+        const pilotRaw = (row[0] || '').trim();
         const name = stripPilotSuffix(normalizeCmdr(row[1] || ''));
-        if (name) names.add(name);
+        if (!name) return;
+        const matched = PILOTS.find(p => p.toLowerCase() === pilotRaw.toLowerCase());
+        if (matched) pilotNameSets[matched].add(name);
       });
-      const sorted = [...names].sort((a, b) => a.localeCompare(b))
-        .map(n => `<option value="${escHtml(n)}">`).join('');
       PILOTS.forEach(pilot => {
         const dl = document.getElementById(`sg-dl-${pilot.toLowerCase()}`);
-        if (dl) dl.innerHTML = sorted;
+        if (dl) dl.innerHTML = [...pilotNameSets[pilot]].sort((a, b) => a.localeCompare(b))
+          .map(n => `<option value="${escHtml(n)}">`).join('');
       });
     },
   });
