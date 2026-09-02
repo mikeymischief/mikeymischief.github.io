@@ -1,13 +1,12 @@
-// ── Shared CSV endpoints — sourced from /data/config.json ────────────────────
-// To update after a Google Sheets republish: edit /data/config.json only.
-let GAMES_CSV_URL     = '';
-let DECK_CSV_URL      = '';
-let CMDRSTATS_CSV_URL = '';
+// ── URL globals + string helpers live in /assets/commander-utils.js ──────────
+// (escHtml, normalizeCmdr, stripPilotSuffix, GAMES_CSV_URL, DECK_CSV_URL,
+//  CMDRSTATS_CSV_URL, _csvConfigReady — all defined there, loaded first)
 
+// ── Deck art overrides — fetched once config URLs are ready ───────────────────
 let _deckInfoResolve;
 const _deckInfoReady = new Promise(resolve => { _deckInfoResolve = resolve; });
 
-function _initDeckInfo() {
+_csvConfigReady.then(() => {
   Papa.parse(DECK_CSV_URL, {
     download: true,
     complete: r => {
@@ -24,16 +23,7 @@ function _initDeckInfo() {
     },
     error: _deckInfoResolve,
   });
-}
-
-const _csvConfigReady = fetch('/data/config.json')
-  .then(r => r.json())
-  .then(cfg => {
-    GAMES_CSV_URL     = cfg.games;
-    DECK_CSV_URL      = cfg.deck;
-    CMDRSTATS_CSV_URL = cfg.cmdrstats;
-    _initDeckInfo();
-  });
+});
 
 // ── Games CSV column indices ──────────────────────────────────────────────────
 const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, kingme:5, pilot:6, commander:7, startMmr:8, endMmr:9, delta:10, winProb:11, cmdrPlays:12, notes:13 };
@@ -43,18 +33,6 @@ const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
 const CACHE_TTL = 7 * 24 * 60 * 60 * 1000;
 const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
 const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#85B7EB', Jubee: '#F472B6' };
-
-function escHtml(s) {
-  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-function normalizeCmdr(v) {
-  if (!v) return '';
-  // Newline = partner pair separator → ' / '
-  return v.replace(/\r?\n/g, ' / ').trim();
-}
-function stripPilotSuffix(name) {
-  return name.replace(/\s*\([A-Za-z]\)\s*$/, '').trim();
-}
 function cmdrAvatarHtml(val) {
   const normalized = normalizeCmdr(val);
   const parts = normalized.split(' / ');

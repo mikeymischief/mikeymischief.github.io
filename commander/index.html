@@ -155,6 +155,74 @@ permalink: /commander/
     margin-left: auto;
   }
 
+  /* ── Showcase Games Banner ── */
+  #showcase-banner {
+    position: relative;
+    background-image: url('/images/bg/Scrawling-Crawler-Foundations-Mtg-Art.jpg');
+    background-size: cover;
+    background-position: center 60%;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+  }
+  #showcase-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(13,15,26,0.95) 0%, rgba(13,15,26,0.82) 55%, rgba(13,15,26,0.55) 100%);
+  }
+  #showcase-banner > * { position: relative; z-index: 1; }
+  #showcase-banner.hidden { display: none !important; }
+
+  .showcase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .showcase-games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .showcase-game-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+
+  .showcase-game-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.92rem;
+    color: #e8d5a3;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+
+  .showcase-game-cmdrs {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .showcase-pilot { font-weight: 600; }
+  .showcase-pilot[data-p="Brian"] { color: #e08585; }
+  .showcase-pilot[data-p="Gerf"]  { color: #7fc98f; }
+  .showcase-pilot[data-p="Mikey"] { color: #85B7EB; }
+  .showcase-pilot[data-p="Jubee"] { color: #F472B6; }
+  .showcase-arrow { opacity: 0.4; }
+
+  @media (max-width: 600px) {
+    .showcase-game-row { flex-direction: column; gap: 2px; }
+    .showcase-game-cmdrs { white-space: normal; }
+  }
+
   /* ── Commander Spotlight ── */
   .sp-art {
     position: absolute;
@@ -614,6 +682,13 @@ permalink: /commander/
     <span class="session-countdown" id="session-countdown"></span>
   </div>
 
+  <div id="showcase-banner" class="hidden">
+    <div class="showcase-header">
+      <span class="session-label">Showcase Games</span>
+    </div>
+    <div id="showcase-games-list" class="showcase-games-list"></div>
+  </div>
+
   <a id="commander-spotlight" class="spotlight" href="/commander/game-history/">
     <div id="sp-art" class="sp-art"></div>
     <div class="spotlight-inner">
@@ -830,6 +905,7 @@ permalink: /commander/
 </div><!-- /.page-wrapper -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="/assets/commander-utils.js"></script>
 <script src="/assets/commander-stats.js"></script>
 <script>
 let _tierMap = {};
@@ -949,13 +1025,47 @@ function renderNextSession() {
   if (isNaN(date)) { banner.classList.add('hidden'); return; }
   const now = new Date();
   const days = Math.round((date - now) / (1000 * 60 * 60 * 24));
+  // Auto-expire: once the session date has passed, clear both next session and showcase games
+  if (days < 0) {
+    localStorage.removeItem('nextSession');
+    localStorage.removeItem('showcaseGames');
+    banner.classList.add('hidden');
+    return;
+  }
   const label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-  const countdown = days > 0 ? `in ${days} day${days === 1 ? '' : 's'}` : days === 0 ? 'today' : `${Math.abs(days)} day${Math.abs(days) === 1 ? '' : 's'} ago`;
+  const countdown = days > 0 ? `in ${days} day${days === 1 ? '' : 's'}` : 'today';
   document.getElementById('session-date').textContent = label;
   document.getElementById('session-countdown').textContent = countdown;
   banner.classList.remove('hidden');
 }
+
+function renderShowcaseGames() {
+  const showcaseBanner = document.getElementById('showcase-banner');
+  const showcaseList   = document.getElementById('showcase-games-list');
+  let games = [];
+  try { games = JSON.parse(localStorage.getItem('showcaseGames') || '[]'); } catch(e) {}
+  if (!games.length) { showcaseBanner.classList.add('hidden'); return; }
+  showcaseList.innerHTML = games.map(g => {
+    // Support both new {players:[{pilot,cmdr}]} and legacy {commanders:[]} formats
+    const players = g.players
+      ? g.players.filter(p => p.cmdr)
+      : (g.commanders || []).map(c => ({ pilot: '', cmdr: c }));
+    const cmdrsHtml = players.map(p =>
+      p.pilot
+        ? `<span class="showcase-pilot" data-p="${p.pilot}">${p.pilot}</span><span class="showcase-arrow"> → </span>${p.cmdr}`
+        : p.cmdr
+    ).join(' &nbsp;·&nbsp; ');
+    return `
+      <div class="showcase-game-row">
+        <span class="showcase-game-title">${g.title || '(untitled)'}</span>
+        <span class="showcase-game-cmdrs">${cmdrsHtml}</span>
+      </div>`;
+  }).join('');
+  showcaseBanner.classList.remove('hidden');
+}
+
 renderNextSession();
+renderShowcaseGames();
 
 let _statRows = null;
 let _pendingFetches = 3;

@@ -7,7 +7,7 @@ permalink: /admin/
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Set Next Session — Mischief's Gaming Blog</title>
+<title>Admin — Mischief's Gaming Blog</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -15,22 +15,28 @@ permalink: /admin/
     --bg: #0d0f1a;
     --gold: #d4af37;
     --bg-raised: #1c1e26;
+    --bg-deep: #13151f;
     --line: #2c2e38;
     --ink: #e9e8e4;
     --ink-dim: #9a9aa4;
     --ink-faint: #5c5d68;
+    --brian: #e08585;
+    --gerf:  #7fc98f;
+    --mikey: #85B7EB;
+    --jubee: #F472B6;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; min-height: 100vh; }
   body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; padding: 40px 24px; }
 
+  /* ── Cards ── */
   .card {
     background: var(--bg-raised);
     border: 1px solid var(--line);
     border-radius: 14px;
     overflow: hidden;
     width: 100%;
-    max-width: 420px;
+    max-width: 460px;
   }
   .card-hero {
     position: relative;
@@ -45,7 +51,7 @@ permalink: /admin/
     inset: 0;
     background: linear-gradient(to bottom, rgba(13,15,26,0.1) 0%, rgba(13,15,26,0.7) 60%, rgba(13,15,26,0.97) 100%);
   }
-  .card-body { padding: 24px 40px 36px; }
+  .card-body { padding: 24px 32px 36px; }
   .eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -70,7 +76,8 @@ permalink: /admin/
     color: var(--ink-faint);
     margin-bottom: 8px;
   }
-  input[type="date"] {
+  input[type="date"],
+  input[type="text"] {
     width: 100%;
     background: var(--bg);
     border: 1px solid var(--line);
@@ -81,10 +88,13 @@ permalink: /admin/
     padding: 10px 14px;
     margin-bottom: 20px;
     outline: none;
-    color-scheme: dark;
   }
-  input[type="date"]:focus { border-color: var(--gold); }
+  input[type="date"] { color-scheme: dark; }
+  input[type="date"]:focus,
+  input[type="text"]:focus { border-color: var(--gold); }
+  input[type="text"]::placeholder { color: var(--ink-faint); }
 
+  /* ── Buttons ── */
   .btn-row { display: flex; gap: 10px; }
   button {
     flex: 1;
@@ -110,6 +120,7 @@ permalink: /admin/
     color: var(--ink-faint);
   }
 
+  /* ── Preview / Toast ── */
   .preview {
     margin-top: 24px;
     padding: 14px 18px;
@@ -138,7 +149,6 @@ permalink: /admin/
     color: var(--ink-faint);
     margin-top: 2px;
   }
-
   .toast {
     margin-top: 16px;
     font-family: 'JetBrains Mono', monospace;
@@ -147,9 +157,136 @@ permalink: /admin/
     color: var(--gold);
     min-height: 18px;
   }
+
+  /* ── Showcase: saved game rows ── */
+  .sg-game-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg-deep);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .sg-game-info { flex: 1; min-width: 0; }
+  .sg-game-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.88rem;
+    color: #e8d5a3;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .sg-game-players {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .sg-game-player {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sg-game-player .p-name { font-weight: 600; }
+  .sg-game-player[data-p="Brian"] .p-name { color: var(--brian); }
+  .sg-game-player[data-p="Gerf"]  .p-name { color: var(--gerf); }
+  .sg-game-player[data-p="Mikey"] .p-name { color: var(--mikey); }
+  .sg-game-player[data-p="Jubee"] .p-name { color: var(--jubee); }
+  .sg-del {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid #4a2020;
+    border-radius: 6px;
+    color: #c05050;
+    font-size: 13px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    flex: 0;
+    min-width: unset;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .sg-del:hover { background: rgba(200,50,50,0.12); opacity: 1; }
+  .sg-empty {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    padding: 6px 0 18px;
+  }
+
+  /* ── Showcase: predictor-style pod input ── */
+  .sg-predictor {
+    background: var(--bg-deep);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+  }
+  .sg-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+  .sg-pod-row {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .sg-pod-row:last-child { margin-bottom: 0; }
+  .sg-pod-pilot {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-dim);
+  }
+  .sg-pod-row[data-p="Brian"] .sg-pod-pilot { color: var(--brian); }
+  .sg-pod-row[data-p="Gerf"]  .sg-pod-pilot { color: var(--gerf);  }
+  .sg-pod-row[data-p="Mikey"] .sg-pod-pilot { color: var(--mikey); }
+  /* Guest row: both cells are inputs */
+  .sg-pod-row-guest { grid-template-columns: 90px 1fr; }
+  .sg-pod-name-input {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 8px;
+    width: 100%;
+    outline: none;
+    margin-bottom: 0;
+  }
+  .sg-pod-name-input:focus { border-color: var(--ink-faint); }
+  .sg-pod-name-input::placeholder { color: var(--ink-faint); font-size: 11px; }
+  .sg-pod-input {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 6px 10px;
+    width: 100%;
+    outline: none;
+    /* override the global input[type="text"] margin/sizing */
+    margin-bottom: 0;
+  }
+  .sg-pod-input:focus { border-color: var(--ink-faint); }
+  .sg-pod-input::placeholder { color: var(--ink-faint); font-size: 12px; }
 </style>
 </head>
 <body>
+
+<!-- ── Commander Next Session ───────────────────────────────────────────── -->
 <div class="card">
   <div class="card-hero"></div>
   <div class="card-body">
@@ -175,6 +312,38 @@ permalink: /admin/
   </div>
 </div>
 
+<!-- ── Showcase Games ────────────────────────────────────────────────────── -->
+<div class="card">
+  <div class="card-hero" style="background-image:url('/images/bg/Scrawling-Crawler-Foundations-Mtg-Art.jpg'); background-position: center 35%;"></div>
+  <div class="card-body">
+  <div class="eyebrow">Commander Stats</div>
+  <h1>Showcase Games</h1>
+
+  <!-- Saved games -->
+  <div id="sg-list"></div>
+
+  <!-- Add a game -->
+  <label for="sg-title-input">Game Title</label>
+  <input type="text" id="sg-title-input" placeholder="e.g. The Dragon Duel">
+
+  <div class="sg-predictor">
+    <div class="sg-section-label">Pod — commander per pilot</div>
+    <div id="sg-pod-rows">
+      <!-- built by JS -->
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-save" onclick="sgAdd()">Save Game</button>
+    <button class="btn-clear" onclick="sgClearAll()">Clear All</button>
+  </div>
+
+  <div class="toast" id="sg-toast"></div>
+  <a href="/commander/" style="display:block;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none;">← Commander Stats</a>
+  </div>
+</div>
+
+<!-- ── Puerto Rico Next Session ──────────────────────────────────────────── -->
 <div class="card">
   <div class="card-hero" style="background-image:url('/images/PuertoRico/puerto-rico-1897-special-edition-box-cover-art-header.jpeg'); background-position: center 20%;"></div>
   <div class="card-body">
@@ -200,12 +369,15 @@ permalink: /admin/
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="/assets/commander-utils.js"></script>
 <script>
-const input = document.getElementById('date-input');
-const preview = document.getElementById('preview');
+// ── Commander Next Session ────────────────────────────────────────────────
+const input       = document.getElementById('date-input');
+const preview     = document.getElementById('preview');
 const previewDate = document.getElementById('preview-date');
-const previewCount = document.getElementById('preview-count');
-const toast = document.getElementById('toast');
+const previewCount= document.getElementById('preview-count');
+const toast       = document.getElementById('toast');
 
 function formatPreview(val) {
   const date = new Date(val + 'T00:00:00');
@@ -223,16 +395,10 @@ input.addEventListener('change', () => {
 });
 
 function save() {
-  if (!input.value) {
-    localStorage.removeItem('nextSession');
-    preview.classList.remove('visible');
-    flash(toast, 'Cleared.');
-    return;
-  }
+  if (!input.value) { localStorage.removeItem('nextSession'); preview.classList.remove('visible'); flash(toast, 'Cleared.'); return; }
   localStorage.setItem('nextSession', input.value);
   flash(toast, 'Saved — dashboard updated.');
 }
-
 function clear() {
   localStorage.removeItem('nextSession');
   input.value = '';
@@ -240,12 +406,12 @@ function clear() {
   flash(toast, 'Cleared.');
 }
 
-// PR card
-const prInput = document.getElementById('pr-date-input');
-const prPreview = document.getElementById('pr-preview');
+// ── Puerto Rico Next Session ──────────────────────────────────────────────
+const prInput       = document.getElementById('pr-date-input');
+const prPreview     = document.getElementById('pr-preview');
 const prPreviewDate = document.getElementById('pr-preview-date');
-const prPreviewCount = document.getElementById('pr-preview-count');
-const prToast = document.getElementById('pr-toast');
+const prPreviewCount= document.getElementById('pr-preview-count');
+const prToast       = document.getElementById('pr-toast');
 
 function formatPrPreview(val) {
   const date = new Date(val + 'T00:00:00');
@@ -263,16 +429,10 @@ prInput.addEventListener('change', () => {
 });
 
 function prSave() {
-  if (!prInput.value) {
-    localStorage.removeItem('nextSessionPR');
-    prPreview.classList.remove('visible');
-    flash(prToast, 'Cleared.');
-    return;
-  }
+  if (!prInput.value) { localStorage.removeItem('nextSessionPR'); prPreview.classList.remove('visible'); flash(prToast, 'Cleared.'); return; }
   localStorage.setItem('nextSessionPR', prInput.value);
   flash(prToast, 'Saved — PR page updated.');
 }
-
 function prClear() {
   localStorage.removeItem('nextSessionPR');
   prInput.value = '';
@@ -285,11 +445,154 @@ function flash(el, msg) {
   setTimeout(() => el.textContent = '', 2500);
 }
 
-// Load existing values
+// Load existing date values
 const stored = localStorage.getItem('nextSession');
 if (stored) { input.value = stored; formatPreview(stored); }
 const prStored = localStorage.getItem('nextSessionPR');
 if (prStored) { prInput.value = prStored; formatPrPreview(prStored); }
+
+// ── Showcase Games ────────────────────────────────────────────────────────
+// Data format: { title: string, players: [{pilot, cmdr}] }
+// Core three pilots are fixed; fourth slot is a free-text guest.
+const PILOTS = ['Brian', 'Gerf', 'Mikey'];
+
+// CMDRSTATS block offsets (col of commander name per pilot)
+const _CMDR_BLOCKS = { Brian: 0, Gerf: 14, Mikey: 28 };
+const _CMDR_DATA_START_ROW = 3;
+
+const sgToast      = document.getElementById('sg-toast');
+const sgList       = document.getElementById('sg-list');
+const sgTitleInput = document.getElementById('sg-title-input');
+const sgPodRows    = document.getElementById('sg-pod-rows');
+
+// Build fixed rows for core pilots
+PILOTS.forEach(pilot => {
+  const dlId = `sg-dl-${pilot.toLowerCase()}`;
+  const dl = document.createElement('datalist');
+  dl.id = dlId;
+  document.body.appendChild(dl);
+
+  const row = document.createElement('div');
+  row.className = 'sg-pod-row';
+  row.dataset.p = pilot;
+  row.innerHTML = `
+    <span class="sg-pod-pilot">${pilot}</span>
+    <input class="sg-pod-input" type="text" list="${dlId}" autocomplete="off"
+           placeholder="Commander…" id="sg-input-${pilot.toLowerCase()}">
+  `;
+  sgPodRows.appendChild(row);
+});
+
+// Fourth row: both pilot name and commander are free-text (guest slot)
+(function() {
+  const row = document.createElement('div');
+  row.className = 'sg-pod-row sg-pod-row-guest';
+  row.innerHTML = `
+    <input class="sg-pod-name-input" type="text" id="sg-input-guest-name" placeholder="Guest…" autocomplete="off">
+    <input class="sg-pod-input" type="text" id="sg-input-guest-cmdr" autocomplete="off" placeholder="Commander…">
+  `;
+  sgPodRows.appendChild(row);
+})();
+
+function sgLoad() {
+  try { return JSON.parse(localStorage.getItem('showcaseGames') || '[]'); } catch(e) { return []; }
+}
+function sgSave(games) {
+  localStorage.setItem('showcaseGames', JSON.stringify(games));
+}
+
+function sgRender() {
+  const games = sgLoad();
+  if (!games.length) {
+    sgList.innerHTML = '<div class="sg-empty">No showcase games set.</div>';
+    return;
+  }
+  sgList.innerHTML = games.map((g, i) => {
+    // Support both legacy {commanders:[]} and current {players:[{pilot,cmdr}]} formats
+    const players = g.players
+      || (g.commanders || []).map(c => ({ pilot: '', cmdr: c }));
+    const playerRows = players
+      .filter(p => p.cmdr)
+      .map(p => `<div class="sg-game-player" data-p="${escHtml(p.pilot)}">
+        ${p.pilot ? `<span class="p-name">${escHtml(p.pilot)}</span> → ` : ''}${escHtml(p.cmdr)}
+      </div>`)
+      .join('');
+    return `
+      <div class="sg-game-row">
+        <div class="sg-game-info">
+          <div class="sg-game-title">${escHtml(g.title || '(untitled)')}</div>
+          <div class="sg-game-players">${playerRows}</div>
+        </div>
+        <button class="sg-del" onclick="sgDelete(${i})">✕</button>
+      </div>`;
+  }).join('');
+}
+
+function sgAdd() {
+  const title = sgTitleInput.value.trim();
+  if (!title) { flash(sgToast, 'Enter a game title.'); return; }
+  const players = PILOTS.map(pilot => ({
+    pilot,
+    cmdr: (document.getElementById(`sg-input-${pilot.toLowerCase()}`)?.value || '').trim(),
+  }));
+  // Guest slot
+  const guestName = (document.getElementById('sg-input-guest-name')?.value || '').trim();
+  const guestCmdr = (document.getElementById('sg-input-guest-cmdr')?.value || '').trim();
+  if (guestName || guestCmdr) players.push({ pilot: guestName, cmdr: guestCmdr });
+  const games = sgLoad();
+  games.push({ title, players });
+  sgSave(games);
+  sgTitleInput.value = '';
+  PILOTS.forEach(p => { const el = document.getElementById(`sg-input-${p.toLowerCase()}`); if (el) el.value = ''; });
+  document.getElementById('sg-input-guest-name').value = '';
+  document.getElementById('sg-input-guest-cmdr').value = '';
+  sgRender();
+  flash(sgToast, 'Game saved.');
+}
+
+function sgDelete(idx) {
+  const games = sgLoad();
+  games.splice(idx, 1);
+  sgSave(games);
+  sgRender();
+  flash(sgToast, 'Game removed.');
+}
+
+function sgClearAll() {
+  localStorage.removeItem('showcaseGames');
+  sgRender();
+  flash(sgToast, 'All showcase games cleared.');
+}
+
+sgRender();
+
+// ── Populate per-pilot datalists from CMDRSTATS CSV ───────────────────────
+// Uses normalizeCmdr + stripPilotSuffix from commander-utils.js
+_csvConfigReady.then(() => {
+  Papa.parse(CMDRSTATS_CSV_URL, {
+    download: true,
+    complete: function(results) {
+      const rows = results.data || [];
+      // Per-pilot datalists for the three core pilots
+      PILOTS.forEach(pilot => {
+        const start = _CMDR_BLOCKS[pilot];
+        const names = new Set();
+        for (let r = _CMDR_DATA_START_ROW; r < rows.length; r++) {
+          const raw = (rows[r][start] || '').trim();
+          if (!raw) break;
+          normalizeCmdr(raw).split(' / ').forEach(part => {
+            const name = stripPilotSuffix(part.trim());
+            if (name) names.add(name);
+          });
+        }
+        const dl = document.getElementById(`sg-dl-${pilot.toLowerCase()}`);
+        if (dl) dl.innerHTML = [...names].sort((a, b) => a.localeCompare(b))
+          .map(n => `<option value="${escHtml(n)}">`).join('');
+      });
+
+    }
+  });
+}).catch(() => {});
 </script>
 </body>
 </html>
