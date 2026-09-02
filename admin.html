@@ -566,30 +566,25 @@ function sgClearAll() {
 
 sgRender();
 
-// ── Populate per-pilot datalists from CMDRSTATS CSV ───────────────────────
+// ── Populate per-pilot datalists from DECK CSV ────────────────────────────
 // Uses normalizeCmdr + stripPilotSuffix from commander-utils.js
+// All commanders (played or not) live in the deck info sheet.
 _csvConfigReady.then(() => {
-  Papa.parse(CMDRSTATS_CSV_URL, {
+  Papa.parse(DECK_CSV_URL, {
     download: true,
     complete: function(results) {
-      const rows = results.data || [];
-      // Per-pilot datalists for the three core pilots
-      PILOTS.forEach(pilot => {
-        const start = _CMDR_BLOCKS[pilot];
-        const names = new Set();
-        for (let r = _CMDR_DATA_START_ROW; r < rows.length; r++) {
-          const raw = (rows[r][start] || '').trim();
-          if (!raw) break;
-          // Keep the full string so dual commanders appear as one option ("A / B")
-          const name = stripPilotSuffix(normalizeCmdr(raw));
-          if (name) names.add(name);
-        }
-        const dl = document.getElementById(`sg-dl-${pilot.toLowerCase()}`);
-        if (dl) dl.innerHTML = [...names].sort((a, b) => a.localeCompare(b))
-          .map(n => `<option value="${escHtml(n)}">`).join('');
+      const names = new Set();
+      (results.data || []).slice(1).forEach(row => {
+        const name = stripPilotSuffix(normalizeCmdr(row[1] || ''));
+        if (name) names.add(name);
       });
-
-    }
+      const sorted = [...names].sort((a, b) => a.localeCompare(b))
+        .map(n => `<option value="${escHtml(n)}">`).join('');
+      PILOTS.forEach(pilot => {
+        const dl = document.getElementById(`sg-dl-${pilot.toLowerCase()}`);
+        if (dl) dl.innerHTML = sorted;
+      });
+    },
   });
 }).catch(() => {});
 </script>
