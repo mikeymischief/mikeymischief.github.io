@@ -1040,7 +1040,7 @@ function buildPredictor() {
     row.className = 'predictor-row';
     row.dataset.p = pilot;
     row.innerHTML = `
-      <span class="predictor-pilot">${pilot}</span>
+      <span class="predictor-pilot">${pilot === 'Jubee' ? 'Guest' : pilot}</span>
       <input class="predictor-input" list="${dlId}" placeholder="Commander…" data-pilot="${pilot}">
       <span class="predictor-badges" id="pbadges-${pilot}"></span>
       <span class="predictor-pct no-data" id="pct-${pilot}">—</span>
