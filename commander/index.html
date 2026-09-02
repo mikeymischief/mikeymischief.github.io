@@ -240,6 +240,33 @@ permalink: /commander/
     border: none;
   }
 
+  .showcase-art-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  .showcase-cmdr-name {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .showcase-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+  }
+
   .showcase-pilot-name {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -254,9 +281,9 @@ permalink: /commander/
 
   .showcase-win-pct {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
+    font-size: 10px;
     font-variant-numeric: tabular-nums;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.4);
   }
 
   /* ── Commander Spotlight ── */
@@ -1087,18 +1114,28 @@ function renderShowcaseGames() {
       ? g.players.filter(p => p.cmdr)
       : (g.commanders || []).map(c => ({ pilot: '', cmdr: c })));
     const playersHtml = players.map(p => {
-      const cmdrParts = normalizeCmdr(p.cmdr).split(' / ');
+      const cmdrNorm = normalizeCmdr(p.cmdr);
+      const cmdrParts = cmdrNorm.split(' / ');
       const isDual = cmdrParts.length > 1;
       const imgs = cmdrParts.map(part =>
         `<img class="cmdr-avatar" data-cmdr="${escHtml(part.trim())}" alt="${escHtml(part.trim())}">`
       ).join('');
-      const artHtml = `<div class="showcase-art${isDual ? ' dual' : ''}">${imgs}</div>`;
+      const artLink = `/commander/game-history/?commander=${encodeURIComponent(cmdrNorm)}`;
+      const artHtml = `<a class="showcase-art-link" href="${artLink}">
+        <div class="showcase-art${isDual ? ' dual' : ''}">${imgs}</div>
+      </a>`;
       const pilotAttr = p.pilot ? ` data-pilot="${escHtml(p.pilot)}"` : '';
-      const cmdrAttr  = ` data-cmdr="${escHtml(normalizeCmdr(p.cmdr))}"`;
+      const cmdrAttr  = ` data-cmdr="${escHtml(cmdrNorm)}"`;
+      const pilotHtml = p.pilot
+        ? `<span class="showcase-pilot-name" data-p="${escHtml(p.pilot)}">${escHtml(p.pilot)}</span>`
+        : '';
       return `<div class="showcase-player">
         ${artHtml}
-        ${p.pilot ? `<div class="showcase-pilot-name" data-p="${escHtml(p.pilot)}">${escHtml(p.pilot)}</div>` : ''}
-        <div class="showcase-win-pct"${pilotAttr}${cmdrAttr}>—</div>
+        <div class="showcase-cmdr-name">${escHtml(cmdrNorm)}</div>
+        <div class="showcase-meta">
+          ${pilotHtml}
+          <span class="showcase-win-pct"${pilotAttr}${cmdrAttr}>—</span>
+        </div>
       </div>`;
     }).join('');
     return `<div class="showcase-game">
