@@ -580,10 +580,9 @@ _csvConfigReady.then(() => {
         for (let r = _CMDR_DATA_START_ROW; r < rows.length; r++) {
           const raw = (rows[r][start] || '').trim();
           if (!raw) break;
-          normalizeCmdr(raw).split(' / ').forEach(part => {
-            const name = stripPilotSuffix(part.trim());
-            if (name) names.add(name);
-          });
+          // Keep the full string so dual commanders appear as one option ("A / B")
+          const name = stripPilotSuffix(normalizeCmdr(raw));
+          if (name) names.add(name);
         }
         const dl = document.getElementById(`sg-dl-${pilot.toLowerCase()}`);
         if (dl) dl.innerHTML = [...names].sort((a, b) => a.localeCompare(b))
