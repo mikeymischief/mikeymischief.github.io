@@ -1154,16 +1154,14 @@ function updateShowcaseWinPcts() {
     const pctEls = Array.from(gameEl.querySelectorAll('.showcase-win-pct[data-cmdr]'));
     if (!pctEls.length) return;
 
-    const ratings = pctEls.map(el => _tsMap[el.dataset.cmdr || ''] || null);
-    if (ratings.every(r => r === null)) return;
+    // Use debut values for commanders not yet in _tsMap so the full pod is included
+    // in the calculation and all probabilities sum to 100% over all 4 players.
+    const ratings = pctEls.map(el => _tsMap[el.dataset.cmdr || ''] || { mu: TS_MU0, sigma: TS_SIG0, lastDate: null });
+    if (!ratings.length) return;
 
-    const available = ratings.filter(r => r !== null);
-    const pcts = tsPodWinProbs(available);
-
-    let avIdx = 0;
+    const pcts = tsPodWinProbs(ratings);
     pctEls.forEach((el, i) => {
-      if (ratings[i] === null) { el.textContent = '—'; return; }
-      el.textContent = `${pcts[avIdx++].toFixed(1)}%`;
+      el.textContent = `${pcts[i].toFixed(1)}%`;
     });
   });
 }
