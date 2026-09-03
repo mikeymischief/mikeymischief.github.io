@@ -1,5 +1,40 @@
 {
-  "nextSession": null,
-  "showcaseGames": [],
-  "nextSessionPR": null
+  "nextSession": "2026-09-19",
+  "nextSessionPR": "2026-09-13",
+  "showcaseGames": [
+    {
+      "title": "The Battle for Middle-Earth",
+      "players": [
+        {
+          "pilot": "Brian",
+          "cmdr": "Sauron, the Dark Lord"
+        },
+        {
+          "pilot": "Gerf",
+          "cmdr": "Frodo, Adventurous Hobbit / Sam, Loyal Attendant"
+        },
+        {
+          "pilot": "Mikey",
+          "cmdr": "The Great Goblin"
+        }
+      ]
+    },
+    {
+      "title": "The Losers Bracket",
+      "players": [
+        {
+          "pilot": "Brian",
+          "cmdr": "Aminatou, the Fateshifter"
+        },
+        {
+          "pilot": "Gerf",
+          "cmdr": "Auntie Ool, Cursewretch"
+        },
+        {
+          "pilot": "Mikey",
+          "cmdr": "Eloise, Nephalia Sleuth"
+        }
+      ]
+    }
+  ]
 }
