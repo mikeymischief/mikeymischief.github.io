@@ -1147,21 +1147,23 @@ function renderShowcaseGames() {
   loadAvatarImages(showcaseBanner);
 }
 
-// Called after games CSV loads — fills in win probabilities from current MMR
-function updateShowcaseWinPcts(mmrMap) {
+// Called after _tsMapReady resolves — fills in showcase win probabilities
+// using the shared TrueSkill formula from commander-utils.js.
+function updateShowcaseWinPcts() {
   document.querySelectorAll('#showcase-games-list .showcase-game').forEach(gameEl => {
     const pctEls = Array.from(gameEl.querySelectorAll('.showcase-win-pct[data-cmdr]'));
     if (!pctEls.length) return;
-    // skill = 10^(mmr/400) for Elo-based multi-player win probability
-    const skills = pctEls.map(el => {
-      const pilot = el.dataset.pilot || '';
-      const cmdr  = el.dataset.cmdr  || '';
-      const mmr = mmrMap[`${pilot}|${cmdr}`] || mmrMap[`|${cmdr}`] || 1500;
-      return Math.pow(10, mmr / 400);
-    });
-    const total = skills.reduce((a, b) => a + b, 0);
+
+    const ratings = pctEls.map(el => _tsMap[el.dataset.cmdr || ''] || null);
+    if (ratings.every(r => r === null)) return;
+
+    const available = ratings.filter(r => r !== null);
+    const pcts = tsPodWinProbs(available);
+
+    let avIdx = 0;
     pctEls.forEach((el, i) => {
-      el.textContent = `${((skills[i] / total) * 100).toFixed(1)}%`;
+      if (ratings[i] === null) { el.textContent = '—'; return; }
+      el.textContent = `${pcts[avIdx++].toFixed(1)}%`;
     });
   });
 }
@@ -1193,23 +1195,14 @@ Papa.parse(GAMES_CSV_URL, {
     if (results.data && results.data.length > 1) {
       const rows = results.data.slice(1);
       ({ tierMap: _tierMap, activeSet: _activeSet } = buildTierAndActiveSet(rows));
-      // Build current-MMR map for showcase win probability calculation
-      // G: pilot=6, commander=7, endMmr=9
-      const mmrMap = {};
-      rows.forEach(row => {
-        const pilot = (row[6] || '').trim();
-        const cmdr  = normalizeCmdr(row[7] || '');
-        const endMmr = parseFloat(row[9]);
-        if (pilot && cmdr && !isNaN(endMmr)) {
-          mmrMap[`${pilot}|${cmdr}`] = endMmr; // later rows overwrite → most recent wins
-        }
-      });
-      updateShowcaseWinPcts(mmrMap);
     }
     tryInitSpotlight();
   },
   error: function() { tryInitSpotlight(); }
 });
+
+// TrueSkill data is fetched globally by commander-utils.js via _tsMapReady.
+_tsMapReady.then(updateShowcaseWinPcts);
 
 Papa.parse(DECK_CSV_URL, {
   download: true,

@@ -1105,43 +1105,45 @@ function buildPredictor() {
 }
 
 function updatePredictor() {
-  const rates = {};
+  // Build rating lookup for each active pilot (null if no commander selected)
+  const guestChecked = document.getElementById('predictor-guest-check')?.checked;
+  const guestRow = document.getElementById('predictor-guest-row');
+  if (guestRow) guestRow.style.display = guestChecked ? '' : 'none';
+
+  const activePilots = guestChecked ? [...PILOTS, 'Guest'] : PILOTS;
+
+  // Map pilot → { mu, sigma } | null
+  const pilotRatings = {};
   PILOTS.forEach(pilot => {
     const input = document.querySelector(`.predictor-input[data-pilot="${pilot}"]`);
     const cmdr = input ? input.value.trim() : '';
-    const pilotStats = statsMap[pilot];
-    if (cmdr && pilotStats && pilotStats[cmdr]) {
-      const { wins, decisive } = pilotStats[cmdr];
-      rates[pilot] = decisive > 0 ? wins / decisive : null;
-    } else if (cmdr && pilotStats) {
-      // commander not found for this pilot — use their overall rate
-      const t = pilotStats._total;
-      rates[pilot] = t.decisive > 0 ? t.wins / t.decisive : null;
+    if (!cmdr) { pilotRatings[pilot] = null; return; }
+    const ts = _tsMap[cmdr];
+    if (ts) {
+      pilotRatings[pilot] = ts;
     } else {
-      rates[pilot] = null;
+      // Commander not yet in TS data (debut) — use starting values
+      pilotRatings[pilot] = { mu: TS_MU0, sigma: TS_SIG0 };
     }
   });
+  // Guest uses starting TrueSkill values (unknown deck = neutral rating)
+  // TS_MU0 / TS_SIG0 / tsPodWinProbs come from commander-utils.js
+  if (guestChecked) pilotRatings['Guest'] = { mu: TS_MU0, sigma: TS_SIG0 };
 
-  // Factor in guest at neutral 25% win rate (1500 MMR baseline)
-  const guestChecked = document.getElementById('predictor-guest-check')?.checked;
-  const guestRow = document.getElementById('predictor-guest-row');
-  if (guestChecked) {
-    rates['Guest'] = 0.25;
-    if (guestRow) guestRow.style.display = '';
-  } else {
-    if (guestRow) guestRow.style.display = 'none';
+  // Filter to pilots with a rating
+  const podPilots = activePilots.filter(p => pilotRatings[p] !== null);
+
+  // TrueSkill win probability via shared helper from commander-utils.js
+  const raw = {};
+  if (podPilots.length > 0) {
+    const pcts = tsPodWinProbs(podPilots.map(p => pilotRatings[p]));
+    podPilots.forEach((p, i) => { raw[p] = pcts[i]; });
   }
-
-  // Normalize the rates that have data
-  const activePilots = guestChecked ? [...PILOTS, 'Guest'] : PILOTS;
-  const values = activePilots.map(p => rates[p]).filter(v => v !== null);
-  const total = values.reduce((a, b) => a + b, 0);
-
-  // Guest pct
+  // Guest display
   if (guestChecked) {
     const el = document.getElementById('pct-Guest');
     if (el) {
-      el.textContent = total > 0 ? ((rates['Guest'] / total) * 100).toFixed(1) + '%' : '—';
+      el.textContent = raw['Guest'] !== undefined ? raw['Guest'].toFixed(1) + '%' : '—';
       el.className = 'predictor-pct';
     }
   }
@@ -1152,13 +1154,12 @@ function updatePredictor() {
     const el = document.getElementById(`pct-${pilot}`);
     const badgesEl = document.getElementById(`pbadges-${pilot}`);
 
-    if (rates[pilot] === null) {
+    if (!cmdr || raw[pilot] === undefined) {
       el.textContent = '—';
       el.className = 'predictor-pct no-data';
       if (badgesEl) badgesEl.textContent = '';
     } else {
-      const normalized = total > 0 ? (rates[pilot] / total) * 100 : 25;
-      el.textContent = normalized.toFixed(1) + '%';
+      el.textContent = raw[pilot].toFixed(1) + '%';
       el.className = 'predictor-pct';
 
       if (badgesEl && cmdr) {
@@ -1168,8 +1169,8 @@ function updatePredictor() {
         const lastSeen = lastSeenGameGlobal[cmdr];
         const isReunion = lastSeen !== undefined && (totalPodsGlobal - lastSeen) >= 20;
         badgesEl.innerHTML = [
-          isDebut     ? '<span class="badge" title="Commander debut">🔰</span>' : '',
-          isReunion   ? '<span class="badge" title="Returning after 20+ game absence">🪃</span>' : '',
+          isDebut      ? '<span class="badge" title="Commander debut">🔰</span>' : '',
+          isReunion    ? '<span class="badge" title="Returning after 20+ game absence">🪃</span>' : '',
           isUndefeated ? '<span class="badge" title="Pilot undefeated with this commander">🎯</span>' : '',
         ].join('');
       } else if (badgesEl) {
@@ -2188,6 +2189,13 @@ Papa.parse(GAMES_CSV_URL, {
   error: function(err) {
     showHistoryError('Could not load the Games sheet (' + err + ').');
   }
+});
+
+// Refresh predictor win %s once TrueSkill data is ready (fetched by commander-utils.js).
+// Handles the race between the games CSV and TS CSV completing.
+_tsMapReady.then(() => {
+  const pred = document.getElementById('predictor');
+  if (pred && pred.style.display !== 'none') updatePredictor();
 });
 
 }); // _csvConfigReady
