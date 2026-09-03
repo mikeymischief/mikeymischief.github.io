@@ -672,15 +672,17 @@ excerpt: Puerto Rico 1897 tracking hub — games, stats, and history for Mischie
     });
   });
 
-  // Load next PR session date from the Apps Script endpoint (SESSION_URL in config.json),
-  // falling back to /data/session.json if not yet configured.
+  // Load next PR session date from JSONBin via config.json.
   fetch('/data/config.json')
     .then(function(r) { return r.json(); })
     .catch(function() { return {}; })
     .then(function(cfg) {
-      return fetch(cfg.session || '/data/session.json')
-        .then(function(r) { return r.json(); })
-        .catch(function() { return {}; });
+      var bin = cfg.session_bin || '';
+      var key = cfg.session_key || '';
+      if (!bin) return fetch('/data/session.json').then(function(r) { return r.json(); }).catch(function() { return {}; });
+      return fetch('https://api.jsonbin.io/v3/b/' + bin + '/latest', {
+        headers: { 'X-Master-Key': key },
+      }).then(function(r) { return r.json(); }).then(function(d) { return d.record || {}; }).catch(function() { return {}; });
     })
     .then(function(s) {
       var stored = s.nextSessionPR || null;

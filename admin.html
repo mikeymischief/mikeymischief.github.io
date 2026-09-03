@@ -422,17 +422,13 @@ function ghStatus(type, msg) {
 }
 
 async function publishNow() {
-  if (!SESSION_URL) {
-    ghStatus('err', 'SESSION_URL not configured — add "session" key to data/config.json.');
+  if (!SESSION_BIN) {
+    ghStatus('err', 'SESSION_BIN not configured — add session_bin/session_key to data/config.json.');
     return;
   }
   ghStatus('busy', 'Publishing…');
   try {
-    // Apps Script 302-redirects POST requests and strips the body.
-    // Use GET with ?data= instead — Apps Script handles cross-origin GETs natively.
-    const url = SESSION_URL + '?data=' + encodeURIComponent(JSON.stringify(_state));
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    await saveSession(_state);
     ghStatus('ok', '✓ Published — live on all devices instantly.');
   } catch(e) {
     ghStatus('err', `Publish failed: ${e.message}`);
@@ -463,13 +459,13 @@ input.addEventListener('change', () => {
 
 function save() {
   _state.nextSession = input.value || null;
-  publishNow();
+  flash(toast, input.value ? 'Staged.' : 'Cleared.');
 }
 function clear() {
   input.value = '';
   preview.classList.remove('visible');
   _state.nextSession = null;
-  publishNow();
+  flash(toast, 'Cleared.');
 }
 
 // ── Puerto Rico Next Session ──────────────────────────────────────────────
@@ -496,13 +492,13 @@ prInput.addEventListener('change', () => {
 
 function prSave() {
   _state.nextSessionPR = prInput.value || null;
-  publishNow();
+  flash(prToast, prInput.value ? 'Staged.' : 'Cleared.');
 }
 function prClear() {
   prInput.value = '';
   prPreview.classList.remove('visible');
   _state.nextSessionPR = null;
-  publishNow();
+  flash(prToast, 'Cleared.');
 }
 
 function flash(el, msg) {
@@ -588,28 +584,24 @@ function sgAdd() {
   document.getElementById('sg-input-guest-name').value = '';
   document.getElementById('sg-input-guest-cmdr').value = '';
   sgRender();
-  publishNow();
+  flash(sgToast, 'Game added.');
 }
 
 function sgDelete(idx) {
   _state.showcaseGames.splice(idx, 1);
   sgRender();
-  publishNow();
+  flash(sgToast, 'Game removed.');
 }
 
 function sgClearAll() {
   _state.showcaseGames = [];
   sgRender();
-  publishNow();
+  flash(sgToast, 'Cleared.');
 }
 
 // ── Load current session data into the admin on page load ─────────────────
-// Reads from the Apps Script endpoint once config is ready, falls back to
-// /data/session.json if SESSION_URL isn't configured yet.
 _csvConfigReady
-  .then(() => fetch(SESSION_URL || '/data/session.json'))
-  .then(r => r.json())
-  .catch(() => ({}))
+  .then(() => fetchSession())
   .then(s => {
     if (s.nextSession)   { _state.nextSession   = s.nextSession;   input.value   = s.nextSession;   formatPreview(s.nextSession); }
     if (s.nextSessionPR) { _state.nextSessionPR = s.nextSessionPR; prInput.value = s.nextSessionPR; formatPrPreview(s.nextSessionPR); }

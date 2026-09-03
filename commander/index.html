@@ -1158,12 +1158,9 @@ function updateShowcaseWinPcts() {
   });
 }
 
-// Load next-session date and showcase games from the Apps Script endpoint
-// (SESSION_URL in config.json). Falls back to /data/session.json if not configured.
+// Load next-session date and showcase games from JSONBin (via commander-utils.js).
 _csvConfigReady
-  .then(() => fetch(SESSION_URL || '/data/session.json'))
-  .then(r => r.json())
-  .catch(() => ({}))
+  .then(() => fetchSession())
   .then(s => {
     renderNextSession(s.nextSession || null);
     renderShowcaseGames(s.showcaseGames || []);
