@@ -2026,13 +2026,32 @@ function renderHistory(rows) {
       dateLabel.appendChild(titleSpan);
     }
 
+    // Collect badges per player row for the share card.
+    const podRowBadges = pod.map(row => {
+      const cmdrNorm = normalizeCmdr(row[G.commander]);
+      const pilot    = (row[G.pilot] || '').trim();
+      const pcStats  = statsMap[pilot] && statsMap[pilot][cmdrNorm];
+      const km       = (row[G.kingme] || '').trim().toUpperCase();
+      return [
+        rowWon(row)                ? '🏆' : '',
+        debutRows.has(row)         ? '🔰' : '',
+        firstWinRows.has(row)      ? '⭐' : '',
+        streakRows.has(row)        ? '🔥' : '',
+        retiredReturnRows.has(row) ? '⏳' : (reunionRows.has(row) ? '🪃' : ''),
+        upsetRows.has(row)         ? '🙌' : '',
+        (pcStats && pcStats.decisive >= 2 && pcStats.wins === pcStats.decisive) ? '🎯' : '',
+        km === 'K'                 ? '👑' : '',
+        km === 'E'                 ? '❌' : '',
+      ].filter(Boolean);
+    });
+
     const shareBtn = document.createElement('button');
     shareBtn.className = 'pod-share-btn';
     shareBtn.title = 'Share this game as an image';
     shareBtn.textContent = '⬡';
     shareBtn.addEventListener('click', e => {
       e.stopPropagation();
-      openPodShareCard(pod, `S${sessionNum} · Game ${gameNum}`, podTitle);
+      openPodShareCard(pod, `S${sessionNum} · Game ${gameNum}`, podTitle, podRowBadges);
     });
     dateLabel.appendChild(shareBtn);
     podDiv.appendChild(dateLabel);
@@ -2563,7 +2582,7 @@ function closeShareModal() {
 // Renders a showcase-style image for the full game pod (all players, commander
 // art, pilot, TrueSkill win%, and ending MMR with ↑/↓ arrow) then opens it in
 // the existing share modal so the user can download or long-press to copy.
-async function openPodShareCard(pod, gameLabel, podTitle) {
+async function openPodShareCard(pod, gameLabel, podTitle, podRowBadges) {
   const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#85B7EB', Jubee: '#F472B6' };
   const BG   = '#0f1120';
   const GOLD = '#C9A84C';
@@ -2626,7 +2645,7 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
   const COL_W   = Math.floor((W - PAD * 2 - GAP * (N - 1)) / N);
   const HDR_H   = 56;   // date / session label (+ optional title)
   const ART_H   = 420;  // commander art
-  const TEXT_H  = 100;  // cmdr name + pilot + win% + MMR line
+  const TEXT_H  = 120;  // cmdr name + pilot + win% + MMR line + badges
   const STATS_H = 150;  // bottom per-player stats panel
   const FOOT_H  = 40;
   const H       = HDR_H + ART_H + TEXT_H + STATS_H + FOOT_H;
@@ -2720,14 +2739,6 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
     ctx.fillStyle = fade;
     ctx.fillRect(colX, artY, COL_W, ART_H);
 
-    // Winner crown.
-    if (p.won) {
-      ctx.font = '13px serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
-      ctx.fillText('👑', colX + 5, artY + 5);
-    }
-
     // ── Text block below art ────────────────────────────────────────────────
     const cx   = colX + COL_W / 2;
     let   ty   = artY + ART_H + 8;
@@ -2776,6 +2787,16 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
       ctx.fillText(arrow, startX, ty);
       ctx.fillStyle = 'rgba(255,255,255,0.45)';
       ctx.fillText(mmrStr, startX + arrowW + 3, ty);
+      ty += 18;
+    }
+
+    // Badges (debut, first win, streak, etc.)
+    const badges = (podRowBadges && podRowBadges[i]) || [];
+    if (badges.length) {
+      ctx.font = '13px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(badges.join(' '), cx, ty);
     }
   });
 
