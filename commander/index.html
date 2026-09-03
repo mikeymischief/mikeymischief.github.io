@@ -1080,21 +1080,14 @@ async function initSpotlight(rows) {
   _spTimer = setTimeout(advanceSpotlight, SP_INTERVAL);
 }
 
-function renderNextSession() {
-  const stored = localStorage.getItem('nextSession');
+function renderNextSession(stored) {
   const banner = document.getElementById('next-session-banner');
   if (!stored) { banner.classList.add('hidden'); return; }
   const date = new Date(stored + 'T00:00:00');
   if (isNaN(date)) { banner.classList.add('hidden'); return; }
   const now = new Date();
   const days = Math.round((date - now) / (1000 * 60 * 60 * 24));
-  // Auto-expire: once the session date has passed, clear both next session and showcase games
-  if (days < 0) {
-    localStorage.removeItem('nextSession');
-    localStorage.removeItem('showcaseGames');
-    banner.classList.add('hidden');
-    return;
-  }
+  if (days < 0) { banner.classList.add('hidden'); return; }
   const label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   const countdown = days > 0 ? `in ${days} day${days === 1 ? '' : 's'}` : 'today';
   document.getElementById('session-date').textContent = label;
@@ -1102,11 +1095,10 @@ function renderNextSession() {
   banner.classList.remove('hidden');
 }
 
-function renderShowcaseGames() {
+function renderShowcaseGames(games) {
   const showcaseBanner = document.getElementById('showcase-banner');
   const showcaseList   = document.getElementById('showcase-games-list');
-  let games = [];
-  try { games = JSON.parse(localStorage.getItem('showcaseGames') || '[]'); } catch(e) {}
+  if (!Array.isArray(games)) games = [];
   if (!games.length) { showcaseBanner.classList.add('hidden'); return; }
   showcaseList.innerHTML = games.map(g => {
     // Support both {players:[{pilot,cmdr}]} and legacy formats
@@ -1166,8 +1158,15 @@ function updateShowcaseWinPcts() {
   });
 }
 
-renderNextSession();
-renderShowcaseGames();
+// Load next-session date and showcase games from /data/session.json.
+// Edit that file and commit to update across all browsers and devices.
+fetch('/data/session.json')
+  .then(r => r.json())
+  .catch(() => ({}))
+  .then(s => {
+    renderNextSession(s.nextSession || null);
+    renderShowcaseGames(s.showcaseGames || []);
+  });
 
 let _statRows = null;
 let _pendingFetches = 3;

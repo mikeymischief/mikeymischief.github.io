@@ -672,19 +672,23 @@ excerpt: Puerto Rico 1897 tracking hub — games, stats, and history for Mischie
     });
   });
 
-  (function() {
-    var stored = localStorage.getItem('nextSessionPR');
-    var banner = document.getElementById('pr-next-session-banner');
-    if (!stored) return;
-    var date = new Date(stored + 'T00:00:00');
-    if (isNaN(date)) return;
-    var days = Math.round((date - new Date()) / (1000 * 60 * 60 * 24));
-    // Auto-expire: once the session date has passed, clear it
-    if (days < 0) { localStorage.removeItem('nextSessionPR'); return; }
-    var label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-    var countdown = days > 0 ? 'in ' + days + ' day' + (days === 1 ? '' : 's') : 'today';
-    document.getElementById('pr-session-date').textContent = label;
-    document.getElementById('pr-session-countdown').textContent = countdown;
-    banner.style.display = 'flex';
-  })();
+  // Load next PR session date from /data/session.json (shared across all browsers/devices).
+  // To update: set "nextSessionPR" to a "YYYY-MM-DD" string and commit.
+  fetch('/data/session.json')
+    .then(function(r) { return r.json(); })
+    .catch(function() { return {}; })
+    .then(function(s) {
+      var stored = s.nextSessionPR || null;
+      var banner = document.getElementById('pr-next-session-banner');
+      if (!stored) return;
+      var date = new Date(stored + 'T00:00:00');
+      if (isNaN(date)) return;
+      var days = Math.round((date - new Date()) / (1000 * 60 * 60 * 24));
+      if (days < 0) return;
+      var label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+      var countdown = days > 0 ? 'in ' + days + ' day' + (days === 1 ? '' : 's') : 'today';
+      document.getElementById('pr-session-date').textContent = label;
+      document.getElementById('pr-session-countdown').textContent = countdown;
+      banner.style.display = 'flex';
+    });
 </script>
