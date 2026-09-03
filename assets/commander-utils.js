@@ -20,7 +20,8 @@ const _csvConfigReady = fetch('/data/config.json')
 
 // ── TrueSkill parameters and helpers ─────────────────────────────────────────
 // Must match the Google Sheet's calculation settings.
-const TS_TAU  = 5;
+const TS_TAU_BASE = 5;    // base drift constant; actual tau scales with elapsed days
+const TS_TAU_MAX_DAYS = 270; // cap at ~9 months
 const TS_BETA = 400;
 const TS_MU0  = 1500;
 const TS_SIG0 = 500;
@@ -33,8 +34,19 @@ function normCdf(x) {
   return x >= 0 ? 1 - p : p;
 }
 
-// _tsMap: cmdrName → { mu, sigma }  (most-recent End Mu / End Sigma from TS sheet)
+// Effective tau for an upcoming game given the commander's last-game date.
+// Matches the sheet formula: TAU_BASE × √(min(daysSince, TAU_MAX_DAYS)).
+// lastDateStr is a MM/DD/YYYY string from the TS sheet, or null for new commanders.
+function tsEffectiveTau(lastDateStr) {
+  if (!lastDateStr) return 0; // new commander: sigma_0 already captures uncertainty
+  const ms = Date.now() - new Date(lastDateStr).getTime();
+  const days = Math.max(0, Math.floor(ms / 86400000));
+  return TS_TAU_BASE * Math.sqrt(Math.min(days, TS_TAU_MAX_DAYS));
+}
+
+// _tsMap: cmdrName → { mu, sigma, lastDate }  (most-recent row from TS sheet)
 // _tsMapReady resolves once the fetch is complete (or failed).
+// TS sheet cols: 0=Date, 1=Commander, 10=End Mu, 11=End Sigma
 let _tsMap = {};
 const _tsMapReady = _csvConfigReady.then(() => new Promise(resolve => {
   if (!TRUESKILL_CSV_URL) { resolve(); return; }
@@ -46,7 +58,7 @@ const _tsMapReady = _csvConfigReady.then(() => new Promise(resolve => {
         const mu    = parseFloat(row[10]);
         const sigma = parseFloat(row[11]);
         if (!cmdr || isNaN(mu) || isNaN(sigma)) return;
-        _tsMap[cmdr] = { mu, sigma }; // overwrites → keeps most recent
+        _tsMap[cmdr] = { mu, sigma, lastDate: (row[0] || '').trim() || null };
       });
       resolve();
     },
@@ -54,12 +66,17 @@ const _tsMapReady = _csvConfigReady.then(() => new Promise(resolve => {
   });
 }));
 
-// Compute TrueSkill win probabilities for an array of { mu, sigma } ratings.
+// Compute TrueSkill win probabilities for an array of { mu, sigma, lastDate } ratings.
 // Returns an array of win-probability percentages in the same order.
 // Formula: rawProb_i = Φ((2μ_i − podMuSum) / √podVarSum), normalized to 100%.
+// Variance per player accounts for elapsed-time drift: σ² + effectiveTau² + β².
 function tsPodWinProbs(ratings) {
+  function varFor(r) {
+    const tau = tsEffectiveTau(r.lastDate);
+    return r.sigma * r.sigma + tau * tau + TS_BETA * TS_BETA;
+  }
   const podMuSum  = ratings.reduce((s, r) => s + r.mu, 0);
-  const podVarSum = ratings.reduce((s, r) => s + r.sigma * r.sigma + TS_TAU * TS_TAU + TS_BETA * TS_BETA, 0);
+  const podVarSum = ratings.reduce((s, r) => s + varFor(r), 0);
   const denom = Math.sqrt(podVarSum);
   const raw   = ratings.map(r => normCdf((2 * r.mu - podMuSum) / denom));
   const total = raw.reduce((s, v) => s + v, 0);

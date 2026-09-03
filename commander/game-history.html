@@ -1122,13 +1122,14 @@ function updatePredictor() {
     if (ts) {
       pilotRatings[pilot] = ts;
     } else {
-      // Commander not yet in TS data (debut) — use starting values
-      pilotRatings[pilot] = { mu: TS_MU0, sigma: TS_SIG0 };
+      // Commander not yet in TS data (debut) — use starting values, no drift.
+      pilotRatings[pilot] = { mu: TS_MU0, sigma: TS_SIG0, lastDate: null };
     }
   });
-  // Guest uses starting TrueSkill values (unknown deck = neutral rating)
-  // TS_MU0 / TS_SIG0 / tsPodWinProbs come from commander-utils.js
-  if (guestChecked) pilotRatings['Guest'] = { mu: TS_MU0, sigma: TS_SIG0 };
+  // Guest uses starting TrueSkill values (unknown deck = neutral rating).
+  // lastDate: null → tsEffectiveTau returns 0 (sigma_0 already captures uncertainty).
+  // TS_MU0 / TS_SIG0 / tsPodWinProbs come from commander-utils.js.
+  if (guestChecked) pilotRatings['Guest'] = { mu: TS_MU0, sigma: TS_SIG0, lastDate: null };
 
   // Filter to pilots with a rating
   const podPilots = activePilots.filter(p => pilotRatings[p] !== null);
