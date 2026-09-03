@@ -672,11 +672,16 @@ excerpt: Puerto Rico 1897 tracking hub — games, stats, and history for Mischie
     });
   });
 
-  // Load next PR session date from /data/session.json (shared across all browsers/devices).
-  // To update: set "nextSessionPR" to a "YYYY-MM-DD" string and commit.
-  fetch('/data/session.json')
+  // Load next PR session date from the Apps Script endpoint (SESSION_URL in config.json),
+  // falling back to /data/session.json if not yet configured.
+  fetch('/data/config.json')
     .then(function(r) { return r.json(); })
     .catch(function() { return {}; })
+    .then(function(cfg) {
+      return fetch(cfg.session || '/data/session.json')
+        .then(function(r) { return r.json(); })
+        .catch(function() { return {}; });
+    })
     .then(function(s) {
       var stored = s.nextSessionPR || null;
       var banner = document.getElementById('pr-next-session-banner');

@@ -8,6 +8,7 @@ let GAMES_CSV_URL     = '';
 let DECK_CSV_URL      = '';
 let CMDRSTATS_CSV_URL = '';
 let TRUESKILL_CSV_URL = '';
+let SESSION_URL       = ''; // Apps Script web app — GET reads, POST writes session data
 
 const _csvConfigReady = fetch('/data/config.json')
   .then(r => r.json())
@@ -16,6 +17,7 @@ const _csvConfigReady = fetch('/data/config.json')
     DECK_CSV_URL      = cfg.deck;
     CMDRSTATS_CSV_URL = cfg.cmdrstats;
     TRUESKILL_CSV_URL = cfg.trueskill || '';
+    SESSION_URL       = cfg.session   || '';
   });
 
 // ── TrueSkill parameters and helpers ─────────────────────────────────────────

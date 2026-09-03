@@ -1158,9 +1158,10 @@ function updateShowcaseWinPcts() {
   });
 }
 
-// Load next-session date and showcase games from /data/session.json.
-// Edit that file and commit to update across all browsers and devices.
-fetch('/data/session.json')
+// Load next-session date and showcase games from the Apps Script endpoint
+// (SESSION_URL in config.json). Falls back to /data/session.json if not configured.
+_csvConfigReady
+  .then(() => fetch(SESSION_URL || '/data/session.json'))
   .then(r => r.json())
   .catch(() => ({}))
   .then(s => {
