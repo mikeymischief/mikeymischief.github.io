@@ -26,7 +26,7 @@ _csvConfigReady.then(() => {
 });
 
 // ── Games CSV column indices ──────────────────────────────────────────────────
-const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, kingme:5, pilot:6, commander:7, startMmr:8, endMmr:9, delta:10, winProb:11, cmdrPlays:12, notes:13 };
+const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, kingme:5, pilot:6, commander:7, startMmr:8, endMmr:9, delta:10, winProb:11, cmdrPlays:12, notes:13, title:14 };
 
 // ── Shared constants ──────────────────────────────────────────────────────────
 const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
