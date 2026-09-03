@@ -2572,13 +2572,18 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
   // Collect player data from the pod rows.
   const players = pod
     .map(row => ({
-      pilot:  (row[G.pilot] || '').trim(),
-      cmdr:   normalizeCmdr(row[G.commander]),
-      endMmr: parsePctDelta(row[G.endMmr]),
-      delta:  parsePctDelta(row[G.delta]),
-      won:    rowWon(row),
+      pilot:    (row[G.pilot] || '').trim(),
+      cmdr:     normalizeCmdr(row[G.commander]),
+      startMmr: parsePctDelta(row[G.startMmr]),
+      endMmr:   parsePctDelta(row[G.endMmr]),
+      delta:    parsePctDelta(row[G.delta]),
+      seat:     parseInt(row[G.seat]) || null,
+      mulligan: parseInt(row[G.mulligan]),
+      rounds:   parseFloat(row[G.rounds]),
+      won:      rowWon(row),
     }))
     .filter(p => p.cmdr);
+  const podNotes = (pod[0][G.notes] || '').trim();
   if (!players.length) return;
 
   // Fetch Scryfall art for every commander part in the pod.
@@ -2619,11 +2624,12 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
   const PAD     = 20;
   const GAP     = 8;
   const COL_W   = Math.floor((W - PAD * 2 - GAP * (N - 1)) / N);
-  const ART_H   = 240;
-  const HDR_H   = 44;   // date / session label
-  const TEXT_H  = 76;   // cmdr name + pilot + win% + MMR line
-  const FOOT_H  = 30;
-  const H       = HDR_H + ART_H + TEXT_H + FOOT_H;
+  const HDR_H   = 56;   // date / session label (+ optional title)
+  const ART_H   = 420;  // commander art
+  const TEXT_H  = 100;  // cmdr name + pilot + win% + MMR line
+  const STATS_H = 150;  // bottom per-player stats panel
+  const FOOT_H  = 40;
+  const H       = HDR_H + ART_H + TEXT_H + STATS_H + FOOT_H;
 
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
@@ -2640,15 +2646,15 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
   ctx.textAlign = 'left';
 
   if (podTitle) {
-    // Two-line header: subtext on top, bold title below.
-    ctx.font = '500 10px "JetBrains Mono", monospace';
+    // Two-line header: small subtext on top, bold Cinzel title below.
+    ctx.font = '500 11px "JetBrains Mono", monospace';
     ctx.fillStyle = 'rgba(201,168,76,0.5)';
-    ctx.fillText(headerText.toUpperCase(), PAD, HDR_H * 0.3);
-    ctx.font = '700 14px Cinzel, serif';
-    ctx.fillStyle = 'rgba(201,168,76,0.9)';
+    ctx.fillText(headerText.toUpperCase(), PAD, HDR_H * 0.28);
+    ctx.font = '700 18px Cinzel, serif';
+    ctx.fillStyle = 'rgba(201,168,76,0.92)';
     ctx.fillText(podTitle, PAD, HDR_H * 0.72);
   } else {
-    ctx.font = '500 11px "JetBrains Mono", monospace';
+    ctx.font = '500 12px "JetBrains Mono", monospace';
     ctx.fillStyle = 'rgba(201,168,76,0.65)';
     ctx.fillText(headerText.toUpperCase(), PAD, HDR_H / 2);
   }
@@ -2724,12 +2730,12 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
 
     // ── Text block below art ────────────────────────────────────────────────
     const cx   = colX + COL_W / 2;
-    let   ty   = artY + ART_H + 5;
+    let   ty   = artY + ART_H + 8;
     const maxW = COL_W - 4;
 
     // Commander name — truncate to fit column.
     const cmdrDisplay = p.cmdr.split(' / ').map(c => stripPilotSuffix(c.trim())).join(' / ');
-    ctx.font = '600 9px "JetBrains Mono", monospace';
+    ctx.font = '600 11px "JetBrains Mono", monospace';
     ctx.fillStyle = GOLD;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
@@ -2738,19 +2744,19 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
       nameText = nameText.slice(0, -4) + '…';
     }
     ctx.fillText(nameText, cx, ty);
-    ty += 14;
+    ty += 18;
 
     // Pilot name (coloured).
-    ctx.font = '700 10px "JetBrains Mono", monospace';
+    ctx.font = '700 12px "JetBrains Mono", monospace';
     ctx.fillStyle = PILOT_COLORS[p.pilot] || DIM;
     ctx.fillText(p.pilot || '—', cx, ty);
-    ty += 14;
+    ty += 17;
 
     // Win %.
-    ctx.font = '400 10px "JetBrains Mono", monospace';
+    ctx.font = '400 12px "JetBrains Mono", monospace';
     ctx.fillStyle = 'rgba(255,255,255,0.4)';
     ctx.fillText(`${pcts[i].toFixed(1)}%`, cx, ty);
-    ty += 14;
+    ty += 17;
 
     // Ending MMR with ↑/↓ arrow.
     if (!isNaN(p.endMmr)) {
@@ -2759,7 +2765,7 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
       const arrowColor = arrowUp ? '#7fc98f' : '#e08585';
       const mmrStr     = `${Math.round(p.endMmr)} MMR`;
 
-      ctx.font = '500 10px "JetBrains Mono", monospace';
+      ctx.font = '500 12px "JetBrains Mono", monospace';
       const arrowW = ctx.measureText(arrow).width;
       const mmrW   = ctx.measureText(mmrStr).width;
       const totalW = arrowW + 3 + mmrW;
@@ -2773,12 +2779,86 @@ async function openPodShareCard(pod, gameLabel, podTitle) {
     }
   });
 
+  // ── Bottom stats panel ───────────────────────────────────────────────────
+  const statsY = HDR_H + ART_H + TEXT_H;
+
+  // Divider.
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(PAD, statsY);
+  ctx.lineTo(W - PAD, statsY);
+  ctx.stroke();
+
+  // Optional game notes centred above the stat columns.
+  let statColY = statsY + 14;
+  if (podNotes) {
+    ctx.font = 'italic 500 11px "JetBrains Mono", monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    let notesText = podNotes;
+    const notesMaxW = W - PAD * 2;
+    while (ctx.measureText(notesText).width > notesMaxW && notesText.length > 8) {
+      notesText = notesText.slice(0, -4) + '…';
+    }
+    ctx.fillText(`"${notesText}"`, W / 2, statColY);
+    statColY += 22;
+  }
+
+  // Per-player stat columns: Seat · Mulligans | MMR swing | Rounds (winner only).
+  players.forEach((p, i) => {
+    const colX = PAD + i * (COL_W + GAP);
+    const cx   = colX + COL_W / 2;
+    let   ty   = statColY;
+
+    // Seat + mulligans on one line.
+    const seatStr = p.seat ? `SEAT ${p.seat}` : '';
+    const mullStr = !isNaN(p.mulligan) && p.mulligan >= 0 ? `MULL ${p.mulligan}` : '';
+    const smLine  = [seatStr, mullStr].filter(Boolean).join('  ·  ');
+    ctx.font = '400 10px "JetBrains Mono", monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    if (smLine) { ctx.fillText(smLine, cx, ty); ty += 16; }
+
+    // MMR swing: start → end (Δ coloured).
+    if (!isNaN(p.startMmr) && !isNaN(p.endMmr)) {
+      const deltaUp    = !isNaN(p.delta) ? p.delta >= 0 : true;
+      const deltaColor = deltaUp ? '#7fc98f' : '#e08585';
+      const deltaSign  = (!isNaN(p.delta) && p.delta >= 0) ? '+' : '';
+      const deltaStr   = !isNaN(p.delta) ? `${deltaSign}${Math.round(p.delta)}` : '';
+      const swingLine  = `${Math.round(p.startMmr)} → ${Math.round(p.endMmr)}`;
+
+      ctx.font = '500 11px "JetBrains Mono", monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.45)';
+      ctx.textAlign = 'center';
+      ctx.fillText(swingLine, cx, ty);
+      ty += 16;
+
+      if (deltaStr) {
+        ctx.font = '700 12px "JetBrains Mono", monospace';
+        ctx.fillStyle = deltaColor;
+        ctx.fillText(deltaStr, cx, ty);
+        ty += 18;
+      }
+    }
+
+    // Round won (winner row only).
+    if (p.won && !isNaN(p.rounds) && p.rounds > 0) {
+      ctx.font = '400 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = 'rgba(201,168,76,0.55)';
+      ctx.textAlign = 'center';
+      ctx.fillText(`WON RD ${p.rounds}`, cx, ty);
+    }
+  });
+
   // Branding footer.
-  ctx.font = '400 10px "JetBrains Mono", monospace';
+  ctx.font = '400 11px "JetBrains Mono", monospace';
   ctx.fillStyle = 'rgba(255,255,255,0.18)';
   ctx.textBaseline = 'alphabetic';
   ctx.textAlign = 'center';
-  ctx.fillText('mikeymischief.github.io/commander', W / 2, H - 8);
+  ctx.fillText('mikeymischief.github.io/commander', W / 2, H - 12);
 
   // Populate and open the share modal.
   canvas.toBlob(blob => {
