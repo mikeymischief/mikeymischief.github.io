@@ -950,7 +950,8 @@ let _tierMap = {};
 let _activeSet = new Set();
 let _bracketMap = {};
 let _youtubeMap = {};
-let _deckCmdrs = new Set();
+let _deckCmdrs = new Set();      // all deck commanders (for filter datalist)
+let _deckPilotCmdrs = {};        // pilot → Set<cmdrName> (for per-pilot predictor dropdowns)
 let _gamesCmdrs = new Set();
 
 function rebuildCmdrDatalist() {
@@ -1048,16 +1049,39 @@ function buildStatsMap(rows) {
   return map;
 }
 
+// Rebuild a pilot's predictor datalist from both games history and deck info.
+function refreshPilotDatalists() {
+  PILOTS.forEach(pilot => {
+    const dl = document.getElementById(`cmdr-list-${pilot.toLowerCase()}`);
+    if (!dl) return; // predictor not built yet; buildPredictor() will include deck cmdrs when it runs
+    const existing = new Set(Array.from(dl.options).map(o => o.value));
+    (_deckPilotCmdrs[pilot] || new Set()).forEach(c => {
+      if (!existing.has(c)) {
+        const opt = document.createElement('option');
+        opt.value = c;
+        dl.appendChild(opt);
+      }
+    });
+    // Re-sort alphabetically after any additions
+    const opts = Array.from(dl.options).sort((a, b) => a.value.localeCompare(b.value));
+    dl.innerHTML = '';
+    opts.forEach(o => dl.appendChild(o));
+  });
+}
+
 function buildPredictor() {
   const container = document.getElementById('predictor-rows');
   PILOTS.forEach(pilot => {
     const dlId = `cmdr-list-${pilot.toLowerCase()}`;
     const dl = document.createElement('datalist');
     dl.id = dlId;
+    // Merge commanders from games history and from deck info (includes pre-debut decks)
     const pilotStats = statsMap[pilot] || {};
-    Object.keys(pilotStats).filter(c => c !== '_total').sort((a, b) => a.trim().localeCompare(b.trim())).forEach(c => {
+    const allCmdrs = new Set(Object.keys(pilotStats).filter(c => c !== '_total').map(c => c.trim()));
+    (_deckPilotCmdrs[pilot] || new Set()).forEach(c => allCmdrs.add(c));
+    Array.from(allCmdrs).sort((a, b) => a.localeCompare(b)).forEach(c => {
       const opt = document.createElement('option');
-      opt.value = c.trim();
+      opt.value = c;
       dl.appendChild(opt);
     });
     document.body.appendChild(dl);
@@ -2144,14 +2168,23 @@ Papa.parse(DECK_CSV_URL, {
   download: true,
   complete: function(r) {
     (r.data || []).slice(1).forEach(row => {
-      const cmdr = normalizeCmdr(row[1] || '');
+      const pilot  = (row[0] || '').trim();
+      const cmdr   = normalizeCmdr(row[1] || '');
       const bracket = (row[2] || '').trim();
       const youtube = (row[4] || '').trim();
       if (cmdr && bracket) _bracketMap[cmdr] = bracket;
       if (cmdr && youtube) _youtubeMap[cmdr] = youtube;
-      if (cmdr) _deckCmdrs.add(cmdr);
+      if (cmdr) {
+        _deckCmdrs.add(cmdr);
+        if (pilot) {
+          if (!_deckPilotCmdrs[pilot]) _deckPilotCmdrs[pilot] = new Set();
+          _deckPilotCmdrs[pilot].add(cmdr);
+        }
+      }
     });
     rebuildCmdrDatalist();
+    // If predictor is already built (Games CSV finished first), patch in any new commanders.
+    refreshPilotDatalists();
   }
 });
 
