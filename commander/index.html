@@ -1158,13 +1158,16 @@ function updateShowcaseWinPcts() {
   });
 }
 
-// Load next-session date and showcase games from JSONBin (via commander-utils.js).
-_csvConfigReady
-  .then(() => fetchSession())
-  .then(s => {
-    renderNextSession(s.nextSession || null);
-    renderShowcaseGames(s.showcaseGames || []);
-  });
+// Load session data and TrueSkill map together so win %s are always calculated
+// after both the showcase DOM and _tsMap are ready.
+Promise.all([
+  _csvConfigReady.then(() => fetchSession()),
+  _tsMapReady,
+]).then(([s]) => {
+  renderNextSession(s.nextSession || null);
+  renderShowcaseGames(s.showcaseGames || []);
+  updateShowcaseWinPcts();
+});
 
 let _statRows = null;
 let _pendingFetches = 3;
@@ -1196,8 +1199,8 @@ Papa.parse(GAMES_CSV_URL, {
   error: function() { tryInitSpotlight(); }
 });
 
-// TrueSkill data is fetched globally by commander-utils.js via _tsMapReady.
-_tsMapReady.then(updateShowcaseWinPcts);
+// Win %s are updated inside the Promise.all above, after both session
+// data and _tsMapReady resolve together.
 
 Papa.parse(DECK_CSV_URL, {
   download: true,
