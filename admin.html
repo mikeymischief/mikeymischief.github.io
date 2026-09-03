@@ -465,13 +465,13 @@ input.addEventListener('change', () => {
 
 function save() {
   _state.nextSession = input.value || null;
-  flash(toast, 'Staged. Hit Publish Now to go live.');
+  publishNow();
 }
 function clear() {
   input.value = '';
   preview.classList.remove('visible');
   _state.nextSession = null;
-  flash(toast, 'Cleared. Hit Publish Now to go live.');
+  publishNow();
 }
 
 // ── Puerto Rico Next Session ──────────────────────────────────────────────
@@ -498,13 +498,13 @@ prInput.addEventListener('change', () => {
 
 function prSave() {
   _state.nextSessionPR = prInput.value || null;
-  flash(prToast, 'Staged. Hit Publish Now to go live.');
+  publishNow();
 }
 function prClear() {
   prInput.value = '';
   prPreview.classList.remove('visible');
   _state.nextSessionPR = null;
-  flash(prToast, 'Cleared. Hit Publish Now to go live.');
+  publishNow();
 }
 
 function flash(el, msg) {
@@ -590,19 +590,19 @@ function sgAdd() {
   document.getElementById('sg-input-guest-name').value = '';
   document.getElementById('sg-input-guest-cmdr').value = '';
   sgRender();
-  flash(sgToast, 'Game added. Hit Publish Now to go live.');
+  publishNow();
 }
 
 function sgDelete(idx) {
   _state.showcaseGames.splice(idx, 1);
   sgRender();
-  flash(sgToast, 'Game removed. Hit Publish Now to go live.');
+  publishNow();
 }
 
 function sgClearAll() {
   _state.showcaseGames = [];
   sgRender();
-  flash(sgToast, 'Cleared. Hit Publish Now to go live.');
+  publishNow();
 }
 
 // ── Load current session data into the admin on page load ─────────────────
