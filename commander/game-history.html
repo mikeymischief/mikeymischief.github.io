@@ -418,19 +418,28 @@ permalink: /commander/game-history/
     letter-spacing: 0.1em;
     color: var(--ink-faint);
   }
-  .mini-chart-toggle {
+  .mini-chart-toggle-pill {
+    display: inline-flex;
+    border: 1px solid var(--gold);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .mini-chart-toggle-pill button {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     background: none;
-    border: 1px solid var(--line);
-    color: var(--ink-faint);
+    border: none;
+    color: var(--gold);
     padding: 2px 8px;
-    border-radius: 5px;
     cursor: pointer;
+    transition: background 0.15s, color 0.15s;
   }
-  .mini-chart-toggle:hover { border-color: var(--gold); color: var(--gold); }
+  .mini-chart-toggle-pill button.active {
+    background: var(--gold);
+    color: #0d0f1a;
+  }
   @media (max-width: 600px) {
     .mini-charts-row { grid-template-columns: 1fr; }
   }
@@ -911,7 +920,10 @@ permalink: /commander/game-history/
     <div class="mini-chart-wrap">
       <div class="mini-chart-header">
         <span class="mini-chart-title" id="seat-chart-title">Win% by Seat · 3-Player</span>
-        <button class="mini-chart-toggle" id="seat-chart-toggle" onclick="toggleSeatChart()">Show 4-Player</button>
+        <span class="mini-chart-toggle-pill" id="seat-chart-pill">
+          <button id="seat-pill-3" class="active" onclick="setSeatChartFilter(3)">3-Player</button>
+          <button id="seat-pill-4" onclick="setSeatChartFilter(4)">4-Player</button>
+        </span>
       </div>
       <div id="seat-chart"></div>
     </div>
@@ -1411,16 +1423,21 @@ function buildMiniCharts(cmdr) {
   window._miniSeatData = seatData;
   window._miniMulliganData = mulliganData;
   document.getElementById('seat-chart-title').textContent = `Win% by Seat · ${_seatChartFilter}-Player`;
-  document.getElementById('seat-chart-toggle').textContent = `Show ${_seatChartFilter === 3 ? 4 : 3}-Player`;
+  _updateSeatPills();
   renderSeatChart(cmdr, seatData, _seatChartFilter);
   renderMulliganChart(mulliganData);
   row.style.display = '';
 }
 
-function toggleSeatChart() {
-  _seatChartFilter = _seatChartFilter === 3 ? 4 : 3;
+function _updateSeatPills() {
+  document.getElementById('seat-pill-3').classList.toggle('active', _seatChartFilter === 3);
+  document.getElementById('seat-pill-4').classList.toggle('active', _seatChartFilter === 4);
+}
+
+function setSeatChartFilter(n) {
+  _seatChartFilter = n;
   document.getElementById('seat-chart-title').textContent = `Win% by Seat · ${_seatChartFilter}-Player`;
-  document.getElementById('seat-chart-toggle').textContent = `Show ${_seatChartFilter === 3 ? 4 : 3}-Player`;
+  _updateSeatPills();
   renderSeatChart(_miniChartCmdr, window._miniSeatData, _seatChartFilter);
 }
 
