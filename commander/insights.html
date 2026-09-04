@@ -320,7 +320,7 @@ permalink: /commander/insights/
 
   <section class="block">
     <h2>Player Color Profiles
-      <button id="cp-mode-toggle" onclick="toggleCpMode()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;margin-left:10px;vertical-align:middle;">Deckbuilding</button>
+      <button id="cp-mode-toggle" onclick="toggleCpMode()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--gold);color:var(--gold);padding:3px 10px;border-radius:5px;cursor:pointer;margin-left:10px;vertical-align:middle;">Deckbuilding</button>
     </h2>
     <div class="sub" id="cp-sub">Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander's identity.</div>
     <div id="color-profiles"><span style="color:var(--ink-faint)">Loading…</span></div>
@@ -1125,8 +1125,6 @@ function toggleCpMode() {
     renderColorProfilesDeck();
   } else {
     btn.textContent = 'Deckbuilding';
-    btn.style.color = '';
-    btn.style.borderColor = '';
     sub.textContent = 'Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander\'s identity.';
     if (_gameRows) renderColorProfiles(_gameRows);
   }
