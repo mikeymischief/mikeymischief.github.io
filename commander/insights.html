@@ -299,7 +299,7 @@ permalink: /commander/insights/
   <section class="block">
     <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
       <h2 id="seat-heading" style="margin:0;">Seat Position · 3-Player</h2>
-      <button id="seat-toggle" onclick="toggleSeatFilter()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show 4-Player</button>
+      <button id="seat-toggle" onclick="toggleSeatFilter()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--gold);color:var(--gold);padding:3px 10px;border-radius:5px;cursor:pointer;">Show 4-Player</button>
     </div>
     <div id="seat-sub" class="sub">Win rates by seat position — 3-player games only.</div>
     <div class="two-col">
@@ -320,7 +320,10 @@ permalink: /commander/insights/
 
   <section class="block">
     <h2>Player Color Profiles
-      <button id="cp-mode-toggle" onclick="toggleCpMode()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--gold);color:var(--gold);padding:3px 10px;border-radius:5px;cursor:pointer;margin-left:10px;vertical-align:middle;">Deckbuilding</button>
+<span id="cp-mode-pills" style="display:inline-flex;margin-left:10px;vertical-align:middle;border:1px solid var(--gold);border-radius:5px;overflow:hidden;">
+        <button onclick="setCpMode('play')"  id="cp-pill-play" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:var(--gold);color:#0d0f1a;border:none;padding:3px 10px;cursor:pointer;">Play</button>
+        <button onclick="setCpMode('deck')"  id="cp-pill-deck" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;color:var(--gold);border:none;padding:3px 10px;cursor:pointer;">Deckbuilding</button>
+      </span>
     </h2>
     <div class="sub" id="cp-sub">Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander's identity.</div>
     <div id="color-profiles"><span style="color:var(--ink-faint)">Loading…</span></div>
@@ -361,7 +364,7 @@ permalink: /commander/insights/
   <section class="block" id="section-all-cmdr">
     <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
       <h2 id="all-cmdr-heading" style="margin:0;">Active Commanders by MMR</h2>
-      <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;">Show All</button>
+      <button id="all-cmdr-toggle" onclick="toggleAllCmdrs()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--gold);color:var(--gold);padding:3px 10px;border-radius:5px;cursor:pointer;">Show All</button>
     </div>
     <div id="all-cmdr-sub" class="sub">Every commander played within two years of the last session, ranked head-to-head.</div>
     <div class="scroll-tall">
@@ -1113,18 +1116,20 @@ async function renderColorProfilesDeck() {
   document.getElementById('color-profiles').innerHTML = html;
 }
 
-function toggleCpMode() {
-  _cpMode = _cpMode === 'play' ? 'deck' : 'play';
-  const btn = document.getElementById('cp-mode-toggle');
+function setCpMode(mode) {
+  if (_cpMode === mode) return;
+  _cpMode = mode;
+  const playBtn = document.getElementById('cp-pill-play');
+  const deckBtn = document.getElementById('cp-pill-deck');
   const sub = document.getElementById('cp-sub');
-  if (_cpMode === 'deck') {
-    btn.textContent = 'Play Profile';
-    btn.style.color = 'var(--gold)';
-    btn.style.borderColor = 'var(--gold)';
+  if (mode === 'deck') {
+    playBtn.style.background = 'none';  playBtn.style.color = 'var(--gold)';
+    deckBtn.style.background = 'var(--gold)'; deckBtn.style.color = '#0d0f1a';
     sub.textContent = 'Color pip totals per player across all commanders they\'ve built. Each deck counts once regardless of how often it was played.';
     renderColorProfilesDeck();
   } else {
-    btn.textContent = 'Deckbuilding';
+    playBtn.style.background = 'var(--gold)'; playBtn.style.color = '#0d0f1a';
+    deckBtn.style.background = 'none'; deckBtn.style.color = 'var(--gold)';
     sub.textContent = 'Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander\'s identity.';
     if (_gameRows) renderColorProfiles(_gameRows);
   }
