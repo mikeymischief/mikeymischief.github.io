@@ -319,8 +319,10 @@ permalink: /commander/insights/
   </section>
 
   <section class="block">
-    <h2>Player Color Profiles</h2>
-    <div class="sub">Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander's identity.</div>
+    <h2>Player Color Profiles
+      <button id="cp-mode-toggle" onclick="toggleCpMode()" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink-faint);padding:3px 10px;border-radius:5px;cursor:pointer;margin-left:10px;vertical-align:middle;">Deckbuilding</button>
+    </h2>
+    <div class="sub" id="cp-sub">Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander's identity.</div>
     <div id="color-profiles"><span style="color:var(--ink-faint)">Loading…</span></div>
   </section>
 
@@ -451,6 +453,8 @@ permalink: /commander/insights/
 <script src="/assets/commander-stats.js"></script>
 <script>
 let _bracketMap = {};
+let _deckByPilot = {};   // pilot → [cmdrName, …] from Deck Info CSV
+let _cpMode = 'play';    // 'play' | 'deck'
 
 let _gameRows = null;
 let _rowPodSize = new Map();
@@ -1034,6 +1038,100 @@ async function renderColorProfiles(gameRows) {
   document.getElementById('color-profiles').innerHTML = html;
 }
 
+async function renderColorProfilesDeck() {
+  const COLOR_KEYS = ['W','U','B','R','G'];
+  const pilots = Object.keys(_deckByPilot).sort();
+  if (!pilots.length) {
+    document.getElementById('color-profiles').innerHTML =
+      '<span style="color:var(--ink-faint)">No deck info available.</span>';
+    return;
+  }
+
+  // Gather all unique commanders across all pilots for a single color map fetch.
+  const allCmdrs = [...new Set(Object.values(_deckByPilot).flat())];
+  const colorMap = await getColorMap(allCmdrs);
+
+  const players = {};
+  pilots.forEach(pilot => {
+    // Deduplicate — each built commander counts once regardless of duplicates.
+    const cmdrs = [...new Set(_deckByPilot[pilot])];
+    const pipCounts = {W:0,U:0,B:0,R:0,G:0};
+    const byIdentity = {};
+    cmdrs.forEach(cmdr => {
+      const identity = colorMap[cmdr] || 'C';
+      identity.split('').forEach(c => { if (COLOR_KEYS.includes(c)) pipCounts[c]++; });
+      byIdentity[identity] = (byIdentity[identity] || 0) + 1;
+    });
+    players[pilot] = { pipCounts, byIdentity, total: cmdrs.length };
+  });
+
+  let html = `<table class="data-table">
+    <thead><tr>
+      <th>Player</th>
+      <th>Color distribution</th>
+      <th>Color identity</th>
+      <th>Most built</th>
+    </tr></thead><tbody>`;
+
+  pilots.forEach(pilot => {
+    const { pipCounts, byIdentity, total } = players[pilot];
+
+    const distHtml = COLOR_KEYS
+      .map(c => {
+        const n = pipCounts[c];
+        const dim = n === 0 ? ' style="opacity:0.15"' : '';
+        return `<span class="cp-pip"${dim}><img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${c}.svg" alt="${c}"><span class="cp-pip-n">${n}</span></span>`;
+      })
+      .join('');
+
+    const top2 = COLOR_KEYS
+      .map(c => ({ c, n: pipCounts[c] }))
+      .filter(x => x.n > 0)
+      .sort((a, b) => b.n - a.n)
+      .slice(0, 2)
+      .map(x => x.c)
+      .sort((a, b) => COLOR_KEYS.indexOf(a) - COLOR_KEYS.indexOf(b))
+      .join('');
+    const identityCell = top2
+      ? `${pips(top2)}<span class="cp-fav-name">${IDENTITY_NAMES[top2] || top2}</span>`
+      : '<span style="color:var(--ink-faint)">—</span>';
+
+    const mostBuilt = Object.entries(byIdentity).sort((a,b) => b[1]-a[1])[0];
+    const mostBuiltCell = mostBuilt
+      ? `${pips(mostBuilt[0])}<span class="cp-fav-name">${IDENTITY_NAMES[mostBuilt[0]] || mostBuilt[0]}</span><span class="cp-fav-n">${mostBuilt[1]}d</span>`
+      : '<span style="color:var(--ink-faint)">—</span>';
+
+    html += `<tr>
+      <td class="name">${pilot}</td>
+      <td class="cp-dist">${distHtml}</td>
+      <td class="cp-fav">${identityCell}</td>
+      <td class="cp-fav">${mostBuiltCell}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>`;
+  document.getElementById('color-profiles').innerHTML = html;
+}
+
+function toggleCpMode() {
+  _cpMode = _cpMode === 'play' ? 'deck' : 'play';
+  const btn = document.getElementById('cp-mode-toggle');
+  const sub = document.getElementById('cp-sub');
+  if (_cpMode === 'deck') {
+    btn.textContent = 'Play Profile';
+    btn.style.color = 'var(--gold)';
+    btn.style.borderColor = 'var(--gold)';
+    sub.textContent = 'Color pip totals per player across all commanders they\'ve built. Each deck counts once regardless of how often it was played.';
+    renderColorProfilesDeck();
+  } else {
+    btn.textContent = 'Deckbuilding';
+    btn.style.color = '';
+    btn.style.borderColor = '';
+    sub.textContent = 'Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander\'s identity.';
+    if (_gameRows) renderColorProfiles(_gameRows);
+  }
+}
+
 _csvConfigReady.then(() => {
 Papa.parse(GAMES_CSV_URL, {
   download: true,
@@ -1073,9 +1171,14 @@ Papa.parse(GAMES_CSV_URL, {
         download: true,
         complete: function(deckResults) {
           (deckResults.data || []).slice(1).forEach(row => {
-            const cmdr = normalizeCmdr(row[1] || '');
+            const pilot  = (row[0] || '').trim();
+            const cmdr   = normalizeCmdr(row[1] || '');
             const bracket = (row[2] || '').trim();
             if (cmdr && bracket) _bracketMap[cmdr] = bracket;
+            if (pilot && cmdr) {
+              if (!_deckByPilot[pilot]) _deckByPilot[pilot] = [];
+              _deckByPilot[pilot].push(cmdr);
+            }
           });
           renderAll();
         },
