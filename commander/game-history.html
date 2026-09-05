@@ -608,11 +608,17 @@ permalink: /commander/game-history/
   }
   .cmdr-share-modal.open { display: flex; }
   .cmdr-share-modal img {
-    max-width: min(420px, 92vw);
-    max-height: 82vh;
+    max-width: min(820px, 92vw);
+    max-height: 88vh;
     border-radius: 10px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.7);
     display: block;
+  }
+  @media (max-width: 600px) {
+    .cmdr-share-modal img {
+      max-width: 92vw;
+      max-height: 82vh;
+    }
   }
   .cmdr-share-modal-hint {
     font-family: 'JetBrains Mono', monospace;
@@ -946,7 +952,7 @@ permalink: /commander/game-history/
 
 <div class="cmdr-share-modal" id="cmdr-share-modal" onclick="if(event.target===this)closeShareModal()">
   <img id="cmdr-share-img" src="" alt="Commander profile card">
-  <div class="cmdr-share-modal-hint" id="cmdr-share-hint">Long-press the image to copy · tap outside to close</div>
+  <div class="cmdr-share-modal-hint" id="cmdr-share-hint"></div>
   <div class="cmdr-share-modal-actions">
     <a class="cmdr-share-modal-btn" id="cmdr-share-download" download="">⬇ Download</a>
     <button class="cmdr-share-modal-btn close-btn" onclick="closeShareModal()">Close</button>
@@ -2581,10 +2587,10 @@ async function downloadCmdrCard() {
     img.dataset.blobUrl = url;
     dl.href = url;
     dl.download = filename;
-    const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    hint.textContent = isIos
-      ? 'Long-press the image to copy · tap outside to close'
-      : 'Right-click or long-press to copy · tap outside to close';
+    const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    hint.textContent = isTouchDevice
+      ? 'Long-press the image to save · tap outside to close'
+      : 'Right-click to save · click outside to close';
     document.getElementById('cmdr-share-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }, 'image/png');
@@ -2911,10 +2917,10 @@ async function openPodShareCard(pod, gameLabel, podTitle, podRowBadges) {
     img.dataset.blobUrl = url;
     dl.href = url;
     dl.download = filename;
-    const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    hint.textContent = isIos
-      ? 'Long-press the image to copy · tap outside to close'
-      : 'Right-click or long-press to copy · tap outside to close';
+    const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    hint.textContent = isTouchDevice
+      ? 'Long-press the image to save · tap outside to close'
+      : 'Right-click to save · click outside to close';
     document.getElementById('cmdr-share-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }, 'image/png');
