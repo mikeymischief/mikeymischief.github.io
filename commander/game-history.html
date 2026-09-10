@@ -1707,7 +1707,7 @@ async function renderMatchups(cmdr) {
 
 function youtubeEmbedUrl(url) {
   if (!url) return null;
-  // Handle youtu.be/ID and youtube.com/watch?v=ID and already-embed URLs
+  // Handle youtu.be/ID, youtube.com/watch?v=ID, /shorts/ID, and already-embed URLs
   let m = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
   if (!m) m = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
   if (!m) m = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/);
