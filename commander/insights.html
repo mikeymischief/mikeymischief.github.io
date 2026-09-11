@@ -984,10 +984,10 @@ function computeTopColors(pipCounts) {
 
   const result = [sorted[0].c];
   for (let i = 1; i < sorted.length; i++) {
-    if (sorted[i].n >= sorted[i - 1].n * COLOR_PROFILE_RATIO) {
+    if (sorted[i].n >= sorted[0].n * COLOR_PROFILE_RATIO) {
       result.push(sorted[i].c);
     } else {
-      break; // once a color falls below the ratio, stop
+      break; // sorted descending, so nothing further will pass either
     }
   }
 
