@@ -321,8 +321,8 @@ permalink: /commander/insights/
   <section class="block">
     <h2>Player Color Profiles
 <span id="cp-mode-pills" style="display:inline-flex;margin-left:10px;vertical-align:middle;border:1px solid var(--gold);border-radius:5px;overflow:hidden;">
-        <button onclick="setCpMode('play')"  id="cp-pill-play" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:var(--gold);color:#0d0f1a;border:none;padding:3px 10px;cursor:pointer;">Play</button>
-        <button onclick="setCpMode('deck')"  id="cp-pill-deck" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background:none;color:var(--gold);border:none;padding:3px 10px;cursor:pointer;">Deckbuilding</button>
+        <button onclick="setCpMode('play')"  id="cp-pill-play" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background-color:var(--gold);color:#0d0f1a;border:none;padding:3px 10px;cursor:pointer;">Play</button>
+        <button onclick="setCpMode('deck')"  id="cp-pill-deck" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;color:var(--gold);border:none;padding:3px 10px;cursor:pointer;">Deckbuilding</button>
       </span>
     </h2>
     <div class="sub" id="cp-sub">Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander's identity.</div>
@@ -973,7 +973,7 @@ function renderBlitz(gameRows) {
 // Each additional color is included only if it reaches at least RATIO (0.65)
 // of the previous color's pip count. This normalizes naturally as play counts
 // grow, and handles 4/5-way ties without a special case.
-const COLOR_PROFILE_RATIO = 0.65;
+const COLOR_PROFILE_RATIO = 0.75;
 function computeTopColors(pipCounts) {
   const COLOR_KEYS = ['W','U','B','R','G'];
   const sorted = COLOR_KEYS
@@ -1135,13 +1135,13 @@ function setCpMode(mode) {
   const deckBtn = document.getElementById('cp-pill-deck');
   const sub = document.getElementById('cp-sub');
   if (mode === 'deck') {
-    playBtn.style.background = 'none';  playBtn.style.color = 'var(--gold)';
-    deckBtn.style.background = 'var(--gold)'; deckBtn.style.color = '#0d0f1a';
+    playBtn.style.backgroundColor = '';             playBtn.style.color = 'var(--gold)';
+    deckBtn.style.backgroundColor = 'var(--gold)'; deckBtn.style.color = '#0d0f1a';
     sub.textContent = 'Color pip totals per player across all commanders they\'ve built. Each deck counts once regardless of how often it was played.';
     renderColorProfilesDeck();
   } else {
-    playBtn.style.background = 'var(--gold)'; playBtn.style.color = '#0d0f1a';
-    deckBtn.style.background = 'none'; deckBtn.style.color = 'var(--gold)';
+    playBtn.style.backgroundColor = 'var(--gold)'; playBtn.style.color = '#0d0f1a';
+    deckBtn.style.backgroundColor = '';             deckBtn.style.color = 'var(--gold)';
     sub.textContent = 'Color pip totals per player, weighted by games played. Each game contributes one pip per color in the commander\'s identity.';
     if (_gameRows) renderColorProfiles(_gameRows);
   }
