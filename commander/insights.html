@@ -973,7 +973,7 @@ function renderBlitz(gameRows) {
 // Each additional color is included only if it reaches at least RATIO (0.65)
 // of the previous color's pip count. This normalizes naturally as play counts
 // grow, and handles 4/5-way ties without a special case.
-const COLOR_PROFILE_RATIO = 0.75;
+const COLOR_PROFILE_RATIO = 0.70;
 function computeTopColors(pipCounts) {
   const COLOR_KEYS = ['W','U','B','R','G'];
   const sorted = COLOR_KEYS
