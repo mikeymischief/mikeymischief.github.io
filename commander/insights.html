@@ -969,62 +969,25 @@ function renderBlitz(gameRows) {
   loadAvatarImages(document.querySelector('#blitz-table'));
 }
 
-// Returns the top colors (WUBRG-sorted) based on pip counts, honoring ties.
-// - If the highest-count tier has 4 or 5 colors tied, all are shown (it's their real profile).
-// - If there's 1 or 2 dominant colors and a tie at the next tier would push beyond 3 total,
-//   tiebreak by co-occurrence: prefer tied colors that appear most often alongside the already-
-//   selected colors in actual decks. Still-tied colors after that fall back to WUBRG order.
-// cmdrs and colorMap are optional; required only for co-occurrence tiebreaking.
-function computeTopColors(pipCounts, cmdrs, colorMap) {
+// Returns the color identity (WUBRG-sorted) for a player's color profile.
+// Each additional color is included only if it reaches at least RATIO (0.65)
+// of the previous color's pip count. This normalizes naturally as play counts
+// grow, and handles 4/5-way ties without a special case.
+const COLOR_PROFILE_RATIO = 0.65;
+function computeTopColors(pipCounts) {
   const COLOR_KEYS = ['W','U','B','R','G'];
   const sorted = COLOR_KEYS
     .map(c => ({ c, n: pipCounts[c] }))
     .filter(x => x.n > 0)
-    .sort((a, b) => b.n - a.n);
+    .sort((a, b) => b.n - a.n || COLOR_KEYS.indexOf(a.c) - COLOR_KEYS.indexOf(b.c));
   if (!sorted.length) return '';
 
-  // Split into tier groups (all colors at same count level).
-  const tiers = [];
-  let i = 0;
-  while (i < sorted.length) {
-    const n = sorted[i].n;
-    const group = [];
-    while (i < sorted.length && sorted[i].n === n) { group.push(sorted[i].c); i++; }
-    tiers.push(group);
-  }
-
-  // If the top tier alone fills all 5 (or ≥4) colors — show all of them.
-  if (tiers[0].length >= 4) {
-    return tiers[0]
-      .sort((a, b) => COLOR_KEYS.indexOf(a) - COLOR_KEYS.indexOf(b))
-      .join('');
-  }
-
-  const result = [...tiers[0]]; // always include the whole top tier (1–3 colors)
-
-  for (let t = 1; t < tiers.length && result.length < 3; t++) {
-    const group = tiers[t];
-    const slots = 3 - result.length;
-    if (group.length <= slots) {
-      result.push(...group);
+  const result = [sorted[0].c];
+  for (let i = 1; i < sorted.length; i++) {
+    if (sorted[i].n >= sorted[i - 1].n * COLOR_PROFILE_RATIO) {
+      result.push(sorted[i].c);
     } else {
-      // Need to pick `slots` colors from `group` — tiebreak by co-occurrence.
-      let scored = group.map(c => {
-        let coOccur = 0;
-        if (cmdrs && colorMap) {
-          cmdrs.forEach(cmdr => {
-            const id = colorMap[cmdr] || 'C';
-            if (id.includes(c) && result.some(r => id.includes(r))) coOccur++;
-          });
-        }
-        return { c, coOccur };
-      });
-      // Sort descending by co-occurrence, then WUBRG as final tiebreaker.
-      scored.sort((a, b) =>
-        b.coOccur - a.coOccur ||
-        COLOR_KEYS.indexOf(a.c) - COLOR_KEYS.indexOf(b.c)
-      );
-      result.push(...scored.slice(0, slots).map(x => x.c));
+      break; // once a color falls below the ratio, stop
     }
   }
 
@@ -1048,9 +1011,8 @@ async function renderColorProfiles(gameRows) {
     const cmdr = normalizeCmdr(row[G.commander]);
     if (!pilot || !cmdr) return;
     const identity = colorMap[cmdr] || 'C';
-    if (!players[pilot]) players[pilot] = { pipCounts: {W:0,U:0,B:0,R:0,G:0}, byIdentity: {}, cmdrs: new Set() };
+    if (!players[pilot]) players[pilot] = { pipCounts: {W:0,U:0,B:0,R:0,G:0}, byIdentity: {} };
     const p = players[pilot];
-    p.cmdrs.add(cmdr);
     identity.split('').forEach(c => { if (COLOR_KEYS.includes(c)) p.pipCounts[c]++; });
     p.byIdentity[identity] = (p.byIdentity[identity] || 0) + 1;
   });
@@ -1066,7 +1028,7 @@ async function renderColorProfiles(gameRows) {
     </tr></thead><tbody>`;
 
   pilotOrder.forEach(pilot => {
-    const { pipCounts, byIdentity, cmdrs: pilotCmdrs } = players[pilot];
+    const { pipCounts, byIdentity } = players[pilot];
 
     const distHtml = COLOR_KEYS
       .map(c => {
@@ -1076,8 +1038,7 @@ async function renderColorProfiles(gameRows) {
       })
       .join('');
 
-    // Top colors (up to 3 unless all tied at top) → WUBRG-sorted identity key
-    const topColors = computeTopColors(pipCounts, [...pilotCmdrs], colorMap);
+    const topColors = computeTopColors(pipCounts);
     const identityCell = topColors
       ? `${pips(topColors)}<span class="cp-fav-name">${IDENTITY_NAMES[topColors] || topColors}</span>`
       : '<span style="color:var(--ink-faint)">—</span>';
@@ -1123,7 +1084,7 @@ async function renderColorProfilesDeck() {
       identity.split('').forEach(c => { if (COLOR_KEYS.includes(c)) pipCounts[c]++; });
       byIdentity[identity] = (byIdentity[identity] || 0) + 1;
     });
-    players[pilot] = { pipCounts, byIdentity, cmdrs, total: cmdrs.length };
+    players[pilot] = { pipCounts, byIdentity, total: cmdrs.length };
   });
 
   let html = `<table class="data-table">
@@ -1135,7 +1096,7 @@ async function renderColorProfilesDeck() {
     </tr></thead><tbody>`;
 
   pilots.forEach(pilot => {
-    const { pipCounts, byIdentity, cmdrs: pilotCmdrs, total } = players[pilot];
+    const { pipCounts, byIdentity, total } = players[pilot];
 
     const distHtml = COLOR_KEYS
       .map(c => {
@@ -1145,7 +1106,7 @@ async function renderColorProfilesDeck() {
       })
       .join('');
 
-    const topColors = computeTopColors(pipCounts, pilotCmdrs, colorMap);
+    const topColors = computeTopColors(pipCounts);
     const identityCell = topColors
       ? `${pips(topColors)}<span class="cp-fav-name">${IDENTITY_NAMES[topColors] || topColors}</span>`
       : '<span style="color:var(--ink-faint)">—</span>';
