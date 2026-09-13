@@ -281,14 +281,327 @@ permalink: /commander/stats/
     <div id="status">Loading standings…</div>
   </header>
 
+  <div id="pod-filter" style="margin-bottom:24px;display:flex;align-items:center;gap:12px;">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-faint);">Pod size</span>
+    <span style="display:inline-flex;border:1px solid var(--gold);border-radius:5px;overflow:hidden;">
+      <button id="pill-3" onclick="setSizeFilter(3)" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background-color:var(--gold);color:#0d0f1a;border:none;padding:4px 12px;cursor:pointer;">3-Player</button>
+      <button id="pill-4" onclick="setSizeFilter(4)" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background-color:;color:var(--gold);border:none;padding:4px 12px;cursor:pointer;">4-Player</button>
+      <button id="pill-5" onclick="setSizeFilter(5)" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background-color:;color:var(--gold);border:none;padding:4px 12px;cursor:pointer;" hidden>5-Player</button>
+    </span>
+  </div>
+
   <div class="table-grid" id="grid"></div>
 
-  <footer>★ Highest conservative rating &nbsp;·&nbsp; Highlighted row = most played commander &nbsp;·&nbsp; 👑 = King Maker &nbsp;·&nbsp; ❌ = Error &nbsp;·&nbsp; Source: CMDRSTATS tab, published to web as CSV. Ratings computed via a TrueSkill-style Bayesian model, not raw win/loss.</footer>
+  <footer>★ Highest conservative rating (overall) &nbsp;·&nbsp; Highlighted row = most played commander in selected pod size &nbsp;·&nbsp; 👑 = King Maker &nbsp;·&nbsp; ❌ = Error &nbsp;·&nbsp; MMR &amp; Conservative Rating are overall (all pod sizes). W/L/Win% filtered to selected pod size. Ratings via TrueSkill-style Bayesian model.</footer>
 
 </div>
 </div><!-- /.page-wrapper -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="/assets/commander-utils.js"></script>
+<script src="/assets/commander-stats.js"></script>
+<script>
+
+// ── Constants ────────────────────────────────────────────────────────────────
+const CMDR_BLOCKS = [
+  { name: 'Brian', start: 0  },
+  { name: 'Gerf',  start: 14 },
+  { name: 'Mikey', start: 28 },
+  { name: 'Jubee', start: 42 },
+];
+const CMDRSTATS_HEADER_ROW  = 2;
+const CMDRSTATS_DATA_START  = 3;
+const PILOTS = ['Brian', 'Gerf', 'Mikey', 'Jubee'];
+
+// ── State ────────────────────────────────────────────────────────────────────
+let _pods      = [];   // [{size: N, rows: [...]}]
+let _mmrMap    = {};   // pilot → {cmdrNameLower → {mmr, cons}}
+let _curSize   = 3;    // currently selected pod size
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function normCmdrName(raw) {
+  return (raw || '').trim().replace(/
+?
+/g, ' / ');
+}
+
+// Group games CSV rows (excluding header) into pods via blank-row separators.
+function groupIntoPods(rows) {
+  const pods = [];
+  let cur = [];
+  for (const row of rows) {
+    if (!row.some(v => (v || '').trim())) {
+      if (cur.length) { pods.push(cur); cur = []; }
+    } else {
+      cur.push(row);
+    }
+  }
+  if (cur.length) pods.push(cur);
+  return pods.map(p => ({ size: p.length, rows: p }));
+}
+
+// Compute per-commander stats for one pilot filtered to podSize.
+// Returns null if the pilot has no games of that size.
+function computeStats(pilot, podSize) {
+  const pilotRows = _pods
+    .filter(p => p.size === podSize)
+    .flatMap(p => p.rows)
+    .filter(r => (r[6] || '').trim() === pilot);
+
+  if (!pilotRows.length) return null;
+
+  const byCmdr = {};
+  for (const row of pilotRows) {
+    const cmdr = normCmdrName(row[7]);
+    if (!cmdr) continue;
+    if (!byCmdr[cmdr]) byCmdr[cmdr] = {
+      wins: 0, losses: 0, plays: 0, k: 0, e: 0,
+      rounds: [], mulls: [], seats: [], lastMmr: NaN
+    };
+    const s = byCmdr[cmdr];
+    s.plays++;
+    const won = (row[1] || '').trim() !== '';
+    if (won) {
+      s.wins++;
+      const rnd = parseFloat(row[4]);
+      if (!isNaN(rnd) && rnd > 0) s.rounds.push(rnd);
+    } else {
+      s.losses++;
+    }
+    const km = (row[5] || '').trim().toUpperCase();
+    if (km === 'K') s.k++;
+    if (km === 'E') s.e++;
+    const mull = parseInt(row[3]);
+    if (!isNaN(mull) && mull >= 0) s.mulls.push(mull);
+    const seat = parseInt(row[2]);
+    if (!isNaN(seat)) s.seats.push(seat);
+    const endMmr = parseFloat(row[9]);
+    if (!isNaN(endMmr)) s.lastMmr = endMmr;
+  }
+
+  const totalWins = pilotRows.filter(r => (r[1] || '').trim() !== '').length;
+  return {
+    cmdrStats: byCmdr,
+    totalPlays: pilotRows.length,
+    totalWins,
+    overallWinPct: pilotRows.length ? totalWins / pilotRows.length : 0,
+  };
+}
+
+// ── Card building ─────────────────────────────────────────────────────────────
+function buildPlayerCard(pilotName, stats) {
+  const pilotMmr = _mmrMap[pilotName] || {};
+
+  // Sort commanders by plays desc, then name asc.
+  const cmdrList = Object.entries(stats.cmdrStats)
+    .sort((a, b) => b[1].plays - a[1].plays || a[0].localeCompare(b[0]));
+
+  const maxPlays = Math.max(...cmdrList.map(([, s]) => s.plays));
+
+  // Star row = highest conservative rating (from CMDRSTATS lookup).
+  let maxCons = -Infinity, starCmdr = null;
+  cmdrList.forEach(([cmdr]) => {
+    const entry = pilotMmr[cmdr.toLowerCase()];
+    const c = entry?.cons ?? NaN;
+    if (!isNaN(c) && c > maxCons) { maxCons = c; starCmdr = cmdr; }
+  });
+
+  const favCmdrRaw    = cmdrList[0]?.[0] || '';
+  const favCmdrDisplay = favCmdrRaw.replace(/ \/ /g, '<br>');
+  const winPctStr      = (stats.overallWinPct * 100).toFixed(2) + '%';
+
+  const card = document.createElement('div');
+  card.className  = 'player-card';
+  card.dataset.p  = pilotName;
+  card.id         = 'player-' + pilotName.toLowerCase();
+
+  const bar = document.createElement('div');
+  bar.className = 'bar';
+  card.appendChild(bar);
+
+  const head = document.createElement('div');
+  head.className = 'card-head';
+  if (favCmdrRaw) head.dataset.favCmdr = favCmdrRaw;
+  head.innerHTML = `
+    <div class="card-head-left">
+      <h2>${pilotName}</h2>
+      ${favCmdrRaw ? `<span class="fav-cmdr-name">${favCmdrDisplay}</span>` : ''}
+    </div>
+    <div class="record">
+      <span class="winpct">${winPctStr}</span>
+      ${_curSize}-player win rate
+    </div>
+  `;
+  card.appendChild(head);
+
+  const scrollWrap = document.createElement('div');
+  scrollWrap.className = 'table-scroll';
+
+  const table = document.createElement('table');
+  table.className = 'cmdr-table';
+  table.innerHTML = `
+    <thead><tr>
+      <th>Commander</th>
+      <th class="num" title="Wins">W</th>
+      <th class="num" title="Losses">L</th>
+      <th class="num" title="Games played">P</th>
+      <th class="num" title="Times King Maker">👑</th>
+      <th class="num" title="Errors recorded">❌</th>
+      <th class="num" title="Win percentage">Win%</th>
+      <th class="num" title="Average round number when this commander wins">Rnd</th>
+      <th class="num" title="Average mulligans taken per game">Mlg</th>
+      <th class="num" title="Most common seat position">Seat</th>
+      <th class="num" title="TrueSkill MMR rating (overall, all pod sizes)">MMR</th>
+      <th class="num" title="Conservative rating (MMR − 2σ), overall">Cons.</th>
+    </tr></thead>
+    <tbody></tbody>
+  `;
+  const tbody = table.querySelector('tbody');
+
+  cmdrList.forEach(([cmdr, s]) => {
+    const entry   = pilotMmr[cmdr.toLowerCase()];
+    const mmrVal  = !isNaN(entry?.mmr)  ? entry.mmr.toFixed(1)  : (isNaN(s.lastMmr) ? '—' : s.lastMmr.toFixed(1));
+    const consVal = !isNaN(entry?.cons) ? entry.cons.toFixed(1) : '—';
+
+    const winPct  = s.plays > 0 ? (s.wins / s.plays * 100).toFixed(2) + '%' : '—';
+    const avgRnd  = s.rounds.length ? (s.rounds.reduce((a,b)=>a+b,0)/s.rounds.length).toFixed(1) : '—';
+    const avgMull = s.mulls.length  ? (s.mulls.reduce((a,b)=>a+b,0)/s.mulls.length).toFixed(2)  : '—';
+
+    let mostCommonSeat = '—';
+    if (s.seats.length) {
+      const cnt = {};
+      s.seats.forEach(x => cnt[x] = (cnt[x] || 0) + 1);
+      mostCommonSeat = Object.entries(cnt).sort((a,b) => b[1]-a[1])[0][0];
+    }
+
+    const tr = document.createElement('tr');
+    if (cmdr === starCmdr) tr.classList.add('star-row');
+    if (s.plays === maxPlays) tr.classList.add('pop-row');
+
+    tr.innerHTML = `
+      <td class="cmdr-name">${cmdrCell(cmdr)}</td>
+      <td class="num">${s.wins  || '—'}</td>
+      <td class="num">${s.losses || '—'}</td>
+      <td class="num">${s.plays}</td>
+      <td class="num">${s.k || '—'}</td>
+      <td class="num">${s.e || '—'}</td>
+      <td class="num">${winPct}</td>
+      <td class="num">${avgRnd}</td>
+      <td class="num">${avgMull}</td>
+      <td class="num">${mostCommonSeat}</td>
+      <td class="num">${mmrVal}</td>
+      <td class="num">${consVal}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  scrollWrap.appendChild(table);
+  card.appendChild(scrollWrap);
+  return card;
+}
+
+async function loadCardHeadImages() {
+  const heads = Array.from(document.querySelectorAll('.card-head[data-fav-cmdr]'));
+  if (!heads.length) return;
+  const names = [...new Set(heads.map(h => h.dataset.favCmdr))];
+  const imageMap = await getImageMap(names);
+  heads.forEach(head => {
+    const url = imageMap[stripPilotSuffix(head.dataset.favCmdr).toLowerCase()];
+    if (url) head.style.backgroundImage = `url('${url}')`;
+  });
+}
+
+// ── Rendering ─────────────────────────────────────────────────────────────────
+function renderForSize(podSize) {
+  _curSize = podSize;
+
+  // Update pill highlight.
+  [3, 4, 5].forEach(n => {
+    const btn = document.getElementById('pill-' + n);
+    if (!btn) return;
+    btn.style.backgroundColor = n === podSize ? 'var(--gold)' : '';
+    btn.style.color            = n === podSize ? '#0d0f1a'    : 'var(--gold)';
+  });
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  const activePilots = PILOTS.filter(pilot =>
+    _pods.some(p => p.size === podSize && p.rows.some(r => (r[6]||'').trim() === pilot))
+  );
+
+  if (!activePilots.length) {
+    grid.innerHTML = `<p style="color:var(--ink-faint);font-family:'JetBrains Mono',monospace;font-size:13px">No ${podSize}-player games recorded.</p>`;
+    document.getElementById('status').textContent = 'Updated ' + new Date().toLocaleString();
+    return;
+  }
+
+  activePilots.forEach(pilot => {
+    const stats = computeStats(pilot, podSize);
+    if (stats) grid.appendChild(buildPlayerCard(pilot, stats));
+  });
+
+  document.getElementById('status').textContent =
+    `${podSize}-player · Updated ` + new Date().toLocaleString();
+
+  loadAvatarImages(grid);
+  loadCardHeadImages();
+}
+
+function setSizeFilter(n) {
+  if (n === _curSize) return;
+  renderForSize(n);
+}
+
+function showError(msg) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.classList.add('error');
+}
+
+// ── Data loading ──────────────────────────────────────────────────────────────
+_csvConfigReady.then(() => {
+  const gamesP = new Promise((res, rej) =>
+    Papa.parse(GAMES_CSV_URL, { download: true,
+      complete: r => res(r.data || []), error: e => rej(e) })
+  );
+  const statsP = new Promise((res, rej) =>
+    Papa.parse(CMDRSTATS_CSV_URL, { download: true,
+      complete: r => res(r.data || []), error: e => rej(e) })
+  );
+
+  Promise.all([gamesP, statsP]).then(([gameRows, cmdrRows]) => {
+    // Build pod list from games CSV (skip header row).
+    _pods = groupIntoPods(gameRows.slice(1));
+    const podSizes = new Set(_pods.map(p => p.size));
+
+    // Unhide 5-player pill if any 5-player games exist.
+    if (podSizes.has(5)) {
+      const btn5 = document.getElementById('pill-5');
+      if (btn5) btn5.hidden = false;
+    }
+
+    // Build MMR/Conservative Rating lookup from CMDRSTATS.
+    CMDR_BLOCKS.forEach(block => {
+      _mmrMap[block.name] = {};
+      for (let r = CMDRSTATS_DATA_START; r < cmdrRows.length; r++) {
+        const cmdr = (cmdrRows[r][block.start] || '').trim();
+        if (!cmdr) break;
+        const mmr  = parseFloat(cmdrRows[r][block.start + 11]);
+        const cons = parseFloat(cmdrRows[r][block.start + 12]);
+        _mmrMap[block.name][cmdr.toLowerCase()] = {
+          mmr:  isNaN(mmr)  ? NaN : mmr,
+          cons: isNaN(cons) ? NaN : cons,
+        };
+      }
+    });
+
+    // Render default view: 3-player.
+    renderForSize(3);
+
+  }).catch(err => showError('Could not load data: ' + err));
+});
+</script>
 <script src="/assets/commander-utils.js"></script>
 <script src="/assets/commander-stats.js"></script>
 <script>
@@ -445,27 +758,6 @@ function showError(msg) {
   el.classList.add('error');
 }
 
-_csvConfigReady.then(() => {
-Papa.parse(CMDRSTATS_CSV_URL, {
-  download: true,
-  complete: function(results) {
-    if (!results.data || results.data.length < DATA_START_ROW) {
-      showError('Loaded, but the sheet looks empty or in an unexpected shape.');
-      return;
-    }
-    try {
-      render(results.data);
-      loadAvatarImages(document.getElementById('grid'));
-      loadCardHeadImages();
-    } catch (e) {
-      showError('Could not parse the standings: ' + e.message);
-    }
-  },
-  error: function(err) {
-    showError('Could not load the sheet (' + err + '). Is it still published to web?');
-  }
-});
-}); // _csvConfigReady
 </script>
 </body>
 </html>
