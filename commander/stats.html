@@ -320,9 +320,7 @@ let _curSize   = 3;    // currently selected pod size
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function normCmdrName(raw) {
-  return (raw || '').trim().replace(/
-?
-/g, ' / ');
+  return (raw || '').trim().replace(/\r?\n/g, ' / ');
 }
 
 // Group games CSV rows (excluding header) into pods via blank-row separators.
