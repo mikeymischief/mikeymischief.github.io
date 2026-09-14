@@ -1710,6 +1710,7 @@ function youtubeEmbedUrl(url) {
   // Handle youtu.be/ID, youtube.com/watch?v=ID, /shorts/ID, and already-embed URLs
   let m = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
   if (!m) m = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+  if (!m) m = url.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);
   if (!m) m = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/);
   return m ? `https://www.youtube.com/embed/${m[1]}` : null;
 }
