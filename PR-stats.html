@@ -1066,9 +1066,11 @@ function kingmakerOfGame(game) {
 }
 
 function winnerOfGame(game) {
-  // Prefer explicit Win column — handles manual tiebreaks.
-  const explicit = game.rows.find(r => (r[C.win]||'').trim() !== '');
-  if (explicit) return (explicit[C.player]||'').trim();
+  // Explicit Win column: rank 1 (numeric) beats any non-numeric flag, which beats score.
+  const rank1 = game.rows.find(r => parseInt(r[C.win]) === 1);
+  if (rank1) return (rank1[C.player]||'').trim();
+  const flagged = game.rows.find(r => (r[C.win]||'').trim() !== '');
+  if (flagged) return (flagged[C.player]||'').trim();
 
   // Fall back to highest score; if tied for top, return null (no winner declared).
   let max = -Infinity;
@@ -1754,13 +1756,20 @@ function renderProfile(player) {
     const endPlayer   = endRow ? (endRow[C.player]||'').trim() : null;
     const gameEnding  = endRow ? (endPlayer ? `${endPlayer} · ${fmt.ending(endRow[C.ending])}` : fmt.ending(endRow[C.ending])) : '—';
 
-    const sortedScores = game.rows.map(r => parseInt(r[C.score])).filter(v => !isNaN(v)).sort((a,b) => b-a);
-    const myScore = parseInt(row[C.score]);
-    let place = '—';
-    if (!isNaN(myScore)) {
-      const rank = sortedScores.indexOf(myScore) + 1;
-      const tied = sortedScores.filter(s => s === myScore).length > 1;
-      place = (tied ? '=' : '') + rank;
+    const winVal = (row[C.win] || '').trim();
+    let place;
+    if (winVal !== '') {
+      place = winVal; // explicit rank overrides score
+    } else {
+      const sortedScores = game.rows.map(r => parseInt(r[C.score])).filter(v => !isNaN(v)).sort((a,b) => b-a);
+      const myScore = parseInt(row[C.score]);
+      if (isNaN(myScore)) {
+        place = '—';
+      } else {
+        const rank = sortedScores.indexOf(myScore) + 1;
+        const tied = sortedScores.filter(s => s === myScore).length > 1;
+        place = (tied ? '=' : '') + rank;
+      }
     }
 
     const tr = document.createElement('tr');
