@@ -812,6 +812,7 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     .pr-table .win-badge,
     .pr-table .end-badge,
     .pr-table .king-badge { font-size: 10px; padding: 1px 4px; }
+    .pr-mob-hide { display: none !important; }
   }
 </style>
 
@@ -1187,6 +1188,7 @@ function renderAllGames() {
 
     const metaParts = [fmt.date(game.date)];
     if (gameRound && gameRound !== '—') metaParts.push('Round ' + gameRound);
+    if (endPlayer && endLabel) metaParts.push(endPlayer + ' · ' + endLabel);
 
     const sorted = [...game.rows]
       .filter(r => (r[C.player]||'').trim())
@@ -1215,6 +1217,8 @@ function renderAllGames() {
     header.appendChild(shareBtn);
     card.appendChild(header);
 
+    const tableWrap = document.createElement('div');
+    tableWrap.className = 'pr-table-wrap';
     const table = document.createElement('table');
     table.className = 'pr-table';
     const tbody = document.createElement('tbody');
@@ -1233,9 +1237,9 @@ function renderAllGames() {
       ].filter(Boolean).join('');
       tr.innerHTML = `
         <td></td>
-        <td class="num">Seat ${fmt.int(row[C.seat])}</td>
+        <td class="num pr-mob-hide">Seat ${fmt.int(row[C.seat])}</td>
         <td class="num score">${fmt.int(row[C.score])} VP</td>
-        <td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>
+        <td class="pr-mob-hide">${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>
         <td><div class="badge-stack">${badges}</div></td>`;
       const nameCell = document.createElement('td');
       const nameBtn  = document.createElement('button');
@@ -1248,7 +1252,8 @@ function renderAllGames() {
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
-    card.appendChild(table);
+    tableWrap.appendChild(table);
+    card.appendChild(tableWrap);
 
     if (notes) {
       const notesEl = document.createElement('div');
@@ -1705,10 +1710,10 @@ function renderProfile(player) {
           <tr>
             <th>Date</th>
             <th class="num">Game</th>
-            <th class="num">Seat</th>
+            <th class="num pr-mob-hide">Seat</th>
             <th class="num">Score</th>
-            <th class="num" title="Finishing position by score">Place</th>
-            <th class="num" title="Round the game ended on">Round</th>
+            <th class="num pr-mob-hide" title="Finishing position by score">Place</th>
+            <th class="num pr-mob-hide" title="Round the game ended on">Round</th>
             <th title="How the game ended: Buildings · VP · Colonist">Ending</th>
             <th>Result</th>
           </tr>
@@ -1728,6 +1733,7 @@ function renderProfile(player) {
     const splitTh = document.createElement('th');
     splitTh.title = 'VP breakdown: chips vs buildings';
     splitTh.textContent = 'Split';
+    splitTh.className = 'pr-mob-hide';
     thead.insertBefore(splitTh, thead.children[4]);
   }
 
@@ -1748,15 +1754,15 @@ function renderProfile(player) {
     const tr = document.createElement('tr');
     if (won) tr.className = 'win-row';
 
-    const splitCell = hasSplitData ? `<td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>` : '';
+    const splitCell = hasSplitData ? `<td class="pr-mob-hide">${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>` : '';
     tr.innerHTML = `
       <td>${fmt.date(game.date)}</td>
       <td class="num">${game.gameNum||'—'}</td>
-      <td class="num">${fmt.int(row[C.seat])}</td>
+      <td class="num pr-mob-hide">${fmt.int(row[C.seat])}</td>
       <td class="num score">${fmt.int(row[C.score])}</td>
       ${splitCell}
-      <td class="num">${place}</td>
-      <td class="num">${gameRound}</td>
+      <td class="num pr-mob-hide">${place}</td>
+      <td class="num pr-mob-hide">${gameRound}</td>
       <td>${gameEnding}</td>
       <td><div class="badge-stack">${[won?'<span class="win-badge">Win</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">Upstream</span>':''].filter(Boolean).join('')}</div></td>
     `;
