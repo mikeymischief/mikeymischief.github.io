@@ -839,7 +839,7 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
 // Starting MMR(6) Ending MMR(7) Delta(8) Round(9) Ending(10)
 // Rows are grouped per game; blank rows separate games.
 // Round is in the winner's row. Ending is in the row of the player who ended the game.
-const C = { date:0, game:1, player:2, seat:3, chipsVP:4, buildingsVP:5, score:6, startMmr:8, endMmr:9, delta:10, round:11, ending:12, notes:13 };
+const C = { date:0, game:1, player:2, seat:3, chipsVP:4, buildingsVP:5, score:6, win:7, startMmr:8, endMmr:9, delta:10, round:11, ending:12, notes:13 };
 
 // Ending letter → full label
 const ENDING_LABELS = { B: 'Buildings', V: 'VP', C: 'Colonist' };
@@ -1066,12 +1066,20 @@ function kingmakerOfGame(game) {
 }
 
 function winnerOfGame(game) {
-  let max = -Infinity, winner = null;
+  // Prefer explicit Win column — handles manual tiebreaks.
+  const explicit = game.rows.find(r => (r[C.win]||'').trim() !== '');
+  if (explicit) return (explicit[C.player]||'').trim();
+
+  // Fall back to highest score; if tied for top, return null (no winner declared).
+  let max = -Infinity;
   for (const row of game.rows) {
     const s = parseInt(row[C.score]);
-    if (!isNaN(s) && s > max) { max = s; winner = (row[C.player]||'').trim(); }
+    if (!isNaN(s) && s > max) max = s;
   }
-  return winner;
+  if (max === -Infinity) return null;
+  const topScorers = game.rows.filter(r => parseInt(r[C.score]) === max);
+  if (topScorers.length > 1) return null;
+  return (topScorers[0][C.player]||'').trim();
 }
 
 // ── Build per-player index ─────────────────────────────────────────────────────
@@ -1749,7 +1757,12 @@ function renderProfile(player) {
 
     const sortedScores = game.rows.map(r => parseInt(r[C.score])).filter(v => !isNaN(v)).sort((a,b) => b-a);
     const myScore = parseInt(row[C.score]);
-    const place = !isNaN(myScore) ? '#' + (sortedScores.indexOf(myScore) + 1) : '—';
+    let place = '—';
+    if (!isNaN(myScore)) {
+      const rank = sortedScores.indexOf(myScore) + 1;
+      const tied = sortedScores.filter(s => s === myScore).length > 1;
+      place = (tied ? '=' : '') + rank;
+    }
 
     const tr = document.createElement('tr');
     if (won) tr.className = 'win-row';
