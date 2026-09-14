@@ -1265,6 +1265,13 @@ function buildMmrChart(cmdr) {
     });
   });
 
+  // Prepend a 1500 baseline point for each pilot before their first recorded game
+  for (const pilot of Object.keys(pilotPoints)) {
+    pilotPoints[pilot].unshift({ x: 0, y: 1500, won: false, tie: false });
+  }
+  podDates[0] = 'Start';
+  podSessions[0] = 0;
+
   const pilots = Object.keys(pilotPoints);
   if (!pilots.length) { wrap.style.display = 'none'; return; }
   _pilotPoints = pilotPoints;
@@ -1319,7 +1326,10 @@ function buildMmrChart(cmdr) {
           },
           ticks: {
             color: dimColor,
-            callback: v => podDates[v] ? [String(v), `S${podSessions[v]}`] : null
+            callback: v => {
+              if (v === 0) return ['Start'];
+              return podDates[v] ? [String(v), `S${podSessions[v]}`] : null;
+            }
           },
           grid: { color: lineColor },
         },
@@ -1333,7 +1343,11 @@ function buildMmrChart(cmdr) {
         legend: { display: false },
         tooltip: {
           callbacks: {
-            title: items => podDates[items[0].parsed.x] ? `${podDates[items[0].parsed.x]}  ·  S${podSessions[items[0].parsed.x]}` : `Game ${items[0].parsed.x}`,
+            title: items => {
+              const x = items[0].parsed.x;
+              if (x === 0) return 'Baseline (1500 MMR)';
+              return podDates[x] ? `${podDates[x]}  ·  S${podSessions[x]}` : `Game ${x}`;
+            },
             label: ctx => {
               const p = pilotPoints[ctx.dataset.label][ctx.dataIndex];
               return ` ${ctx.dataset.label}: ${ctx.parsed.y} MMR${p.won ? ' 👑' : p.tie ? ' 🤝' : ''}`;
