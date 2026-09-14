@@ -1644,8 +1644,8 @@ function renderProfile(player) {
             <th>Date</th>
             <th class="num">Game</th>
             <th class="num pr-mob-hide">Seat</th>
-            <th class="num">Score</th>
             <th class="num pr-mob-hide" title="Finishing position by score">Place</th>
+            <th class="num">Score</th>
             <th class="num pr-mob-hide" title="Round the game ended on">Round</th>
             <th title="How the game ended: Buildings · VP · Colonist">Ending</th>
             <th>Result</th>
@@ -1667,7 +1667,7 @@ function renderProfile(player) {
     splitTh.title = 'VP breakdown: chips vs buildings';
     splitTh.textContent = 'Split';
     splitTh.className = '';
-    thead.insertBefore(splitTh, thead.children[4]);
+    thead.insertBefore(splitTh, thead.children[5]);
   }
 
   const tbody = document.getElementById('pr-tbody');
@@ -1704,9 +1704,9 @@ function renderProfile(player) {
       <td>${fmt.date(game.date)}</td>
       <td class="num">${game.gameNum||'—'}</td>
       <td class="num pr-mob-hide">${fmt.int(row[C.seat])}</td>
+      <td class="num pr-mob-hide">${place}</td>
       <td class="num score">${fmt.int(row[C.score])}</td>
       ${splitCell}
-      <td class="num pr-mob-hide">${place}</td>
       <td class="num pr-mob-hide">${gameRound}</td>
       <td>${gameEnding}</td>
       <td><div class="badge-stack">${[won?'<span class="win-badge">Win</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">Upstream</span>':''].filter(Boolean).join('')}</div></td>
