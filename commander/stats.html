@@ -389,9 +389,13 @@ function computeStats(pilot, podSize) {
 function buildPlayerCard(pilotName, stats) {
   const pilotMmr = _mmrMap[pilotName] || {};
 
-  // Sort commanders by plays desc, then name asc.
+  // Sort commanders by MMR desc (from CMDRSTATS lookup), then plays desc, then name asc.
   const cmdrList = Object.entries(stats.cmdrStats)
-    .sort((a, b) => b[1].plays - a[1].plays || a[0].localeCompare(b[0]));
+    .sort((a, b) => {
+      const mmrA = pilotMmr[a[0].toLowerCase()]?.mmr ?? -Infinity;
+      const mmrB = pilotMmr[b[0].toLowerCase()]?.mmr ?? -Infinity;
+      return mmrB - mmrA || b[1].plays - a[1].plays || a[0].localeCompare(b[0]);
+    });
 
   const maxPlays = Math.max(...cmdrList.map(([, s]) => s.plays));
 
