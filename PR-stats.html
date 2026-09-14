@@ -811,7 +811,7 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     .pr-table td.num { white-space: nowrap; }
     .pr-table .win-badge,
     .pr-table .end-badge,
-    .pr-table .king-badge { font-size: 10px; padding: 1px 4px; }
+    .pr-table .king-badge { font-size: 9px; padding: 1px 3px; letter-spacing: 0; }
     .pr-mob-hide { display: none !important; }
   }
 </style>
@@ -1247,7 +1247,7 @@ function renderAllGames() {
         <td></td>
         <td class="num pr-mob-hide">Seat ${fmt.int(row[C.seat])}</td>
         <td class="num score">${fmt.int(row[C.score])} VP</td>
-        <td class="pr-mob-hide">${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>
+        <td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>
         <td><div class="badge-stack">${badges}</div></td>`;
       const nameCell = document.createElement('td');
       const nameBtn  = document.createElement('button');
@@ -1741,7 +1741,7 @@ function renderProfile(player) {
     const splitTh = document.createElement('th');
     splitTh.title = 'VP breakdown: chips vs buildings';
     splitTh.textContent = 'Split';
-    splitTh.className = 'pr-mob-hide';
+    splitTh.className = '';
     thead.insertBefore(splitTh, thead.children[4]);
   }
 
@@ -1767,7 +1767,7 @@ function renderProfile(player) {
     const tr = document.createElement('tr');
     if (won) tr.className = 'win-row';
 
-    const splitCell = hasSplitData ? `<td class="pr-mob-hide">${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>` : '';
+    const splitCell = hasSplitData ? `<td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>` : '';
     tr.innerHTML = `
       <td>${fmt.date(game.date)}</td>
       <td class="num">${game.gameNum||'—'}</td>
