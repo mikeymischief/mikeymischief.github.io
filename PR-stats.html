@@ -1196,7 +1196,6 @@ function renderAllGames() {
 
     const metaParts = [fmt.date(game.date)];
     if (gameRound && gameRound !== '—') metaParts.push('Round ' + gameRound);
-    if (endPlayer && endLabel) metaParts.push(endPlayer + ' · ' + endLabel);
 
     const sorted = [...game.rows]
       .filter(r => (r[C.player]||'').trim())
