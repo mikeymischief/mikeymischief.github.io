@@ -157,7 +157,12 @@ async function getImageMap(partNames) {
           const url = card.image_uris?.art_crop
             || card.card_faces?.[0]?.image_uris?.art_crop
             || null;
-          if (url) cached[card.name.toLowerCase()] = url;
+          if (url) {
+            cached[card.name.toLowerCase()] = url;
+            // For DFCs, also cache by front-face name so lookups by a single face succeed
+            const front = card.name.split(' // ')[0].trim().toLowerCase();
+            if (front !== card.name.toLowerCase()) cached[front] = url;
+          }
         });
       } catch(e) { console.warn('Scryfall images batch failed:', e); }
       if (i + 75 < missing.length) await new Promise(r => setTimeout(r, 100));
