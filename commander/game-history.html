@@ -1693,6 +1693,12 @@ async function renderMatchups(cmdr) {
     matches.flatMap(m => m.cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())))
   )];
   const imageMap = await getImageMap(partNames);
+  await Promise.all(partNames.map(async p => {
+    const apiUrl = _globalArtOverrides[p.toLowerCase()];
+    if (!apiUrl) return;
+    const url = await fetchOverrideArt(apiUrl);
+    if (url) imageMap[p.toLowerCase()] = url;
+  }));
 
   const cards = matches.map(({ cmdr: opp, count, wins: w, oppWins: l, mmr }) => {
     const firstPart = stripPilotSuffix(opp.split(' / ')[0].trim());
