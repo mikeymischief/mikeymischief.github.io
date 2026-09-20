@@ -465,8 +465,8 @@ function buildPlayerCard(pilotName, stats) {
     const consVal = !isNaN(entry?.cons) ? entry.cons.toFixed(1) : '—';
 
     const winPct  = s.plays > 0 ? (s.wins / s.plays * 100).toFixed(2) + '%' : '—';
-    const avgRnd  = s.rounds.length ? Math.round(s.rounds.reduce((a,b)=>a+b,0)/s.rounds.length) : '—';
-    const avgMull = s.mulls.length  ? Math.round(s.mulls.reduce((a,b)=>a+b,0)/s.mulls.length)  : '—';
+    const avgRnd  = s.rounds.length ? (s.rounds.reduce((a,b)=>a+b,0)/s.rounds.length).toFixed(1) : '—';
+    const avgMull = s.mulls.length  ? (s.mulls.reduce((a,b)=>a+b,0)/s.mulls.length).toFixed(1)  : '—';
 
     let mostCommonSeat = '—';
     if (s.seats.length) {
