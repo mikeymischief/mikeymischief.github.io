@@ -1484,7 +1484,7 @@ async function fetchCmdrCards(names) {
         const face = card.card_faces?.[0] || card;
         const cardObj = {
           name: card.name,
-          art: face.image_uris?.art_crop || null,
+          art: face.image_uris?.art_crop || card.image_uris?.art_crop || null,
           type_line: card.type_line || '',
           oracle_text: face.oracle_text || '',
           mana_cost: face.mana_cost || '',
@@ -2123,6 +2123,7 @@ function renderHistory(rows) {
         <th>Tier</th>
         <th>Commander</th>
         <th class="num">Seat</th>
+        <th class="num">Mulls</th>
         <th class="num">Plays</th>
         <th class="num">Win%</th>
         <th class="num">MMR (before → after)</th>
@@ -2158,13 +2159,14 @@ function renderHistory(rows) {
       const tr = document.createElement('tr');
       tr.className = won ? 'winner-row' : '';
       tr.dataset.p = pilot;
-      const seat = row[G.seat] ? 'Seat ' + int(row[G.seat]) : '';
+      const seat = row[G.seat] ? int(row[G.seat]) : '';
       const wp = row[G.winProb] ? pct(row[G.winProb]) : '';
       tr.innerHTML = `
         <td class="pilot-name">${escHtml(pilot)}</td>
         <td style="text-align:center">${_activeSet.has(normalizeCmdr(row[G.commander])) ? tierBadgeSvg(_tierMap[normalizeCmdr(row[G.commander])]) : ''}</td>
         <td class="cmdr-name">${cmdrCell(row[G.commander])}${badges ? ' ' + badges : ''}</td>
         <td class="num">${seat}</td>
+        <td class="num">${row[G.mulligan] !== '' && row[G.mulligan] != null ? int(row[G.mulligan]) : '—'}</td>
         <td class="num">${row[G.cmdrPlays] || '—'}</td>
         <td class="num">${wp}</td>
         <td class="num">${num(row[G.startMmr],1)} → ${(v => isNaN(v) ? '—' : v.toFixed(1))(parsePctDelta(row[G.endMmr]))}</td>
