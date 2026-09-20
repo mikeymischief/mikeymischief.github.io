@@ -1546,7 +1546,7 @@ function computeCmdrRankings(cmdr) {
   const hasTrackingGames = {}; // commanders with at least one session-18+ game
 
   // Build session number map (session 18 = when mulligan tracking started)
-  const _sessionDates = [...new Set(podsChronological.map(p => (p[0][G.date] || '').trim()))].sort();
+  const _sessionDates = [...new Set(podsChronological.map(p => (p[0][G.date] || '').trim()))].sort((a, b) => new Date(a) - new Date(b));
   const _sessionNumForDate = {};
   _sessionDates.forEach((d, i) => { _sessionNumForDate[d] = i + 1; });
   const seatFreq = {};
