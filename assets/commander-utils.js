@@ -110,10 +110,10 @@ function escHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-// Newline or ` // ` (Scryfall DFC separator) = partner pair separator → ' / '
+// Newline = partner pair separator → ' / '
 function normalizeCmdr(v) {
   if (!v) return '';
-  return v.replace(/\r?\n/g, ' / ').replace(/ \/\/ /g, ' / ').trim();
+  return v.replace(/\r?\n/g, ' / ').trim();
 }
 
 // Strip trailing pilot-letter suffix, e.g. "Sisay (A)" → "Sisay"
