@@ -1811,9 +1811,9 @@ async function showCmdrHero(cmdr) {
   }
   document.getElementById('stat-avg-seat').textContent = r.seatMode != null ? `Seat ${r.seatMode}` : '—';
   document.getElementById('stat-avg-seat-sub').textContent = r.seatMode != null ? 'most common seat' : '';
-  document.getElementById('stat-avg-round').textContent = r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—';
+  document.getElementById('stat-avg-round').textContent = r.avgRoundWin != null ? Math.round(r.avgRoundWin) : '—';
   document.getElementById('stat-avg-round-sub').textContent = r.wins > 0 ? `avg across ${r.wins} win${r.wins !== 1 ? 's' : ''}` : 'no round data yet';
-  document.getElementById('stat-avg-mulligan').textContent = r.avgMulligan != null ? r.avgMulligan.toFixed(2) : '—';
+  document.getElementById('stat-avg-mulligan').textContent = r.avgMulligan != null ? Math.round(r.avgMulligan) : '—';
   document.getElementById('stat-avg-mulligan-sub').textContent = r.mulliganGames > 0 ? `across ${r.mulliganGames} game${r.mulliganGames !== 1 ? 's' : ''}` : 'no mulligan data yet';
   document.getElementById('stat-kingme').textContent = r.kingmeCount > 0 ? r.kingmeCount : '—';
   document.getElementById('stat-kingme-sub').textContent = r.kingmeCount > 0 ? `time${r.kingmeCount !== 1 ? 's' : ''} king maker` : 'none yet';
@@ -2460,8 +2460,8 @@ async function downloadCmdrCard() {
     { label: 'MMR', value: r.currentMmr != null ? String(Math.round(r.currentMmr)) : '—' },
     { label: 'MMR RANK', value: r.mmrRank ? `#${r.mmrRank}` : '—' },
     { label: 'PILOT', value: r.primaryPilot || '—' },
-    { label: 'AVG ROUND WON', value: r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—' },
-    { label: 'AVG MULLIGANS', value: r.avgMulligan != null ? r.avgMulligan.toFixed(2) : '—' },
+    { label: 'AVG ROUND WON', value: r.avgRoundWin != null ? Math.round(r.avgRoundWin) : '—' },
+    { label: 'AVG MULLIGANS', value: r.avgMulligan != null ? Math.round(r.avgMulligan) : '—' },
     { label: 'PLAYS', value: String(r.plays || '—') },
   ];
   const COLS = 3, ROWS = 2;
