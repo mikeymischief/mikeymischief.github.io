@@ -113,7 +113,7 @@ function escHtml(s) {
 // Newline = partner pair separator → ' / '
 function normalizeCmdr(v) {
   if (!v) return '';
-  return v.replace(/\r?\n/g, ' / ').replace(/\s*\/\/\s*/g, ' / ').trim();
+  return v.replace(/\r?\n/g, ' / ').trim();
 }
 
 // Strip trailing pilot-letter suffix, e.g. "Sisay (A)" → "Sisay"

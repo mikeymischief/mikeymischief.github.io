@@ -65,12 +65,12 @@ function cmdrCell(val) {
   return `<a href="/commander/game-history/?commander=${encodeURIComponent(normalized)}" class="cmdr-link">${cmdrCellInner(val)}</a>`;
 }
 function cmdrToIndividualParts(cmdr) {
-  return cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
+  return cmdr.split(/ \/{1,2} /).map(p => stripPilotSuffix(p.trim())).filter(Boolean);
 }
 
 // Scryfall color identity lookup with localStorage cache
 const SCRYFALL_COLLECTION = 'https://api.scryfall.com/cards/collection';
-const CMDR_COLORS_CACHE_KEY = 'cmdr_colors_v1';
+const CMDR_COLORS_CACHE_KEY = 'cmdr_colors_v2';
 const CMDR_IMAGES_CACHE_KEY = 'cmdr_images_v1';
 
 // Module-level cache to avoid repeated localStorage reads/JSON parses per page load
