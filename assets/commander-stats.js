@@ -106,8 +106,10 @@ async function fetchScryfallBatch(names) {
       });
       const data = await resp.json();
       (data.data || []).forEach(card => {
-        cardColors[card.name.toLowerCase()] =
-          ['W','U','B','R','G'].filter(c => (card.color_identity || []).includes(c)).join('') || 'C';
+        const ci = ['W','U','B','R','G'].filter(c => (card.color_identity || []).includes(c)).join('') || 'C';
+        cardColors[card.name.toLowerCase()] = ci;
+        const front = card.name.split(' // ')[0].trim().toLowerCase();
+        if (front !== card.name.toLowerCase()) cardColors[front] = ci;
       });
     } catch(e) { console.warn('Scryfall batch failed:', e); }
     if (i + 75 < names.length) await new Promise(r => setTimeout(r, 100));
