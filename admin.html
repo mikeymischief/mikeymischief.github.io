@@ -312,7 +312,7 @@ permalink: /admin/
 
   <div class="btn-row">
     <button class="btn-save" onclick="save()">Save</button>
-    <button class="btn-clear" onclick="clear()">Clear</button>
+    <button class="btn-clear" onclick="clearDate()">Clear</button>
   </div>
 
   <div class="preview" id="preview">
@@ -463,11 +463,12 @@ function save() {
   _state.nextSession = input.value || null;
   flash(toast, input.value ? 'Staged.' : 'Cleared.');
 }
-function clear() {
+async function clearDate() {
   input.value = '';
   preview.classList.remove('visible');
   _state.nextSession = null;
   flash(toast, 'Cleared.');
+  await publishNow();
 }
 
 // ── Puerto Rico Next Session ──────────────────────────────────────────────
