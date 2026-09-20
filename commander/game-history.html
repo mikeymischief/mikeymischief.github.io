@@ -1543,6 +1543,12 @@ function computeCmdrRankings(cmdr) {
   const roundWinCount = {}; // count of winning games with round data
   const mulliganSum = {};   // sum of mulligans per commander
   const mulliganCount = {}; // games with mulligan data per commander
+  const hasTrackingGames = {}; // commanders with at least one session-18+ game
+
+  // Build session number map (session 18 = when mulligan tracking started)
+  const _sessionDates = [...new Set(podsChronological.map(p => (p[0][G.date] || '').trim()))].sort();
+  const _sessionNumForDate = {};
+  _sessionDates.forEach((d, i) => { _sessionNumForDate[d] = i + 1; });
   const seatFreq = {};
   const cutoff = new Date();
   cutoff.setFullYear(cutoff.getFullYear() - 2);
@@ -1559,9 +1565,11 @@ function computeCmdrRankings(cmdr) {
     const podWinnerRow = pod.find(r => rowWon(r));
     const winner = podWinnerRow ? normalizeCmdr(podWinnerRow[G.winner]) : null;
     const rounds = parseFloat(podWinnerRow ? podWinnerRow[G.rounds] : pod[0][G.rounds]);
+    const podSessionNum = _sessionNumForDate[(pod[0][G.date] || '').trim()] || 0;
     pod.forEach(row => {
       const c = normalizeCmdr(row[G.commander]);
       if (!c) return;
+      if (podSessionNum >= 18) hasTrackingGames[c] = true;
       const endMmr = parsePctDelta(row[G.endMmr]);
       if (!isNaN(endMmr)) { latestMmr[c] = endMmr; latestDate[c] = podDate; }
       playCounts[c] = (playCounts[c] || 0) + 1;
@@ -1609,6 +1617,7 @@ function computeCmdrRankings(cmdr) {
 
   const mulliganGames = mulliganCount[cmdr] || 0;
   const avgMulligan = mulliganGames > 0 ? mulliganSum[cmdr] / mulliganGames : null;
+  const mulliganTracked = !!hasTrackingGames[cmdr];
 
   const seatMode = (() => {
     const freq = seatFreq[cmdr];
@@ -1643,6 +1652,7 @@ function computeCmdrRankings(cmdr) {
     wlt,
     avgMulligan,
     mulliganGames,
+    mulliganTracked,
     seatMode,
     tier,
     isActive,
@@ -1839,8 +1849,8 @@ async function showCmdrHero(cmdr) {
   document.getElementById('stat-avg-seat-sub').textContent = r.seatMode != null ? 'most common seat' : '';
   document.getElementById('stat-avg-round').textContent = r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—';
   document.getElementById('stat-avg-round-sub').textContent = r.wins > 0 ? `avg across ${r.wins} win${r.wins !== 1 ? 's' : ''}` : 'no round data yet';
-  document.getElementById('stat-avg-mulligan').textContent = r.avgMulligan != null ? r.avgMulligan.toFixed(1) : '—';
-  document.getElementById('stat-avg-mulligan-sub').textContent = r.mulliganGames > 0 ? `across ${r.mulliganGames} game${r.mulliganGames !== 1 ? 's' : ''}` : 'no mulligan data yet';
+  document.getElementById('stat-avg-mulligan').textContent = r.avgMulligan != null ? r.avgMulligan.toFixed(1) : r.mulliganTracked ? '—' : 'N/A';
+  document.getElementById('stat-avg-mulligan-sub').textContent = r.mulliganGames > 0 ? `across ${r.mulliganGames} game${r.mulliganGames !== 1 ? 's' : ''}` : r.mulliganTracked ? 'no data recorded' : 'not tracked before S18';
   document.getElementById('stat-kingme').textContent = r.kingmeCount > 0 ? r.kingmeCount : '—';
   document.getElementById('stat-kingme-sub').textContent = r.kingmeCount > 0 ? `time${r.kingmeCount !== 1 ? 's' : ''} king maker` : 'none yet';
   document.getElementById('stat-errors').textContent = r.errorCount > 0 ? r.errorCount : '—';
@@ -2489,7 +2499,7 @@ async function downloadCmdrCard() {
     { label: 'MMR RANK', value: r.mmrRank ? `#${r.mmrRank}` : '—' },
     { label: 'PILOT', value: r.primaryPilot || '—' },
     { label: 'AVG ROUND WON', value: r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—' },
-    { label: 'AVG MULLIGANS', value: r.avgMulligan != null ? r.avgMulligan.toFixed(1) : '—' },
+    { label: 'AVG MULLIGANS', value: r.avgMulligan != null ? r.avgMulligan.toFixed(1) : r.mulliganTracked ? '—' : 'N/A' },
     { label: 'PLAYS', value: String(r.plays || '—') },
   ];
   const COLS = 3, ROWS = 2;
