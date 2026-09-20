@@ -1849,8 +1849,8 @@ async function showCmdrHero(cmdr) {
   document.getElementById('stat-avg-seat-sub').textContent = r.seatMode != null ? 'most common seat' : '';
   document.getElementById('stat-avg-round').textContent = r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—';
   document.getElementById('stat-avg-round-sub').textContent = r.wins > 0 ? `avg across ${r.wins} win${r.wins !== 1 ? 's' : ''}` : 'no round data yet';
-  document.getElementById('stat-avg-mulligan').textContent = r.avgMulligan != null ? r.avgMulligan.toFixed(1) : r.mulliganTracked ? '—' : 'N/A';
-  document.getElementById('stat-avg-mulligan-sub').textContent = r.mulliganGames > 0 ? `across ${r.mulliganGames} game${r.mulliganGames !== 1 ? 's' : ''}` : r.mulliganTracked ? 'no data recorded' : 'not tracked before S18';
+  document.getElementById('stat-avg-mulligan').textContent = r.avgMulligan != null ? r.avgMulligan.toFixed(1) : r.mulliganTracked ? '0.0' : 'N/A';
+  document.getElementById('stat-avg-mulligan-sub').textContent = r.mulliganGames > 0 ? `across ${r.mulliganGames} game${r.mulliganGames !== 1 ? 's' : ''}` : r.mulliganTracked ? 'no mulligans taken' : 'not tracked before S18';
   document.getElementById('stat-kingme').textContent = r.kingmeCount > 0 ? r.kingmeCount : '—';
   document.getElementById('stat-kingme-sub').textContent = r.kingmeCount > 0 ? `time${r.kingmeCount !== 1 ? 's' : ''} king maker` : 'none yet';
   document.getElementById('stat-errors').textContent = r.errorCount > 0 ? r.errorCount : '—';
@@ -2499,7 +2499,7 @@ async function downloadCmdrCard() {
     { label: 'MMR RANK', value: r.mmrRank ? `#${r.mmrRank}` : '—' },
     { label: 'PILOT', value: r.primaryPilot || '—' },
     { label: 'AVG ROUND WON', value: r.avgRoundWin != null ? r.avgRoundWin.toFixed(1) : '—' },
-    { label: 'AVG MULLIGANS', value: r.avgMulligan != null ? r.avgMulligan.toFixed(1) : r.mulliganTracked ? '—' : 'N/A' },
+    { label: 'AVG MULLIGANS', value: r.avgMulligan != null ? r.avgMulligan.toFixed(1) : r.mulliganTracked ? '0.0' : 'N/A' },
     { label: 'PLAYS', value: String(r.plays || '—') },
   ];
   const COLS = 3, ROWS = 2;
