@@ -172,6 +172,13 @@ async function getImageMap(partNames) {
 // Shared art overrides from deck info CSV — keyed by lowercase part name
 const _globalArtOverrides = {};
 
+// Hardcoded overrides for DFCs and non-standard names that Scryfall's name search can't match.
+// scryfallPageToApiUrl is a function declaration so it is hoisted safely here.
+Object.assign(_globalArtOverrides, {
+  'avatar aang': scryfallPageToApiUrl('https://scryfall.com/card/tla/207/avatar-aang-aang-master-of-elements'),
+  'aang, master of elements': scryfallPageToApiUrl('https://scryfall.com/card/tla/207/avatar-aang-aang-master-of-elements'),
+});
+
 async function loadAvatarImages(container) {
   const imgs = Array.from((container || document).querySelectorAll('.cmdr-avatar[data-cmdr]'));
   if (!imgs.length) return;
