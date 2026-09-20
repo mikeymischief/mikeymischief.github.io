@@ -1748,8 +1748,28 @@ async function showCmdrHero(cmdr) {
   const parts = cmdr.split(' / ').map(p => stripPilotSuffix(p.trim())).filter(Boolean);
   await _deckInfoReady;
   const cardMap = await fetchCmdrCards(parts);
+  // For parts where name-search failed or returned no art, fall back to the deck-info Scryfall URL
+  await Promise.all(parts.map(async p => {
+    const key = p.toLowerCase();
+    if (cardMap[key]?.art) return;
+    const apiUrl = _globalArtOverrides[key];
+    if (!apiUrl) return;
+    try {
+      const card = await fetch(apiUrl).then(r => r.json());
+      const face = card.card_faces?.[0] || card;
+      cardMap[key] = {
+        name: face.name || card.name,
+        art:  face.image_uris?.art_crop || null,
+        type_line:   face.type_line   || card.type_line || '',
+        oracle_text: face.oracle_text || '',
+        mana_cost:   face.mana_cost   || '',
+        power: card.power ?? null, toughness: card.toughness ?? null, loyalty: card.loyalty ?? null,
+      };
+    } catch(e) {}
+  }));
   const cards = parts.map(p => cardMap[p.toLowerCase()]).filter(c => c && c.art);
   if (!cards.length) { hero.style.display = 'none'; return; }
+  // Apply deck-info art overrides (take priority over Scryfall art)
   await Promise.all(cards.map(async c => {
     const apiUrl = _globalArtOverrides[c.name.toLowerCase()];
     if (apiUrl) { const url = await fetchOverrideArt(apiUrl); if (url) c.art = url; }
