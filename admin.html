@@ -612,13 +612,23 @@ _csvConfigReady
     sgRender();
   });
 
-// ── Populate per-pilot datalists from DECK CSV ────────────────────────────
+// ── Populate per-pilot datalists from DECK CSV + GAMES CSV ──────────────
 _csvConfigReady.then(() => {
+  const pilotNameSets = {};
+  PILOTS.forEach(p => { pilotNameSets[p] = new Set(); });
+
+  function rebuildDataLists() {
+    PILOTS.forEach(pilot => {
+      const dl = document.getElementById(`sg-dl-${pilot.toLowerCase()}`);
+      if (dl) dl.innerHTML = [...pilotNameSets[pilot]].sort((a, b) => a.localeCompare(b))
+        .map(n => `<option value="${escHtml(n)}">`).join('');
+    });
+  }
+
+  // Deck CSV: commanders indexed by pilot
   Papa.parse(DECK_CSV_URL, {
     download: true,
     complete: function(results) {
-      const pilotNameSets = {};
-      PILOTS.forEach(p => { pilotNameSets[p] = new Set(); });
       (results.data || []).slice(1).forEach(row => {
         const pilotRaw = (row[0] || '').trim();
         const name = stripPilotSuffix(normalizeCmdr(row[1] || ''));
@@ -626,11 +636,22 @@ _csvConfigReady.then(() => {
         const matched = PILOTS.find(p => p.toLowerCase() === pilotRaw.toLowerCase());
         if (matched) pilotNameSets[matched].add(name);
       });
-      PILOTS.forEach(pilot => {
-        const dl = document.getElementById(`sg-dl-${pilot.toLowerCase()}`);
-        if (dl) dl.innerHTML = [...pilotNameSets[pilot]].sort((a, b) => a.localeCompare(b))
-          .map(n => `<option value="${escHtml(n)}">`).join('');
+      rebuildDataLists();
+    },
+  });
+
+  // Games CSV: every commander each pilot has actually played
+  Papa.parse(GAMES_CSV_URL, {
+    download: true,
+    complete: function(results) {
+      (results.data || []).slice(1).forEach(row => {
+        const pilotRaw = (row[G.pilot] || '').trim();
+        const name = stripPilotSuffix(normalizeCmdr(row[G.commander] || ''));
+        if (!name) return;
+        const matched = PILOTS.find(p => p.toLowerCase() === pilotRaw.toLowerCase());
+        if (matched) pilotNameSets[matched].add(name);
       });
+      rebuildDataLists();
     },
   });
 }).catch(() => {});
