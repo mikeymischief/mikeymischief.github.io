@@ -8,25 +8,24 @@ let GAMES_CSV_URL     = '';
 let DECK_CSV_URL      = '';
 let CMDRSTATS_CSV_URL = '';
 let TRUESKILL_CSV_URL = '';
-let GIST_ID           = ''; // GitHub Gist ID for session storage
-let GIST_TOKEN        = ''; // GitHub personal access token (gist scope)
+let SESSION_BIN       = ''; // JSONBin bin ID
+let SESSION_KEY       = ''; // JSONBin master key
 
-// Fetch session data from GitHub Gist (returns parsed content or {}).
+// Fetch session data from JSONBin (returns parsed record or {}).
 function fetchSession() {
-  if (!GIST_ID) return fetch('/data/session.json').then(r => r.json()).catch(() => ({}));
-  return fetch(`https://api.github.com/gists/${GIST_ID}`)
-    .then(r => r.json())
-    .then(d => JSON.parse(d.files['session.json'].content))
-    .catch(() => ({}));
+  if (!SESSION_BIN) return fetch('/data/session.json').then(r => r.json()).catch(() => ({}));
+  return fetch(`https://api.jsonbin.io/v3/b/${SESSION_BIN}/latest`, {
+    headers: { 'X-Master-Key': SESSION_KEY },
+  }).then(r => r.json()).then(d => d.record || {}).catch(() => ({}));
 }
 
-// Write session data to GitHub Gist.
+// Write session data to JSONBin.
 function saveSession(data) {
-  if (!GIST_ID) return Promise.reject(new Error('GIST_ID not configured'));
-  return fetch(`https://api.github.com/gists/${GIST_ID}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GIST_TOKEN}` },
-    body: JSON.stringify({ files: { 'session.json': { content: JSON.stringify(data) } } }),
+  if (!SESSION_BIN) return Promise.reject(new Error('SESSION_BIN not configured'));
+  return fetch(`https://api.jsonbin.io/v3/b/${SESSION_BIN}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'X-Master-Key': SESSION_KEY },
+    body: JSON.stringify(data),
   }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); });
 }
 
@@ -36,9 +35,9 @@ const _csvConfigReady = fetch('/data/config.json')
     GAMES_CSV_URL     = cfg.games;
     DECK_CSV_URL      = cfg.deck;
     CMDRSTATS_CSV_URL = cfg.cmdrstats;
-    TRUESKILL_CSV_URL = cfg.trueskill  || '';
-    GIST_ID           = cfg.gist_id   || '';
-    GIST_TOKEN        = cfg.gist_token || '';
+    TRUESKILL_CSV_URL = cfg.trueskill    || '';
+    SESSION_BIN       = cfg.session_bin  || '';
+    SESSION_KEY       = cfg.session_key  || '';
   });
 
 // ── TrueSkill parameters and helpers ─────────────────────────────────────────

@@ -386,7 +386,7 @@ permalink: /admin/
     <div class="eyebrow">Publish</div>
     <h1 style="margin-bottom:8px;">Publish Now</h1>
     <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);line-height:1.6;margin-bottom:20px;">
-      Writes to GitHub Gist — live instantly on all devices, no commit needed.
+      Writes to JSONBin — live instantly on all devices, no commit needed.
     </p>
 
     <div class="btn-row">
@@ -424,8 +424,8 @@ function ghStatus(type, msg) {
 }
 
 async function publishNow() {
-  if (!GIST_ID) {
-    ghStatus('err', 'GIST_ID not configured — add gist_id/gist_token to data/config.json.');
+  if (!SESSION_BIN) {
+    ghStatus('err', 'SESSION_BIN not configured — add session_bin/session_key to data/config.json.');
     return;
   }
   ghStatus('busy', 'Publishing…');
