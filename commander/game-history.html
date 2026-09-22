@@ -2686,6 +2686,12 @@ async function openPodShareCard(pod, gameLabel, podTitle, podRowBadges) {
     players.flatMap(p => p.cmdr.split(' / ').map(part => stripPilotSuffix(part.trim())))
   )];
   const imageMap = await getImageMap(allParts);
+  await Promise.all(allParts.map(async p => {
+    const apiUrl = _globalArtOverrides[p.toLowerCase()];
+    if (!apiUrl) return;
+    const url = await fetchOverrideArt(apiUrl);
+    if (url) imageMap[p.toLowerCase()] = url;
+  }));
 
   // Ensure TrueSkill map is ready, then compute win probabilities.
   await _tsMapReady;
