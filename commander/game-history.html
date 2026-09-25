@@ -998,7 +998,7 @@ function rebuildCmdrDatalist() {
 //   "Kefka, Court Mage" → "Kefka, Court Mage // Kefka, Ruler of Ruin"
 function resolveCmdrQuery(query) {
   if (!query) return query;
-  const norm = normalizeCmdr(query).replace(/ \/\/ /g, ' / ');
+  const norm = normalizeCmdr(query);
   // Exact match in either set → already canonical
   const combined = new Set([..._gamesCmdrs, ..._deckCmdrs]);
   if (combined.has(norm)) return norm;
@@ -2258,7 +2258,7 @@ Papa.parse(DECK_CSV_URL, {
   complete: function(r) {
     (r.data || []).slice(1).forEach(row => {
       const pilot  = (row[0] || '').trim();
-      const cmdr   = normalizeCmdr(row[1] || '').replace(/ \/\/ /g, ' / ');
+      const cmdr   = normalizeCmdr(row[1] || '');
       const bracket = (row[2] || '').trim();
       const youtube = (row[4] || '').trim();
       if (cmdr && bracket) _bracketMap[cmdr] = bracket;
