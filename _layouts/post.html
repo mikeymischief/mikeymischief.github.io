@@ -2,7 +2,9 @@
 layout: default
 ---
 
-{% if page.categories contains 'cube' %}
+{% if page.image %}
+  {% assign post_hero_art = page.image %}
+{% elsif page.categories contains 'cube' %}
   {% assign hero_pool = site.static_files | where_exp: "f", "f.path contains '/images/bg/cube/'" %}
   {% assign hero_file = hero_pool | sample %}
   {% assign post_hero_art = hero_file.path %}
