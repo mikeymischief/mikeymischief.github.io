@@ -978,6 +978,8 @@ let _activeSet = new Set();
 let _bracketMap = {};
 let _youtubeMap = {};
 let _deckCmdrs = new Set();      // all deck commanders (for filter datalist)
+let _ghDeckResolve;
+const _ghDeckReady = new Promise(resolve => { _ghDeckResolve = resolve; });
 let _deckPilotCmdrs = {};        // pilot → Set<cmdrName> (for per-pilot predictor dropdowns)
 let _gamesCmdrs = new Set();
 
@@ -1819,6 +1821,7 @@ async function showCmdrHero(cmdr) {
   hero.style.display = '';
 
   // YouTube embed
+  await _ghDeckReady;
   const ytUrl = youtubeEmbedUrl(_youtubeMap[normalizeCmdr(cmdr)] || '');
   const videoFrame = document.getElementById('cmdr-video-frame');
   if (ytUrl) {
@@ -2274,6 +2277,7 @@ Papa.parse(DECK_CSV_URL, {
     rebuildCmdrDatalist();
     // If predictor is already built (Games CSV finished first), patch in any new commanders.
     refreshPilotDatalists();
+    _ghDeckResolve();
   }
 });
 
