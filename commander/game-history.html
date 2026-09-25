@@ -1577,7 +1577,8 @@ function computeCmdrRankings(cmdr) {
       playCounts[c] = (playCounts[c] || 0) + 1;
       if (!playDates[c]) playDates[c] = [];
       playDates[c].push(podTs);
-      const mulligans = parseFloat(row[G.mulligan]);
+      const mulliganRaw = row[G.mulligan];
+      const mulligans = mulliganRaw !== '' && mulliganRaw != null ? parseFloat(mulliganRaw) : (podSessionNum >= 18 ? 0 : NaN);
       if (!isNaN(mulligans) && mulligans >= 0) {
         mulliganSum[c] = (mulliganSum[c] || 0) + mulligans;
         mulliganCount[c] = (mulliganCount[c] || 0) + 1;
