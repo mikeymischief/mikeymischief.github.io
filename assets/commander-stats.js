@@ -11,7 +11,7 @@ _csvConfigReady.then(() => {
     download: true,
     complete: r => {
       (r.data || []).slice(1).forEach(row => {
-        const cmdr = normalizeCmdr(row[1] || '').replace(/ \/\/ /g, ' / ');
+        const cmdr = normalizeCmdr(row[1] || '');
         const apiUrl = scryfallPageToApiUrl(row[3] || '');
         if (cmdr && apiUrl) {
           cmdr.split(' / ').forEach(p => {
