@@ -22,6 +22,8 @@ These are my new commander decks that I love to play. They are very different de
 
 <!--more-->
 
+<img src="/images/banners/Kefka-amano.jpeg" alt="Kefka, Court Mage" style="width:100%;height:200px;object-fit:cover;object-position:center;display:block;margin-bottom:1rem;"/>
+
 ## Kefka, Court Mage (Grixis)
 
 [Kefka](https://scryfall.com/card/fin/322/kefka-court-mage-kefka-ruler-of-ruin) turns every ETB and attack into a table-wide discard that refills your hand, then punishes opponents for every card they lose. The deck wins by grinding hands empty while discard triggers drain life, and flips Kefka late to convert that life loss into cards.
@@ -60,6 +62,8 @@ These are my new commander decks that I love to play. They are very different de
 - [Bojuka Bog](https://scryfall.com/card/soc/363/bojuka-bog) exists to stamp out any graveyard matters cards from the opponent.
 
 ---
+
+<img src="/images/banners/y-shtola-nights-blessed.jpg" alt="Y'shtola, Night's Blessed" style="width:100%;height:200px;object-fit:cover;object-position:center;display:block;margin-bottom:1rem;"/>
 
 ## Y'shtola, Night's Blessed (Esper)
 
@@ -100,6 +104,8 @@ These are my new commander decks that I love to play. They are very different de
 - [Waterlogged Teachings](https://scryfall.com/card/mh3/261/waterlogged-teachings-inundated-archive), [Mystic Sanctuary](https://scryfall.com/card/soc/388/mystic-sanctuary) and [Otawara](https://scryfall.com/card/neo/271/otawara-soaring-city) provide late-game utility.
 
 ---
+
+<img src="/images/banners/Avatar-Aang.jpeg" alt="Avatar Aang" style="width:100%;height:200px;object-fit:cover;object-position:center;display:block;margin-bottom:1rem;"/>
 
 ## Avatar Aang (Five-Color)
 
