@@ -100,7 +100,7 @@ These are my new commander decks that I love to play. They are very different de
 
 - Hold free spells for opponents' turns. The 2 damage lands on their turn and can trigger the end-step draw for you. It helps when an opponent attacks another opponent and you can get pile up the damage to get the end-of-turn draw.
 - Otherwise, two qualifying spells in one turn equals 4 damage to every opponent, which draws you a card.
-- Put [Curiosity](https://scryfall.com/card/jmp/147/curiosity) or [Helm of the Ghastlord](https://scryfall.com/card/shm/166/helm-of-the-ghastlord) on Y'shtola: each trigger damages every opponent, so it draws once per opponent.
+- Put [Curiosity](https://scryfall.com/card/jmp/147/curiosity), [Ophidian Eye](https://scryfall.com/card/tsp/70/ophidian-eye), or [Helm of the Ghastlord](https://scryfall.com/card/shm/166/helm-of-the-ghastlord) on Y'shtola: each trigger damages every opponent, so it draws once per opponent.
 - [Waterlogged Teachings](https://scryfall.com/card/mh3/261/waterlogged-teachings-inundated-archive), [Mystic Sanctuary](https://scryfall.com/card/soc/388/mystic-sanctuary) and [Otawara](https://scryfall.com/card/neo/271/otawara-soaring-city) provide late-game utility.
 
 ---
