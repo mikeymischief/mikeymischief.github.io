@@ -267,6 +267,7 @@ permalink: /commander/stats/
       <button id="pill-3" onclick="setSizeFilter(3)" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background-color:var(--gold);color:#0d0f1a;border:none;padding:4px 12px;cursor:pointer;">3-Player</button>
       <button id="pill-4" onclick="setSizeFilter(4)" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background-color:;color:var(--gold);border:none;padding:4px 12px;cursor:pointer;">4-Player</button>
       <button id="pill-5" onclick="setSizeFilter(5)" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background-color:;color:var(--gold);border:none;padding:4px 12px;cursor:pointer;" hidden>5-Player</button>
+      <button id="pill-0" onclick="setSizeFilter(0)" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;background-color:;color:var(--gold);border:none;padding:4px 12px;cursor:pointer;">All</button>
     </span>
   </div>
 
@@ -305,7 +306,7 @@ let _curSize   = 3;    // currently selected pod size
 // Returns null if the pilot has no games of that size.
 function computeStats(pilot, podSize) {
   const pilotRows = _pods
-    .filter(p => p.size === podSize)
+    .filter(p => podSize === 0 || p.size === podSize)
     .flatMap(p => p.rows)
     .filter(r => (r[6] || '').trim() === pilot);
 
@@ -395,7 +396,7 @@ function buildPlayerCard(pilotName, stats) {
     </div>
     <div class="record">
       <span class="winpct">${winPctStr}</span>
-      ${_curSize}-player win rate
+      ${_curSize === 0 ? 'Overall' : _curSize + '-player'} win rate
     </div>
   `;
   card.appendChild(head);
@@ -408,12 +409,12 @@ function buildPlayerCard(pilotName, stats) {
   table.innerHTML = `
     <thead><tr>
       <th>Commander</th>
-      <th class="num" title="Wins">W</th>
-      <th class="num" title="Losses">L</th>
-      <th class="num" title="Games played">P</th>
+      <th class="num" title="Wins (${_curSize === 0 ? 'all pod sizes' : _curSize + '-player'})">W</th>
+      <th class="num" title="Losses (${_curSize === 0 ? 'all pod sizes' : _curSize + '-player'})">L</th>
+      <th class="num" title="Games played (${_curSize === 0 ? 'all pod sizes' : _curSize + '-player'})">P</th>
       <th class="num" title="Times King Maker">👑</th>
       <th class="num" title="Errors recorded">❌</th>
-      <th class="num" title="Win percentage">Win%</th>
+      <th class="num" title="Win percentage (${_curSize === 0 ? 'all pod sizes' : _curSize + '-player'})">Win%</th>
       <th class="num" title="Average round number when this commander wins">Rnd</th>
       <th class="num" title="Average mulligans taken per game">Mlg</th>
       <th class="num" title="Most common seat position">Seat</th>
@@ -498,7 +499,7 @@ function renderForSize(podSize) {
   _curSize = podSize;
 
   // Update pill highlight.
-  [3, 4, 5].forEach(n => {
+  [3, 4, 5, 0].forEach(n => {
     const btn = document.getElementById('pill-' + n);
     if (!btn) return;
     btn.style.backgroundColor = n === podSize ? 'var(--gold)' : '';
@@ -509,11 +510,11 @@ function renderForSize(podSize) {
   grid.innerHTML = '';
 
   const activePilots = PILOTS.filter(pilot =>
-    _pods.some(p => p.size === podSize && p.rows.some(r => (r[6]||'').trim() === pilot))
+    _pods.some(p => (podSize === 0 || p.size === podSize) && p.rows.some(r => (r[6]||'').trim() === pilot))
   );
 
   if (!activePilots.length) {
-    grid.innerHTML = `<p style="color:var(--ink-faint);font-family:'JetBrains Mono',monospace;font-size:13px">No ${podSize}-player games recorded.</p>`;
+    grid.innerHTML = `<p style="color:var(--ink-faint);font-family:'JetBrains Mono',monospace;font-size:13px">No ${podSize === 0 ? '' : podSize + '-player '}games recorded.</p>`;
     document.getElementById('status').textContent = 'Updated ' + new Date().toLocaleString();
     return;
   }
@@ -524,7 +525,7 @@ function renderForSize(podSize) {
   });
 
   document.getElementById('status').textContent =
-    `${podSize}-player · Updated ` + new Date().toLocaleString();
+    `${podSize === 0 ? 'All pod sizes' : podSize + '-player'} · Updated ` + new Date().toLocaleString();
 
   loadAvatarImages(grid);
   loadCardHeadImages();
