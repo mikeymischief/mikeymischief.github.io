@@ -650,8 +650,8 @@ function renderMulligans(gameRows) {
   });
 
   const entries = Object.entries(cmdrData)
-    .filter(([, d]) => d.count >= 1)
     .map(([cmdr, d]) => ({ cmdr, pilot: d.pilot, avg: d.sum / d.count, count: d.count }))
+    .filter(e => e.avg > 0)
     .sort((a, b) => b.avg - a.avg)
     .slice(0, 10);
 
