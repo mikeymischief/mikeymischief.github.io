@@ -636,12 +636,13 @@ function renderRisers(gameRows) {
 }
 
 function renderMulligans(gameRows) {
+  const sessionNumMap = buildSessionNumMap(gameRows);
   const cmdrData = {};
   gameRows.forEach(row => {
     const cmdr = normalizeCmdr(row[G.commander]);
     const pilot = (row[G.pilot] || '').trim();
     if (!cmdr || !pilot) return;
-    const mulligans = parseFloat(row[G.mulligan]);
+    const mulligans = parseMulligan(row, sessionNumMap);
     if (isNaN(mulligans) || mulligans < 0) return;
     if (!cmdrData[cmdr]) cmdrData[cmdr] = { sum: 0, count: 0, pilot };
     cmdrData[cmdr].sum += mulligans;

@@ -38,6 +38,15 @@ function pickActiveCmdr(rankedNames) {
 // ── Games CSV column indices ──────────────────────────────────────────────────
 const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, kingme:5, pilot:6, commander:7, startMmr:8, endMmr:9, delta:10, winProb:11, cmdrPlays:12, notes:13, title:14 };
 
+// Parse the mulligan value for a row: raw value if present, 0 for S18+ blank
+// cells (tracking started in S18), or NaN for pre-S18 blanks.
+// sessionNumMap must be built with buildSessionNumMap before calling.
+function parseMulligan(row, sessionNumMap) {
+  const raw = (row[G.mulligan] ?? '').toString().trim();
+  const sessionNum = sessionNumMap[(row[G.date] || '').trim()] || 0;
+  return raw !== '' ? parseFloat(raw) : (sessionNum >= 18 ? 0 : NaN);
+}
+
 // ── Shared constants ──────────────────────────────────────────────────────────
 const TWO_YEARS = 2 * 365 * 24 * 60 * 60 * 1000;
 const CACHE_TTL = 7 * 24 * 60 * 60 * 1000;

@@ -331,9 +331,7 @@ function computeStats(pilot, podSize) {
     const km = (row[5] || '').trim().toUpperCase();
     if (km === 'K') s.k++;
     if (km === 'E') s.e++;
-    const mullRaw = (row[3] ?? '');
-    const sessionNum = _sessionNumForDate[(row[0] || '').trim()] || 0;
-    const mull = mullRaw !== '' ? parseInt(mullRaw) : (sessionNum >= 18 ? 0 : NaN);
+    const mull = parseMulligan(row, _sessionNumForDate);
     if (!isNaN(mull) && mull >= 0) s.mulls.push(mull);
     const seat = parseInt(row[2]);
     if (!isNaN(seat)) s.seats.push(seat);

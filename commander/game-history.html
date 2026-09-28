@@ -1015,6 +1015,7 @@ let statsMap = {};
 let lastSeenGameGlobal = {};
 let totalPodsGlobal = 0;
 let podsChronological = [];
+let _sessionNumForDate = {};
 let mmrChartInstance = null;
 let tiePodRows = new Set();
 
@@ -1367,7 +1368,7 @@ function computeMiniChartData(cmdr) {
         if (won) sd[seat].wins++;
       }
 
-      const m = parseInt(row[G.mulligan]);
+      const m = parseMulligan(row, _sessionNumForDate);
       if (!isNaN(m) && m >= 0) {
         const bucket = m >= 3 ? '3+' : String(m);
         if (!mulliganData[bucket]) mulliganData[bucket] = { wins: 0, plays: 0 };
@@ -1538,8 +1539,7 @@ function computeCmdrRankings(cmdr) {
       playCounts[c] = (playCounts[c] || 0) + 1;
       if (!playDates[c]) playDates[c] = [];
       playDates[c].push(podTs);
-      const mulliganRaw = row[G.mulligan];
-      const mulligans = mulliganRaw !== '' && mulliganRaw != null ? parseFloat(mulliganRaw) : (podSessionNum >= 18 ? 0 : NaN);
+      const mulligans = parseMulligan(row, _sessionNumForDate);
       if (!isNaN(mulligans) && mulligans >= 0) {
         mulliganSum[c] = (mulliganSum[c] || 0) + mulligans;
         mulliganCount[c] = (mulliganCount[c] || 0) + 1;
@@ -2014,6 +2014,7 @@ function renderHistory(rows) {
   podsChronological = [...pods];
   // Build session numbers (chronological: 1 = oldest session)
   const sessionNumForDate = buildSessionNumMap(pods.map(p => p[0]));
+  _sessionNumForDate = sessionNumForDate;
 
   pods.reverse(); podNotes.reverse(); // most recent first
 
