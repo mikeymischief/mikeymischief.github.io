@@ -294,6 +294,7 @@ const CMDRSTATS_DATA_START  = 3;
 
 // ── State ────────────────────────────────────────────────────────────────────
 let _pods      = [];   // [{size: N, rows: [...]}]
+let _activeSet = new Set();
 let _sessionNumForDate = {};
 let _mmrMap    = {};   // pilot → {cmdrNameLower → {mmr, cons}}
 let _curSize   = 3;    // currently selected pod size
@@ -469,11 +470,10 @@ async function loadCardHeadImages() {
   const heads = Array.from(document.querySelectorAll('.card-head[data-fav-cmdr]'));
   if (!heads.length) return;
   await _deckInfoReady;
-  // For each card pick the highest-MMR commander that is in the active deck list,
-  // falling back to the top overall commander if none are active.
+  // Pick the highest-MMR commander played within the last two years.
   heads.forEach(head => {
     const ranked = JSON.parse(head.dataset.cmdrRanked || '[]');
-    head.dataset.artCmdr = pickActiveCmdr(ranked) || head.dataset.favCmdr;
+    head.dataset.artCmdr = pickActiveCmdr(ranked, _activeSet) || head.dataset.favCmdr;
   });
   const names = [...new Set(heads.map(h => h.dataset.artCmdr).filter(Boolean))];
   const imageMap = await getImageMap(names);
@@ -552,6 +552,7 @@ _csvConfigReady.then(() => {
     // Build pod list from games CSV (skip header row).
     _pods = groupIntoPods(gameRows.slice(1));
     _sessionNumForDate = buildSessionNumMap(_pods.map(p => p.rows[0]));
+    ({ activeSet: _activeSet } = buildTierAndActiveSet(gameRows.slice(1)));
     const podSizes = new Set(_pods.map(p => p.size));
 
     // Unhide 5-player pill if any 5-player games exist.
