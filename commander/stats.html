@@ -471,9 +471,13 @@ async function loadCardHeadImages() {
   if (!heads.length) return;
   await _deckInfoReady;
   // Pick the highest-MMR commander played within the last two years.
+  const activeLower = new Set([..._activeSet].map(n => n.toLowerCase()));
   heads.forEach(head => {
     const ranked = JSON.parse(head.dataset.cmdrRanked || '[]');
-    head.dataset.artCmdr = pickActiveCmdr(ranked, new Set([..._activeSet].map(n => n.toLowerCase()))) || head.dataset.favCmdr;
+    const artCmdr = pickActiveCmdr(ranked, activeLower) || head.dataset.favCmdr;
+    head.dataset.artCmdr = artCmdr;
+    const nameEl = head.querySelector('.fav-cmdr-name');
+    if (nameEl && artCmdr) nameEl.innerHTML = artCmdr.replace(/ \/ /g, '<br>');
   });
   const names = [...new Set(heads.map(h => h.dataset.artCmdr).filter(Boolean))];
   const imageMap = await getImageMap(names);
