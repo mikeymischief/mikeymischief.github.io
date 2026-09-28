@@ -144,6 +144,22 @@ function oracleHtml(text) {
     })
     .replace(/\n/g, '<br>');
 }
+
+// Split a flat array of CSV rows into pods (blank-row-separated groups).
+// Returns [{size: N, rows: [...]}].
+function groupIntoPods(rows) {
+  const pods = [];
+  let cur = [];
+  for (const row of rows) {
+    if (!row.some(v => (v || '').trim())) {
+      if (cur.length) { pods.push(cur); cur = []; }
+    } else {
+      cur.push(row);
+    }
+  }
+  if (cur.length) pods.push(cur);
+  return pods.map(p => ({ size: p.length, rows: p }));
+}
 // ── String helpers ────────────────────────────────────────────────────────────
 function escHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

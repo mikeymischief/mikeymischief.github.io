@@ -300,20 +300,6 @@ let _curSize   = 3;    // currently selected pod size
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 // Group games CSV rows (excluding header) into pods via blank-row separators.
-function groupIntoPods(rows) {
-  const pods = [];
-  let cur = [];
-  for (const row of rows) {
-    if (!row.some(v => (v || '').trim())) {
-      if (cur.length) { pods.push(cur); cur = []; }
-    } else {
-      cur.push(row);
-    }
-  }
-  if (cur.length) pods.push(cur);
-  return pods.map(p => ({ size: p.length, rows: p }));
-}
-
 // Compute per-commander stats for one pilot filtered to podSize.
 // Returns null if the pilot has no games of that size.
 function computeStats(pilot, podSize) {
@@ -386,7 +372,7 @@ function buildPlayerCard(pilotName, stats) {
     if (!isNaN(c) && c > maxCons) { maxCons = c; starCmdr = cmdr; }
   });
 
-  const favCmdrRaw    = cmdrList[0]?.[0] || '';
+  const favCmdrRaw     = cmdrList[0]?.[0] || '';
   const favCmdrDisplay = favCmdrRaw.replace(/ \/ /g, '<br>');
   const winPctStr      = (stats.overallWinPct * 100).toFixed(2) + '%';
 
@@ -402,6 +388,7 @@ function buildPlayerCard(pilotName, stats) {
   const head = document.createElement('div');
   head.className = 'card-head';
   if (favCmdrRaw) head.dataset.favCmdr = favCmdrRaw;
+  head.dataset.cmdrRanked = JSON.stringify(cmdrList.map(([name]) => name));
   head.innerHTML = `
     <div class="card-head-left">
       <h2>${pilotName}</h2>
@@ -483,12 +470,25 @@ function buildPlayerCard(pilotName, stats) {
 async function loadCardHeadImages() {
   const heads = Array.from(document.querySelectorAll('.card-head[data-fav-cmdr]'));
   if (!heads.length) return;
-  const names = [...new Set(heads.map(h => h.dataset.favCmdr))];
-  const imageMap = await getImageMap(names);
+  await _deckInfoReady;
+  // For each card pick the highest-MMR commander that is in the active deck list,
+  // falling back to the top overall commander if none are active.
   heads.forEach(head => {
-    const url = imageMap[stripPilotSuffix(head.dataset.favCmdr).toLowerCase()];
-    if (url) head.style.backgroundImage = `url('${url}')`;
+    const ranked = JSON.parse(head.dataset.cmdrRanked || '[]');
+    head.dataset.artCmdr = pickActiveCmdr(ranked) || head.dataset.favCmdr;
   });
+  const names = [...new Set(heads.map(h => h.dataset.artCmdr).filter(Boolean))];
+  const imageMap = await getImageMap(names);
+  await Promise.all(heads.map(async head => {
+    const key = stripPilotSuffix(head.dataset.artCmdr).toLowerCase();
+    const overrideApiUrl = _globalArtOverrides[key];
+    if (overrideApiUrl) {
+      const url = await fetchOverrideArt(overrideApiUrl);
+      if (url) { head.style.backgroundImage = `url('${url}')`; return; }
+    }
+    const url = imageMap[key];
+    if (url) head.style.backgroundImage = `url('${url}')`;
+  }));
 }
 
 // ── Rendering ─────────────────────────────────────────────────────────────────

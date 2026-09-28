@@ -5,6 +5,7 @@
 // ── Deck art overrides — fetched once config URLs are ready ───────────────────
 let _deckInfoResolve;
 const _deckInfoReady = new Promise(resolve => { _deckInfoResolve = resolve; });
+const _activeCmdrs = new Set(); // normalized lowercase names of commanders in the deck CSV
 
 _csvConfigReady.then(() => {
   Papa.parse(DECK_CSV_URL, {
@@ -13,10 +14,13 @@ _csvConfigReady.then(() => {
       (r.data || []).slice(1).forEach(row => {
         const cmdr = normalizeCmdr(row[1] || '');
         const apiUrl = scryfallPageToApiUrl(row[3] || '');
-        if (cmdr && apiUrl) {
-          cmdr.split(' / ').forEach(p => {
-            _globalArtOverrides[stripPilotSuffix(p.trim()).toLowerCase()] = apiUrl;
-          });
+        if (cmdr) {
+          _activeCmdrs.add(cmdr.toLowerCase());
+          if (apiUrl) {
+            cmdr.split(' / ').forEach(p => {
+              _globalArtOverrides[stripPilotSuffix(p.trim()).toLowerCase()] = apiUrl;
+            });
+          }
         }
       });
       _deckInfoResolve();
@@ -24,6 +28,12 @@ _csvConfigReady.then(() => {
     error: _deckInfoResolve,
   });
 });
+
+// Given an MMR-ordered array of commander names, returns the highest-ranked one
+// present in the active deck list. Await _deckInfoReady before calling.
+function pickActiveCmdr(rankedNames) {
+  return rankedNames.find(name => _activeCmdrs.has(name.toLowerCase())) || rankedNames[0] || '';
+}
 
 // ── Games CSV column indices ──────────────────────────────────────────────────
 const G = { date:0, winner:1, seat:2, mulligan:3, rounds:4, kingme:5, pilot:6, commander:7, startMmr:8, endMmr:9, delta:10, winProb:11, cmdrPlays:12, notes:13, title:14 };
