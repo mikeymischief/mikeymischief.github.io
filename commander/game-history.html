@@ -28,16 +28,6 @@ permalink: /commander/game-history/
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="/assets/commander-stats.css">
 <style>
-  :root {
-    --bg: #0d0f1a;
-    --gold: #d4af37;
-    --bg-raised: #1c1e26;
-    --line: #2c2e38;
-    --ink: #e9e8e4;
-    --ink-dim: #9a9aa4;
-    --ink-faint: #5c5d68;
-
-  }
 
   * { box-sizing: border-box; }
 
@@ -50,17 +40,7 @@ permalink: /commander/game-history/
     -webkit-font-smoothing: antialiased;
   }
 
-  .page-wrapper {
-    max-width: 1800px;
-    margin: 0 auto;
-    background-color: var(--bg);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-    min-height: 100vh;
-  }
-  @media screen and (min-width: 1200px) {
-    body::before { content: ''; position: fixed; inset: 0; background-image: url('/images/bg/2526-archive-trap.jpg'); background-position: center top; background-size: cover; z-index: -1; pointer-events: none; }
-    .page-wrapper { -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); }
-  }
+
 
   .wrap {
     max-width: 960px;
@@ -1519,23 +1499,6 @@ async function fetchCmdrCards(names) {
   return cached;
 }
 
-function manaHtml(costStr) {
-  return (costStr.match(/\{[^}]+\}/g) || []).map(s => {
-    const sym = s.slice(1, -1).toUpperCase();
-    const filename = sym.replace(/\//g, '');
-    return `<img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${filename}.svg" alt="${sym}">`;
-  }).join('');
-}
-
-function oracleHtml(text) {
-  return text
-    .replace(/\{([^}]+)\}/g, (_, sym) => {
-      const filename = sym.toUpperCase().replace(/\//g, '');
-      return `<img class="mana-pip mana-inline" src="https://svgs.scryfall.io/card-symbols/${filename}.svg" alt="{${sym}}">`;
-    })
-    .replace(/\n/g, '<br>');
-}
-
 function computeCmdrRankings(cmdr) {
   const latestMmr = {};
   const latestDate = {};
@@ -1548,9 +1511,7 @@ function computeCmdrRankings(cmdr) {
   const hasTrackingGames = {}; // commanders with at least one session-18+ game
 
   // Build session number map (session 18 = when mulligan tracking started)
-  const _sessionDates = [...new Set(podsChronological.map(p => (p[0][G.date] || '').trim()))].sort((a, b) => new Date(a) - new Date(b));
-  const _sessionNumForDate = {};
-  _sessionDates.forEach((d, i) => { _sessionNumForDate[d] = i + 1; });
+  const _sessionNumForDate = buildSessionNumMap(podsChronological.map(p => p[0]));
   const seatFreq = {};
   const cutoff = new Date();
   cutoff.setFullYear(cutoff.getFullYear() - 2);
@@ -1921,13 +1882,6 @@ function showHistoryError(msg) {
   el.classList.add('error');
 }
 
-function formatDate(v) {
-  if (!v) return '';
-  const d = new Date(v);
-  if (isNaN(d.getTime())) return v;
-  return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
-}
-
 function renderHistory(rows) {
   const container = document.getElementById('history-container');
   container.innerHTML = '';
@@ -2059,12 +2013,7 @@ function renderHistory(rows) {
   lastSeenGameGlobal = lastSeenGame;
   podsChronological = [...pods];
   // Build session numbers (chronological: 1 = oldest session)
-  const sessionNumForDate = {};
-  let sessionCounter = 0;
-  pods.forEach(pod => {
-    const d = pod[0][G.date];
-    if (!(d in sessionNumForDate)) sessionNumForDate[d] = ++sessionCounter;
-  });
+  const sessionNumForDate = buildSessionNumMap(pods.map(p => p[0]));
 
   pods.reverse(); podNotes.reverse(); // most recent first
 
@@ -2328,6 +2277,23 @@ _tsMapReady.then(() => {
 
 }); // _csvConfigReady
 
+function loadImg(url) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload  = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = url + (url.includes('?') ? '&' : '?') + '_cb=' + Date.now();
+  });
+}
+
+function drawArt(ctx, img, x, y, w, h) {
+  const scale = Math.max(w / img.width, h / img.height);
+  const sw = w / scale, sh = h / scale;
+  const sx = (img.width - sw) / 2, sy = img.height * 0.05;
+  ctx.drawImage(img, sx, sy, sw, Math.min(sh, img.height - sy), x, y, w, h);
+}
+
 async function downloadCmdrCard() {
   if (!_shareCmdr) return;
   const { cmdr, r, cards } = _shareCmdr;
@@ -2340,14 +2306,6 @@ async function downloadCmdrCard() {
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
-
-  const loadImg = url => new Promise(resolve => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => resolve(img);
-    img.onerror = () => resolve(null);
-    img.src = url + (url.includes('?') ? '&' : '?') + '_cb=' + Date.now();
-  });
 
   const imgs = (await Promise.all(cards.map(c => loadImg(c.art)))).filter(Boolean);
 
@@ -2364,14 +2322,8 @@ async function downloadCmdrCard() {
   // ── Art section (top 480px) ──────────────────────────────────
   const ART_H = 480;
   if (imgs.length) {
-    const drawArt = (img, x, y, w, h) => {
-      const scale = Math.max(w / img.width, h / img.height);
-      const sw = w / scale, sh = h / scale;
-      const sx = (img.width - sw) / 2, sy = img.height * 0.05;
-      ctx.drawImage(img, sx, sy, sw, Math.min(sh, img.height - sy), x, y, w, h);
-    };
     if (imgs.length === 1) {
-      drawArt(imgs[0], 0, 0, W, ART_H);
+      drawArt(ctx, imgs[0], 0, 0, W, ART_H);
     } else {
       // Diagonal split matching the hero card: 62% at top → 38% at bottom
       const diagTopX  = W * 0.62;
@@ -2387,7 +2339,7 @@ async function downloadCmdrCard() {
       ctx.lineTo(0, ART_H);
       ctx.closePath();
       ctx.clip();
-      drawArt(imgs[0], -W * 0.25, 0, W, ART_H); // center at W*0.25
+      drawArt(ctx, imgs[0], -W * 0.25, 0, W, ART_H); // center at W*0.25
       ctx.restore();
 
       // Right commander — clipped to right diagonal polygon.
@@ -2400,7 +2352,7 @@ async function downloadCmdrCard() {
       ctx.lineTo(diagBotX, ART_H);
       ctx.closePath();
       ctx.clip();
-      drawArt(imgs[1], W * 0.25, 0, W, ART_H); // center at W*0.75
+      drawArt(ctx, imgs[1], W * 0.25, 0, W, ART_H); // center at W*0.75
       ctx.restore();
 
       // Dark vignette along the seam
@@ -2633,25 +2585,25 @@ async function downloadCmdrCard() {
   ctx.textAlign = 'center';
   ctx.fillText('mikeymischief.github.io/commander', W / 2, H - 18);
 
-  canvas.toBlob(blob => {
-    const url = URL.createObjectURL(blob);
-    const filename = cmdr.replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.png';
-    const img = document.getElementById('cmdr-share-img');
-    const dl = document.getElementById('cmdr-share-download');
-    const hint = document.getElementById('cmdr-share-hint');
-    // Revoke previous blob URL if any
-    if (img.dataset.blobUrl) URL.revokeObjectURL(img.dataset.blobUrl);
-    img.src = url;
-    img.dataset.blobUrl = url;
-    dl.href = url;
-    dl.download = filename;
-    const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-    hint.textContent = isTouchDevice
-      ? 'Long-press the image to save · tap outside to close'
-      : 'Right-click to save · click outside to close';
-    document.getElementById('cmdr-share-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }, 'image/png');
+  canvas.toBlob(blob => openShareModal(blob, cmdr.replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.png'), 'image/png');
+}
+
+function openShareModal(blob, filename) {
+  const url  = URL.createObjectURL(blob);
+  const img  = document.getElementById('cmdr-share-img');
+  const dl   = document.getElementById('cmdr-share-download');
+  const hint = document.getElementById('cmdr-share-hint');
+  if (img.dataset.blobUrl) URL.revokeObjectURL(img.dataset.blobUrl);
+  img.src = url;
+  img.dataset.blobUrl = url;
+  dl.href = url;
+  dl.download = filename;
+  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  hint.textContent = isTouch
+    ? 'Long-press the image to save · tap outside to close'
+    : 'Right-click to save · click outside to close';
+  document.getElementById('cmdr-share-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeShareModal() {
@@ -2664,7 +2616,6 @@ function closeShareModal() {
 // art, pilot, TrueSkill win%, and ending MMR with ↑/↓ arrow) then opens it in
 // the existing share modal so the user can download or long-press to copy.
 async function openPodShareCard(pod, gameLabel, podTitle, podRowBadges) {
-  const PILOT_COLORS = { Brian: '#e08585', Gerf: '#7fc98f', Mikey: '#85B7EB', Jubee: '#F472B6' };
   const BG   = '#0f1120';
   const GOLD = '#C9A84C';
   const DIM  = 'rgba(255,255,255,0.38)';
@@ -2702,14 +2653,6 @@ async function openPodShareCard(pod, gameLabel, podTitle, podRowBadges) {
   await _tsMapReady;
   const ratings = players.map(p => _tsMap[p.cmdr] || { mu: TS_MU0, sigma: TS_SIG0, lastDate: null });
   const pcts = tsPodWinProbs(ratings);
-
-  const loadImg = url => new Promise(resolve => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload  = () => resolve(img);
-    img.onerror = () => resolve(null);
-    img.src = url + (url.includes('?') ? '&' : '?') + '_cb=' + Date.now();
-  });
 
   // Load one img element per commander part, grouped per player.
   const playerImgs = await Promise.all(players.map(p =>
@@ -2790,12 +2733,7 @@ async function openPodShareCard(pod, gameLabel, podTitle, podRowBadges) {
     ctx.closePath();
   };
 
-  const drawArt = (img, x, y, w, h) => {
-    const scale = Math.max(w / img.width, h / img.height);
-    const sw = w / scale, sh = h / scale;
-    const sx = (img.width - sw) / 2, sy = img.height * 0.05;
-    ctx.drawImage(img, sx, sy, sw, Math.min(sh, img.height - sy), x, y, w, h);
-  };
+
 
   // Draw each player column.
   players.forEach((p, i) => {
@@ -2808,7 +2746,7 @@ async function openPodShareCard(pod, gameLabel, podTitle, podRowBadges) {
       ctx.save();
       clip(colX, artY, COL_W, ART_H, 6);
       ctx.clip();
-      drawArt(imgs[0], colX, artY, COL_W, ART_H);
+      drawArt(ctx, imgs[0], colX, artY, COL_W, ART_H);
       ctx.restore();
     } else if (imgs.length >= 2) {
       const halfW = Math.floor((COL_W - 2) / 2);
@@ -2817,7 +2755,7 @@ async function openPodShareCard(pod, gameLabel, podTitle, podRowBadges) {
         ctx.save();
         clip(ix, artY, halfW, ART_H, 6);
         ctx.clip();
-        drawArt(img, ix, artY, halfW, ART_H);
+        drawArt(ctx, img, ix, artY, halfW, ART_H);
         ctx.restore();
       });
     }
@@ -2972,25 +2910,9 @@ async function openPodShareCard(pod, gameLabel, podTitle, podRowBadges) {
   ctx.fillText('mikeymischief.github.io/commander', W / 2, H - sc(12));
 
   // Populate and open the share modal.
-  canvas.toBlob(blob => {
-    const url      = URL.createObjectURL(blob);
-    const filename = players.map(p => p.cmdr.split(' / ')[0]).join('-vs-')
-      .replace(/[^a-z0-9-]+/gi, '-').toLowerCase() + '.png';
-    const img  = document.getElementById('cmdr-share-img');
-    const dl   = document.getElementById('cmdr-share-download');
-    const hint = document.getElementById('cmdr-share-hint');
-    if (img.dataset.blobUrl) URL.revokeObjectURL(img.dataset.blobUrl);
-    img.src = url;
-    img.dataset.blobUrl = url;
-    dl.href = url;
-    dl.download = filename;
-    const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-    hint.textContent = isTouchDevice
-      ? 'Long-press the image to save · tap outside to close'
-      : 'Right-click to save · click outside to close';
-    document.getElementById('cmdr-share-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }, 'image/png');
+  const podFilename = players.map(p => p.cmdr.split(' / ')[0]).join('-vs-')
+    .replace(/[^a-z0-9-]+/gi, '-').toLowerCase() + '.png';
+  canvas.toBlob(blob => openShareModal(blob, podFilename), 'image/png');
 }
 </script>
 </body>

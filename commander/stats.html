@@ -26,16 +26,6 @@ permalink: /commander/stats/
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/commander-stats.css">
 <style>
-  :root {
-    --bg: #0d0f1a;
-    --gold: #d4af37;
-    --bg-raised: #1c1e26;
-    --line: #2c2e38;
-    --ink: #e9e8e4;
-    --ink-dim: #9a9aa4;
-    --ink-faint: #5c5d68;
-  }
-
   * { box-sizing: border-box; }
   html { background: var(--bg); }
   body {
@@ -46,17 +36,7 @@ permalink: /commander/stats/
     -webkit-font-smoothing: antialiased;
   }
 
-  .page-wrapper {
-    max-width: 1800px;
-    margin: 0 auto;
-    background-color: var(--bg);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-    min-height: 100vh;
-  }
-  @media screen and (min-width: 1200px) {
-    body::before { content: ''; position: fixed; inset: 0; background-image: url('/images/bg/2526-archive-trap.jpg'); background-position: center top; background-size: cover; z-index: -1; pointer-events: none; }
-    .page-wrapper { -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 7%, black 16%, black 84%, rgba(0,0,0,0.5) 93%, transparent 100%); }
-  }
+
 
   .wrap {
     max-width: 960px;
@@ -314,14 +294,11 @@ const CMDRSTATS_DATA_START  = 3;
 
 // ── State ────────────────────────────────────────────────────────────────────
 let _pods      = [];   // [{size: N, rows: [...]}]
+let _sessionNumForDate = {};
 let _mmrMap    = {};   // pilot → {cmdrNameLower → {mmr, cons}}
 let _curSize   = 3;    // currently selected pod size
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-function normCmdrName(raw) {
-  return (raw || '').trim().replace(/\r?\n/g, ' / ');
-}
-
 // Group games CSV rows (excluding header) into pods via blank-row separators.
 function groupIntoPods(rows) {
   const pods = [];
@@ -349,7 +326,7 @@ function computeStats(pilot, podSize) {
 
   const byCmdr = {};
   for (const row of pilotRows) {
-    const cmdr = normCmdrName(row[7]);
+    const cmdr = normalizeCmdr(row[7]);
     if (!cmdr) continue;
     if (!byCmdr[cmdr]) byCmdr[cmdr] = {
       wins: 0, losses: 0, plays: 0, k: 0, e: 0,
@@ -368,7 +345,9 @@ function computeStats(pilot, podSize) {
     const km = (row[5] || '').trim().toUpperCase();
     if (km === 'K') s.k++;
     if (km === 'E') s.e++;
-    const mull = parseInt(row[3]);
+    const mullRaw = (row[3] ?? '');
+    const sessionNum = _sessionNumForDate[(row[0] || '').trim()] || 0;
+    const mull = mullRaw !== '' ? parseInt(mullRaw) : (sessionNum >= 18 ? 0 : NaN);
     if (!isNaN(mull) && mull >= 0) s.mulls.push(mull);
     const seat = parseInt(row[2]);
     if (!isNaN(seat)) s.seats.push(seat);
@@ -574,6 +553,7 @@ _csvConfigReady.then(() => {
   Promise.all([gamesP, statsP]).then(([gameRows, cmdrRows]) => {
     // Build pod list from games CSV (skip header row).
     _pods = groupIntoPods(gameRows.slice(1));
+    _sessionNumForDate = buildSessionNumMap(_pods.map(p => p.rows[0]));
     const podSizes = new Set(_pods.map(p => p.size));
 
     // Unhide 5-player pill if any 5-player games exist.
@@ -586,7 +566,7 @@ _csvConfigReady.then(() => {
     CMDR_BLOCKS.forEach(block => {
       _mmrMap[block.name] = {};
       for (let r = CMDRSTATS_DATA_START; r < cmdrRows.length; r++) {
-        const cmdr = normCmdrName(cmdrRows[r][block.start]);
+        const cmdr = normalizeCmdr(cmdrRows[r][block.start]);
         if (!cmdr) break;
         const mmr  = parseFloat(cmdrRows[r][block.start + 11]);
         const cons = parseFloat(cmdrRows[r][block.start + 12]);

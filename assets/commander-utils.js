@@ -105,6 +105,45 @@ function tsPodWinProbs(ratings) {
   return raw.map(v => total > 0 ? v / total * 100 : 100 / ratings.length);
 }
 
+
+// Build a date → session-number map from an ordered array of game rows.
+// Each unique date in encounter order is assigned the next sequential number.
+function buildSessionNumMap(rows) {
+  const map = {};
+  let n = 0;
+  for (const row of rows) {
+    const d = (row[0] || '').trim();
+    if (d && !(d in map)) map[d] = ++n;
+  }
+  return map;
+}
+
+// Format a date string as "Nov 2, 2024".
+function formatDate(v) {
+  if (!v) return '';
+  const d = new Date(v);
+  if (isNaN(d.getTime())) return v;
+  return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+}
+
+// Render a Scryfall mana cost string like "{2}{U}{B}" into mana-pip <img> tags.
+function manaHtml(costStr) {
+  return (costStr.match(/\{[^}]+\}/g) || []).map(s => {
+    const sym = s.slice(1, -1).toUpperCase();
+    const filename = sym.replace(/\//g, '');
+    return `<img class="mana-pip" src="https://svgs.scryfall.io/card-symbols/${filename}.svg" alt="${sym}">`;
+  }).join('');
+}
+
+// Render Scryfall oracle text: replace {sym} with mana-pip images, newlines with <br>.
+function oracleHtml(text) {
+  return text
+    .replace(/\{([^}]+)\}/g, (_, sym) => {
+      const filename = sym.toUpperCase().replace(/\//g, '');
+      return `<img class="mana-pip mana-inline" src="https://svgs.scryfall.io/card-symbols/${filename}.svg" alt="{${sym}}">`;
+    })
+    .replace(/\n/g, '<br>');
+}
 // ── String helpers ────────────────────────────────────────────────────────────
 function escHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
