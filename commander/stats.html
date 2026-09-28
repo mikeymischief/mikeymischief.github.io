@@ -586,7 +586,7 @@ _csvConfigReady.then(() => {
     CMDR_BLOCKS.forEach(block => {
       _mmrMap[block.name] = {};
       for (let r = CMDRSTATS_DATA_START; r < cmdrRows.length; r++) {
-        const cmdr = (cmdrRows[r][block.start] || '').trim();
+        const cmdr = normCmdrName(cmdrRows[r][block.start]);
         if (!cmdr) break;
         const mmr  = parseFloat(cmdrRows[r][block.start + 11]);
         const cons = parseFloat(cmdrRows[r][block.start + 12]);
