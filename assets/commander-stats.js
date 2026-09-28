@@ -33,7 +33,7 @@ _csvConfigReady.then(() => {
 // present in the active deck list. Await _deckInfoReady before calling.
 function pickActiveCmdr(rankedNames, activeSet) {
   const set = activeSet || _activeCmdrs;
-  return rankedNames.find(name => set.has(name.toLowerCase())) || rankedNames[0] || '';
+  return rankedNames.find(name => set.has(name.toLowerCase())) || '';
 }
 
 // ── Games CSV column indices ──────────────────────────────────────────────────
