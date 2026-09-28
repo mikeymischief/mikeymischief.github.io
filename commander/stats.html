@@ -473,7 +473,7 @@ async function loadCardHeadImages() {
   // Pick the highest-MMR commander played within the last two years.
   heads.forEach(head => {
     const ranked = JSON.parse(head.dataset.cmdrRanked || '[]');
-    head.dataset.artCmdr = pickActiveCmdr(ranked, _activeSet) || head.dataset.favCmdr;
+    head.dataset.artCmdr = pickActiveCmdr(ranked, new Set([..._activeSet].map(n => n.toLowerCase()))) || head.dataset.favCmdr;
   });
   const names = [...new Set(heads.map(h => h.dataset.artCmdr).filter(Boolean))];
   const imageMap = await getImageMap(names);
