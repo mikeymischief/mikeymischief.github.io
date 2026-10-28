@@ -1620,9 +1620,9 @@ function renderProfile(player) {
             <div class="pr-stat-sub">${winRate!=null?(winRate*100).toFixed(0)+'% win rate':'—'}</div>
           </div>
           <div class="pr-stat-card">
-            <div class="pr-stat-label">Avg Rnd End</div>
-            <div class="pr-stat-value">${avgRoundEnd!=null?avgRoundEnd.toFixed(1):'—'}</div>
-            <div class="pr-stat-sub">when ending games</div>
+            <div class="pr-stat-label">MMR Rating</div>
+            <div class="pr-stat-value">${mmrCurrent}</div>
+            <div class="pr-stat-sub">seat-agnostic rating</div>
           </div>
         </div>
         <div class="pr-stat-bar">
@@ -1652,6 +1652,13 @@ function renderProfile(player) {
             <div class="pr-stat-label">Win % Ending</div>
             <div class="pr-stat-value">${winRateEnding!=null?(winRateEnding*100).toFixed(0)+'%':'—'}</div>
             <div class="pr-stat-sub">${gamesEnded ? `${winsWhenEnding} of ${gamesEnded} ended` : 'no endings yet'}</div>
+          </div>
+        </div>
+        <div class="pr-stat-bar">
+          <div class="pr-stat-card">
+            <div class="pr-stat-label">Avg Rnd End</div>
+            <div class="pr-stat-value">${avgRoundEnd!=null?avgRoundEnd.toFixed(1):'—'}</div>
+            <div class="pr-stat-sub">when ending games</div>
           </div>
           <div class="pr-stat-card">
             <div class="pr-stat-label">Upstream Rate</div>
@@ -1705,7 +1712,7 @@ function renderProfile(player) {
     const won    = winner === (row[C.player]||'').trim();
     const winRow = game.rows.find(r => (r[C.player]||'').trim() === winner);
     const endRow = game.rows.find(r => (r[C.ending]||'').trim() !== '');
-    const gameRound   = winRow ? fmt.int(winRow[C.round])     : '—';
+    const gameRound   = winRow ? fmt.int(winRow[C.round]) : '—';
     const endPlayer   = endRow ? (endRow[C.player]||'').trim() : null;
     const gameEnding  = endRow ? (endPlayer ? `${endPlayer} · ${fmt.ending(endRow[C.ending])}` : fmt.ending(endRow[C.ending])) : '—';
 
@@ -1829,7 +1836,6 @@ init();
 let _prHarborTimer = null;
 
 function buildPrMmrTimeSeries() {
-  // Collect all game keys in chronological order across all players
   const gameKeys = [];
   const seen = new Set();
   _allPlayers.forEach(p => {
@@ -1838,15 +1844,9 @@ function buildPrMmrTimeSeries() {
       if (!seen.has(key)) { seen.add(key); gameKeys.push({ key, date: h.game.date, gameNum: parseInt(h.game.gameNum) || 0 }); }
     });
   });
-  gameKeys.sort((a, b) => {
-    const da = new Date(a.date), db = new Date(b.date);
-    return da - db || a.gameNum - b.gameNum;
-  });
-
-  // Build cumulative snapshot per game
+  gameKeys.sort((a, b) => { const da = new Date(a.date), db = new Date(b.date); return da - db || a.gameNum - b.gameNum; });
   const cumul = {};
   _allPlayers.forEach(p => { cumul[p] = MMR_BASE; });
-
   const series = [];
   gameKeys.forEach(({ key, date, gameNum }) => {
     _allPlayers.forEach(p => {
@@ -1863,80 +1863,77 @@ function initPrHarbor(series) {
   if (!el || series.length < 2) { if (el) el.hidden = true; return; }
 
   const players = _allPlayers;
-  const n = players.length;
-  const W = 600, H = 200, waterY = 134;
-
-  // Space ships evenly: 5 ships across 600px, padded 60px from edges
-  const shipXs = {};
-  players.forEach((p, i) => { shipXs[p] = 60 + i * (480 / (n - 1)); });
+  const N = series.length;
+  const W = 620, H = 210, waterY = 142;
+  const xPad = 44, yTop = 22, yBot = waterY - 18;
 
   let lo = Infinity, hi = -Infinity;
   series.forEach(s => players.forEach(p => {
     const v = s.mmr[p];
     if (v !== undefined) { if (v < lo) lo = v; if (v > hi) hi = v; }
   }));
-  const pad = Math.max((hi - lo) * 0.18, 40);
+  if (lo === hi) { lo -= 60; hi += 60; }
+  const pad = (hi - lo) * 0.12;
   lo -= pad; hi += pad;
 
-  const yTop = 26, yBot = waterY - 20;
   const mmrToY = mmr => yBot - ((mmr - lo) / (hi - lo)) * (yBot - yTop);
+  const gameToX = i => xPad + (i / (N - 1)) * (W - 2 * xPad);
 
   const uid = Math.random().toString(36).slice(2, 7);
 
-  function shipSvg(color) {
+  function shipSvg(p) {
+    const color = getColor(p);
     return `
-      <line x1="2" y1="-55" x2="2" y2="1" stroke="#3d2208" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="-6" y1="-8" x2="-25" y2="-23" stroke="#3d2208" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M2,-52 L24,-33 L24,-4 L2,1 Z" fill="#ede3c0" stroke="#c8b88a" stroke-width="0.5"/>
-      <path d="M2,-35 L-23,-23 L2,-3 Z" fill="#e8ddb8" stroke="#c8b88a" stroke-width="0.5"/>
-      <path d="M-21,1 L21,1 L16,14 L-16,14 Z" fill="#4a2d0e"/>
-      <line x1="-19" y1="6" x2="19" y2="6" stroke="#6b4020" stroke-width="1" opacity="0.6"/>
-      <polygon points="2,-55 14,-50 2,-45" fill="${color}"/>
-      <text dy="-63" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f0e8cc" text-anchor="middle" class="pr-harbor-mmr-lbl" opacity="0.9"></text>`;
+      <line x1="0" y1="-44" x2="0" y2="2" stroke="#3d2208" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-5" y1="-7" x2="-20" y2="-18" stroke="#3d2208" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M0,-41 L17,-26 L17,-1 L0,2 Z" fill="#ede3c0" stroke="#c8b88a" stroke-width="0.5"/>
+      <path d="M0,-27 L-16,-17 L0,-1 Z" fill="#e8ddb8" stroke="#c8b88a" stroke-width="0.5"/>
+      <path d="M-15,2 L15,2 L10,11 L-10,11 Z" fill="#4a2d0e"/>
+      <line x1="-13" y1="5" x2="13" y2="5" stroke="#6b4020" stroke-width="0.8" opacity="0.55"/>
+      <polygon points="0,-44 8,-40 0,-36" fill="${color}"/>
+      <text dy="-52" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#f4ecd0" text-anchor="middle" class="pr-harbor-mmr-lbl" opacity="0.92"></text>
+      <text dy="21" font-family="'JetBrains Mono',monospace" font-size="7" fill="${color}" text-anchor="middle" style="letter-spacing:0.07em;font-weight:600">${p.toUpperCase()}</text>`;
   }
 
   const first = series[0];
   el.innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:auto;">
+    <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;">
       <defs>
         <linearGradient id="sky${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%"   stop-color="#7a3800"/>
-          <stop offset="38%"  stop-color="#c47820"/>
-          <stop offset="72%"  stop-color="#e8b850"/>
-          <stop offset="100%" stop-color="#4a8cb0"/>
+          <stop offset="0%"   stop-color="#6a2c00"/>
+          <stop offset="35%"  stop-color="#b86a10"/>
+          <stop offset="68%"  stop-color="#dfa840"/>
+          <stop offset="100%" stop-color="#4080a8"/>
         </linearGradient>
         <linearGradient id="sea${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%"   stop-color="#2868a0"/>
-          <stop offset="100%" stop-color="#0c2840"/>
+          <stop offset="0%"   stop-color="#2460a0"/>
+          <stop offset="100%" stop-color="#0a2238"/>
         </linearGradient>
+        <clipPath id="seaclip${uid}"><rect x="0" y="${waterY}" width="${W}" height="${H-waterY}"/></clipPath>
       </defs>
       <rect width="${W}" height="${waterY}" fill="url(#sky${uid})"/>
-      <path d="M0,${waterY-8} Q70,${waterY-30} 150,${waterY-14} Q230,${waterY-4} 300,${waterY-24} Q385,${waterY-46} 462,${waterY-19} Q532,${waterY-7} ${W},${waterY-17} L${W},${waterY} L0,${waterY} Z" fill="#2d5a18" opacity="0.52"/>
+      <path d="M0,${waterY-6} Q80,${waterY-26} 170,${waterY-12} Q250,${waterY-2} 320,${waterY-22} Q400,${waterY-42} 475,${waterY-16} Q545,${waterY-5} ${W},${waterY-14} L${W},${waterY} L0,${waterY} Z" fill="#2d5418" opacity="0.48"/>
       <rect x="0" y="${waterY}" width="${W}" height="${H-waterY}" fill="url(#sea${uid})"/>
-      <path d="M0,${waterY+1} Q50,${waterY-5} 100,${waterY+1} Q150,${waterY+7} 200,${waterY+1} Q250,${waterY-5} 300,${waterY+1} Q350,${waterY+7} 400,${waterY+1} Q450,${waterY-5} 500,${waterY+1} Q550,${waterY+7} 600,${waterY+1}" fill="none" stroke="#80c4e8" stroke-width="1.5" opacity="0.55"/>
-      <path d="M0,${waterY+10} Q75,${waterY+5} 150,${waterY+10} Q225,${waterY+15} 300,${waterY+10} Q375,${waterY+5} 450,${waterY+10} Q525,${waterY+15} 600,${waterY+10}" fill="none" stroke="#5aa0c8" stroke-width="1" opacity="0.35"/>
+      <path d="M0,${waterY+2} Q55,${waterY-4} 110,${waterY+2} Q165,${waterY+8} 220,${waterY+2} Q275,${waterY-4} 330,${waterY+2} Q385,${waterY+8} 440,${waterY+2} Q495,${waterY-4} 550,${waterY+2} Q605,${waterY+8} ${W},${waterY+2}" fill="none" stroke="#78bce0" stroke-width="1.5" opacity="0.5"/>
+      ${players.map(p => `<polyline id="pr-trail-${p}" points="" fill="none" stroke="${getColor(p)}" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="4,3"/>`).join('')}
       ${players.map(p => {
-        const x = shipXs[p];
-        const y = first.mmr[p] !== undefined ? mmrToY(first.mmr[p]) : yBot;
-        return `<g id="pr-hs-${p}" transform="translate(${x},${y})">${shipSvg(getColor(p))}</g>`;
+        const x = gameToX(0), y = mmrToY(first.mmr[p] !== undefined ? first.mmr[p] : (lo+hi)/2);
+        return `<g id="pr-hs-${p}" transform="translate(${x},${y})">${shipSvg(p)}</g>`;
       }).join('')}
-      ${players.map(p => `
-        <text x="${shipXs[p]}" y="${H-4}" font-family="'JetBrains Mono',monospace" font-size="8.5"
-              fill="${getColor(p)}" text-anchor="middle" style="letter-spacing:0.07em;text-transform:uppercase">${p.toUpperCase()}</text>`).join('')}
-      <text id="pr-harbor-lbl" x="8" y="15" font-family="'Cinzel',serif" font-size="10.5" fill="#f0e8cc" opacity="0.88" letter-spacing="0.07em"></text>
+      <text id="pr-harbor-lbl" x="8" y="14" font-family="'Cinzel',serif" font-size="10" fill="#f0e8cc" opacity="0.85" letter-spacing="0.07em"></text>
     </svg>
     <button id="pr-harbor-replay" onclick="playPrHarbor()">↺ Replay</button>`;
 
   el._series  = series;
   el._mmrToY  = mmrToY;
-  el._shipXs  = shipXs;
+  el._gameToX = gameToX;
   el._players = players;
 
-  _prHarborApplyFrame(first, shipXs, mmrToY, players, false);
+  _prHarborApplyFrame(0, first, mmrToY, gameToX, players, false);
   playPrHarbor();
 }
 
-function _prHarborApplyFrame(snap, shipXs, mmrToY, players, animate) {
+function _prHarborApplyFrame(idx, snap, mmrToY, gameToX, players, animate) {
   const lbl = document.getElementById('pr-harbor-lbl');
   if (lbl) lbl.textContent = `Game ${snap.gameNum}  ·  ${snap.date}`;
   players.forEach(p => {
@@ -1944,27 +1941,35 @@ function _prHarborApplyFrame(snap, shipXs, mmrToY, players, animate) {
     if (!g) return;
     const mmr = snap.mmr[p];
     if (mmr === undefined) return;
-    const x = shipXs[p], toY = mmrToY(mmr);
+    const toX = gameToX(idx), toY = mmrToY(mmr);
     if (animate) {
       const curT = g.getAttribute('transform') || '';
-      const m = curT.match(/translate\([^,]+,([^)]+)\)/);
-      const fromY = m ? parseFloat(m[1]) : toY;
-      _prTweenShip(g, x, fromY, toY, 700);
+      const m = curT.match(/translate\(([^,]+),([^)]+)\)/);
+      const fromX = m ? parseFloat(m[1]) : toX;
+      const fromY = m ? parseFloat(m[2]) : toY;
+      _prTweenShip(g, fromX, fromY, toX, toY, 720, () => {
+        const tl = document.getElementById(`pr-trail-${p}`);
+        if (tl) { const pts = tl.getAttribute('points') || ''; tl.setAttribute('points', pts + ` ${toX},${toY}`); }
+        const ml = g.querySelector('.pr-harbor-mmr-lbl');
+        if (ml) ml.textContent = Math.round(mmr);
+      });
     } else {
-      g.setAttribute('transform', `translate(${x},${toY})`);
+      g.setAttribute('transform', `translate(${toX},${toY})`);
+      const ml = g.querySelector('.pr-harbor-mmr-lbl');
+      if (ml) ml.textContent = Math.round(mmr);
     }
-    const ml = g.querySelector('.pr-harbor-mmr-lbl');
-    if (ml) ml.textContent = Math.round(mmr);
   });
 }
 
-function _prTweenShip(el, x, fromY, toY, dur) {
+function _prTweenShip(el, fromX, fromY, toX, toY, dur, onDone) {
   const start = performance.now();
   const ease = t => t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
   (function tick(now) {
     const t = Math.min((now - start) / dur, 1);
-    el.setAttribute('transform', `translate(${x},${fromY + (toY - fromY) * ease(t)})`);
+    const e = ease(t);
+    el.setAttribute('transform', `translate(${fromX + (toX - fromX) * e},${fromY + (toY - fromY) * e})`);
     if (t < 1) requestAnimationFrame(tick);
+    else if (onDone) onDone();
   })(performance.now());
 }
 
@@ -1972,12 +1977,16 @@ function playPrHarbor() {
   const el = document.getElementById('pr-mmr-harbor');
   if (!el || !el._series) return;
   if (_prHarborTimer) { clearTimeout(_prHarborTimer); _prHarborTimer = null; }
-  const { _series: series, _mmrToY: mmrToY, _shipXs: shipXs, _players: players } = el;
-  _prHarborApplyFrame(series[0], shipXs, mmrToY, players, false);
+  const { _series: series, _mmrToY: mmrToY, _gameToX: gameToX, _players: players } = el;
+  players.forEach(p => {
+    const tl = document.getElementById(`pr-trail-${p}`);
+    if (tl) { const x = gameToX(0), y = mmrToY(series[0].mmr[p] ?? (mmrToY(1000))); tl.setAttribute('points', `${x},${y}`); }
+  });
+  _prHarborApplyFrame(0, series[0], mmrToY, gameToX, players, false);
   let idx = 1;
   function advance() {
     if (idx >= series.length) return;
-    _prHarborApplyFrame(series[idx], shipXs, mmrToY, players, true);
+    _prHarborApplyFrame(idx, series[idx], mmrToY, gameToX, players, true);
     idx++;
     if (idx < series.length) _prHarborTimer = setTimeout(advance, 950);
   }
