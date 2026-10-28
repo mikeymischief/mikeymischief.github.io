@@ -766,6 +766,42 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
   }
   #pr-harbor-replay:hover { background: rgba(0,0,0,0.58); }
 
+
+  /* ── Harbor pillbox ──────────────────────────────────────────────────────────── */
+  #pr-harbor-pills {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 0;
+  }
+  .pr-harbor-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(160,130,70,0.35);
+    background: transparent;
+    color: #b8a070;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .pr-harbor-pill.active {
+    background: rgba(160,130,70,0.22);
+    color: #f0d890;
+    border-color: rgba(200,170,90,0.6);
+  }
+  .pr-harbor-pill:hover:not(.active) { background: rgba(160,130,70,0.10); }
+
+
+  /* ── Game log MMR columns ─────────────────────────────────────────────────── */
+  .mmr-delta { font-size: 0.78em; margin-left: 3px; }
+  .mmr-delta.pos { color: #6dbf7a; }
+  .mmr-delta.neg { color: #e07070; }
+  .mmr-delta.neu { color: var(--pr-ink-faint); }
+
 </style>
 
 <div class="pr-hero">
@@ -780,6 +816,10 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
 <div id="pr-content" class="hidden">
 
   <div id="pr-mmr-harbor"></div>
+  <div id="pr-harbor-pills">
+    <button class="pr-harbor-pill active" onclick="setHarborMode('mmr')"   id="hp-mmr">MMR</button>
+    <button class="pr-harbor-pill"        onclick="setHarborMode('adj')"   id="hp-adj">Seat-Adj</button>
+  </div>
   <div class="pr-standings" id="pr-standings"></div>
   <div id="pr-profile"></div>
 
@@ -1053,6 +1093,124 @@ function buildPlayerIndex(games) {
 
 // ── MMR from sheet values ──────────────────────────────────────────────────────
 const MMR_BASE = 1000;
+
+// ── Seat-adjusted TrueSkill ────────────────────────────────────────────────────
+let _seatAdjRatings = {}; // player → displayed rating (mu - 3σ) at strength=0.5
+let _seatEffects    = {}; // seat (1-5) → estimated point effect
+let _seatAdjHistory = []; // per-game snapshots for animation
+
+function _normPdf(x) { return Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI); }
+function _normCdf(x) {
+  const t = 1 / (1 + 0.2316419 * Math.abs(x));
+  const d = 0.3989422820 * Math.exp(-x * x / 2);
+  const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.7814779 + t * (-1.8212560 + t * 1.3302744))));
+  return x >= 0 ? 1 - p : p;
+}
+
+function computeSeatAdjRatings(games, strength = 0.5) {
+  // STEP 1 — estimate seat effects via alternating averages
+  const playerEff = {}, seatEff = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  const rows = [];
+  games.forEach(game => {
+    const scores = game.rows.map(r => parseFloat(r[C.score])).filter(v => !isNaN(v));
+    if (!scores.length) return;
+    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+    game.rows.forEach(r => {
+      const player = (r[C.player] || '').trim();
+      const seat   = parseInt(r[C.seat]);
+      const score  = parseFloat(r[C.score]);
+      if (!player || isNaN(seat) || isNaN(score)) return;
+      if (!(player in playerEff)) playerEff[player] = 0;
+      rows.push({ player, seat, rel: score - avg });
+    });
+  });
+  const seats = [1, 2, 3, 4, 5];
+  for (let pass = 0; pass < 500; pass++) {
+    const ss = {}, sc = {};
+    rows.forEach(({ player, seat, rel }) => {
+      ss[seat] = (ss[seat] || 0) + rel - playerEff[player];
+      sc[seat] = (sc[seat] || 0) + 1;
+    });
+    seats.forEach(s => { if (sc[s]) seatEff[s] = ss[s] / sc[s]; });
+    const meanSeat = seats.reduce((a, s) => a + seatEff[s], 0) / seats.length;
+    seats.forEach(s => { seatEff[s] -= meanSeat; });
+    const ps = {}, pc = {};
+    rows.forEach(({ player, seat, rel }) => {
+      ps[player] = (ps[player] || 0) + rel - seatEff[seat];
+      pc[player] = (pc[player] || 0) + 1;
+    });
+    Object.keys(ps).forEach(p => { playerEff[p] = ps[p] / pc[p]; });
+  }
+
+  // STEP 2+3 — TrueSkill replay with seat-adjusted scores
+  const MU0 = 1500, SIG0 = 500, BETA = 250, TAU = 5;
+  const EPS = 44.43; // normInvCdf(0.55) * sqrt(2) * 250
+  const mu = {}, sig = {};
+  Object.keys(playerEff).forEach(p => { mu[p] = MU0; sig[p] = SIG0; });
+  const _adjHistory = [];
+
+  games.forEach(game => {
+    const gp = [];
+    game.rows.forEach(r => {
+      const player = (r[C.player] || '').trim();
+      const seat   = parseInt(r[C.seat]);
+      const score  = parseFloat(r[C.score]);
+      if (!player || isNaN(seat) || isNaN(score)) return;
+      if (!(player in mu)) { mu[player] = MU0; sig[player] = SIG0; }
+      gp.push({ player, adjScore: score - strength * (seatEff[seat] || 0) });
+    });
+    if (gp.length < 2) return;
+
+    const newMu = {}, newSig = {};
+    gp.forEach(me => {
+      const sm = Math.sqrt(sig[me.player] ** 2 + TAU ** 2);
+      let dSum = 0, wSum = 0, n = 0;
+      gp.forEach(opp => {
+        if (opp.player === me.player) return;
+        const so = Math.sqrt(sig[opp.player] ** 2 + TAU ** 2);
+        const c  = Math.sqrt(2 * BETA ** 2 + sm ** 2 + so ** 2);
+        const t  = (mu[me.player] - mu[opp.player]) / c;
+        const e  = EPS / c;
+        let v, w, delta;
+        const diff = me.adjScore - opp.adjScore;
+        if (Math.abs(diff) < 1e-9) {
+          const den = _normCdf(e - t) - _normCdf(-e - t);
+          if (Math.abs(den) < 1e-10) { v = 0; w = 0; }
+          else {
+            v = (_normPdf(-e - t) - _normPdf(e - t)) / den;
+            w = v * v + ((e - t) * _normPdf(e - t) - (-e - t) * _normPdf(-e - t)) / den;
+          }
+          delta = (sm ** 2 / c) * v;
+        } else if (diff > 0) {
+          const ph = _normPdf(t - e), Ph = _normCdf(t - e);
+          v = Math.abs(Ph) < 1e-10 ? 0 : ph / Ph;
+          w = v * (v + (t - e));
+          delta = (sm ** 2 / c) * v;
+        } else {
+          const ph = _normPdf(-t - e), Ph = _normCdf(-t - e);
+          v = Math.abs(Ph) < 1e-10 ? 0 : ph / Ph;
+          w = v * (v + (-t - e));
+          delta = -(sm ** 2 / c) * v;
+        }
+        dSum += delta;
+        wSum += 1 - (sm ** 2 / c ** 2) * w;
+        n++;
+      });
+      newMu[me.player]  = mu[me.player] + dSum / n;
+      newSig[me.player] = Math.sqrt(sm ** 2 * Math.max(0.01, wSum / n));
+    });
+    Object.assign(mu, newMu);
+    Object.assign(sig, newSig);
+    // capture snapshot for animation
+    const snap = { date: game.date, gameNum: game.gameNum, mmr: {} };
+    Object.keys(mu).forEach(p => { snap.mmr[p] = Math.round(mu[p] - 3 * sig[p]); });
+    _adjHistory.push(snap);
+  });
+
+  const result = {};
+  Object.keys(mu).forEach(p => { result[p] = Math.round(mu[p] - 3 * sig[p]); });
+  return { ratings: result, seatEffects: seatEff, history: _adjHistory };
+}
 
 function calculateMMR(games, allPlayers) {
   const current = {};
@@ -1621,8 +1779,8 @@ function renderProfile(player) {
           </div>
           <div class="pr-stat-card">
             <div class="pr-stat-label">MMR Rating</div>
-            <div class="pr-stat-value">${mmrCurrent}</div>
-            <div class="pr-stat-sub">seat-agnostic rating</div>
+            <div class="pr-stat-value">${_seatAdjRatings[player] ?? mmrCurrent}</div>
+            <div class="pr-stat-sub">seat-agnostic · strength 0.5</div>
           </div>
         </div>
         <div class="pr-stat-bar">
@@ -1685,6 +1843,8 @@ function renderProfile(player) {
             <th class="num pr-mob-hide" title="Round the game ended on">Round</th>
             <th title="How the game ended: Buildings · VP · Colonist">Ending</th>
             <th>Result</th>
+            <th class="num pr-mob-hide" title="MMR before this game">Start MMR</th>
+            <th class="num pr-mob-hide" title="MMR after this game">End MMR</th>
           </tr>
         </thead>
         <tbody id="pr-tbody"></tbody>
@@ -1746,13 +1906,15 @@ function renderProfile(player) {
       <td class="num pr-mob-hide">${gameRound}</td>
       <td>${gameEnding}</td>
       <td><div class="badge-stack">${[won?'<span class="win-badge">Win</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">Upstream</span>':''].filter(Boolean).join('')}</div></td>
+      <td class="num pr-mob-hide">${!isNaN(parseFloat(row[C.startMmr])) ? Math.round(parseFloat(row[C.startMmr])) : '—'}</td>
+      <td class="num pr-mob-hide">${(() => { const em = parseFloat(row[C.endMmr]), d = parseFloat(row[C.delta]); if (isNaN(em)) return '—'; const dc = d > 0 ? 'pos' : d < 0 ? 'neg' : 'neu'; const ds = d > 0 ? '+' : ''; return Math.round(em) + (!isNaN(d) ? ` <span class="mmr-delta ${dc}">${ds}${Math.round(d*10)/10}</span>` : ''); })()}</td>
     `;
     tbody.appendChild(tr);
   });
 
   if (!entries.length) {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="7" style="text-align:center;padding:24px;color:var(--pr-ink-faint);font-style:italic">No games recorded yet.</td>`;
+    tr.innerHTML = `<td colspan="9" style="text-align:center;padding:24px;color:var(--pr-ink-faint);font-style:italic">No games recorded yet.</td>`;
     tbody.appendChild(tr);
   }
 }
@@ -1790,6 +1952,10 @@ async function init() {
       _playerIndex = buildPlayerIndex(_games);
       _allPlayers  = Object.keys(_playerIndex).sort();
       _mmr         = calculateMMR(_games, _allPlayers);
+      const _adj   = computeSeatAdjRatings(_games, 0.5);
+      _seatAdjRatings = _adj.ratings;
+      _seatEffects    = _adj.seatEffects;
+      _seatAdjHistory = _adj.history;
       _colorMap    = Object.fromEntries(_allPlayers.map((p, i) => [p, PALETTE[i % PALETTE.length]]));
 
       if (!_allPlayers.length) { statusEl.textContent = 'No player data found.'; return; }
@@ -2023,6 +2189,15 @@ function _prTweenShip(el, fromX, fromY, toX, toY, dur, onDone) {
     if (t < 1) requestAnimationFrame(tick);
     else if (onDone) onDone();
   })(performance.now());
+}
+
+let _harborMode = 'mmr';
+function setHarborMode(mode) {
+  _harborMode = mode;
+  document.getElementById('hp-mmr').classList.toggle('active', mode === 'mmr');
+  document.getElementById('hp-adj').classList.toggle('active', mode === 'adj');
+  const series = mode === 'adj' ? _seatAdjHistory : buildPrMmrTimeSeries();
+  initPrHarbor(series);
 }
 
 function playPrHarbor() {
