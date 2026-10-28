@@ -276,6 +276,16 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
   /* ── Standings ────────────────────────────────────────────────────────────── */
   /* ── Podium (top 3) ──────────────────────────────────────────────────────── */
   .pr-standings { margin-bottom: 10px; }
+  .pr-standings-mode-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pr-gold);
+    opacity: 0.7;
+    text-align: center;
+    margin-bottom: 8px;
+  }
   .pr-podium {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1111,6 +1121,18 @@ const MMR_BASE = 1000;
 
 // ── Seat-adjusted TrueSkill ────────────────────────────────────────────────────
 let _seatAdjRatings = {}; // player → displayed rating (mu - 3σ) at strength=0.5
+
+// Return a history array in the same shape as _mmr.history[p], but using seat-adj data when in adj mode.
+// Shape: [{ game: {date, gameNum}, startMmr, endMmr, delta }]
+function _getHistoryForPlayer(p) {
+  if (_harborMode !== 'adj') return _mmr.history[p] || [];
+  return _seatAdjHistory.map((snap, i) => {
+    const endMmr   = snap.mmr[p] !== undefined ? snap.mmr[p] : MMR_BASE;
+    const prev     = i > 0 ? _seatAdjHistory[i - 1] : null;
+    const startMmr = prev && prev.mmr[p] !== undefined ? prev.mmr[p] : endMmr;
+    return { game: { date: snap.date, gameNum: snap.gameNum }, startMmr, endMmr, delta: endMmr - startMmr };
+  });
+}
 let _seatEffects    = {}; // seat (1-5) → estimated point effect
 let _seatAdjHistory = []; // per-game snapshots for animation
 
@@ -1476,11 +1498,12 @@ function activatePlayer(player, scroll = true) {
 }
 
 // ── Render standings (podium + leaderboard) ───────────────────────────────────
-function renderStandings() {
+function renderStandings(explicitMode) {
   const el = document.getElementById('pr-standings');
+  if (!el) return;
   el.innerHTML = '';
 
-  const isAdj  = _harborMode === 'adj';
+  const isAdj  = (explicitMode !== undefined ? explicitMode : _harborMode) === 'adj';
   const ranked = _allPlayers
     .map(p => ({ p, mmr: isAdj ? (_seatAdjRatings[p] ?? MMR_BASE) : (_mmr.current[p] || MMR_BASE) }))
     .sort((a, b) => b.mmr - a.mmr);
@@ -1496,6 +1519,12 @@ function renderStandings() {
       avgVP:   scores.length  ? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1) : '—',
     };
   }
+
+  // Mode badge
+  const modeTag = document.createElement('div');
+  modeTag.className = 'pr-standings-mode-tag';
+  modeTag.textContent = isAdj ? 'Seat-Adjusted MMR' : 'MMR';
+  el.appendChild(modeTag);
 
   const trophies = [String.fromCodePoint(0x1F3C6), String.fromCodePoint(0x1F948), String.fromCodePoint(0x1F949)];
   const top3 = ranked.slice(0, 3);
@@ -1603,13 +1632,13 @@ function renderStandings() {
 function initMMRGraph(primaryPlayer) {
   const section = document.getElementById('pr-mmr-graph-section');
   if (!section) return;
-  const hist = _mmr.history[primaryPlayer] || [];
+  const hist = _getHistoryForPlayer(primaryPlayer);
   if (hist.length < 2) { section.innerHTML = ''; return; }
 
   section.innerHTML = `
     <div class="pr-mmr-graph">
       <div class="pr-mmr-graph-header">
-        <span class="pr-mmr-graph-label">MMR Over Time</span>
+        <span class="pr-mmr-graph-label">${_harborMode === 'adj' ? 'Seat-Adj MMR Over Time' : 'MMR Over Time'}</span>
         <div class="pr-mmr-legend" id="pr-mmr-legend"></div>
       </div>
       <div id="pr-mmr-svg-wrap"></div>
@@ -1647,7 +1676,7 @@ function drawMMRSvg(players, primaryPlayer) {
   // Shared Y scale across all active players
   const allVals = [];
   players.forEach(p => {
-    const h = _mmr.history[p] || [];
+    const h = _getHistoryForPlayer(p);
     if (h.length) allVals.push(h[0].startMmr, ...h.map(e => e.endMmr));
   });
   if (!allVals.length) { wrap.innerHTML = ''; return; }
@@ -1672,7 +1701,7 @@ function drawMMRSvg(players, primaryPlayer) {
   let paths = '', dots = '';
 
   players.forEach((p, pi) => {
-    const h = _mmr.history[p] || [];
+    const h = _getHistoryForPlayer(p);
     if (!h.length) return;
     const color = getColor(p);
     const isPrimary = p === primaryPlayer;
@@ -1778,8 +1807,10 @@ function renderProfile(player) {
         </div>
       </div>
       <div class="pr-player-hero-mmr">
-        <div class="pr-player-hero-mmr-value">${mmrCurrent}</div>
-        ${hist.length ? `<div class="pr-player-hero-mmr-delta ${deltaClass}">${deltaSign}${lastDelta.toFixed(1)} last game</div>` : ''}
+        <div class="pr-player-hero-mmr-value">
+          <span class="pr-mmr-val">${mmrCurrent}</span><span class="pr-adj-val">${_seatAdjRatings[player] ?? '—'}</span>
+        </div>
+        ${hist.length ? `<div class="pr-player-hero-mmr-delta ${deltaClass} pr-mmr-val">${deltaSign}${lastDelta.toFixed(1)} last game</div>` : ''}
       </div>
     </div>
 
@@ -2236,7 +2267,8 @@ function setHarborMode(mode) {
   document.getElementById('hp-mmr').classList.toggle('active', mode === 'mmr');
   document.getElementById('hp-adj').classList.toggle('active', mode === 'adj');
   document.getElementById('pr-content').classList.toggle('pr-adj-mode', mode === 'adj');
-  renderStandings();
+  console.log('[setHarborMode]', mode, 'seatAdj:', _seatAdjRatings, 'allPlayers:', _allPlayers);
+  renderStandings(mode);
   if (_currentPlayer) {
     const _c = document.querySelector(`.pr-podium-card[data-p="${CSS.escape(_currentPlayer)}"]`);
     if (_c) _c.classList.add('active');
