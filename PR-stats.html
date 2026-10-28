@@ -1467,7 +1467,8 @@ function activatePlayer(player, scroll = true) {
   const card      = document.querySelector(`.pr-podium-card[data-p="${CSS.escape(player)}"]`);
   const wasActive = card && card.classList.contains('active');
   clearActive();
-  if (wasActive) { activateAllGames(); return; }
+  if (wasActive) { _currentPlayer = null; activateAllGames(); return; }
+  _currentPlayer = player;
   if (card) card.classList.add('active');
   history.replaceState(null, '', '#player-' + encodeURIComponent(player));
   renderProfile(player);
@@ -1479,8 +1480,9 @@ function renderStandings() {
   const el = document.getElementById('pr-standings');
   el.innerHTML = '';
 
+  const isAdj  = _harborMode === 'adj';
   const ranked = _allPlayers
-    .map(p => ({ p, mmr: _mmr.current[p] || MMR_BASE }))
+    .map(p => ({ p, mmr: isAdj ? (_seatAdjRatings[p] ?? MMR_BASE) : (_mmr.current[p] || MMR_BASE) }))
     .sort((a, b) => b.mmr - a.mmr);
 
   function playerStats(p) {
@@ -1752,8 +1754,9 @@ function renderProfile(player) {
   const deltaSign  = lastDelta > 0 ? '+' : '';
   const deltaClass = lastDelta > 0 ? 'pos' : lastDelta < 0 ? 'neg' : 'neu';
 
+  const _pIsAdj = _harborMode === 'adj';
   const ranked = _allPlayers
-    .map(p => ({ p, mmr: _mmr.current[p] || MMR_BASE }))
+    .map(p => ({ p, mmr: _pIsAdj ? (_seatAdjRatings[p] ?? MMR_BASE) : (_mmr.current[p] || MMR_BASE) }))
     .sort((a,b) => b.mmr - a.mmr);
   const rank = ranked.findIndex(x => x.p === player) + 1;
 
@@ -2075,7 +2078,7 @@ function initPrHarbor(series) {
       <circle cx="-4" cy="0" r="2.2" fill="#2a1205" opacity="0.9"/>
       <circle cx="5"  cy="0" r="1.6" fill="#2a1205" opacity="0.9"/>
       <text dy="-14" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#f4ecd0" text-anchor="middle" class="pr-harbor-mmr-lbl" opacity="0.92"></text>
-      <text dy="20"  font-family="'JetBrains Mono',monospace" font-size="7"   fill="${color}"  text-anchor="middle" style="letter-spacing:0.07em;font-weight:600">${p.toUpperCase()}</text>`;
+      <text x="23" y="4" font-family="'JetBrains Mono',monospace" font-size="7" fill="${color}" text-anchor="start" style="letter-spacing:0.07em;font-weight:600">${p.toUpperCase()}</text>`;
   }
 
   // Subtle overhead-water wave lines — start from the dock edge
@@ -2227,11 +2230,18 @@ function _adjEnd(gameNum, player) {
 }
 
 let _harborMode = 'mmr';
+let _currentPlayer = null;
 function setHarborMode(mode) {
   _harborMode = mode;
   document.getElementById('hp-mmr').classList.toggle('active', mode === 'mmr');
   document.getElementById('hp-adj').classList.toggle('active', mode === 'adj');
   document.getElementById('pr-content').classList.toggle('pr-adj-mode', mode === 'adj');
+  renderStandings();
+  if (_currentPlayer) {
+    const _c = document.querySelector(`.pr-podium-card[data-p="${CSS.escape(_currentPlayer)}"]`);
+    if (_c) _c.classList.add('active');
+    renderProfile(_currentPlayer);
+  }
   const series = mode === 'adj' ? _seatAdjHistory : buildPrMmrTimeSeries();
   initPrHarbor(series);
 }
