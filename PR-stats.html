@@ -1864,8 +1864,8 @@ function initPrHarbor(series) {
 
   const players = _allPlayers;
   const N = series.length;
-  const W = 620, H = 210, waterY = 142;
-  const xPad = 44, yTop = 22, yBot = waterY - 18;
+  const W = 620, H = 220;
+  const xPad = 68, yTop = 28, yBot = H - 28;
 
   let lo = Infinity, hi = -Infinity;
   series.forEach(s => players.forEach(p => {
@@ -1881,46 +1881,98 @@ function initPrHarbor(series) {
 
   const uid = Math.random().toString(36).slice(2, 7);
 
+  // Overhead (top-down) ship pointing right; hull centre at (0,0)
   function shipSvg(p) {
     const color = getColor(p);
     return `
-      <line x1="0" y1="-44" x2="0" y2="2" stroke="#3d2208" stroke-width="2" stroke-linecap="round"/>
-      <line x1="-5" y1="-7" x2="-20" y2="-18" stroke="#3d2208" stroke-width="1.2" stroke-linecap="round"/>
-      <path d="M0,-41 L17,-26 L17,-1 L0,2 Z" fill="#ede3c0" stroke="#c8b88a" stroke-width="0.5"/>
-      <path d="M0,-27 L-16,-17 L0,-1 Z" fill="#e8ddb8" stroke="#c8b88a" stroke-width="0.5"/>
-      <path d="M-15,2 L15,2 L10,11 L-10,11 Z" fill="#4a2d0e"/>
-      <line x1="-13" y1="5" x2="13" y2="5" stroke="#6b4020" stroke-width="0.8" opacity="0.55"/>
-      <polygon points="0,-44 8,-40 0,-36" fill="${color}"/>
-      <text dy="-52" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#f4ecd0" text-anchor="middle" class="pr-harbor-mmr-lbl" opacity="0.92"></text>
-      <text dy="21" font-family="'JetBrains Mono',monospace" font-size="7" fill="${color}" text-anchor="middle" style="letter-spacing:0.07em;font-weight:600">${p.toUpperCase()}</text>`;
+      <path d="M-17,-6 Q-20,0 -17,6 L12,6 L20,0 L12,-6 Z" fill="#5c3010" stroke="#3d2008" stroke-width="0.8"/>
+      <path d="M-14,-4 Q-16,0 -14,4 L10,4 L17,0 L10,-4 Z" fill="${color}" opacity="0.82"/>
+      <circle cx="-4" cy="0" r="2.2" fill="#2a1205" opacity="0.9"/>
+      <circle cx="5"  cy="0" r="1.6" fill="#2a1205" opacity="0.9"/>
+      <path d="M-17,-3 L-26,-8 M-17,3 L-26,8" stroke="#b8d8f0" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+      <text dy="-14" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#f4ecd0" text-anchor="middle" class="pr-harbor-mmr-lbl" opacity="0.92"></text>
+      <text dy="20"  font-family="'JetBrains Mono',monospace" font-size="7"   fill="${color}"  text-anchor="middle" style="letter-spacing:0.07em;font-weight:600">${p.toUpperCase()}</text>`;
+  }
+
+  // Subtle overhead-water wave lines — start from the dock edge
+  function waveLines() {
+    let d = '';
+    const wx = xPad - 18; // wave start x (just past dock)
+    for (let y = 18; y < H; y += 22) {
+      d += `<path d="M${wx},${y}`;
+      for (let x = wx + 20; x <= W; x += 40) {
+        d += ` Q${x - 10},${y + (((x - wx) / 20) % 2 === 0 ? -3 : 3)} ${x},${y}`;
+      }
+      d += `" fill="none" stroke="#4a8cba" stroke-width="0.6" opacity="0.18"/>`;
+    }
+    return d;
+  }
+
+  // Colonial harbor — quay + buildings on the left, dock pier jutting into water
+  function dockSvg() {
+    const dockEdge = xPad - 20; // where wood meets water
+    const quayEdge = xPad - 46; // where cobblestone meets wood
+    // Quay (cobblestone) fills left strip
+    let s = `<rect x="0" y="0" width="${quayEdge}" height="${H}" fill="#9e8868"/>`;
+    // Cobblestone grid texture
+    for (let gy = 0; gy < H; gy += 8)
+      s += `<line x1="0" y1="${gy}" x2="${quayEdge}" y2="${gy}" stroke="#8a7455" stroke-width="0.4" opacity="0.5"/>`;
+    for (let gx = 0; gx < quayEdge; gx += 7)
+      s += `<line x1="${gx}" y1="0" x2="${gx}" y2="${H}" stroke="#8a7455" stroke-width="0.4" opacity="0.5"/>`;
+
+    // ── Buildings (top-down rooftops) ─────────────────────────────────────────
+    // Each: outer rect = wall shadow, inner rect = roof colour
+    const bldgs = [
+      // [x, y, w, h, roofColour, accentColour]
+      [1, 12, 17, 28, '#c26040', '#a84e30'],   // large terracotta warehouse
+      [1, 52, 12, 16, '#e0c46a', '#c8a840'],   // small yellow colonial
+      [1, 78, 18, 12, '#d4d0b8', '#bcb89e'],   // cream/white chapel
+      [1, 100, 14, 22, '#8c5c38', '#6e4424'],  // dark storage
+      [1, 134, 16, 18, '#c07040', '#a05428'],  // mid terracotta
+      [1, 162, 13, 28, '#dcc880', '#c0aa58'],  // golden colonial mansion
+      [1, 196, 17, 18, '#9a6848', '#7c4e30'],  // brown warehouse
+    ];
+    bldgs.forEach(([bx, by, bw, bh, roof, shadow]) => {
+      if (by + bh > H - 2) bh = H - 2 - by;
+      s += `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" fill="${shadow}" rx="0.5"/>`;
+      s += `<rect x="${bx+1}" y="${by+1}" width="${bw-2}" height="${bh-2}" fill="${roof}" rx="0.3"/>`;
+      // Ridge line hint
+      s += `<line x1="${bx+3}" y1="${by+bh/2}" x2="${bx+bw-3}" y2="${by+bh/2}" stroke="${shadow}" stroke-width="0.7" opacity="0.5"/>`;
+    });
+
+    // ── Dock / Pier (wood planks) ─────────────────────────────────────────────
+    s += `<rect x="${quayEdge}" y="0" width="${dockEdge - quayEdge}" height="${H}" fill="#7a5228"/>`;
+    // Plank lines (vertical — boards run left→right)
+    for (let py = 0; py < H; py += 9)
+      s += `<line x1="${quayEdge}" y1="${py}" x2="${dockEdge}" y2="${py}" stroke="#5a3c18" stroke-width="0.5" opacity="0.45"/>`;
+    // Bollards/posts at water edge
+    [18, 54, 98, 142, 186].filter(py => py < H).forEach(py => {
+      s += `<circle cx="${dockEdge - 2}" cy="${py}" r="3" fill="#3d2208" stroke="#2a1205" stroke-width="0.6"/>`;
+    });
+    // Water-edge line
+    s += `<line x1="${dockEdge}" y1="0" x2="${dockEdge}" y2="${H}" stroke="#1a4060" stroke-width="1.5" opacity="0.7"/>`;
+
+    return s;
   }
 
   const first = series[0];
   el.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;">
       <defs>
-        <linearGradient id="sky${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%"   stop-color="#6a2c00"/>
-          <stop offset="35%"  stop-color="#b86a10"/>
-          <stop offset="68%"  stop-color="#dfa840"/>
-          <stop offset="100%" stop-color="#4080a8"/>
+        <linearGradient id="water${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#1a4a72"/>
+          <stop offset="100%" stop-color="#0d2e4a"/>
         </linearGradient>
-        <linearGradient id="sea${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%"   stop-color="#2460a0"/>
-          <stop offset="100%" stop-color="#0a2238"/>
-        </linearGradient>
-        <clipPath id="seaclip${uid}"><rect x="0" y="${waterY}" width="${W}" height="${H-waterY}"/></clipPath>
       </defs>
-      <rect width="${W}" height="${waterY}" fill="url(#sky${uid})"/>
-      <path d="M0,${waterY-6} Q80,${waterY-26} 170,${waterY-12} Q250,${waterY-2} 320,${waterY-22} Q400,${waterY-42} 475,${waterY-16} Q545,${waterY-5} ${W},${waterY-14} L${W},${waterY} L0,${waterY} Z" fill="#2d5418" opacity="0.48"/>
-      <rect x="0" y="${waterY}" width="${W}" height="${H-waterY}" fill="url(#sea${uid})"/>
-      <path d="M0,${waterY+2} Q55,${waterY-4} 110,${waterY+2} Q165,${waterY+8} 220,${waterY+2} Q275,${waterY-4} 330,${waterY+2} Q385,${waterY+8} 440,${waterY+2} Q495,${waterY-4} 550,${waterY+2} Q605,${waterY+8} ${W},${waterY+2}" fill="none" stroke="#78bce0" stroke-width="1.5" opacity="0.5"/>
-      ${players.map(p => `<polyline id="pr-trail-${p}" points="" fill="none" stroke="${getColor(p)}" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="4,3"/>`).join('')}
+      <rect width="${W}" height="${H}" fill="url(#water${uid})"/>
+      ${dockSvg()}
+      ${waveLines()}
+      ${players.map(p => `<polyline id="pr-trail-${p}" points="" fill="none" stroke="${getColor(p)}" stroke-width="1.5" stroke-opacity="0.45" stroke-dasharray="5,3"/>`).join('')}
       ${players.map(p => {
         const x = gameToX(0), y = mmrToY(first.mmr[p] !== undefined ? first.mmr[p] : (lo+hi)/2);
         return `<g id="pr-hs-${p}" transform="translate(${x},${y})">${shipSvg(p)}</g>`;
       }).join('')}
-      <text id="pr-harbor-lbl" x="8" y="14" font-family="'Cinzel',serif" font-size="10" fill="#f0e8cc" opacity="0.85" letter-spacing="0.07em"></text>
+      <text id="pr-harbor-lbl" x="8" y="13" font-family="'Cinzel',serif" font-size="9.5" fill="#a8d0f0" opacity="0.82" letter-spacing="0.06em"></text>
     </svg>
     <button id="pr-harbor-replay" onclick="playPrHarbor()">↺ Replay</button>`;
 
