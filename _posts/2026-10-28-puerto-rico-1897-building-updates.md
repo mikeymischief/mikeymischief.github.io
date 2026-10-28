@@ -3,7 +3,7 @@ published: True
 layout: post
 title: "Puerto Rico 1897: Building Updates"
 author: mikey
-date: 2026-10-28 16:33:00 -0800
+date: 2026-10-28 00:00:00 -0800
 comments: true
 excerpt_separator: <!--more-->
 categories: boardgame pr1897
