@@ -770,30 +770,37 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
   /* ── Harbor pillbox ──────────────────────────────────────────────────────────── */
   #pr-harbor-pills {
     display: flex;
-    gap: 6px;
     justify-content: center;
-    margin-top: 8px;
-    margin-bottom: 0;
+    margin-top: 10px;
+  }
+  .pr-harbor-pill-track {
+    display: inline-flex;
+    background: rgba(10,20,32,0.55);
+    border: 1px solid rgba(160,130,60,0.32);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 0;
   }
   .pr-harbor-pill {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
-    padding: 3px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(160,130,70,0.35);
+    padding: 5px 18px;
+    border-radius: 999px;
+    border: none;
     background: transparent;
-    color: #b8a070;
+    color: rgba(180,150,70,0.6);
     cursor: pointer;
-    transition: background 0.15s, color 0.15s;
+    transition: background 0.18s, color 0.18s;
+    white-space: nowrap;
   }
   .pr-harbor-pill.active {
-    background: rgba(160,130,70,0.22);
-    color: #f0d890;
-    border-color: rgba(200,170,90,0.6);
+    background: rgba(155,125,55,0.38);
+    color: #f2de94;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.35);
   }
-  .pr-harbor-pill:hover:not(.active) { background: rgba(160,130,70,0.10); }
+  .pr-harbor-pill:hover:not(.active) { color: rgba(200,170,80,0.85); }
 
 
   /* ── Game log MMR columns ─────────────────────────────────────────────────── */
@@ -801,6 +808,12 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
   .mmr-delta.pos { color: #6dbf7a; }
   .mmr-delta.neg { color: #e07070; }
   .mmr-delta.neu { color: var(--pr-ink-faint); }
+
+
+  /* ── MMR / Seat-Adj mode toggle ──────────────────────────────────────────── */
+  .pr-adj-val { display: none; }
+  .pr-adj-mode .pr-mmr-val { display: none !important; }
+  .pr-adj-mode .pr-adj-val { display: inline !important; }
 
 </style>
 
@@ -817,8 +830,10 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
 
   <div id="pr-mmr-harbor"></div>
   <div id="pr-harbor-pills">
-    <button class="pr-harbor-pill active" onclick="setHarborMode('mmr')"   id="hp-mmr">MMR</button>
-    <button class="pr-harbor-pill"        onclick="setHarborMode('adj')"   id="hp-adj">Seat-Adj</button>
+    <div class="pr-harbor-pill-track">
+      <button class="pr-harbor-pill active" onclick="setHarborMode('mmr')" id="hp-mmr">MMR</button>
+      <button class="pr-harbor-pill"        onclick="setHarborMode('adj')" id="hp-adj">Seat-Adj</button>
+    </div>
   </div>
   <div class="pr-standings" id="pr-standings"></div>
   <div id="pr-profile"></div>
@@ -1355,12 +1370,16 @@ function renderAllGames() {
         isEnder && endLabel ? `<span class="end-badge">${endLabel}</span>`           : '',
         isKingmaker  ? '<span class="king-badge">Upstream</span>'                    : '',
       ].filter(Boolean).join('');
+      const _em = parseFloat(row[C.endMmr]), _sm = parseFloat(row[C.startMmr]), _d = parseFloat(row[C.delta]);
+      const _dc = _d > 0 ? 'pos' : _d < 0 ? 'neg' : 'neu', _ds = _d > 0 ? '+' : '';
       tr.innerHTML = `
         <td></td>
         <td class="num pr-mob-hide">Seat ${fmt.int(row[C.seat])}</td>
         <td class="num score">${fmt.int(row[C.score])} VP</td>
         <td>${vpSplitBar(row[C.chipsVP], row[C.buildingsVP], row[C.score])}</td>
-        <td><div class="badge-stack">${badges}</div></td>`;
+        <td><div class="badge-stack">${badges}</div></td>
+        <td class="num pr-mob-hide"><span class="pr-mmr-val">${!isNaN(_sm) ? Math.round(_sm) : '—'}</span><span class="pr-adj-val">${_adjStart(game.gameNum, player)}</span></td>
+        <td class="num pr-mob-hide"><span class="pr-mmr-val">${!isNaN(_em) ? Math.round(_em) + (!isNaN(_d) ? ` <span class="mmr-delta ${_dc}">${_ds}${Math.round(_d*10)/10}</span>` : '') : '—'}</span><span class="pr-adj-val">${_adjEnd(game.gameNum, player)}</span></td>`;
       const nameCell = document.createElement('td');
       const nameBtn  = document.createElement('button');
       nameBtn.className = 'pr-name-link';
@@ -1779,8 +1798,8 @@ function renderProfile(player) {
           </div>
           <div class="pr-stat-card">
             <div class="pr-stat-label">MMR Rating</div>
-            <div class="pr-stat-value">${_seatAdjRatings[player] ?? mmrCurrent}</div>
-            <div class="pr-stat-sub">seat-agnostic · strength 0.5</div>
+            <div class="pr-stat-value"><span class="pr-mmr-val">${mmrCurrent}</span><span class="pr-adj-val">${_seatAdjRatings[player] ?? '—'}</span></div>
+            <div class="pr-stat-sub"><span class="pr-mmr-val">from sheet</span><span class="pr-adj-val">seat-agnostic · strength 0.5</span></div>
           </div>
         </div>
         <div class="pr-stat-bar">
@@ -1906,8 +1925,8 @@ function renderProfile(player) {
       <td class="num pr-mob-hide">${gameRound}</td>
       <td>${gameEnding}</td>
       <td><div class="badge-stack">${[won?'<span class="win-badge">Win</span>':'',((row[C.player]||'').trim()===kingmakerOfGame(game))?'<span class="king-badge">Upstream</span>':''].filter(Boolean).join('')}</div></td>
-      <td class="num pr-mob-hide">${!isNaN(parseFloat(row[C.startMmr])) ? Math.round(parseFloat(row[C.startMmr])) : '—'}</td>
-      <td class="num pr-mob-hide">${(() => { const em = parseFloat(row[C.endMmr]), d = parseFloat(row[C.delta]); if (isNaN(em)) return '—'; const dc = d > 0 ? 'pos' : d < 0 ? 'neg' : 'neu'; const ds = d > 0 ? '+' : ''; return Math.round(em) + (!isNaN(d) ? ` <span class="mmr-delta ${dc}">${ds}${Math.round(d*10)/10}</span>` : ''); })()}</td>
+      <td class="num pr-mob-hide"><span class="pr-mmr-val">${!isNaN(parseFloat(row[C.startMmr])) ? Math.round(parseFloat(row[C.startMmr])) : '—'}</span><span class="pr-adj-val">${_adjStart(game.gameNum, (row[C.player]||'').trim())}</span></td>
+      <td class="num pr-mob-hide"><span class="pr-mmr-val">${(() => { const em = parseFloat(row[C.endMmr]), d = parseFloat(row[C.delta]); if (isNaN(em)) return '—'; const dc = d > 0 ? 'pos' : d < 0 ? 'neg' : 'neu'; const ds = d > 0 ? '+' : ''; return Math.round(em) + (!isNaN(d) ? ` <span class="mmr-delta ${dc}">${ds}${Math.round(d*10)/10}</span>` : ''); })()}</span><span class="pr-adj-val">${_adjEnd(game.gameNum, (row[C.player]||'').trim())}</span></td>
     `;
     tbody.appendChild(tr);
   });
@@ -2191,11 +2210,29 @@ function _prTweenShip(el, fromX, fromY, toX, toY, dur, onDone) {
   })(performance.now());
 }
 
+function _adjStart(gameNum, player) {
+  const idx = _seatAdjHistory.findIndex(s => String(s.gameNum) === String(gameNum));
+  if (idx <= 0) return '—';
+  const v = _seatAdjHistory[idx - 1].mmr[player];
+  return v !== undefined ? Math.round(v) : '—';
+}
+function _adjEnd(gameNum, player) {
+  const idx = _seatAdjHistory.findIndex(s => String(s.gameNum) === String(gameNum));
+  if (idx === -1) return '—';
+  const v = _seatAdjHistory[idx].mmr[player];
+  if (v === undefined) return '—';
+  const ps = idx > 0 ? _seatAdjHistory[idx - 1].mmr[player] : undefined;
+  const d  = ps !== undefined ? v - ps : null;
+  const dc = d > 0 ? 'pos' : d < 0 ? 'neg' : 'neu', ds = d > 0 ? '+' : '';
+  return Math.round(v) + (d !== null ? ` <span class="mmr-delta ${dc}">${ds}${Math.round(d)}</span>` : '');
+}
+
 let _harborMode = 'mmr';
 function setHarborMode(mode) {
   _harborMode = mode;
   document.getElementById('hp-mmr').classList.toggle('active', mode === 'mmr');
   document.getElementById('hp-adj').classList.toggle('active', mode === 'adj');
+  document.getElementById('pr-content').classList.toggle('pr-adj-mode', mode === 'adj');
   const series = mode === 'adj' ? _seatAdjHistory : buildPrMmrTimeSeries();
   initPrHarbor(series);
 }
