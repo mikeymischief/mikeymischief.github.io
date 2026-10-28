@@ -231,6 +231,33 @@ permalink: /commander/stats/
     body { background-image: none !important; }
     .page-wrapper { -webkit-mask-image: none !important; mask-image: none !important; max-width: 100% !important; }
   }
+
+  /* ── Harbor MMR animation ────────────────────────────────────────────────── */
+  #mmr-harbor {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    border: 1px solid var(--line);
+  }
+  #mmr-harbor svg { display: block; width: 100%; height: auto; }
+  #harbor-replay-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #f0e8cc;
+    background: rgba(0,0,0,0.38);
+    border: 1px solid rgba(240,232,204,0.28);
+    border-radius: 4px;
+    padding: 3px 8px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  #harbor-replay-btn:hover { background: rgba(0,0,0,0.58); }
+
 </style>
 </head>
 <body>
@@ -271,6 +298,7 @@ permalink: /commander/stats/
     </span>
   </div>
 
+  <div id="mmr-harbor"></div>
   <div class="table-grid" id="grid"></div>
 
   <footer>★ Highest conservative rating (overall) &nbsp;·&nbsp; Highlighted row = most played commander in selected pod size &nbsp;·&nbsp; 👑 = King Maker &nbsp;·&nbsp; ❌ = Error &nbsp;·&nbsp; MMR &amp; Conservative Rating are overall (all pod sizes). W/L/Win% filtered to selected pod size. Ratings via TrueSkill-style Bayesian model.</footer>
@@ -583,9 +611,161 @@ _csvConfigReady.then(() => {
 
     // Render default view: 3-player.
     renderForSize(3);
+    initHarbor(buildMmrTimeSeries());
 
   }).catch(err => showError('Could not load data: ' + err));
 });
+
+// ── Harbor MMR Animation ─────────────────────────────────────────────────────
+let _harborTimer = null;
+
+function buildMmrTimeSeries() {
+  const cumul = {};
+  const series = [];
+  const seenDates = new Set();
+  _pods.forEach(pod => {
+    const date = (pod.rows[0][0] || '').trim();
+    if (!date) return;
+    pod.rows.forEach(row => {
+      const pilot  = (row[G.pilot]      || '').trim();
+      const cmdr   = normalizeCmdr(row[G.commander] || '').toLowerCase();
+      const endMmr = parseFloat(row[G.endMmr]);
+      if (!pilot || !cmdr || isNaN(endMmr)) return;
+      if (!cumul[pilot]) cumul[pilot] = {};
+      cumul[pilot][cmdr] = endMmr;
+    });
+    if (seenDates.has(date)) return;
+    seenDates.add(date);
+    const snap = {};
+    PILOTS.forEach(p => {
+      const vals = Object.values(cumul[p] || {});
+      if (vals.length) snap[p] = Math.max(...vals);
+    });
+    series.push({ session: _sessionNumForDate[date] || 0, date, mmr: { ...snap } });
+  });
+  return series;
+}
+
+function initHarbor(series) {
+  const el = document.getElementById('mmr-harbor');
+  if (!el || series.length < 2) { if (el) el.hidden = true; return; }
+
+  const W = 600, H = 200, waterY = 134;
+  const shipXs = { Brian: 82, Gerf: 212, Mikey: 372, Jubee: 514 };
+
+  let lo = Infinity, hi = -Infinity;
+  series.forEach(s => PILOTS.forEach(p => {
+    const v = s.mmr[p];
+    if (v !== undefined) { if (v < lo) lo = v; if (v > hi) hi = v; }
+  }));
+  const pad = Math.max((hi - lo) * 0.18, 40);
+  lo -= pad; hi += pad;
+
+  const yTop = 26, yBot = waterY - 20;
+  const mmrToY = mmr => yBot - ((mmr - lo) / (hi - lo)) * (yBot - yTop);
+
+  const uid = Math.random().toString(36).slice(2, 7);
+
+  function shipSvg(color) {
+    return `
+      <line x1="2" y1="-55" x2="2" y2="1" stroke="#3d2208" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="-6" y1="-8" x2="-25" y2="-23" stroke="#3d2208" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M2,-52 L24,-33 L24,-4 L2,1 Z" fill="#ede3c0" stroke="#c8b88a" stroke-width="0.5"/>
+      <path d="M2,-35 L-23,-23 L2,-3 Z" fill="#e8ddb8" stroke="#c8b88a" stroke-width="0.5"/>
+      <path d="M-21,1 L21,1 L16,14 L-16,14 Z" fill="#4a2d0e"/>
+      <line x1="-19" y1="6" x2="19" y2="6" stroke="#6b4020" stroke-width="1" opacity="0.6"/>
+      <polygon points="2,-55 14,-50 2,-45" fill="${color}"/>
+      <text dy="-63" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f0e8cc" text-anchor="middle" class="harbor-mmr-lbl" opacity="0.9"></text>`;
+  }
+
+  const first = series[0];
+  el.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:auto;">
+      <defs>
+        <linearGradient id="sky${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#7a3800"/>
+          <stop offset="38%"  stop-color="#c47820"/>
+          <stop offset="72%"  stop-color="#e8b850"/>
+          <stop offset="100%" stop-color="#4a8cb0"/>
+        </linearGradient>
+        <linearGradient id="sea${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#2868a0"/>
+          <stop offset="100%" stop-color="#0c2840"/>
+        </linearGradient>
+      </defs>
+      <rect width="${W}" height="${waterY}" fill="url(#sky${uid})"/>
+      <path d="M0,${waterY-8} Q70,${waterY-30} 150,${waterY-14} Q230,${waterY-4} 300,${waterY-24} Q385,${waterY-46} 462,${waterY-19} Q532,${waterY-7} ${W},${waterY-17} L${W},${waterY} L0,${waterY} Z" fill="#2d5a18" opacity="0.52"/>
+      <rect x="0" y="${waterY}" width="${W}" height="${H-waterY}" fill="url(#sea${uid})"/>
+      <path d="M0,${waterY+1} Q50,${waterY-5} 100,${waterY+1} Q150,${waterY+7} 200,${waterY+1} Q250,${waterY-5} 300,${waterY+1} Q350,${waterY+7} 400,${waterY+1} Q450,${waterY-5} 500,${waterY+1} Q550,${waterY+7} 600,${waterY+1}" fill="none" stroke="#80c4e8" stroke-width="1.5" opacity="0.55"/>
+      <path d="M0,${waterY+10} Q75,${waterY+5} 150,${waterY+10} Q225,${waterY+15} 300,${waterY+10} Q375,${waterY+5} 450,${waterY+10} Q525,${waterY+15} 600,${waterY+10}" fill="none" stroke="#5aa0c8" stroke-width="1" opacity="0.35"/>
+      ${PILOTS.map(p => {
+        const x = shipXs[p];
+        const y = first.mmr[p] !== undefined ? mmrToY(first.mmr[p]) : yBot;
+        return `<g id="hs-${p}" transform="translate(${x},${y})">${shipSvg(PILOT_COLORS[p])}</g>`;
+      }).join('')}
+      ${PILOTS.map(p => `
+        <text x="${shipXs[p]}" y="${H-4}" font-family="'JetBrains Mono',monospace" font-size="8.5"
+              fill="${PILOT_COLORS[p]}" text-anchor="middle" style="letter-spacing:0.07em;text-transform:uppercase">${p.toUpperCase()}</text>`).join('')}
+      <text id="harbor-lbl" x="8" y="15" font-family="'Cinzel',serif" font-size="10.5" fill="#f0e8cc" opacity="0.88" letter-spacing="0.07em"></text>
+    </svg>
+    <button id="harbor-replay-btn" onclick="playHarbor()">↺ Replay</button>`;
+
+  el._series  = series;
+  el._mmrToY  = mmrToY;
+  el._shipXs  = shipXs;
+
+  _harborApplyFrame(first, shipXs, mmrToY, false);
+  playHarbor();
+}
+
+function _harborApplyFrame(snap, shipXs, mmrToY, animate) {
+  const lbl = document.getElementById('harbor-lbl');
+  if (lbl) lbl.textContent = `Session ${snap.session}  ·  ${formatDate(snap.date)}`;
+  PILOTS.forEach(p => {
+    const g = document.getElementById(`hs-${p}`);
+    if (!g) return;
+    const mmr = snap.mmr[p];
+    if (mmr === undefined) return;
+    const x = shipXs[p], toY = mmrToY(mmr);
+    if (animate) {
+      const curT = g.getAttribute('transform') || '';
+      const m = curT.match(/translate\([^,]+,([^)]+)\)/);
+      const fromY = m ? parseFloat(m[1]) : toY;
+      _tweenShip(g, x, fromY, toY, 700);
+    } else {
+      g.setAttribute('transform', `translate(${x},${toY})`);
+    }
+    const lbl = g.querySelector('.harbor-mmr-lbl');
+    if (lbl) lbl.textContent = mmr.toFixed(0);
+  });
+}
+
+function _tweenShip(el, x, fromY, toY, dur) {
+  const start = performance.now();
+  const ease = t => t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+  (function tick(now) {
+    const t = Math.min((now - start) / dur, 1);
+    el.setAttribute('transform', `translate(${x},${fromY + (toY - fromY) * ease(t)})`);
+    if (t < 1) requestAnimationFrame(tick);
+  })(performance.now());
+}
+
+function playHarbor() {
+  const el = document.getElementById('mmr-harbor');
+  if (!el || !el._series) return;
+  if (_harborTimer) { clearTimeout(_harborTimer); _harborTimer = null; }
+  const series = el._series;
+  _harborApplyFrame(series[0], el._shipXs, el._mmrToY, false);
+  let idx = 1;
+  function advance() {
+    if (idx >= series.length) return;
+    _harborApplyFrame(series[idx], el._shipXs, el._mmrToY, true);
+    idx++;
+    if (idx < series.length) _harborTimer = setTimeout(advance, 950);
+  }
+  _harborTimer = setTimeout(advance, 700);
+}
+
 </script>
 </body>
 </html>

@@ -739,6 +739,33 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
     .pr-table .king-badge { font-size: 9px; padding: 1px 3px; letter-spacing: 0; }
     .pr-mob-hide { display: none !important; }
   }
+
+  /* ── Harbor MMR animation ────────────────────────────────────────────────── */
+  #pr-mmr-harbor {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    border: 1px solid rgba(200,170,100,0.25);
+  }
+  #pr-mmr-harbor svg { display: block; width: 100%; height: auto; }
+  #pr-harbor-replay {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #f0e8cc;
+    background: rgba(0,0,0,0.38);
+    border: 1px solid rgba(240,232,204,0.28);
+    border-radius: 4px;
+    padding: 3px 8px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  #pr-harbor-replay:hover { background: rgba(0,0,0,0.58); }
+
 </style>
 
 <div class="pr-hero">
@@ -752,6 +779,7 @@ excerpt: Puerto Rico 1897 player stats — wins, scores, VP breakdowns, and game
 
 <div id="pr-content" class="hidden">
 
+  <div id="pr-mmr-harbor"></div>
   <div class="pr-standings" id="pr-standings"></div>
   <div id="pr-profile"></div>
 
@@ -1760,6 +1788,7 @@ async function init() {
       if (!_allPlayers.length) { statusEl.textContent = 'No player data found.'; return; }
 
       renderStandings();
+      initPrHarbor(buildPrMmrTimeSeries());
 
       statusEl.classList.add('hidden');
       contentEl.classList.remove('hidden');
@@ -1795,4 +1824,164 @@ async function init() {
 }
 
 init();
+
+// ── Harbor MMR animation ─────────────────────────────────────────────────────
+let _prHarborTimer = null;
+
+function buildPrMmrTimeSeries() {
+  // Collect all game keys in chronological order across all players
+  const gameKeys = [];
+  const seen = new Set();
+  _allPlayers.forEach(p => {
+    (_mmr.history[p] || []).forEach(h => {
+      const key = h.game.date + '|' + h.game.gameNum;
+      if (!seen.has(key)) { seen.add(key); gameKeys.push({ key, date: h.game.date, gameNum: parseInt(h.game.gameNum) || 0 }); }
+    });
+  });
+  gameKeys.sort((a, b) => {
+    const da = new Date(a.date), db = new Date(b.date);
+    return da - db || a.gameNum - b.gameNum;
+  });
+
+  // Build cumulative snapshot per game
+  const cumul = {};
+  _allPlayers.forEach(p => { cumul[p] = MMR_BASE; });
+
+  const series = [];
+  gameKeys.forEach(({ key, date, gameNum }) => {
+    _allPlayers.forEach(p => {
+      const entry = (_mmr.history[p] || []).find(h => h.game.date + '|' + h.game.gameNum === key);
+      if (entry) cumul[p] = entry.endMmr;
+    });
+    series.push({ date, gameNum, mmr: { ...cumul } });
+  });
+  return series;
+}
+
+function initPrHarbor(series) {
+  const el = document.getElementById('pr-mmr-harbor');
+  if (!el || series.length < 2) { if (el) el.hidden = true; return; }
+
+  const players = _allPlayers;
+  const n = players.length;
+  const W = 600, H = 200, waterY = 134;
+
+  // Space ships evenly: 5 ships across 600px, padded 60px from edges
+  const shipXs = {};
+  players.forEach((p, i) => { shipXs[p] = 60 + i * (480 / (n - 1)); });
+
+  let lo = Infinity, hi = -Infinity;
+  series.forEach(s => players.forEach(p => {
+    const v = s.mmr[p];
+    if (v !== undefined) { if (v < lo) lo = v; if (v > hi) hi = v; }
+  }));
+  const pad = Math.max((hi - lo) * 0.18, 40);
+  lo -= pad; hi += pad;
+
+  const yTop = 26, yBot = waterY - 20;
+  const mmrToY = mmr => yBot - ((mmr - lo) / (hi - lo)) * (yBot - yTop);
+
+  const uid = Math.random().toString(36).slice(2, 7);
+
+  function shipSvg(color) {
+    return `
+      <line x1="2" y1="-55" x2="2" y2="1" stroke="#3d2208" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="-6" y1="-8" x2="-25" y2="-23" stroke="#3d2208" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M2,-52 L24,-33 L24,-4 L2,1 Z" fill="#ede3c0" stroke="#c8b88a" stroke-width="0.5"/>
+      <path d="M2,-35 L-23,-23 L2,-3 Z" fill="#e8ddb8" stroke="#c8b88a" stroke-width="0.5"/>
+      <path d="M-21,1 L21,1 L16,14 L-16,14 Z" fill="#4a2d0e"/>
+      <line x1="-19" y1="6" x2="19" y2="6" stroke="#6b4020" stroke-width="1" opacity="0.6"/>
+      <polygon points="2,-55 14,-50 2,-45" fill="${color}"/>
+      <text dy="-63" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f0e8cc" text-anchor="middle" class="pr-harbor-mmr-lbl" opacity="0.9"></text>`;
+  }
+
+  const first = series[0];
+  el.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:auto;">
+      <defs>
+        <linearGradient id="sky${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#7a3800"/>
+          <stop offset="38%"  stop-color="#c47820"/>
+          <stop offset="72%"  stop-color="#e8b850"/>
+          <stop offset="100%" stop-color="#4a8cb0"/>
+        </linearGradient>
+        <linearGradient id="sea${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#2868a0"/>
+          <stop offset="100%" stop-color="#0c2840"/>
+        </linearGradient>
+      </defs>
+      <rect width="${W}" height="${waterY}" fill="url(#sky${uid})"/>
+      <path d="M0,${waterY-8} Q70,${waterY-30} 150,${waterY-14} Q230,${waterY-4} 300,${waterY-24} Q385,${waterY-46} 462,${waterY-19} Q532,${waterY-7} ${W},${waterY-17} L${W},${waterY} L0,${waterY} Z" fill="#2d5a18" opacity="0.52"/>
+      <rect x="0" y="${waterY}" width="${W}" height="${H-waterY}" fill="url(#sea${uid})"/>
+      <path d="M0,${waterY+1} Q50,${waterY-5} 100,${waterY+1} Q150,${waterY+7} 200,${waterY+1} Q250,${waterY-5} 300,${waterY+1} Q350,${waterY+7} 400,${waterY+1} Q450,${waterY-5} 500,${waterY+1} Q550,${waterY+7} 600,${waterY+1}" fill="none" stroke="#80c4e8" stroke-width="1.5" opacity="0.55"/>
+      <path d="M0,${waterY+10} Q75,${waterY+5} 150,${waterY+10} Q225,${waterY+15} 300,${waterY+10} Q375,${waterY+5} 450,${waterY+10} Q525,${waterY+15} 600,${waterY+10}" fill="none" stroke="#5aa0c8" stroke-width="1" opacity="0.35"/>
+      ${players.map(p => {
+        const x = shipXs[p];
+        const y = first.mmr[p] !== undefined ? mmrToY(first.mmr[p]) : yBot;
+        return `<g id="pr-hs-${p}" transform="translate(${x},${y})">${shipSvg(getColor(p))}</g>`;
+      }).join('')}
+      ${players.map(p => `
+        <text x="${shipXs[p]}" y="${H-4}" font-family="'JetBrains Mono',monospace" font-size="8.5"
+              fill="${getColor(p)}" text-anchor="middle" style="letter-spacing:0.07em;text-transform:uppercase">${p.toUpperCase()}</text>`).join('')}
+      <text id="pr-harbor-lbl" x="8" y="15" font-family="'Cinzel',serif" font-size="10.5" fill="#f0e8cc" opacity="0.88" letter-spacing="0.07em"></text>
+    </svg>
+    <button id="pr-harbor-replay" onclick="playPrHarbor()">↺ Replay</button>`;
+
+  el._series  = series;
+  el._mmrToY  = mmrToY;
+  el._shipXs  = shipXs;
+  el._players = players;
+
+  _prHarborApplyFrame(first, shipXs, mmrToY, players, false);
+  playPrHarbor();
+}
+
+function _prHarborApplyFrame(snap, shipXs, mmrToY, players, animate) {
+  const lbl = document.getElementById('pr-harbor-lbl');
+  if (lbl) lbl.textContent = `Game ${snap.gameNum}  ·  ${snap.date}`;
+  players.forEach(p => {
+    const g = document.getElementById(`pr-hs-${p}`);
+    if (!g) return;
+    const mmr = snap.mmr[p];
+    if (mmr === undefined) return;
+    const x = shipXs[p], toY = mmrToY(mmr);
+    if (animate) {
+      const curT = g.getAttribute('transform') || '';
+      const m = curT.match(/translate\([^,]+,([^)]+)\)/);
+      const fromY = m ? parseFloat(m[1]) : toY;
+      _prTweenShip(g, x, fromY, toY, 700);
+    } else {
+      g.setAttribute('transform', `translate(${x},${toY})`);
+    }
+    const ml = g.querySelector('.pr-harbor-mmr-lbl');
+    if (ml) ml.textContent = Math.round(mmr);
+  });
+}
+
+function _prTweenShip(el, x, fromY, toY, dur) {
+  const start = performance.now();
+  const ease = t => t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+  (function tick(now) {
+    const t = Math.min((now - start) / dur, 1);
+    el.setAttribute('transform', `translate(${x},${fromY + (toY - fromY) * ease(t)})`);
+    if (t < 1) requestAnimationFrame(tick);
+  })(performance.now());
+}
+
+function playPrHarbor() {
+  const el = document.getElementById('pr-mmr-harbor');
+  if (!el || !el._series) return;
+  if (_prHarborTimer) { clearTimeout(_prHarborTimer); _prHarborTimer = null; }
+  const { _series: series, _mmrToY: mmrToY, _shipXs: shipXs, _players: players } = el;
+  _prHarborApplyFrame(series[0], shipXs, mmrToY, players, false);
+  let idx = 1;
+  function advance() {
+    if (idx >= series.length) return;
+    _prHarborApplyFrame(series[idx], shipXs, mmrToY, players, true);
+    idx++;
+    if (idx < series.length) _prHarborTimer = setTimeout(advance, 950);
+  }
+  _prHarborTimer = setTimeout(advance, 700);
+}
+
 </script>
