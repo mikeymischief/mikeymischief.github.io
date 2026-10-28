@@ -2024,7 +2024,7 @@ function renderHistory(rows) {
   let lastDate = null;
   let bandToggle = false;
   pods.forEach((pod, podIdx) => {
-    const podDate = pod[0][G.date];
+    const podDate = (pod[0][G.date] || '').trim();
     const sessionNum = sessionNumForDate[podDate];
     if (podDate !== lastDate) {
       bandToggle = !bandToggle;
