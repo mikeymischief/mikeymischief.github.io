@@ -65,7 +65,7 @@ City Hall (Score 1 VP per Commercial Building) was removed without a replacement
 
 ## What This Means for Games
 
-The net effect of these changes is a shift toward commitment. Canal wants you locked into a production chain. Publishing House wants you to pick roles with intent. Cathedral wants you to specialize your island from the opening Settler.
+The net effect of these changes is a shift toward commitment. Canal wants you locked into a production chain. Publishing House wants you to pick roles with intent. Cathedral wants you to specialize your island from the opening Planter.
 
 The old set had more cards that worked passively in the background (Hacienda dripping estates, School dripping workers, Fortress rewarding your natural colonist accumulation). This new set has more cards that ask a question - are you building toward something specific? That is the hallmark of all open sandbox games, reward those for whom specialize and commit the most (and if they can actually pull it off in gameplay).
 
