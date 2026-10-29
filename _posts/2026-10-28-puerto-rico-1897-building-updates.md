@@ -51,7 +51,7 @@ Fortress rewarded colonist flooding, which was fine but redundant with how worke
 
 The bonus scales sharply. Two sets of three matching tiles — six of the same tile type on your island — gives you 3 bonus VP, which is already worth it. Four sets (twelve matching tiles, a completely specialized island) gives you 10 bonus VP on top of the face value. That's potentially the highest single-building score in the game.
 
-In practice, landing four sets is unrealistic without actively drafting toward it, which means Cathedral changes how you think about Settler phases from the start. Do you take the convenient mixed tiles or commit to a theme? That decision ripples into which production buildings you buy and how you prioritize Captain rounds.
+In practice, landing four sets is unrealistic without actively drafting toward it, which means Cathedral changes how you think about Planter phases from the start. Do you take the convenient mixed tiles or commit to a theme? That decision ripples into which production buildings you buy and how you prioritize Captain rounds.
 
 It also creates a different kind of endgame tension: other players can see your island and gauge how far you are from a Cathedral payoff, giving them information to race or block.
 
